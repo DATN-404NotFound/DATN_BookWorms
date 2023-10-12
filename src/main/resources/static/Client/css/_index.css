@@ -13,6 +13,15 @@
     font-weight: 500;
     color: white;
 }
+
+.silde_b{
+    background: none;
+    border: none;
+}
+.silde_b:hover{
+    background: none;
+    border: none;
+}
 .info_footer{
     height: 300px;
     background-color: #FFFF;
@@ -189,7 +198,7 @@ a :hover{
 
 .book_list{
     width: 100%;
-    height: 440px;
+    height: 600px;
     /* background-color: #999; */
 }
 .book_item{
@@ -239,7 +248,7 @@ a :hover{
 
 .book_item .book_title a{
     text-decoration: none;
-   font-size: 20px;
+   font-size: 30px;
    font-weight: 500;
    color: #333;
    font-family:inherit;
@@ -250,13 +259,13 @@ a :hover{
 }
 
 .banner_articical{ 
-    height: 680px;
+    height: 950px;
     width: 100%;
     background-color: #898888;
 }
 
 .cart_articical{ 
-    height: 700px;
+    height: 950px;
     width: 100%;
     background-color: #E8E8E8;
 }
@@ -305,12 +314,13 @@ a :hover{
     margin-bottom: 15px; }
 
     .product-description{
-        font-size: 14px;
+        font-size: 20px;
     }
   .review-no, .product-title{
     margin-top: -20px;
   }
   .product-title {
+      font-size: 35px;
     margin-top: 0; }
   
   .add-to-cart, .like {
@@ -394,9 +404,15 @@ th{
     padding-left: 50px;
 }
 
+th, td{
+
+    font-size: 22px;
+    padding: 20px;
+    color: #333
+}
 .review_box{
     width: 80%;
-    height: 200px;
+    height: 250px;
     background-color: #FFFF;
     margin: auto;
     margin-top: 20px;
