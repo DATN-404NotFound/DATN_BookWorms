@@ -18,47 +18,50 @@
 
 <body>
     <div>
-        <div class="shop_info mt-2">
-            <div class="row">
-                <div class="col-md-5">
-                    <div class="d-inline-flex align-content-center pe-5 " style="border-right: 1px solid #999;">
-                        <div class="p-1"><button class=" my-1"
-                                style="margin-left: 50px; border: none; background: none;"><img class="shop_avatar"
-                                    src="../../../static/Client/images/Logo_Nhã_Nam.jpg" width="100%"
-                                    style="border: 1px solid #666;" alt=""></button>
+<div class="shop_banner bg-info py-3">
+    <div class="shop_info my-2 ">
+        <div class="row">
+            <div class="col-md-5">
+                <div class="d-inline-flex align-content-center pe-5 " style="border-right: 1px solid #999;">
+                    <div class="p-1"><button class=" my-1"
+                            style="margin-left: 50px; border: none; background: none;"><img class="shop_avatar"
+                                src="../../../static/Client/images/Logo_Nhã_Nam.jpg" width="100%"
+                                style="border: 1px solid #666;" alt=""></button>
+                    </div>
+                    <div class="d-flex flex-column " style=" margin-top: 10px; ">
+                        <div class="p-1 ms-3"><a
+                                style="text-decoration: none; color: white; font-size:20px ; font-weight: 500;"
+                                href="#"><span>Nha Nam Official</span></a></div>
+                        <div class="p-1 ms-3 mt-3">
+                            <button class="shop_button"
+                                style="float: left;color: white; background-color: #C93F04;">Shop profile</button>
+                            <button class="shop_button"
+                                style=" color: white;background:none; border: 1px solid rgb(255, 255, 255);">Chat</button>
                         </div>
-                        <div class="d-flex flex-column " style=" margin-top: 10px; ">
-                            <div class="p-1 ms-3"><a
-                                    style="text-decoration: none; color: #080808; font-size:20px ; font-weight: 500;"
-                                    href="#"><span>Nha Nam Official</span></a></div>
-                            <div class="p-1 ms-3 mt-3">
-                                <button class="shop_button"
-                                    style="float: left;color: white; background-color: #C93F04;">Shop profile</button>
-                                <button class="shop_button"
-                                    style=" color: #333;background:none; border: 1px solid black;">Chat</button>
-                            </div>
-                        </div>
-
                     </div>
 
                 </div>
-                <div class="col-md-7">
-                    <div class="d-flex flex-column " style=" margin-top: 10px; font-size: 18px; ">
-                        <div class="p-1 ms-3">
-                            <p><span>Reviews </span> <span style="margin-left: 30px;">20</span> <span
-                                    style="margin-left: 100px;">Joined </span><span style="margin-left: 20px;">4 year
-                                    ago</span></p>
-                        </div>
-                        <div class="p-1 ms-3 mt-2">
-                            <div class="p-1">
-                                <p><span>Products </span> <span style="margin-left: 20px;">100</span></p>
-                            </div>
+
+            </div>
+            <div class="col-md-7">
+                <div class="d-flex flex-column " style=" margin-top: 10px; font-size: 18px; ">
+                    <div class="p-1 ms-3">
+                        <p><span>Reviews </span> <span style="margin-left: 30px;">20</span> <span
+                                style="margin-left: 100px;">Joined </span><span style="margin-left: 20px;">4 year
+                                ago</span></p>
+                    </div>
+                    <div class="p-1 ms-3 mt-2">
+                        <div class="p-1">
+                            <p><span>Products </span> <span style="margin-left: 20px;">100</span></p>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div">
+    </div>
+</div>
+        
+        <div class="mt-3">
             <ul class="nav nav-pills " role="tablist">
                 <li class="nav-item " style="margin-left: 40%;">
                     <a class="nav-link active" data-bs-toggle="pill" href="#home_us">Trang chủ</a>
@@ -73,7 +76,7 @@
                     <a class="nav-link" data-bs-toggle="pill" href="#about_us">Thông tin</a>
                 </li>
             </ul>
-
+            <hr>
             <!-- Tab panes -->
             <div class="tab-content">
                 <div id="home_us" class="tab-pane active"><br>
@@ -336,7 +339,7 @@
                             </div>
                             <div class="p-2"><a href="#" class="btn btn-primary">Mới nhất</a></div>
                             <div class="p-2"><a href="#" class="btn btn-success">Bán chạy nhất</a></div>
-                            <div class="p-2"><a href="#" class="btn border-orange">Lọc</a></div>
+                            <div class="p-2"><a href="#" class="filter btn border-orange">Lọc</a></div>
                         </div>
 
                         <div class="row">
@@ -351,25 +354,37 @@
                                         <tr>
                                             <td>
                                                 <input type="checkbox" class="form-check-input">
-                                                <label class="form-check-label">Truyện</label>
+                                                <label class="form-check-label">Văn học và nghệ thuật</label>
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>
                                                 <input type="checkbox" class="form-check-input">
-                                                <label class="form-check-label">Truyện</label>
+                                                <label class="form-check-label">Chính trị</label>
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>
                                                 <input type="checkbox" class="form-check-input">
-                                                <label class="form-check-label">Truyện</label>
+                                                <label class="form-check-label">Khoa học và kinh tế</label>
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>
                                                 <input type="checkbox" class="form-check-input">
-                                                <label class="form-check-label">Truyện</label>
+                                                <label class="form-check-label">Kỹ năng sống</label>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <input type="checkbox" class="form-check-input">
+                                                <label class="form-check-label">Nấu ăn</label>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <input type="checkbox" class="form-check-input">
+                                                <label class="form-check-label">Truyện thiếu nhi</label>
                                             </td>
                                         </tr>
                                     </tbody>
@@ -388,13 +403,13 @@
                                         <tr>
                                             <td>
                                                 <input type="checkbox" class="form-check-input">
-                                                <label class="form-check-label">Truyện</label>
+                                                <label class="form-check-label">O'henri</label>
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>
                                                 <input type="checkbox" class="form-check-input">
-                                                <label class="form-check-label">Truyện</label>
+                                                <label class="form-check-label">Nhân dân</label>
                                             </td>
                                         </tr>
                                         <tr>
@@ -416,32 +431,44 @@
                                 <table class="table table-hover">
                                     <thead>
                                         <tr>
-                                            <th>Nhà phát hành</th>
+                                            <th>Nhà xuât bản</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr>
                                             <td>
                                                 <input type="checkbox" class="form-check-input">
-                                                <label class="form-check-label">Truyện</label>
+                                                <label class="form-check-label">NXB Thanh Niên</label>
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>
                                                 <input type="checkbox" class="form-check-input">
-                                                <label class="form-check-label">Truyện</label>
+                                                <label class="form-check-label">NXB Kim Đồng</label>
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>
                                                 <input type="checkbox" class="form-check-input">
-                                                <label class="form-check-label">Truyện</label>
+                                                <label class="form-check-label">NXB Nhân Văn</label>
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>
                                                 <input type="checkbox" class="form-check-input">
-                                                <label class="form-check-label">Truyện</label>
+                                                <label class="form-check-label">NXB Lao Động</label>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <input type="checkbox" class="form-check-input">
+                                                <label class="form-check-label">NXB Thế giới</label>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <input type="checkbox" class="form-check-input">
+                                                <label class="form-check-label">NXB Văn Học</label>
                                             </td>
                                         </tr>
                                     </tbody>
@@ -458,25 +485,71 @@
                                         <tr>
                                             <td>
                                                 <input type="checkbox" class="form-check-input">
-                                                <label class="form-check-label">Truyện</label>
+                                                <label class="form-check-label">
+                                                    <div class="stars ms-3" style="font-size: 22px;">
+                                                        <span><i class="bi bi-star-fill"></i></span>
+                                                        <span><i class="bi bi-star"></i></span>
+                                                        <span><i class="bi bi-star"></i></span>
+                                                        <span><i class="bi bi-star"></i></span>
+                                                        <span><i class="bi bi-star"></i></span>
+                                                    </div>
+                                                </label>
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>
                                                 <input type="checkbox" class="form-check-input">
-                                                <label class="form-check-label">Truyện</label>
+                                                <label class="form-check-label">
+                                                    <div class="stars ms-3" style="font-size: 22px;">
+                                                        <span><i class="bi bi-star-fill"></i></span>
+                                                        <span><i class="bi bi-star-fill"></i></span>
+                                                        <span><i class="bi bi-star"></i></span>
+                                                        <span><i class="bi bi-star"></i></span>
+                                                        <span><i class="bi bi-star"></i></span>
+                                                    </div>
+                                                </label>
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>
                                                 <input type="checkbox" class="form-check-input">
-                                                <label class="form-check-label">Truyện</label>
+                                                <label class="form-check-label">
+                                                    <div class="stars ms-3" style="font-size: 22px;">
+                                                        <span><i class="bi bi-star-fill"></i></span>
+                                                        <span><i class="bi bi-star-fill"></i></span>
+                                                        <span><i class="bi bi-star-fill"></i></span>
+                                                        <span><i class="bi bi-star"></i></span>
+                                                        <span><i class="bi bi-star"></i></span>
+                                                    </div>
+                                                </label>
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>
                                                 <input type="checkbox" class="form-check-input">
-                                                <label class="form-check-label">Truyện</label>
+                                                <label class="form-check-label">
+                                                    <div class="stars ms-3" style="font-size: 22px;">
+                                                        <span><i class="bi bi-star-fill"></i></span>
+                                                        <span><i class="bi bi-star-fill"></i></span>
+                                                        <span><i class="bi bi-star-fill"></i></span>
+                                                        <span><i class="bi bi-star-fill"></i></span>
+                                                        <span><i class="bi bi-star"></i></span>
+                                                    </div>
+                                                </label>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <input type="checkbox" class="form-check-input">
+                                                <label class="form-check-label">
+                                                    <div class="stars ms-3" style="font-size: 22px;">
+                                                        <span><i class="bi bi-star-fill"></i></span>
+                                                        <span><i class="bi bi-star-fill"></i></span>
+                                                        <span><i class="bi bi-star-fill"></i></span>
+                                                        <span><i class="bi bi-star-fill"></i></span>
+                                                        <span><i class="bi bi-star-fill"></i></span>
+                                                    </div>
+                                                </label>
                                             </td>
                                         </tr>
                                     </tbody>

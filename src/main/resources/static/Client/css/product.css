@@ -54,6 +54,11 @@ article{
     float: left;
 }
 
+.filter:hover{ 
+    background-color: #C93F04;
+    color: white;
+}
+
 .card a{
     color: white;
     font-size: 25px;

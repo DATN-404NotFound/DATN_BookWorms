@@ -418,9 +418,14 @@ a :hover{
     margin: auto;
     width: 90%;
     height: auto;
+    /* overflow-y: scroll; */
     margin-top: 50px;
 }
 
+.tab-content{ 
+    height: 500px;
+    overflow-y: scroll;
+}
 th{
     padding-left: 50px;
 }
@@ -460,3 +465,9 @@ a:hover{
     color: #C93F04;
     
 }
+
+.shop_banner{ 
+    background-image: url('../../../static/Client/images/nen2.jpg');
+    color: white;
+}
+
