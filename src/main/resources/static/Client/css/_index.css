@@ -422,7 +422,7 @@ a :hover{
     margin-top: 50px;
 }
 
-.tab-content{ 
+.scrop{ 
     height: 500px;
     overflow-y: scroll;
 }
