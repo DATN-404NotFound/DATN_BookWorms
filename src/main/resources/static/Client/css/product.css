@@ -4,58 +4,19 @@
     margin: auto;
     /* background-color: #999; */
 }
-.book_related .book_item{
-   
-    width: 18%;
-    height: 100%;
-    background-color: white;
-    float: left;
-    margin-left: 2%;
-    border-radius: 5px;
-    border: 1px solid #888;
+.book_related .book_item{ 
+    width: 18%;   
 }
-.book_related .book_item .book_img{
-    position: relative;
-    max-width: 100%;
-    height: 65%;
-}
-.book_related .book_item .book_img img{
-    margin-top: 10px;
-    width: 85%;
-    height: 95%;
-    transition: .5s ease;
-    backface-visibility: hidden;
-    opacity: 1;
-    
 
-}
-.book_related .book_item .book_img button{
-    transition: .5s ease;
-    position: absolute;
-    top: 45%;
-    left: 50%;
-    opacity: 0;
-    transform: translate(-50%, -50%);
-    -ms-transform: translate(-50%, -50%);
-}
-.book_related .book_item .book_img:hover button{
-    opacity: 1;
-}
-.book_related .book_item .book_img:hover img{
-    opacity: 0.8;
-    border: 1px solid #333;
+.book_related .book_item .book_img, .book_center .book_item .book_img{
+    height: 65%;
 }
 
 .book_related .book_item .book_title a{
-    text-decoration: none;
    font-size: 25px;
-   font-weight: 500;
-   color: #333;
-   font-family:inherit;
-   margin-top: 20px;
 }
 
-.book_related .book_item .book_title a:hover{
+.book_item .book_title a:hover{
     color: #C93F04;
 }
 
@@ -75,4 +36,47 @@
     left: 2%;
     border: 1px solid white;
     border-radius: 5px;
+}
+
+aside{ 
+    font-size: 22px;
+    font-weight: 400;
+    width: 20%;
+    height: auto;
+    float: left;
+}
+article{ 
+    margin-left: 2%;
+    font-size: 22px;
+    font-weight: 400;
+    width: 78%;
+    height: auto;
+    float: left;
+}
+
+.card a{
+    color: white;
+    font-size: 25px;
+    font-size: 500;
+}
+
+.card-header {
+    width: 100%;
+    height: 50px;
+    background-color: #C93F04;
+    border: 1px solid white;
+}
+
+.book_center{
+    width: 100%;
+    height: 420px;
+    margin: auto;
+}
+.book_center .book_item{
+    width: 23%;
+    margin-top: 10px;
+}
+
+.book_center .book_item .book_title a{
+   font-size: 22px;
 }
