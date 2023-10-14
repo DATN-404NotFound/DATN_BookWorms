@@ -19,226 +19,225 @@
 
 <body>
     <div>
-        <div class="container">
+        <div style="width: 85%; margin: auto;">
             <div>
                 <h4>Your Cart</h4>
             </div>
-            <div class="my-5">
-                <div class="float-start">
-                    <input type="checkbox" class="form-check float-start mt-2">
-                    <a href="#" style="text-decoration: none; color: #080808;"><span><i style="font-size: 30px;"
-                                class="bi bi-person-circle mx-3"></i></span>
-                        <span style="font-size: 22px;">thanhha13</span></a>
+            <div style="border: 1px solid #C93F04; border-radius: 10px; margin-top: 50px;">
+                <div class="my-5" style="width: 90%; margin: auto;">
+                    <div class="float-start">
+                        <input type="checkbox" class="form-check-input float-start mt-2">
+                        <a href="#" style="text-decoration: none; color: #080808;"><span><i style="font-size: 30px;"
+                                    class="bi bi-person-circle mx-3"></i></span>
+                            <span style="font-size: 22px;">thanhha13</span></a>
+                    </div>
+                    <hr style="clear: both;">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th style="width: 5%;">
+    
+                                </th>
+                                <th colspan="" style="width: 10%; "></th>
+                                <th style="width: 30%;"> Product</th>
+                                <th>Price</th>
+                                <th style="width: 20%;">Quantity</th>
+                                <th>Total</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <input type="checkbox"  class="form-check-input">
+                                </td>
+                                <td>
+                                    <div>
+                                        <img src="../../../static/Client/images/Hinh7_book7.jpg" style="width: 50%;" alt="">
+                                    </div>
+                                </td>
+                                <td ><a href="#">Chiếc Lá Cuối Cùng</a></td>
+                                <td>200 000.00</td>
+                                <td>
+                                    <input type="number"  class="form-control" style="width: 100px;" min="1" step="1" value="1">
+                                </td>
+                                <td class="total_pro">200 000.00</td>
+                                <td><a href="#" style="color: #000;"><i style="font-size: 30px;" class="bi bi-trash"></i></a></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input type="checkbox" class="form-check-input">
+                                </td>
+                                <td>
+                                    <div>
+                                        <img src="../../../static/Client/images/Hinh4_book4.jpg" style="width: 50%;" alt="">
+                                    </div>
+                                </td>
+                                <td><a href="#">Chiếc Lá Cuối Cùng</a></td>
+                                <td>150 000.00</td>
+                                <td>
+                                    <input type="number"  class="form-control" style="width: 100px;" min="1" step="1" value="1">
+                                </td>
+                                <td class="total_pro">150 000.00</td>
+                                <td><a href="#" style="color: #000;"><i style="font-size: 30px;" class="bi bi-trash"></i></a></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input type="checkbox" class="form-check-input">
+                                </td>
+                                <td>
+                                    <div>
+                                        <img src="../../../static/Client/images/Hinh11_book11.jpg" style="width: 50%;" alt="">
+                                    </div>
+                                </td>
+                                <td><a href="#">Chiếc Lá Cuối Cùng</a></td>
+                                <td>196 000.00</td>
+                                <td>
+                                    <input type="number" class="form-control" style="width: 100px;" min="1" step="1" value="1">
+                                </td>
+                                <td class="total_pro">196 000.00</td>
+                                <td><a href="#" style="color: #000;"><i style="font-size: 30px;" class="bi bi-trash"></i></a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <hr style="clear: both; border: 1px solid black;">
+                <div class="float-start m-3">
+                    <input type="text" width="300px" class="form-control" placeholder="Tìm kiếm mã giảm" name="" id="">
+                     <!-- <p>Số lượng mua : <strong>3</strong></p>
+                     <p>Thành tiền : <strong>600 000</strong></p> -->
+                 </div>
+                <div class="float-end m-3">
+                   <p style="font-size: 22px;">Giảm : <span style="color: #C93F04; font-weight: 500;">-30 000</span></p>
+                    <!-- <p>Số lượng mua : <strong>3</strong></p>
+                    <p>Thành tiền : <strong>600 000</strong></p> -->
                 </div>
-                <hr style="clear: both;">
-                <table class="table table-hover">
-                    <thead>
-                        <tr>
-                            <th style="width: 5%;">
-
-                            </th>
-                            <th style="width: 10%;">Image</th>
-                            <th style="width: 30%;">Name</th>
-                            <th>Price</th>
-                            <th style="width: 20%;">Quantity</th>
-                            <th>Total</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>
-                                <input type="checkbox" class="form-check">
-                            </td>
-                            <td>
-                                <div>
-                                    <img src="../../../static/Client/images/Hinh7_book7.jpg" style="width: 50%;" alt="">
-                                </div>
-                            </td>
-                            <td><a href="#">Chiếc Lá Cuối Cùng</a></td>
-                            <td>Price</td>
-                            <td>
-                                <input type="number" style="width: 100px;" min="1" step="1" value="1">
-                            </td>
-                            <td>Total</td>
-                            <td><a href="#" style="color: #000;"><i style="font-size: 30px;" class="bi bi-trash"></i></a></td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <input type="checkbox" class="form-check">
-                            </td>
-                            <td>
-                                <div>
-                                    <img src="../../../static/Client/images/Hinh7_book7.jpg" style="width: 50%;" alt="">
-                                </div>
-                            </td>
-                            <td><a href="#">Chiếc Lá Cuối Cùng</a></td>
-                            <td>Price</td>
-                            <td>
-                                <input type="number" style="width: 100px;" min="1" step="1" value="1">
-                            </td>
-                            <td>Total</td>
-                            <td><a href="#" style="color: #000;"><i style="font-size: 30px;" class="bi bi-trash"></i></a></td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <input type="checkbox" class="form-check">
-                            </td>
-                            <td>
-                                <div>
-                                    <img src="../../../static/Client/images/Hinh7_book7.jpg" style="width: 50%;" alt="">
-                                </div>
-                            </td>
-                            <td><a href="#">Chiếc Lá Cuối Cùng</a></td>
-                            <td>Price</td>
-                            <td>
-                                <input type="number" style="width: 100px;" min="1" step="1" value="1">
-                            </td>
-                            <td>Total</td>
-                            <td><a href="#" style="color: #000;"><i style="font-size: 30px;" class="bi bi-trash"></i></a></td>
-                        </tr>
-                    </tbody>
-                </table>
-                <div>
-                    <div class="voucher_card orange"
-                        style="width: 140px; height: 80px; margin: 10px; background-color: orangered; float: left;">
-                    </div>
-                    <div class="voucher_card orange"
-                        style="width: 140px; height: 80px; margin: 10px; background-color: orangered; float: left;">
-                    </div>
-                    <div class="voucher_card orange"
-                        style="width: 140px; height: 80px; margin: 10px; background-color: orangered; float: left;">
-                    </div>
-                    <div class="voucher_card orange"
-                        style="width: 140px; height: 80px; margin: 10px; background-color: orangered; float: left;">
-                    </div>
-                    <div class="voucher_card orange"
-                        style="width: 140px; height: 80px; margin: 10px; background-color: orangered; float: left;">
-                    </div>
+                <div class="float-end m-3">
+                    <select class="form-select">
+                        <option>Chọn mã giảm của shop</option>
+                        <option>2</option>
+                        <option>3</option>
+                        <option>4</option>
+                    </select>
+                    <!-- <p>Số lượng mua : <strong>3</strong></p>
+                    <p>Thành tiền : <strong>600 000</strong></p> -->
                 </div>
-
-
-            </div>
-            <hr style="clear: both; border: 2px solid black;">
-            <div class="float-end mx-3">
-                <p>Số lượng mua : <strong>3</strong></p>
-                <p>Thành tiền : <strong>600 000</strong></p>
-            </div>
-            <hr style="clear: both; border: 2px solid black;">
-            <div class="my-5">
-                <div class="float-start">
-                    <input type="checkbox" class="form-check float-start mt-2">
-                    <a href="#" style="text-decoration: none; color: #080808;"><span><i style="font-size: 30px;"
-                                class="bi bi-person-circle mx-3"></i></span>
-                        <span style="font-size: 22px;">thanhha13</span></a>
-                </div>
-                <hr style="clear: both;">
-                <table class="table table-hover">
-                    <thead>
-                        <tr>
-                            <th style="width: 5%;">
-
-                            </th>
-                            <th style="width: 10%;">Image</th>
-                            <th style="width: 30%;">Name</th>
-                            <th>Price</th>
-                            <th style="width: 20%;">Quantity</th>
-                            <th>Total</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>
-                                <input type="checkbox" class="form-check">
-                            </td>
-                            <td>
-                                <div>
-                                    <img src="../../../static/Client/images/Hinh7_book7.jpg" style="width: 50%;" alt="">
-                                </div>
-                            </td>
-                            <td><a href="#">Chiếc Lá Cuối Cùng</a></td>
-                            <td>Price</td>
-                            <td>
-                                <input type="number" style="width: 100px;" min="1" step="1" value="1">
-                            </td>
-                            <td>Total</td>
-                            <td><a href="#" style="color: #000;"><i style="font-size: 30px;" class="bi bi-trash"></i></a></td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <input type="checkbox" class="form-check">
-                            </td>
-                            <td>
-                                <div>
-                                    <img src="../../../static/Client/images/Hinh7_book7.jpg" style="width: 50%;" alt="">
-                                </div>
-                            </td>
-                            <td><a href="#">Chiếc Lá Cuối Cùng</a></td>
-                            <td>Price</td>
-                            <td>
-                                <input type="number" style="width: 100px;" min="1" step="1" value="1">
-                            </td>
-                            <td>Total</td>
-                            <td><a href="#" style="color: #000;"><i style="font-size: 30px;" class="bi bi-trash"></i></a></td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <input type="checkbox" class="form-check">
-                            </td>
-                            <td>
-                                <div>
-                                    <img src="../../../static/Client/images/Hinh7_book7.jpg" style="width: 50%;" alt="">
-                                </div>
-                            </td>
-                            <td><a href="#">Chiếc Lá Cuối Cùng</a></td>
-                            <td>Price</td>
-                            <td>
-                                <input type="number" style="width: 100px;" min="1" step="1" value="1">
-                            </td>
-                            <td>Total</td>
-                            <td><a href="#" style="color: #000;"><i style="font-size: 30px;" class="bi bi-trash"></i></a></td>
-                        </tr>
-                    </tbody>
-                </table>
-                <div>
-                    <div class="voucher_card orange"
-                        style="width: 140px; height: 80px; margin: 10px; background-color: orangered; float: left;">
-                    </div>
-                    <div class="voucher_card orange"
-                        style="width: 140px; height: 80px; margin: 10px; background-color: orangered; float: left;">
-                    </div>
-                    <div class="voucher_card orange"
-                        style="width: 140px; height: 80px; margin: 10px; background-color: orangered; float: left;">
-                    </div>
-                    <div class="voucher_card orange"
-                        style="width: 140px; height: 80px; margin: 10px; background-color: orangered; float: left;">
-                    </div>
-                    <div class="voucher_card orange"
-                        style="width: 140px; height: 80px; margin: 10px; background-color: orangered; float: left;">
-                    </div>
+                <hr style="clear: both; border: 2px solid black;">
                 </div>
 
+            </div>
+
+            <div style="border: 1px solid #C93F04; border-radius: 10px;margin-top: 50px;">
+                <div class="my-5" style="width: 90%; margin: auto;">
+                    <div class="float-start">
+                        <input type="checkbox" class="form-check-input float-start mt-2">
+                        <a href="#" style="text-decoration: none; color: #080808;"><span><i style="font-size: 30px;"
+                                    class="bi bi-person-circle mx-3"></i></span>
+                            <span style="font-size: 22px;">thanhha13</span></a>
+                    </div>
+                    <hr style="clear: both;">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th style="width: 5%;">
+    
+                                </th>
+                                <th colspan="" style="width: 10%; "></th>
+                                <th style="width: 30%;"> Product</th>
+                                <th>Price</th>
+                                <th style="width: 20%;">Quantity</th>
+                                <th>Total</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <input type="checkbox"  class="form-check-input">
+                                </td>
+                                <td>
+                                    <div>
+                                        <img src="../../../static/Client/images/Hinh7_book7.jpg" style="width: 50%;" alt="">
+                                    </div>
+                                </td>
+                                <td ><a href="#">Chiếc Lá Cuối Cùng</a></td>
+                                <td>200 000.00</td>
+                                <td>
+                                    <input type="number"  class="form-control" style="width: 100px;" min="1" step="1" value="1">
+                                </td>
+                                <td class="total_pro">200 000.00</td>
+                                <td><a href="#" style="color: #000;"><i style="font-size: 30px;" class="bi bi-trash"></i></a></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input type="checkbox" class="form-check-input">
+                                </td>
+                                <td>
+                                    <div>
+                                        <img src="../../../static/Client/images/Hinh4_book4.jpg" style="width: 50%;" alt="">
+                                    </div>
+                                </td>
+                                <td><a href="#">Chiếc Lá Cuối Cùng</a></td>
+                                <td>150 000.00</td>
+                                <td>
+                                    <input type="number"  class="form-control" style="width: 100px;" min="1" step="1" value="1">
+                                </td>
+                                <td class="total_pro">150 000.00</td>
+                                <td><a href="#" style="color: #000;"><i style="font-size: 30px;" class="bi bi-trash"></i></a></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input type="checkbox" class="form-check-input">
+                                </td>
+                                <td>
+                                    <div>
+                                        <img src="../../../static/Client/images/Hinh11_book11.jpg" style="width: 50%;" alt="">
+                                    </div>
+                                </td>
+                                <td><a href="#">Chiếc Lá Cuối Cùng</a></td>
+                                <td>196 000.00</td>
+                                <td>
+                                    <input type="number" class="form-control" style="width: 100px;" min="1" step="1" value="1">
+                                </td>
+                                <td class="total_pro">196 000.00</td>
+                                <td><a href="#" style="color: #000;"><i style="font-size: 30px;" class="bi bi-trash"></i></a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <hr style="clear: both; border: 1px solid black;">
+                <div class="float-start m-3">
+                    <input type="text" width="300px" class="form-control" placeholder="Tìm kiếm mã giảm" name="" id="">
+                     <!-- <p>Số lượng mua : <strong>3</strong></p>
+                     <p>Thành tiền : <strong>600 000</strong></p> -->
+                 </div>
+                <div class="float-end m-3">
+                   <p style="font-size: 22px;">Giảm : <span style="color: #C93F04; font-weight: 500;">-30 000</span></p>
+                    <!-- <p>Số lượng mua : <strong>3</strong></p>
+                    <p>Thành tiền : <strong>600 000</strong></p> -->
+                </div>
+                <div class="float-end m-3">
+                    <select class="form-select">
+                        <option>Chọn mã giảm của shop</option>
+                        <option>2</option>
+                        <option>3</option>
+                        <option>4</option>
+                    </select>
+                    <!-- <p>Số lượng mua : <strong>3</strong></p>
+                    <p>Thành tiền : <strong>600 000</strong></p> -->
+                </div>
+                <hr style="clear: both; border: 2px solid black;">
+                </div>
 
             </div>
-            <hr style="clear: both; border: 2px solid black;">
-            <div class="float-end mx-3">
-                <p>Số lượng mua : <strong>2</strong></p>
-                <p>Thành tiền : <strong>400 000</strong></p>
-            </div>
-            <hr style="clear: both; border: 2px solid black;">
-            <div style="float: left;" class="mx-5 mt-3">
-                <button class="btn btn-success">Select All</button>
-                <button class="btn btn-danger">Delete All</button>
-            </div>
+            <!-- <div style="float: left;" class="mx-5 mt-3">
+                
+            </div> -->
             <div>
 
-                <div style="width: 100%; height: 150px; margin-top: 100px; border-radius: 5px;" class="border-orange">
+                <div style="width: 100%; height: 150px; margin-top: 50px; border-radius: 5px;" class="border-orange">
                     <div>
                         <div style="float: left; font-size: 25px; font-weight: 500; color: #333;  margin-top: 70px; margin-left: 50px;">
-                            <p>
-                                <span>Số lượng : <strong class="orange-text">5 </strong></span>
-                            </p>
+                            <button class="btn btn-success">Select All</button>
+                <button class="btn btn-danger">Delete All</button>
                         </div>
                         <div style="float: right; font-size: 25px; font-weight: 500; color: #333;  margin-top: 50px;">
                             <p>
