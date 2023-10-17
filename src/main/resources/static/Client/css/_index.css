@@ -85,13 +85,11 @@ dd a:hover{
 
 .artical_index{
     width: 100%;
-    height: 970px;
-    background-color: #898888;
+
 }
 
 .artical_index img{
     width: 100%;
-    height: 970px;
 }
 .banner_index{
     position: relative;
@@ -467,7 +465,7 @@ a:hover{
 }
 
 .shop_banner{ 
-    background-image: url('../../../static/Client/images/nen2.jpg');
+    background-image: url('/Client/images/nen2.jpg');
     color: white;
 }
 

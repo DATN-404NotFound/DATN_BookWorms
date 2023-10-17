@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" th:fragment="dynamic(main)">
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{/Client/index::dynamic(~{::main})}">
 
 <head>
     <meta charset="UTF-8">
@@ -18,7 +18,7 @@
 </head>
 
 <body>
-    <div>
+    <main>
         <div style="width: 85%; margin: auto;">
             <div>
                 <h4>Your Cart</h4>
@@ -53,7 +53,7 @@
                                 </td>
                                 <td>
                                     <div>
-                                        <img src="../../../static/Client/images/Hinh7_book7.jpg" style="width: 50%;" alt="">
+                                        <img th:src="@{/Client/images/Hinh7_book7.jpg}" style="width: 50%;" alt="">
                                     </div>
                                 </td>
                                 <td ><a href="#">Chiếc Lá Cuối Cùng</a></td>
@@ -70,7 +70,7 @@
                                 </td>
                                 <td>
                                     <div>
-                                        <img src="../../../static/Client/images/Hinh4_book4.jpg" style="width: 50%;" alt="">
+                                        <img th:src="@{/Client/images/Hinh4_book4.jpg}" style="width: 50%;" alt="">
                                     </div>
                                 </td>
                                 <td><a href="#">Chiếc Lá Cuối Cùng</a></td>
@@ -87,7 +87,7 @@
                                 </td>
                                 <td>
                                     <div>
-                                        <img src="../../../static/Client/images/Hinh11_book11.jpg" style="width: 50%;" alt="">
+                                        <img th:src="@{/Client/images/Hinh11_book11.jpg}" style="width: 50%;" alt="">
                                     </div>
                                 </td>
                                 <td><a href="#">Chiếc Lá Cuối Cùng</a></td>
@@ -156,7 +156,7 @@
                                 </td>
                                 <td>
                                     <div>
-                                        <img src="../../../static/Client/images/Hinh7_book7.jpg" style="width: 50%;" alt="">
+                                        <img th:src="@{/Client/images/Hinh7_book7.jpg}" style="width: 50%;" alt="">
                                     </div>
                                 </td>
                                 <td ><a href="#">Chiếc Lá Cuối Cùng</a></td>
@@ -173,7 +173,7 @@
                                 </td>
                                 <td>
                                     <div>
-                                        <img src="../../../static/Client/images/Hinh4_book4.jpg" style="width: 50%;" alt="">
+                                        <img th:src="@{/Client/images/Hinh4_book4.jpg}" style="width: 50%;" alt="">
                                     </div>
                                 </td>
                                 <td><a href="#">Chiếc Lá Cuối Cùng</a></td>
@@ -190,7 +190,7 @@
                                 </td>
                                 <td>
                                     <div>
-                                        <img src="../../../static/Client/images/Hinh11_book11.jpg" style="width: 50%;" alt="">
+                                        <img th:src="@{/Client/images/Hinh11_book11.jpg}" style="width: 50%;" alt="">
                                     </div>
                                 </td>
                                 <td><a href="#">Chiếc Lá Cuối Cùng</a></td>
@@ -240,16 +240,20 @@
                 <button class="btn btn-danger">Delete All</button>
                         </div>
                         <div style="float: right; font-size: 25px; font-weight: 500; color: #333;  margin-top: 50px;">
+                           <form th:action="@{|/purch|}">
                             <p>
                                 <span>Tổng tiền : <strong class="orange-text">1 000 000 </strong></span>
-                                <span class="mx-5"><button class="button_all_orange">Mua hàng</button></span>
+                                <span class="mx-5">
+                                    <button  class="button_all_orange">Mua hàng</button>
+                                </span>
                             </p>
+                           </form>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+    </main>
 </body>
 
 </html>
