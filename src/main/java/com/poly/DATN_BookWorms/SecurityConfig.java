@@ -1,4 +1,4 @@
-package DATN_BookWorms;
+package com.poly.DATN_BookWorms;
 
 import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
@@ -15,12 +15,9 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.poly.DATN_BookWorms.entities.Account;
 import com.poly.DATN_BookWorms.service.AccountService;
-
-
 
 @Configuration
 @EnableWebSecurity

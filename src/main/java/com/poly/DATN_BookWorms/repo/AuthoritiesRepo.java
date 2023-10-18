@@ -5,8 +5,8 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
-import com.poly.entities.Account;
-import com.poly.entities.Authorities;
+import com.poly.DATN_BookWorms.entities.Account;
+import com.poly.DATN_BookWorms.entities.Authorities;
 
 public interface AuthoritiesRepo extends JpaRepository<Authorities, String>{
 

@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.poly.entities.Roles;
-import com.poly.service.RoleService;
+import com.poly.DATN_BookWorms.entities.Roles;
+import com.poly.DATN_BookWorms.service.RoleService;
 
 
 @CrossOrigin("*")

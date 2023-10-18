@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.poly.entities.Categories;
+import com.poly.DATN_BookWorms.entities.Categories;
 
 @Service
 public interface CategoryService {

@@ -4,9 +4,9 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.poly.entities.Writtingmasters;
-import com.poly.repo.WrittingmastersRepo;
-import com.poly.service.WriterMasterService;
+import com.poly.DATN_BookWorms.entities.Writtingmasters;
+import com.poly.DATN_BookWorms.repo.WrittingmastersRepo;
+import com.poly.DATN_BookWorms.service.WriterMasterService;
 
 public class WriterMasterServiceImp implements WriterMasterService{
 

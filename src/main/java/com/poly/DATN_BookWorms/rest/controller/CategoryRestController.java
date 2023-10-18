@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.poly.service.CategoryService;
-import com.poly.entities.*;
+import com.poly.DATN_BookWorms.entities.Categories;
+import com.poly.DATN_BookWorms.service.CategoryService;
 
 @CrossOrigin("*")
 @RestController

@@ -14,10 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.poly.entities.*;
-import com.poly.service.AccountService;
-import com.poly.service.AuthoritiesService;
-import com.poly.service.RoleService;
+import com.poly.DATN_BookWorms.entities.Authorities;
+import com.poly.DATN_BookWorms.service.AuthoritiesService;
 
 @CrossOrigin("*")
 @RestController

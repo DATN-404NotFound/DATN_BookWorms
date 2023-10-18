@@ -4,9 +4,9 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.poly.entities.Publishingcompanies;
-import com.poly.repo.PublishingcompaniesRepo;
-import com.poly.service.PublishingCompanyService;
+import com.poly.DATN_BookWorms.entities.Publishingcompanies;
+import com.poly.DATN_BookWorms.repo.PublishingcompaniesRepo;
+import com.poly.DATN_BookWorms.service.PublishingCompanyService;
 
 public class PublishingCompanyServiceImp implements PublishingCompanyService{
 	

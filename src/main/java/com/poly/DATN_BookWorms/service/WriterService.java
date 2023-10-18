@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.poly.entities.Writers;
+import com.poly.DATN_BookWorms.entities.Writers;
 
 @Service
 public interface WriterService {

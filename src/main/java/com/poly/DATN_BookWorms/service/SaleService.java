@@ -1,10 +1,10 @@
 package com.poly.DATN_BookWorms.service;
 
-import java.util.List;
+	import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.poly.entities.Sales;
+import com.poly.DATN_BookWorms.entities.Sales;
 
 @Service
 public interface SaleService {

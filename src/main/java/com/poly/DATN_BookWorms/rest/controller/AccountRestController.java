@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.poly.service.AccountService;
-import com.poly.entities.Account;
+import com.poly.DATN_BookWorms.entities.Account;
+import com.poly.DATN_BookWorms.service.AccountService;
 
 
 @CrossOrigin("*")

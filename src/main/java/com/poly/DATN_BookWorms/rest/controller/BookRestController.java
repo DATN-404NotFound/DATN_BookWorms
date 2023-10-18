@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.poly.entities.Books;
-import com.poly.service.BookService;
+import com.poly.DATN_BookWorms.entities.Books;
+import com.poly.DATN_BookWorms.service.BookService;
 
 @CrossOrigin("*")
 @RestController

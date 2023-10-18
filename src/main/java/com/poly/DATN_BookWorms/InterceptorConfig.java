@@ -1,11 +1,11 @@
-package DATN_BookWorms;
+package com.poly.DATN_BookWorms;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-import com.poly.interceptor.GlobalInterceptor;
+import com.poly.DATN_BookWorms.interceptor.GlobalInterceptor;
 
 @Configuration
 public class InterceptorConfig implements WebMvcConfigurer {

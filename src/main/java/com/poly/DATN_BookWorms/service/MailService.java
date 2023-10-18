@@ -1,10 +1,10 @@
 package com.poly.DATN_BookWorms.service;
 
-import javax.mail.MessagingException;
-
 import org.springframework.stereotype.Service;
 
-import com.poly.beans.MailInformation;
+import com.poly.DATN_BookWorms.beans.MailInformation;
+
+import jakarta.mail.MessagingException;
 
 @Service
 public interface MailService {

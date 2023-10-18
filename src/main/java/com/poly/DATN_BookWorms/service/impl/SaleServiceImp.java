@@ -5,9 +5,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.poly.entities.Sales;
-import com.poly.repo.SalesRepo;
-import com.poly.service.SaleService;
+import com.poly.DATN_BookWorms.entities.Sales;
+import com.poly.DATN_BookWorms.repo.SalesRepo;
+import com.poly.DATN_BookWorms.service.SaleService;
 
 @Service
 public class SaleServiceImp implements SaleService{

@@ -3,17 +3,18 @@ package com.poly.DATN_BookWorms.service.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.*;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
-import org.springframework.stereotype.Service;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
+import org.springframework.stereotype.Service;
 
-import com.poly.entities.Account;
-import com.poly.repo.AccountRepo;
-import com.poly.service.AccountService;
+import com.poly.DATN_BookWorms.entities.Account;
+import com.poly.DATN_BookWorms.repo.AccountRepo;
+import com.poly.DATN_BookWorms.service.AccountService;
 
 @Service
 public class AccountServiceImp  implements AccountService{

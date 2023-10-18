@@ -5,9 +5,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.poly.entities.Categories;
-import com.poly.repo.CategoriesRepo;
-import com.poly.service.CategoryService;
+import com.poly.DATN_BookWorms.entities.Categories;
+import com.poly.DATN_BookWorms.repo.CategoriesRepo;
+import com.poly.DATN_BookWorms.service.CategoryService;
 
 @Service
 public class CategoryServiceImp implements CategoryService{
