@@ -1,8 +1,6 @@
-<<<<<<<< HEAD:src/main/java/com/poly/DATN_BookWorms/ex/ax.java
-package com.poly.DATN_BookWorms.ex;
-========
+
 package com.DATN_BookWorms.ex;
->>>>>>>> Active2-branche:src/main/java/com/DATN_BookWorms/ex/ax.java
+
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
