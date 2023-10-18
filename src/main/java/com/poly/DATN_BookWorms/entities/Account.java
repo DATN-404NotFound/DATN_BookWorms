@@ -6,10 +6,14 @@ package com.poly.DATN_BookWorms.entities;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
-import javax.persistence.*;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
