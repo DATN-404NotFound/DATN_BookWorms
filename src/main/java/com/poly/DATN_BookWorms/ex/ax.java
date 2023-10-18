@@ -1,4 +1,4 @@
-package DATN_BookWorms.ex;
+package com.poly.DATN_BookWorms.ex;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
