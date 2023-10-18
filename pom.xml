@@ -8,8 +8,8 @@
 		<version>3.1.4</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>DATN_BookWorms</groupId>
-	<artifactId>DATN_BookWorms</artifactId>
+	<groupId>com.poly.DATN_BookWorms</groupId>
+	<artifactId>com.poly.DATN_BookWorms</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
 	<name>DATN_BookWorms</name>
@@ -66,5 +66,4 @@
 			</plugin>
 		</plugins>
 	</build>
-
 </project>
