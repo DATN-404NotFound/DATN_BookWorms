@@ -1,0 +1,88 @@
+.book_related{
+    width: 100%;
+    height: 500px;
+    margin: auto;
+    /* background-color: #999; */
+}
+.book_related .book_item{ 
+    width: 18%;   
+    margin-top: 20px;
+}
+
+.book_related .book_item .book_img, .book_center .book_item .book_img{
+    height: 69%;
+}
+
+.book_related .book_item .book_title a{
+   font-size: 25px;
+}
+
+.book_item .book_title a:hover{
+    color: #C93F04;
+}
+
+.banner_shop_guest{ 
+    height: 500px;
+    width: 90%;
+    position: relative;
+    background-color: #C93F04;
+    margin: auto;
+}
+
+.box_banner_shop{
+    width: 30%;
+    height: 85%;
+    position: absolute;
+    top:5%;
+    left: 2%;
+    border: 1px solid white;
+    border-radius: 5px;
+}
+
+aside{ 
+    font-size: 22px;
+    font-weight: 400;
+    width: 20%;
+    height: auto;
+    float: left;
+}
+article{ 
+    margin-left: 2%;
+    font-size: 22px;
+    font-weight: 400;
+    width: 78%;
+    height: auto;
+    float: left;
+}
+
+.filter:hover{ 
+    background-color: #C93F04;
+    color: white;
+}
+
+.card a{
+    color: white;
+    font-size: 25px;
+    font-size: 500;
+}
+
+.card-header {
+    width: 100%;
+    height: 50px;
+    background-color: #C93F04;
+    border: 1px solid white;
+}
+
+.book_center{
+    width: 100%;
+    height: 550px;
+    margin: auto;
+}
+.book_center .book_item{
+    width: 23%;
+    margin-top: 10px;
+}
+
+.book_center .book_item .book_title a{
+   font-size: 25px;
+}

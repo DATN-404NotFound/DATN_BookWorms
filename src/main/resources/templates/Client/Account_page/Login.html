@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="ISO-8859-1" />
+    <title>Login</title>
+    <link rel="stylesheet" href="../../../static/Client/css/loginpage.css" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body>
+    <div class="container-fluid">
+      <img class="logoTeam" src="../../../static/Client/images/LOGO_Team.png" alt="" />
+      <div class="frameLoginBackground"><label></label></div>
+      <div class="frameLogin">
+        <form>
+          <label id="titleLogin">Login</label>
+          <img id="logoWebsite" src="../../../static/Client/images/LOGO_Website1.png" alt="">
+          <div class="mb-4 mt-3">
+            <label for="exampleInputEmail1" class="form-label">Email</label>
+            <input type="email" class="form-control inputEmail" id="exampleInputEmail1" placeholder="usernam@gmail.com" aria-describedby="emailHelp">
+          </div>
+          <div class="mb-4">
+            <label for="exampleInputPassword1" class="form-label">Password</label>
+            <input type="password" class="form-control" id="exampleInputPassword1 inputPassword" placeholder="Password">
+            <div id="fogotPassword" class="mt-2">Fogot Password?</div>
+          </div>
+          <button type="submit" class="btn btnSignin mt-3">Sign in</button>
+          <p class="text-center mt-4 pOrContinueWith">or continue with</p>
+          <button class="btn btnIcon1"><img id="iconChorm" src="../../../static/Client/images/google-icon.png" alt=""></button>
+          <button class="btn btnIcon2"><img id="iconFB" src="../../../static/Client/images/Facebook-icon.png" alt=""></button>
+          <p class="text-center mt-4 pRegister">Dont't have an account yet? <a href="#">Register for free</a></p>
+        </form>
+      </div>
+    </div>
+  </body>
+</html>
