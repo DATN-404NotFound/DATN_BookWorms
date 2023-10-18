@@ -17,12 +17,13 @@
     <th:block th:insert="~{Client/header_footer_index/footer_index :: link}"></th:block> -->
     <link rel="stylesheet" href="/Client/css/_index.css">
     <link rel="stylesheet" href="/Client/css/product.css">
+    <script src="/Client/Js/cart.js"></script>
 
 </head>
 <body>
     <div th:insert="~{/Client/header_footer_index/header_index::header}"></div>
     <div th:replace="${main}"></div>
     <div th:insert="~{/Client/header_footer_index/footer_index::footer}"></div>
-
+    <script src="/Client/Js/cart.js"></script>
 </body>
 </html>
