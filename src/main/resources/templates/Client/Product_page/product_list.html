@@ -17,7 +17,7 @@
 </head>
 
 <body>
-    <main style="width: 98%; height: auto; margin: auto;">
+    <main ng-app="cart_app" ng-controller="cart_ctrl" style="width: 98%; height: auto; margin: auto;">
         <div> PRODUCT OVERVIEW</div>
         <div>
             <div class="d-inline-flex p-3 text-white">
@@ -753,6 +753,7 @@
             </div>
             <button class="button_all_orange my-5" style="margin-left: 44%;">See more</button>
         </article>
+        <script th:src="@{/Client/Js/cart.js}"></script>
     </main>
 </body>
 
