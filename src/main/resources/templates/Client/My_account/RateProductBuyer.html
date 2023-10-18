@@ -19,7 +19,7 @@
             <div class="frameMyAccount-left">
                 <div class="infomation">
                     <img class="logoAccount" src="../../../static/Client/images/Logo_Nha_Nam.jpg" alt="" />
-                    <span>
+                    <span  class="spanProfile">
                         <p class="nameAccount mt-1">Lê Thanh Tùng</p>
                         <p class="idAccount">ID: UID1LTT01</p>
                     </span>
@@ -35,7 +35,7 @@
                         </ul>
                     </div>
                 </div>
-                <div class="menuMyAccount ms-3 mt-3">
+                <div class="menuMyAccount ms-3">
                     <a class="aMyAccount" data-bs-toggle="collapse" href="#collapseExample2" aria-expanded="false"
                         aria-controls="collapseExample"><i class="bi bi-receipt"></i> Purchase order</a>
                     <div class="collapse" id="collapseExample2">
@@ -45,7 +45,7 @@
                         </ul>
                     </div>
                 </div>
-                <div class="menuMyAccount ms-3 mt-3">
+                <div class="menuMyAccount ms-3">
                     <a class="aMyAccount" data-bs-toggle="collapse" href="#collapseExample3" aria-expanded="false"
                         aria-controls="collapseExample"><i class="bi bi-chat-square-text"></i> Nofication </a>
                     <!-- <div class="collapse" id="collapseExample3">
@@ -57,36 +57,43 @@
             </div>
             <div class="frameMyAccount-right">
                 <p class="mt-4 ms-4" id="titleOrder">Order</p>
-                <div class="orderDetail">
+                <div class="order">
                     <div class="cardHeader">
                         <span>
                             <img id="logoAccountOrderDetail" src="../../../static/Client/images/Logo_Nha_Nam.jpg" alt="">
-                            <p class="ms-2 mt-3 nameAccountOrder">tungle1204</p>
+                            <p class="ms-2 nameAccountOrder">tungle1204</p>
                         </span>
                         <button class="btn btnChat">Chat</button>
                         <button type="button" class="btn btnReport" data-bs-toggle="modal"
                             data-bs-target="#exampleModal">
                             Report
                         </button>
-                        <div class="modal fade boxRateProduct" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
                             aria-hidden="true" >
                             <div class="modal-dialog">
-                                <div class="modal-content">
+                                <div class="modal-content boxRateProduct">
                                     <div class="modal-header" style="border: none;">
                                         <h3 class="modal-title" id="exampleModalLabel">Report prodduct</h3>
                                     </div>
                                     <div class="modal-body">
-                                        <div class="rateProduct">
-                                            <img style="width: 59px; height: 88px; border-radius: 10px;" src="../../../static/Client/images/but-ky-nguoi-di-san.jpg" alt="">
-                                            <p style="font-size: 12px;">Bút Ký Người Đi Săn</p>
+                                        <div class="rateProduct mb-5">
+                                            <img class="imgProductRate" src="../../../static/Client/images/but-ky-nguoi-di-san.jpg" alt="">
+                                            <p class="nameProductRate">Bút Ký Người Đi Săn</p> <br> <br>
                                             <button class="btn btnChooseImageRate">Choose image</button>
-                                            <p style="color: #FFC403; font-size: 26px;"><i class="bi bi-star"></i><i class="bi bi-star"></i><i class="bi bi-star"></i><i class="bi bi-star"></i><i class="bi bi-star"></i></p>
-                                            <textarea name="" id="" cols="80" rows="5" placeholder="Share"></textarea>
+                                            <p class="star-rate"><i class="bi bi-star"></i><i class="bi bi-star"></i><i class="bi bi-star"></i><i class="bi bi-star"></i><i class="bi bi-star"></i></p>
+                                            <textarea name="" id="" cols="80" rows="5" placeholder="Share everything you like product !"></textarea>
+                                        </div>
+                                        <div class="rateProduct">
+                                            <img class="imgProductRate" src="../../../static/Client/images/but-ky-nguoi-di-san.jpg" alt="">
+                                            <p class="nameProductRate">Bút Ký Người Đi Săn</p> <br> <br>
+                                            <button class="btn btnChooseImageRate">Choose image</button>
+                                            <p class="star-rate"><i class="bi bi-star"></i><i class="bi bi-star"></i><i class="bi bi-star"></i><i class="bi bi-star"></i><i class="bi bi-star"></i></p>
+                                            <textarea name="" id="" cols="80" rows="5" placeholder="Share everything you like product !"></textarea>
                                         </div>
                                     </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-primary">Finish</button>
-                                        <button type="button" class="btn btn-secondary"
+                                    <div class="modal-footer" style="border: none;">
+                                        <button type="button" class="btn btnFinish-rateProduct">Finish</button>
+                                        <button type="button" class="btn btnCancel-rateProduct"
                                             data-bs-dismiss="modal">Cancel</button>
                                     </div>
                                 </div>
@@ -102,14 +109,14 @@
                     <div class="cardFooter">
                         <p class="total">Total: 310.00</p>
                         <button class="btn btnRating">Rating</button>
-                        <button class="btn btnDetail">Detial</button>
+                        <button class="btn btnDetail-order">Detial</button>
                     </div>
                 </div>
-                <div class="orderDetail">
+                <div class="order">
                     <div class="cardHeader">
                         <span>
                             <img id="logoAccountOrderDetail" src="../../../static/Client/images/Logo_Nha_Nam.jpg" alt="">
-                            <p class="ms-2 mt-3 nameAccountOrder">tungle1204</p>
+                            <p class="ms-2 nameAccountOrder">tungle1204</p>
                         </span>
                         <button class="btn btnChat">Chat</button>
                         <button class="btn btnReport">Report</button>
@@ -123,7 +130,7 @@
                     <div class="cardFooter">
                         <p class="total">Total: 310.00</p>
                         <button class="btn btnRating">Rating</button>
-                        <button class="btn btnDetail">Detial</button>
+                        <button class="btn btnDetail-order">Detial</button>
                     </div>
                 </div>
             </div>

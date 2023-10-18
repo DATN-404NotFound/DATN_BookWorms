@@ -19,7 +19,7 @@
             <div class="frameMyAccount-left">
                 <div class="infomation">
                     <img class="logoAccount" src="../../../static/Client/images/Logo_Nha_Nam.jpg" alt="" />
-                    <span>
+                    <span class="spanProfile">
                         <p class="nameAccount mt-1">Lê Thanh Tùng</p>
                         <p class="idAccount">ID: UID1LTT01</p>
                     </span>
@@ -35,7 +35,7 @@
                         </ul>
                     </div>
                 </div>
-                <div class="menuMyAccount ms-3 mt-3">
+                <div class="menuMyAccount ms-3">
                     <a class="aMyAccount" data-bs-toggle="collapse" href="#collapseExample2" aria-expanded="false"
                         aria-controls="collapseExample"><i class="bi bi-receipt"></i> Purchase order</a>
                     <div class="collapse" id="collapseExample2">
@@ -45,7 +45,7 @@
                         </ul>
                     </div>
                 </div>
-                <div class="menuMyAccount ms-3 mt-3">
+                <div class="menuMyAccount ms-3">
                     <a class="aMyAccount" data-bs-toggle="collapse" href="#collapseExample3" aria-expanded="false"
                         aria-controls="collapseExample"><i class="bi bi-chat-square-text"></i> Nofication </a>
                     <!-- <div class="collapse" id="collapseExample3">
@@ -56,26 +56,92 @@
                 </div>
             </div>
             <div class="frameMyAccount-right">
-                <p class="mt-4 ms-4" id="pDiaChiNhanHang">Địa chỉ nhận hàng</p>
-                <p>
-                    Thanh Tùng <br>
-                    0909331232 <br>
-                    Đường Giải Phóng, Phường Tân Lợi, Thành phố Buôn Ma Thuật, Đắk LắK <br>
-                </p>
-                <p>ID: 3423423423432 | Finish</p>
-                <div class="stepper">
-                    <label for="customRange2" class="form-label">Example range</label>
-                    <input type="range" class="form-range" min="0" max="5" id="customRange2">  
-                    <div class="orderIsConfirm">
-                        <i class="bi bi-journal-check"></i>
-                        <p>Order is confirm</p>
+                <div class="boxOrderDetail-top">
+                    <p class="mt-4" id="pDiaChiNhanHang">Địa chỉ nhận hàng</p>
+                    <p class="mt-4" id="pID-orderDetail">ID: 3423423423432</p> <br>
+                    <p id="pAddressDetail">
+                        Thanh Tùng <br>
+                        0909331232 <br>
+                        Đường Giải Phóng, Phường Tân Lợi, Thành phố Buôn Ma Thuật, Đắk LắK <br>
+                    </p>
+                    <div class="deliveryProcess">
+                        <hr id="bar1">
+                        <hr id="bar2">
+                        <div class="orderIsConfirm">
+                            <div class="icon-orderIsConfirm">
+                                <i class="bi bi-journal-check"></i>
+                            </div>
+                            <p>Order is confirm</p>
+                        </div>
+                        <div class="orderIsShipping">
+                            <div class="icon-orderIsShipping">
+                                <i class="bi bi-truck"></i>
+                            </div>
+                            <p>Order is shipping</p>
+                        </div>
+                        <div class="orderHasBeanDelivered">
+                            <div class="icon-orderHasBeanDelivered">
+                                <i class="bi bi-download"></i>
+                            </div>
+                            <p>Order has been delivered</p>
+                        </div>
                     </div>
-                    <div class="orderIsShipping">
-                        <i class="bi bi-truck"></i>
-                        <p>Order has been</p>
+                </div>
+                <div class="boxOrderDetail-bottom">
+                    <div class="boxHeader">
+                        <span>
+                            <img id="logoAccountOrderDetail" src="../../../static/Client/images/Logo_Nha_Nam.jpg"
+                                alt="">
+                            <p class="ms-2 nameAccountOrderDetail">tungle1204</p>
+                        </span>
+                        <button class="btn btnChat-orderDetail-top">Chat</button>
+                        <button class="btn btnReport-orderDetail">Report</button>
+                        <p id="pStatus-orderDetail">Status: Finish</p>
                     </div>
-                    <div class="orderHasBeanDelivered">
-                        <i class="bi bi-download"></i>
+                    <div class="boxBody">
+                        <div class="product-orderDetail">
+                            <img class="imgBook-orderDetail" src="../../../static/Client/images/but-ky-nguoi-di-san.jpg"
+                                alt="">
+                            <p class="nameBook-orderDetail">Bút Ký Người Đi Săn <br> x1</p>
+                            <p class="price-orderDetail">155.00</p>
+                        </div>
+                        <div class="product-orderDetail">
+                            <img class="imgBook-orderDetail" src="../../../static/Client/images/but-ky-nguoi-di-san.jpg"
+                                alt="">
+                            <p class="nameBook-orderDetail">Bút Ký Người Đi Săn <br> x1</p>
+                            <p class="price-orderDetail">155.00</p>
+                        </div>
+                    </div>
+                    <div class="boxFooter">
+                        <div class="detailInfo-left">
+                            <table class="tabledetailInfo">
+                                <tr>
+                                    <td>Total product:</td>
+                                    <td>310.00</td>
+                                </tr>
+                                <tr>
+                                    <td>Shipping:</td>
+                                    <td>15.00</td>
+                                </tr>
+                                <tr>
+                                    <td>Voucher:</td>
+                                    <td>-30.00</td>
+                                </tr>
+                                <tr>
+                                    <td>Payment:</td>
+                                    <td>COD</td>
+                                </tr>
+                                <tr>
+                                    <td>Total:</td>
+                                    <td>295.00</td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="detailInfo-right">
+                            <button class="btn btnBuyAgain-orderDetail">Buy again</button>
+                            <button class="btn btnChat-orderDetail-bot">Chat</button>
+                            <button class="btn btnRating-orderDetail">Rating</button>
+                        </div>
                     </div>
                 </div>
             </div>
