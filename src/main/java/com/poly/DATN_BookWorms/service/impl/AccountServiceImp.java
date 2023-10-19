@@ -3,13 +3,7 @@ package com.poly.DATN_BookWorms.service.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
+
 import org.springframework.stereotype.Service;
 
 import com.poly.DATN_BookWorms.entities.Account;
@@ -20,8 +14,8 @@ import com.poly.DATN_BookWorms.service.AccountService;
 public class AccountServiceImp  implements AccountService{
 	@Autowired
 	AccountRepo accountRepo;
-	@Autowired
-	BCryptPasswordEncoder pe;
+//	@Autowired
+//	BCryptPasswordEncoder pe;
 
 	@Override
 	public Account findById(String username) {
@@ -36,7 +30,8 @@ public class AccountServiceImp  implements AccountService{
 	@Override
 	public List<Account> getAdministrators() {
 		// TODO Auto-generated method stub
-		return accountRepo.getAdministrators();
+//		return accountRepo.getAdministrators();
+		return null;
 	}
 
 	@Override
@@ -55,15 +50,15 @@ public class AccountServiceImp  implements AccountService{
 		return accountRepo.save(account);
 	}
 	
-	public void loginFromOAuth2(OAuth2AuthenticationToken oauth2) {
-		String email = oauth2.getPrincipal().getAttribute("email");
-		String password = Long.toHexString(System.currentTimeMillis());
-		
-		UserDetails user = User.withUsername(email)
-				.password(pe.encode(password)).roles("GUEST").build();
-		Authentication auth = new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
-		SecurityContextHolder.getContext().setAuthentication(auth);
-	}
+	//public void loginFromOAuth2(OAuth2AuthenticationToken oauth2) {
+//		String email = oauth2.getPrincipal().getAttribute("email");
+//		String password = Long.toHexString(System.currentTimeMillis());
+//		
+//		UserDetails user = User.withUsername(email)
+//				.password(pe.encode(password)).roles("GUEST").build();
+//		Authentication auth = new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
+//		SecurityContextHolder.getContext().setAuthentication(auth);
+	//}
 
 	@Override
 	public void delete(String username) {

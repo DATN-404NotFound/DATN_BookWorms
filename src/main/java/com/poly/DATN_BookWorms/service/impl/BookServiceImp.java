@@ -29,7 +29,8 @@ public class BookServiceImp implements BookService{
 	
 	@Override
 	public List<Books> findByCategoryId(String cid) {
-		return bookRepo.findByCategoryId(cid);
+//		return bookRepo.findByCategoryId(cid);
+		return null;
 	}
 
 	@Override

@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.stereotype.Service;
 
 import com.poly.DATN_BookWorms.beans.MailInformation;
 import com.poly.DATN_BookWorms.service.MailService;
@@ -15,11 +16,11 @@ import com.poly.DATN_BookWorms.service.MailService;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
 
-
+@Service
 public class MailServiceImp implements MailService{
 
 	private List<MailInformation> listMails = new ArrayList<>();
-	@Autowired
+
 	JavaMailSender sender;
 	
 	@Override
