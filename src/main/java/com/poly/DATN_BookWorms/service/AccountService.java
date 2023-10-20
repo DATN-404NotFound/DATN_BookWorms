@@ -4,7 +4,12 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.poly.DATN_BookWorms.dto.AccountDTO;
+import com.poly.DATN_BookWorms.dto.LoginDTO;
 import com.poly.DATN_BookWorms.entities.Account;
+import com.poly.DATN_BookWorms.entities.Authorities;
+import com.poly.DATN_BookWorms.entities.Roles;
+import com.poly.DATN_BookWorms.response.LoginResponse;
 
 
 
@@ -27,4 +32,11 @@ public interface AccountService {
 	
 	void delete(String username);
 
+	Account create(AccountDTO accountDTO);
+	
+	LoginResponse loginAccount(LoginDTO loginDTO);
+	
+	void adRoleToUser(String username, String roleName);
+	
+	public Roles saveRole(Roles roles);
 }

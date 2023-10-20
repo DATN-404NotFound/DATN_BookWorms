@@ -14,7 +14,6 @@ import com.poly.DATN_BookWorms.service.AuthoritiesService;
 
 
 
-
 @Service
 public class AuthoritiesServiceImp implements AuthoritiesService{
 	@Autowired
@@ -22,12 +21,11 @@ public class AuthoritiesServiceImp implements AuthoritiesService{
 	@Autowired
 	AuthoritiesRepo authorityRepo;
 	
-	@Override
-	public List<Authorities> findAuthoritiesOfAdministrators() {
+//	@Override
+//	public List<Authorities> findAuthoritiesOfAdministrators() {
 //		List<Account> accounts = accountRepo.getAdministrators();
 //		return authorityRepo.authoritiesOf(accounts);
-		return null;
-	}
+//	}
 
 	@Override
 	public List<Authorities> findAll() {
@@ -45,10 +43,21 @@ public class AuthoritiesServiceImp implements AuthoritiesService{
 	}
 
 	@Override
-	public List<Authorities> getOneByRole(String username) {
+	public List<Authorities> findAuthoritiesOfAdministrators() {
 		// TODO Auto-generated method stub
-//		return authorityRepo.getOneByRole(username);
 		return null;
 	}
+
+	@Override
+	public List<Authorities> getOneByRole(String username) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+//	@Override
+//	public List<Authorities> getOneByRole(String username) {
+//		// TODO Auto-generated method stub
+//		return authorityRepo.getOneByRole(username);
+//	}
 
 }

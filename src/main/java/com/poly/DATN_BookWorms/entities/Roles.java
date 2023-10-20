@@ -52,6 +52,10 @@ public class Roles implements Serializable {
         sb.append("|");
         sb.append(rolename);
         return sb.toString(); 
-    } 
+    }
+
+	public Roles(String rolename) {
+		this.rolename = rolename;
+	} 
 
 }

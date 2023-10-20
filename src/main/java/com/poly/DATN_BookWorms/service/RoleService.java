@@ -10,4 +10,5 @@ import com.poly.DATN_BookWorms.entities.Roles;
 public interface RoleService {
 
 	public List<Roles> findAll();
+	public Roles findByName(String name);
 }

@@ -44,9 +44,14 @@ public class BookingServiceImp implements BookingService{
 	@Override
 	public List<Bookings> findByUsername(String username) {
 		// TODO Auto-generated method stub
-//		return bookingRepo.findByUsername(username);
 		return null;
 	}
+
+//	@Override
+//	public List<Bookings> findByUsername(String username) {
+//		// TODO Auto-generated method stub
+//		return bookingRepo.findByUsername(username);
+//	}
 
 	
 }
