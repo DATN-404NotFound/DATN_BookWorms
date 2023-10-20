@@ -40,6 +40,6 @@ public class Authorities implements Serializable {
 	@ManyToOne @JoinColumn(name = "Username")
 	private Account account;
 	@ManyToOne  @JoinColumn(name = "Roleid")
-	private Roles role;
+	private Roles roles;
 
 }

@@ -31,45 +31,43 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Data
 @Entity
-@Table(name="Categories", schema="dbo", catalog="BookWorm" )
+@Table(name = "Categories")
 public class Categories implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-    //--- ENTITY PRIMARY KEY 
-    @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
-    @Column(name="CategoryId", nullable=false)
-    private Integer    categoryid ;
+	// --- ENTITY PRIMARY KEY
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	
+	private Integer categoryid;
 
-    //--- ENTITY DATA FIELDS 
-    @Column(name="Name", length=100)
-    private String     name ;
+	// --- ENTITY DATA FIELDS
+	@Column(name = "Name", length = 100)
+	private String name;
 
-    @Column(name="Description", length=255)
-    private String     description ;
+	@Column(name = "Description", length = 255)	
+	private String description;
 
-    @Temporal(TemporalType.DATE)
-    @Column(name="DateAdded")
-    private Date       dateadded ;
+	@Temporal(TemporalType.DATE)
+	private Date dateadded;
 
+	// --- ENTITY LINKS ( RELATIONSHIP )
+	@OneToMany(mappedBy = "categories")
+	private List<Typebooks> listOfTypebooks;
 
-    //--- ENTITY LINKS ( RELATIONSHIP )
-    @OneToMany(mappedBy="categories")
-    private List<Typebooks> listOfTypebooks ; 
-
-    //--- toString specific method
+	// --- toString specific method
 	@Override
-    public String toString() { 
-        StringBuilder sb = new StringBuilder(); 
-        sb.append(categoryid);
-        sb.append("|");
-        sb.append(name);
-        sb.append("|");
-        sb.append(description);
-        sb.append("|");
-        sb.append(dateadded);
-        return sb.toString(); 
-    } 
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append(categoryid);
+		sb.append("|");
+		sb.append(name);
+		sb.append("|");
+		sb.append(description);
+		sb.append("|");
+		sb.append(dateadded);
+		return sb.toString();
+	}
 
 }

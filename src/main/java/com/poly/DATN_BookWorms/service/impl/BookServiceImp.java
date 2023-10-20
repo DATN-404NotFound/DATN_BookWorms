@@ -27,10 +27,10 @@ public class BookServiceImp implements BookService{
 		return bookRepo.findById(id).get();
 	}
 	
-	@Override
-	public List<Books> findByCategoryId(String cid) {
-		return bookRepo.findByCategoryId(cid);
-	}
+//	@Override
+//	public List<Books> findByCategoryId(String cid) {
+//		return bookRepo.findByCategoryId(cid);
+//	}
 
 	@Override
 	public Books create(Books book) {
@@ -48,5 +48,11 @@ public class BookServiceImp implements BookService{
 	public void delete(int id) {
 		// TODO Auto-generated method stub
 		bookRepo.deleteById(id);
+	}
+
+	@Override
+	public List<Books> findByCategoryId(String cid) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

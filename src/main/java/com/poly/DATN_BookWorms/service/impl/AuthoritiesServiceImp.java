@@ -21,11 +21,11 @@ public class AuthoritiesServiceImp implements AuthoritiesService{
 	@Autowired
 	AuthoritiesRepo authorityRepo;
 	
-	@Override
-	public List<Authorities> findAuthoritiesOfAdministrators() {
-		List<Account> accounts = accountRepo.getAdministrators();
-		return authorityRepo.authoritiesOf(accounts);
-	}
+//	@Override
+//	public List<Authorities> findAuthoritiesOfAdministrators() {
+//		List<Account> accounts = accountRepo.getAdministrators();
+//		return authorityRepo.authoritiesOf(accounts);
+//	}
 
 	@Override
 	public List<Authorities> findAll() {
@@ -43,9 +43,21 @@ public class AuthoritiesServiceImp implements AuthoritiesService{
 	}
 
 	@Override
+	public List<Authorities> findAuthoritiesOfAdministrators() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
 	public List<Authorities> getOneByRole(String username) {
 		// TODO Auto-generated method stub
-		return authorityRepo.getOneByRole(username);
+		return null;
 	}
+
+//	@Override
+//	public List<Authorities> getOneByRole(String username) {
+//		// TODO Auto-generated method stub
+//		return authorityRepo.getOneByRole(username);
+//	}
 
 }
