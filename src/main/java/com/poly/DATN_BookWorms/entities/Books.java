@@ -85,7 +85,7 @@ public class Books implements Serializable {
     @OneToMany(mappedBy="books")
     private List<Cart> listOfCart ; 
 
-    @ManyToOne
+
     @JoinColumn(name="ShopId", referencedColumnName="ShopId", insertable=false, updatable=false)
     private Shoponlines shoponlines ; 
 

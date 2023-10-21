@@ -24,20 +24,20 @@
             <div>
                 <h4>Your Cart</h4>
             </div>
-            <div style="border: 1px solid #C93F04; border-radius: 10px; margin-top: 50px;">
+            <!-- sử dụng lặp shop -->
+            <div th:each="l:${cartshoplist}" style="border: 1px solid #C93F04; border-radius: 10px; margin-top: 50px;">
                 <div class="my-5" style="width: 90%; margin: auto;">
                     <div class="float-start">
                         <input type="checkbox"  class="form-check-input float-start mt-2" id="1" onclick="choose(id)"  name="inp">
                         <a href="#" style="text-decoration: none; color: #080808;"><span><i style="font-size: 30px;"
                                     class="bi bi-person-circle mx-3"></i></span>
-                            <span style="font-size: 22px;">thanhha13</span></a>
+                            <span style="font-size: 22px;" th:text= "${p. shopname}"></span></a>
                     </div>
                     <hr style="clear: both;">
                     <table class="table table-hover" id="table">
                         <thead>
                             <tr>
                                 <th style="width: 5%;">
-    
                                 </th>
                                 <th colspan="" style="width: 10%; "></th>
                                 <th style="width: 30%;"> Product</th>
@@ -48,16 +48,16 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
+                            <tr th:each="b:${cartuserList}" th:if="${b.books.shopOnline.shopId == ${p.shopId}}">
                                 <td>
-                                    <input type="checkbox"  class="form-check-input" name="carttest">
+                                    <input type="checkbox" value="${b.cartid}"  class="form-check-input" name="carttest">
                                 </td>
                                 <td>
                                     <div>
                                         <img th:src="@{/Client/images/Hinh7_book7.jpg}" style="width: 50%;" alt="">
                                     </div>
                                 </td>
-                                <td ><a href="#">Chiếc Lá Cuối Cùng</a></td>
+                                <td ><a href="/book/detail?bookid = ${p.bookid}">Chiếc Lá Cuối Cùng</a></td>
                                 <td>200 000.00</td>
                                 <td>
                                     <input type="number" id="d" onclick ="changeQuantity(this)" class="form-control" style="width: 100px;" min="1" step="1" value="1" ng-model="cart.quantity" >
@@ -124,7 +124,6 @@
                 </div>
                 <hr style="clear: both; border: 2px solid black;">
                 </div>
-
             </div>
 
             <div style="border: 1px solid #C93F04; border-radius: 10px;margin-top: 50px;">

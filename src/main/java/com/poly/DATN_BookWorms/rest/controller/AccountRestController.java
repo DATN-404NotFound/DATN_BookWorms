@@ -21,12 +21,12 @@ import com.poly.DATN_BookWorms.service.AccountService;
 
 @CrossOrigin("*")
 @RestController
-@RequestMapping("rest")
+@RequestMapping("/rest")
 public class AccountRestController {
 	@Autowired
 	AccountService accountService;
 	
-	@GetMapping("accounts")
+	@GetMapping("/accounts")
 	public List<Account> getAccounts(@RequestParam("admin") Optional<Boolean> admin){
 		if(admin.orElse(false)) {
 			return accountService.getAdministrators();

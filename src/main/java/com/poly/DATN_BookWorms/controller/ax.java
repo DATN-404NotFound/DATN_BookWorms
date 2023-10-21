@@ -1,10 +1,6 @@
-<<<<<<< HEAD
 
-package com.poly.DATN_BookWorms.ex;
+package com.poly.DATN_BookWorms.controller;
 
-=======
-package com.poly.DATN_BookWorms.ex;
->>>>>>> ad2de9c700902e434ea0f07de9c68fd44c19594b
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
