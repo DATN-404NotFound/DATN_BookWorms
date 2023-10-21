@@ -17,27 +17,25 @@ import com.poly.DATN_BookWorms.response.LoginResponse;
 @Service
 public interface AccountService {
 	
-	public Account findById(String username);
+	public Account findByUsename(String username);
 	
-	public Account findByEmail(String email);
+//	public Account findByEmail(String email);
+//
+//	public List<Account> getAdministrators();
+//
+//	public List<Account> findAll();
+//
+//	public Account create(Account account);
+//
+//	public Account update(Account account);
+//	
+//	public void loginFromOAuth2(OAuth2AuthenticationToken oauth2);
+//	
+//	void delete(String username);
 
-	public List<Account> getAdministrators();
+	void save(AccountDTO accountDTO);
+	
 
-	public List<Account> findAll();
-
-	public Account create(Account account);
-
-	public Account update(Account account);
 	
-	public void loginFromOAuth2(OAuth2AuthenticationToken oauth2);
 	
-	void delete(String username);
-
-	Account create(AccountDTO accountDTO);
-	
-	LoginResponse loginAccount(LoginDTO loginDTO);
-	
-	void adRoleToUser(String username, String roleName);
-	
-	public Roles saveRole(Roles roles);
 }

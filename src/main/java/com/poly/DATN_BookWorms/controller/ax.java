@@ -2,11 +2,13 @@ package com.poly.DATN_BookWorms.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
+@RequestMapping("/product")
 public class ax {
 
-	@GetMapping("/a")
+	@RequestMapping("/a")
 	public String a() { 
 		return "Client/header_footer_index/aaa";
 	}
@@ -20,7 +22,7 @@ public class ax {
 	public String c() { 
 		return "Client/Product_page/product_list";
 	}
-		@GetMapping("/d")
+	@GetMapping("/d")
 	public String d() { 
 		return "Client/Product_page/product_shop_list";
 	}
