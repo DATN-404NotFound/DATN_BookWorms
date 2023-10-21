@@ -16,6 +16,8 @@
     <link rel="stylesheet" href="../../../static/Client/css/_index.css">
     <link rel="stylesheet" href="../../../static/Client/css/product.css">
     <script th:src="@{/Client/Js/cart.js}"></script>
+    <script src="../../../static/Client/Js/cart/cart.js"></script>
+</head>
 </head>
 
 <body>
@@ -31,7 +33,7 @@
                         <input type="checkbox"  class="form-check-input float-start mt-2" id="1" onclick="choose(id)"  name="inp">
                         <a href="#" style="text-decoration: none; color: #080808;"><span><i style="font-size: 30px;"
                                     class="bi bi-person-circle mx-3"></i></span>
-                            <span style="font-size: 22px;" th:text= "${p. shopname}"></span></a>
+                            <span style="font-size: 22px;" th:text= "${p.shopname}"></span></a>
                     </div>
                     <hr style="clear: both;">
                     <table class="table table-hover" id="table">
@@ -50,7 +52,7 @@
                         <tbody>
                             <tr th:each="b:${cartuserList}" th:if="${b.books.shopOnline.shopId == ${p.shopId}}">
                                 <td>
-                                    <input type="checkbox" value="${b.cartid}"  class="form-check-input" name="carttest">
+                                    <input type="checkbox" value="${b.cartid}" onclick="selectOne('yhhh')"  class="form-check-input"  id="yhhh" name="carttest">
                                 </td>
                                 <td>
                                     <div>
@@ -67,7 +69,7 @@
                             </tr>
                             <tr>
                                 <td>
-                                    <input type="checkbox" class="form-check-input" name="carttest">
+                                    <input type="checkbox" class="form-check-input"  onclick="selectOne('yhhhv')"  id="yhhhv" name="carttest">
                                 </td>
                                 <td>
                                     <div>
@@ -77,14 +79,14 @@
                                 <td><a href="#">Chiếc Lá Cuối Cùng</a></td>
                                 <td>150 000.00</td>
                                 <td>
-                                    <input type="number"   class="form-control" style="width: 100px;" min="1" step="1" value="1">
+                                    <input type="number" ng-click="cart.add(${b.cartId})"  class="form-control" style="width: 100px;" min="1" step="1" value="1">
                                 </td>
                                 <td class="total_pro">150 000.00</td>
-                                <td><a href="#" style="color: #000;"><i style="font-size: 30px;" class="bi bi-trash"></i></a></td>
+                                <td><a href="@{|/rest/cart/delete-cart/${b.cartId}}" style="color: #000;" ng-click=" cart.delete(${b.cartId})" ><i style="font-size: 30px;" class="bi bi-trash"></i></a></td>
                             </tr>
                             <tr>
                                 <td>
-                                    <input type="checkbox" class="form-check-input" name="carttest">
+                                    <input type="checkbox" class="form-check-input "  id="yhho" name="carttest">
                                 </td>
                                 <td>
                                     <div>
@@ -237,15 +239,15 @@
                 <div style="width: 100%; height: 150px; margin-top: 50px; border-radius: 5px;" class="border-orange">
                     <div>
                         <div style="float: left; font-size: 25px; font-weight: 500; color: #333;  margin-top: 70px; margin-left: 50px;">
-                            <button class="btn btn-success" onclick="chooseAll(this)">Select All</button>
-                <button class="btn btn-danger" onclick="deleteAll(this)" >Delete All</button>
+                            <button class="btn btn-success" id="selectAll" onclick="chooseAll(this)">Select All</button>
+                <button class="btn btn-danger" id="deleteAll" onclick="deleteAll(this)" >Delete All</button>
                         </div>
                         <div style="float: right; font-size: 25px; font-weight: 500; color: #333;  margin-top: 50px;">
                            <form >
                             <p>
                                 <span>Tổng tiền : <strong class="orange-text">1 000 000 </strong></span>
                                 <span class="mx-5">
-                                    <button  class="button_all_orange" onclick="addetail()">Mua hàng</button>
+                                    <button  class="button_all_orange"  onclick="addetail()">Mua hàng</button>
                                 </span>
                             </p>
                            </form>

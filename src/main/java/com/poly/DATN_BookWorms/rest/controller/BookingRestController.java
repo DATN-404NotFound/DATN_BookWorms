@@ -32,22 +32,23 @@ public class BookingRestController {
 
 	@PostMapping()
 	public Bookings create(@RequestBody JsonNode bookingData, HttpServletRequest request) {
-		try {
-			MailInformation mail = new MailInformation();
-			String username = request.getRemoteUser();
-			Account currentUser = accountService.findById(username);
-
-			mail.setTo(currentUser.getEmail());
-			String subject = "IBook Chào Bạn!";
-			String body = "Cảm ơn bạn đã đặt hàng của chúng tôi!";
-			mail.setSubject(subject);
-			mail.setBody(body);
-			mailer.send(mail);
-		} catch (MessagingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return bookingService.create(bookingData);
+//		try {
+//			MailInformation mail = new MailInformation();
+//			String username = request.getRemoteUser();
+//			Account currentUser = accountService.findById(username);
+//
+//			mail.setTo(currentUser.getEmail());
+//			String subject = "IBook Chào Bạn!";
+//			String body = "Cảm ơn bạn đã đặt hàng của chúng tôi!";
+//			mail.setSubject(subject);
+//			mail.setBody(body);
+//			mailer.send(mail);
+//		} catch (MessagingException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		return bookingService.create(bookingData);
+		return null;
 	}
 
 }

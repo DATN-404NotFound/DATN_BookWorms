@@ -1,180 +1,155 @@
-
-function choose(e){ 
-    console.log("ad")
+var purchase = [];
+function choose(e) {
+    check()
     var a = document.getElementById(e);
-    var b =  a.parentElement.parentElement;
+    var b = a.parentElement.parentElement;
     var c = b.children[2]
     var d = c.getElementsByClassName('form-check-input')
-    if(a.checked){ 
-        for(var i=0; i<d.length;i++){ 
-            d[i].checked=true;
+    if (a.checked) {
+        for (var i = 0; i < d.length; i++) {
+            if (d[i].checked) {
+                continue;
+            }
+            else {
+                d[i].checked = true;
+                purchase.push(d[i].getAttribute('id'));
+                console.log(purchase)
+            }
         }
     }
-    else{
-        for(var i=0; i<d.length;i++){ 
-            d[i].checked=false;
+    else {
+        for (var i = 0; i < d.length; i++) {
+            d[i].checked = false;
+            var index = purchase.findIndex(item => item == d[i].getAttribute('id'));
+            purchase.splice(index, 1);
+            console.log(purchase)
         }
     }
-
+    var f = document.getElementById
 }
-
-function chooseAll(e){ 
-    var f = document.getElementsByName('inp')
-    for(var i=0; i< f.length;i++){ 
-        f[i].checked= true;
-        choose( f[i].getAttribute('id'));
+function selectOne(e) {
+    var one = document.getElementById(e);
+    if (one.checked) {
+        purchase.push(one.getAttribute('id'))
+        console.log("lkdkf" + purchase)
+        check2(e);
     }
-    
-}
-
-
-function deleteAll(e){ 
-    var f = document.getElementsByName('inp')
-    for(var i=0; i< f.length;i++){ 
-        f[i].checked= false;
-        choose( f[i].getAttribute('id'));
+    else {
+        var item = purchase.findIndex(item => item == e);
+        purchase.splice(item, 1);
+        console.log("lkdkf" + purchase)
     }
+}
+
+function check2(e){ 
+    var one = document.getElementById(e);
+    var parent = one.parentElement.parentElement.parentElement;
+    var chil =  parent.children;
+    for(var i=0; i<chil.length;i++){ 
+  var a=0;
+     if(chil[i].children[0].children[0].checked) { 
+        a++;
+        if(chil.length ==a){ 
+            
+        }
+     }
+     
     
+
+
+    }
 }
 
-function changeQuantity(e){ 
-    console.log("kdf"+ e.value)
-   
+function check() {
+    var f = document.getElementsByName('inp');
+    var index = 0;
+    for (var i = 0; i < f.length; i++) {
+        if (f[i].checked) {
+            index++;
+            if (f.length == index) {
+                console.log("khdesfjkh")
+                document.getElementById('deleteAll').disabled = false;
+                document.getElementById('selectAll').disabled = true;
+            }
+            else {
+                document.getElementById('deleteAll').disabled = true;
+                document.getElementById('selectAll').disabled = false;
+            }
+        }
+    }
 }
 
-const app = angular.module("cart_app",[]);
-app.controller("cart_ctrl", function($scope,$http){ 
-	
+
+function chooseAll(e) {
+    var f = document.getElementsByName('inp')
+    for (var i = 0; i < f.length; i++) {
+        f[i].checked = true;
+        choose(f[i].getAttribute('id'));
+    }
+    check();
+}
+
+
+function deleteAll(e) {
+    var f = document.getElementsByName('inp')
+    for (var i = 0; i < f.length; i++) {
+        f[i].checked = false;
+        choose(f[i].getAttribute('id'));
+    }
+    check();
+
+}
+
+
+const app = angular.module("cart_app", []);
+let host = "http://localhost:8080/rest/cart"
+app.controller("cart_ctrl", function ($scope, $http) {
+    $scope.cart = {
+        items: [],
+        load() {
+            var urlload = `${host}/get-all`;
+            $http.get(urlload).then(resp => {
+                items.push(resp.data)
+            })
+        },
+        add(id) {
+            var item = this.items.find(item => item.id == id);
+            if (item) {
+                item.quantity++;
+                var url = `${host}/put-cart`;
+                var cartobject = angular.copy(this.item);
+                $http.put(url, cartobject).then(resp => {
+                }
+                )
+            }
+            else {
+                var bookObject = "";
+                var url1 = "http://localhost:8080/book/getone/" + id;
+                $http.get(url1).then(resp => {
+                    bookObject = resp.data;
+                })
+                var newitem = {
+                    user: { username: $("#user1").text() },
+                    book: bookObject
+                }
+                var url = `${host}/post-cart`;
+                $http.post(url, newitem).then(resp => {
+                    this.items.push(resp.data)
+                })
+            }
+        },
+        delete(cartid) {
+            var urldete = `${host}/get-cart-id/` + cartid;
+            $http.delete(urldete).then(resp => {
+                var itemIndex = $scope.items.findIndex(item => item.cartid == cartid);
+                this.items.splice(itemIndex, 1);
+
+            })
+        },
+        // get amout(){ 
+        //     return this.items.map(item=>item.quantity*item.price)
+        // }
+
+    }
 })
-
-// var list = [];
-// function addetail(){
-//     var inp = document.getElementsByName('carttest');
-//     alert("jhdjfhs"+ inp[1].nodeName)
-
-//    for(var i =0; i<inp.length;i++){ 
-//         if(inp[i].checked){ 
-//             alert("yes"+i)
-//             list[i] = i; 
-//         }
-      
-//    }
-//    alert("sl"+ list.length)
-// //    alert("jskfd"+ list_detail.length)
-// }
-
-// const app = angular.module("cart_app",[]);
-
-// let host = "https://localhost:8080/api/cart";
-// app.controller("cart_ctrl", function($scope,$http){ 
-//     $scope.carts= {}
-//     $scope.cart= {}
-//        $scope.loadAll =  function(){ 
-//            var url = `${host}`
-//            $http.get(url).then(resp =>{ 
-//             $scope.carts = resp.data;
-//             console.log("loadAll()")
-//            })
-//         }
-
-//         $scope.addCart = function(id){ 
-//             var a = $scope.carts.find(cart => cart.bookId == id);
-//             if(a){ 
-//                 alert("Đã có trong giỏ")
-//             }
-//             else{ 
-//                 alert("chưa có trong giỏ")
-//             }
-//             // var url = `${host}/id`
-//             // $http.get(url).then(resp =>{ 
-//             //  $scope.data = resp.data;
-//             //  console.log("loadAll()")
-//             // })
-//         }
-// });
-// 	$scope.cart = { 
-// 		items:[],
-
-// 		//thêm sản phẩm vào giỏ hàng
-// 		add(id){
-// 			var item = this.items.find(item => item.id == id);
-// 			if(item){ 
-// 				// nếu có trong gỏ hàng items rồi thì tăng số lượng
-// 				item.qty ++;
-// 				//sẽ viết lưu vào sql
-
-// 			}
-// 			else{
-// 				$http.get(`/rest/products/${id}`).then(resp =>{ 
-// 					resp.data.qty = 1;
-// 					this.items.push(resp.data);
-// 					//sẽ viết lưu vào sql
-// 				})
-// 			}
-// 		},
-
-// 		//Xoá sản phẩm trong giỏ
-// 		remove(id){
-// 			var index = this.items.findIndex(item => item.id ==id);
-// 			this.items.splice(index,1);
-// 			//sẽ viết lưu vào sql
-// 		},
-
-
-// 		//Tính thành tiền của 1 sp
-// 		amt_of(item){},
-
-// 		//Tính tổng số lượng của cá mặt hàng
-// 		get count(){
-// 			return this.items
-// 			.map(item => item.qty)
-// 			.reduce((total,qty)=> total += qty,0);
-// 		},
-
-// 		//Tính tổng tiền của các mặt hàng
-// 		get amount(){
-// 			return this.items
-// 			.map(item => item.qty* item.price)
-// 			.reduce((total,qty)=> total += qty,0);
-// 		},
-
-// 		//Lưu giỏ hàng vào Local storage
-	
-// 	}
-// 	$scope.cart.loadFromLocalStore();
-
-// 	// $scope.order = {
-// 	// 	createDate : new Date(),
-// 	// 	address : "",
-// 	// 	account:  {username:$("#user1").text()},
-		
-// 		//Tạo ra orderDtail là hoá đơn chi tiết trước của từng sản phẩm trong order
-// 		// Rồi sau đó mới đêm toàn bộ order đi tính
-
-// 		// get orderDetails(){ 
-// 		// 		return $scope.cart.items.map(item => {
-// 		// 			return {
-// 		// 				product : {id : item.id},
-// 		// 				price : item.price,
-// 		// 				quantity : item.qty
-// 		// 			}
-// 		// 		})
-// 		// },
-		
-// 		// purchase(){
-// 		// 	var order = angular.copy(this);
-// 		// 	//thực hiện đặt hàng
-// 		// 	$http.post(`/rest/orders`,order).then(resp =>{ 
-// 		// 		alert("Đặt hàng thành công");
-// 		// 		$scope.cart.clear();
-				
-// 		// 		location.href = "/order/detail/"+ resp.data.id;
-// 		// 		console.log("ksjd"+ resp.data)
-// 		// 	}).catch(error =>{
-// 		// 		alert("Đặt hàng lỗi !");
-// 		// 		console.log(error)})
-// 		// }
-// 	});
-
-// // });
 
