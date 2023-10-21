@@ -4,10 +4,16 @@
 package com.poly.DATN_BookWorms.entities;
 
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
+
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import jakarta.annotation.PostConstruct;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -28,20 +34,18 @@ import lombok.NoArgsConstructor;
  */
 @NoArgsConstructor
 @AllArgsConstructor
-@Data
 @Entity
-@Table(name="Account", schema="dbo", catalog="BookWorm" )
+@Data
+@Table(name="Account" )
 public class Account implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     //--- ENTITY PRIMARY KEY 
     @Id
-    @Column(name="Userid", nullable=false, length=10)
     private String     userid ;
 
-    //--- ENTITY DATA FIELDS 
-    @Column(name="Username", nullable=false, length=50)
+
     private String     username ;
 
     @Column(name="Fullname", nullable=false, length=50)
@@ -113,6 +117,8 @@ public class Account implements Serializable {
         sb.append("|");
         sb.append(image);
         return sb.toString(); 
-    } 
+    }
+
+	
 
 }

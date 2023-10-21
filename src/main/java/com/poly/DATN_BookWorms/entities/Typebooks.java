@@ -27,44 +27,43 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Data
 @Entity
-@Table(name="TypeBooks", schema="dbo", catalog="BookWorm" )
+@Table(name = "TypeBooks", schema = "dbo", catalog = "BookWorm")
 public class Typebooks implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-    //--- ENTITY PRIMARY KEY 
-    @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
-    @Column(name="TypeBookId", nullable=false)
-    private Integer    typebookid ;
+	// --- ENTITY PRIMARY KEY
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "TypeBookId", nullable = false)
+	private Integer typebookid;
 
-    //--- ENTITY DATA FIELDS 
-    @Column(name="CategoryId")
-    private Integer    categoryid ;
+	// --- ENTITY DATA FIELDS
+	@Column(name = "CategoryId")
+	private Integer categoryid;
 
-    @Column(name="BookId")
-    private Integer    bookid ;
+	@Column(name = "BookId")
+	private Integer bookid;
 
+	// --- ENTITY LINKS ( RELATIONSHIP )
+	@ManyToOne
+	@JoinColumn(name = "BookId", referencedColumnName = "BookId", insertable = false, updatable = false)
+	private Books books;
 
-    //--- ENTITY LINKS ( RELATIONSHIP )
-    @ManyToOne
-    @JoinColumn(name="BookId", referencedColumnName="BookId", insertable=false, updatable=false)
-    private Books      books ; 
+	@ManyToOne
+	@JoinColumn(name = "CategoryId", referencedColumnName = "CategoryId", insertable = false, updatable = false)
+	private Categories categories;
 
-    @ManyToOne
-    @JoinColumn(name="CategoryId", referencedColumnName="CategoryId", insertable=false, updatable=false)
-    private Categories categories ; 
-
-    //--- toString specific method
+	// --- toString specific method
 	@Override
-    public String toString() { 
-        StringBuilder sb = new StringBuilder(); 
-        sb.append(typebookid);
-        sb.append("|");
-        sb.append(categoryid);
-        sb.append("|");
-        sb.append(bookid);
-        return sb.toString(); 
-    } 
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append(typebookid);
+		sb.append("|");
+		sb.append(categoryid);
+		sb.append("|");
+		sb.append(bookid);
+		return sb.toString();
+	}
 
 }

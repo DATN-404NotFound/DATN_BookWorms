@@ -20,4 +20,9 @@ public class RoleServiceImp implements RoleService{
 		// TODO Auto-generated method stub
 		return roleRepo.findAll();
 	}
+
+	@Override
+	public Roles findByName(String name){
+		return new Roles();
+	}
 }
