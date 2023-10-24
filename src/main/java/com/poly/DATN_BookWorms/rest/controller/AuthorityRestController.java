@@ -31,7 +31,7 @@ public class AuthorityRestController {
 //		}
 //		
 //		return authorityService.findAll();
-//	}
+//	}z
 //	
 //	@GetMapping("authoritiesOne")
 //	public List<Authorities> getOneByRole(@RequestParam("username") String username){

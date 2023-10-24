@@ -37,7 +37,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @Data
 @Table(name="Users", schema="dbo", catalog="BookWorm" )
-public class Account implements  UserDetails, Serializable {
+public class Account implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -121,44 +121,5 @@ public class Account implements  UserDetails, Serializable {
         return sb.toString(); 
     }
 
-	@Override
-	public boolean isAccountNonExpired() {
-		// TODO Auto-generated method stub
-		return true;
-	}
-
-	@Override
-	public boolean isAccountNonLocked() {
-		// TODO Auto-generated method stub
-		return true;
-	}
-
-	@Override
-	public boolean isCredentialsNonExpired() {
-		// TODO Auto-generated method stub
-		return true;
-	}
-
-	@Override
-	public boolean isEnabled() {
-		// TODO Auto-generated method stub
-		return true;
-	}
-
-	@Override
-	public String getUsername() {
-		return username;
-	}
-	
-	@Override
-	public String getPassword() {
-		return password;
-	}
-	
-	@PostConstruct
-	@Override
-	public Collection<? extends GrantedAuthority> getAuthorities() {
-		return (Collection<? extends GrantedAuthority>) authorities;
-	}
 
 }
