@@ -25,16 +25,15 @@ public class SecurityConfig {
 
 	@Bean
 	public SecurityFilterChain web(HttpSecurity http) throws Exception {
-		http.csrf().disable().authorizeHttpRequests((request) -> request
+		http.authorizeHttpRequests((request) -> request
 				.requestMatchers("/account/**", "/product/**", "/Admin/Css/**", "/Admin/Image/**", "/Admin/Js/**")
 				.permitAll().requestMatchers("/Client/Css/**", "/Client/Image/**", "/Client/Js/**").permitAll()
 				.requestMatchers("static/**").permitAll().requestMatchers("/admin/**").hasAuthority("ADMIN")
 				.requestMatchers("/seller/**").hasAuthority("SELLER").anyRequest().authenticated())
 				.formLogin(form -> form.loginPage("/account/login").loginProcessingUrl("/account/login")
-						.defaultSuccessUrl("/product/a").permitAll())
+				.defaultSuccessUrl("/product/a").permitAll())
 				.logout((form) -> form.logoutUrl("/account/logout").logoutSuccessUrl("/account/logoutSuccess")
-						.permitAll())
-				.exceptionHandling().accessDeniedPage("/account/unauthoried");
+				.permitAll());
 
 		return http.build();
 	}
