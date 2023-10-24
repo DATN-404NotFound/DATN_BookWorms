@@ -27,6 +27,10 @@ public class AccountController {
 		return "Client/Account_page/Login";
 	}
 
+//	@RequestMapping("/login-facebook")
+//	public String loginWithFacebook() {
+//		return "Client/Account_page/Login";
+//	}
 	@GetMapping("/registration")
 	public String registrationForm(Model model) {
 		AccountDTO user = new AccountDTO();

@@ -74,8 +74,8 @@ public class AccountServiceImp implements AccountService {
 		account.setUsername(accountDTO.getUsername());
 		accountRepo.save(account);
 		
-		Long authorityId =  crc32Utils.getCRC32Hash(accountDTO.getUsername()+role.getRoleid());
-		authoritiesRepo.save(new Authorities(authorityId.toString(),account, role));
+		long authorityId =  crc32Utils.getCRC32Hash(accountDTO.getUsername()+role.getRoleid());
+		authoritiesRepo.save(new Authorities(Long.toString(authorityId),account, role));
 			
 	}
 
