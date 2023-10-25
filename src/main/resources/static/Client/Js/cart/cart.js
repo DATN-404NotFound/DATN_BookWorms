@@ -25,40 +25,71 @@ function choose(e) {
             console.log(purchase)
         }
     }
-    var f = document.getElementById
 }
+
+
+$(document).ready(function () {
+    $('#selectAll').click(function () {
+        var $name = 'name="carttest"';
+        $(':checkbox').prop('checked', true)
+        $(this).prop('disabled', true)
+        $('#deleteAll').prop('disabled', false)
+        purchase = []
+        $('input[' + $name + ']').each(function (i) {
+            purchase.push($(this).attr('id'))
+        })
+    })
+})
+
+
+$(document).ready(function () {
+    $('#deleteAll').click(function () {
+        var $name = 'name="carttest"';
+        $(':checkbox').prop('checked', false)
+        $(this).prop('disabled', true)
+        $('#selectAll').prop('disabled', false)
+        $('input[' + $name + ']').each(function (i) {
+            purchase = [];
+        })
+    })
+})
+
+
 function selectOne(e) {
     var one = document.getElementById(e);
     if (one.checked) {
         purchase.push(one.getAttribute('id'))
-        console.log("lkdkf" + purchase)
-        check2(e);
     }
     else {
         var item = purchase.findIndex(item => item == e);
         purchase.splice(item, 1);
-        console.log("lkdkf" + purchase)
     }
+    check2(e);
+    check()
+    console.log(purchase)
 }
 
-function check2(e){ 
+
+function check2(e) {
     var one = document.getElementById(e);
     var parent = one.parentElement.parentElement.parentElement;
-    var chil =  parent.children;
-    for(var i=0; i<chil.length;i++){ 
-  var a=0;
-     if(chil[i].children[0].children[0].checked) { 
-        a++;
-        if(chil.length ==a){ 
-            
+    var chil = parent.children;
+    var a = 0;
+    for (var i = 0; i < chil.length; i++) {
+        if (chil[i].children[0].children[0].checked) {
+            a++;
+            var pa = parent.parentElement.parentElement;
+            var shops = pa.children[0].children[0];
+            if (chil.length == a) {
+                shops.checked = true;
+            }
+            else {
+                shops.checked = false;
+            }
         }
-     }
-     
-    
-
-
     }
 }
+
 
 function check() {
     var f = document.getElementsByName('inp');
@@ -66,38 +97,20 @@ function check() {
     for (var i = 0; i < f.length; i++) {
         if (f[i].checked) {
             index++;
+            var a = true;
+            var b = document.getElementById('deleteAll');
+            var c = document.getElementById('selectAll');
+
             if (f.length == index) {
-                console.log("khdesfjkh")
-                document.getElementById('deleteAll').disabled = false;
-                document.getElementById('selectAll').disabled = true;
+                b.disabled = !a;
+                c.disabled = a;
             }
             else {
-                document.getElementById('deleteAll').disabled = true;
-                document.getElementById('selectAll').disabled = false;
+                b.disabled = a;
+                c.disabled = !a;
             }
         }
     }
-}
-
-
-function chooseAll(e) {
-    var f = document.getElementsByName('inp')
-    for (var i = 0; i < f.length; i++) {
-        f[i].checked = true;
-        choose(f[i].getAttribute('id'));
-    }
-    check();
-}
-
-
-function deleteAll(e) {
-    var f = document.getElementsByName('inp')
-    for (var i = 0; i < f.length; i++) {
-        f[i].checked = false;
-        choose(f[i].getAttribute('id'));
-    }
-    check();
-
 }
 
 
@@ -145,11 +158,7 @@ app.controller("cart_ctrl", function ($scope, $http) {
                 this.items.splice(itemIndex, 1);
 
             })
-        },
-        // get amout(){ 
-        //     return this.items.map(item=>item.quantity*item.price)
-        // }
-
+        }
     }
 })
 
