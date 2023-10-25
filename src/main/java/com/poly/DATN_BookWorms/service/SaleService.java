@@ -18,5 +18,7 @@ public interface SaleService {
 	Sales update(Sales sale);
 
 	void delete(String id);
+
+	List<Sales> saleOfShopIntendFor(String intendFor);
 	
 }

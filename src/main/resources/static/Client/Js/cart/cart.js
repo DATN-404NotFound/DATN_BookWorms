@@ -55,6 +55,8 @@ $(document).ready(function () {
     })
 })
 
+
+
 function totalAllChoose() {
     if (purchase.length > 0) {
         purchase.forEach((n) => {
@@ -143,67 +145,33 @@ app.controller("cart_ctrl", function ($scope, $http) {
             return amout;
         }
     }
-    // $scope.order={ 
-    //     createDate : new Date(),
-	// 	address : "",
-	// 	account:  {username:$("#user1").text()},
-    //     :  {username:$("#user1").text()},
-		
-	// 	//Tạo ra orderDtail là hoá đơn chi tiết trước của từng sản phẩm trong order
-	// 	// Rồi sau đó mới đêm toàn bộ order đi tính
-	// 	get orderDetails(){ 
-	// 			return $scope.cart.items.map(item => {
-	// 				return {
-	// 					product : {id : item.id},
-	// 					price : item.price,
-	// 					quantity : item.qty
-	// 				}
-	// 			})
-	// 	},
-    // }
 
-    // $scope.cart = {
-    //     items: [],
-    //     load() {
-    //         var urlload = `${host}/get-all`;
-    //         $http.get(urlload).then(resp => {
-    //             items.push(resp.data)
-    //         })
-    //     },
-    //     add(id) {
-    //         var item = this.items.find(item => item.id == id);
-    //         if (item) {
-    //             item.quantity++;
-    //             var url = `${host}/put-cart`;
-    //             var cartobject = angular.copy(this.item);
-    //             $http.put(url, cartobject).then(resp => {
-    //             }
-    //             )
-    //         }
-    //         else {
-    //             var bookObject = "";
-    //             var url1 = "http://localhost:8080/book/getone/" + id;
-    //             $http.get(url1).then(resp => {
-    //                 bookObject = resp.data;
-    //             })
-    //             var newitem = {
-    //                 user: { username: $("#user1").text() },
-    //                 book: bookObject
-    //             }
-    //             var url = `${host}/post-cart`;
-    //             $http.post(url, newitem).then(resp => {
-    //                 this.items.push(resp.data)
-    //             })
-    //         }
-    //     },
-    //     delete(cartid) {
-    //         var urldete = `${host}/get-cart-id/` + cartid;
-    //         $http.delete(urldete).then(resp => {
-    //             var itemIndex = $scope.items.findIndex(item => item.cartid == cartid);
-    //             this.items.splice(itemIndex, 1);
+    $scope.changequantity = function(quantity,cartid){ 
+        var urlcart = `${host}/` + cartid;
+        var cartchange ={};
+        $http.get(urlcart).then(resp =>{ 
+            cartchange = resp.data;
+        })
+        cartchange.quantity = quantity;
+        $http.put(urlcart,cartchange).then(resp =>{
+        })
+    }
 
-    //         })
-    //     }
-    // }
+    $scope.cartsvoucher={
+        voucherAll :[],
+        changevoucher(couoponcode){ 
+            var urlsale ="http://localhost:8080/rest/sale/"+couoponcode
+            var con = this.voucherAll.find(item =>  item.couoponcode == couoponcode)
+            if(con){ 
+                con.couoponcode = couoponcode;
+            }
+            else{
+                $http.get(urlsale) .then(resp =>{ 
+                    voucherAll.push(resp.data); 
+                })
+            }
+        },
+    }
+  
 })
 

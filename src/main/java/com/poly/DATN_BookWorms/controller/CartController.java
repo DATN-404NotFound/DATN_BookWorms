@@ -11,8 +11,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.poly.DATN_BookWorms.entities.Cart;
+import com.poly.DATN_BookWorms.entities.Sales;
 import com.poly.DATN_BookWorms.entities.Shoponlines;
 import com.poly.DATN_BookWorms.service.CartService;
+import com.poly.DATN_BookWorms.service.SaleService;
 
 @Controller
 @RequestMapping("/cart")
@@ -20,6 +22,9 @@ public class CartController {
 	
 	@Autowired
 	CartService cartService;
+
+	@Autowired
+	SaleService saleService;
 	
 	@RequestMapping("")
 	public String cartView(Model model, @RequestParam("userId") String userId) { 
@@ -28,6 +33,8 @@ public class CartController {
 			model.addAttribute("cartuserList", cartuser_list);
 			List<Shoponlines> list_cart_shop = cartService.list_cart_shop(userId);
 			model.addAttribute("cartshoplist", list_cart_shop);
+			List<Sales> sale_shopid_intendFor = saleService.saleOfShopIntendFor("ForBook");
+			model.addAttribute("saleShopIntendFor",sale_shopid_intendFor);
 		return "Client/cart_client/cart_user";
 	}
 	
