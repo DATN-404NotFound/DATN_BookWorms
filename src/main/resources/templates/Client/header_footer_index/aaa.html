@@ -19,7 +19,32 @@
 </head>
 
 <body>
+
     <main class="container-fluid ">
+        <script>
+            $(document).ready(function() {
+                $('#myModal').modal('show'); // Hiển thị modal khi tải trang
+            });
+        </script>
+        <div class="modal" id="myModal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="modalTitle">Nontification</h4>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
+                        <span  th:if="${#strings.isEmpty(welcomeUser)}">Welcome guest, Hope you have a great time shopping on IBook <3</span>
+                        <span  th:if="${not #strings.isEmpty(welcomeUser)}">${welcomeUser}, Hope you have a great time shopping on IBook <3</span>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
         <div class="artical_index">
             <div id="demo" class="carousel slide banner_index" data-bs-ride="carousel" style="width: 100%;">                <div class="carousel-indicators d-flex">
                     <button type="button" data-bs-target="#demo" data-bs-slide-to="0" class="active"></button>

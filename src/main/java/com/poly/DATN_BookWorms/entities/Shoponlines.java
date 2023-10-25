@@ -62,8 +62,6 @@ public class Shoponlines implements Serializable {
     @Column(name="ShopAddress", length=100)
     private String     shopaddress ;
 
-    @Column(name="UserId", length=10)
-    private String     userid ;
 
     @Column(name="Paycount", length=10)
     private String     paycount ;
@@ -102,8 +100,6 @@ public class Shoponlines implements Serializable {
         sb.append(description);
         sb.append("|");
         sb.append(shopaddress);
-        sb.append("|");
-        sb.append(userid);
         sb.append("|");
         sb.append(paycount);
         sb.append("|");
