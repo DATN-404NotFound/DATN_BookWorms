@@ -27,17 +27,14 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Data
 @Entity
-@Table(name = "Authorities", uniqueConstraints = {
-		@UniqueConstraint(columnNames = {"Username", "Roleid"})
-})
+@Table(name = "Authorities")
 public class Authorities implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @Id 
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
-	@ManyToOne @JoinColumn(name = "Username")
+	private String authorityid;
+	@ManyToOne @JoinColumn(name = "userid")
 	private Account account;
 	@ManyToOne  @JoinColumn(name = "Roleid")
 	private Roles roles;

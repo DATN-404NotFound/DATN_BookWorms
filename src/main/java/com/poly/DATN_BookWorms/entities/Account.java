@@ -36,18 +36,16 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Entity
 @Data
-@Table(name="Users", schema="dbo", catalog="BookWorm" )
+@Table(name="Account" )
 public class Account implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     //--- ENTITY PRIMARY KEY 
     @Id
-    @Column(name="Userid", nullable=false, length=10)
     private String     userid ;
 
-    //--- ENTITY DATA FIELDS 
-    @Column(name="Username", nullable=false, length=50)
+
     private String     username ;
 
     @Column(name="Fullname", nullable=false, length=50)
