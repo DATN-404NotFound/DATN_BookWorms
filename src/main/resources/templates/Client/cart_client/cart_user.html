@@ -53,53 +53,19 @@
                         <tbody>
                             <tr th:each="b:${cartuserList}" th:if="${b.books.shopOnline.shopId == ${p.shopId}}">
                                 <td>
-                                    <input type="checkbox" value="${b.cartid}" onclick="selectOne('yhhh')"  class="form-check-input"  id="yhhh" name="carttest">
+                                    <input type="checkbox" value="${b.cartid}" onclick="selectOne(id)"  class="form-check-input"  id="${b.cartid}" name="carttest">
                                 </td>
                                 <td>
                                     <div>
                                         <img th:src="@{/Client/images/Hinh7_book7.jpg}" style="width: 50%;" alt="">
                                     </div>
                                 </td>
-                                <td ><a href="/book/detail?bookid = ${p.bookid}">Chiếc Lá Cuối Cùng</a></td>
-                                <td>200 000.00</td>
+                                <td ><a href="/book/detail?bookid = ${p.bookid}" th:text="${b.books.bookname}"></a></td>
+                                <td th:text ="${#number.formatDecimal(b.books.price,0,'COMMA',2,'POINT')}"></td>
                                 <td>
                                     <input type="number" id="d" onclick ="changeQuantity(this)" class="form-control" style="width: 100px;" min="1" step="1" value="1" ng-model="cart.quantity" >
                                 </td>
-                                <td class="total_pro">200 000.00</td>
-                                <td><a href="#" style="color: #000;"><i style="font-size: 30px;" class="bi bi-trash"></i></a></td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <input type="checkbox" class="form-check-input"  onclick="selectOne('yhhhv')"  id="yhhhv" name="carttest">
-                                </td>
-                                <td>
-                                    <div>
-                                        <img th:src="@{/Client/images/Hinh4_book4.jpg}" style="width: 50%;" alt="">
-                                    </div>
-                                </td>
-                                <td><a href="#">Chiếc Lá Cuối Cùng</a></td>
-                                <td>150 000.00</td>
-                                <td>
-                                    <input type="number" ng-click="cart.add(${b.cartId})"  class="form-control" style="width: 100px;" min="1" step="1" value="1">
-                                </td>
-                                <td class="total_pro">150 000.00</td>
-                                <td><a href="@{|/rest/cart/delete-cart/${b.cartId}}" style="color: #000;" ng-click=" cart.delete(${b.cartId})" ><i style="font-size: 30px;" class="bi bi-trash"></i></a></td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <input type="checkbox" class="form-check-input " onclick="selectOne('yhho')" id="yhho" name="carttest">
-                                </td>
-                                <td>
-                                    <div>
-                                        <img th:src="@{/Client/images/Hinh11_book11.jpg}" style="width: 50%;" alt="">
-                                    </div>
-                                </td>
-                                <td><a href="#">Chiếc Lá Cuối Cùng</a></td>
-                                <td>196 000.00</td>
-                                <td>
-                                    <input type="number" class="form-control" style="width: 100px;" min="1" step="1" value="1">
-                                </td>
-                                <td class="total_pro">196 000.00</td>
+                                <td class="total_pro" th:text ="${#number.formatDecimal(b.books.price * b.quantity,0,'COMMA',2,'POINT')}"></td>
                                 <td><a href="#" style="color: #000;"><i style="font-size: 30px;" class="bi bi-trash"></i></a></td>
                             </tr>
                         </tbody>
@@ -107,13 +73,9 @@
                     <hr style="clear: both; border: 1px solid black;">
                 <div class="float-start m-3">
                     <input type="text" width="300px" class="form-control" placeholder="Tìm kiếm mã giảm" name="" id="">
-                     <!-- <p>Số lượng mua : <strong>3</strong></p>
-                     <p>Thành tiền : <strong>600 000</strong></p> -->
                  </div>
                 <div class="float-end m-3">
                    <p style="font-size: 22px;">Giảm : <span style="color: #C93F04; font-weight: 500;">-30 000</span></p>
-                    <!-- <p>Số lượng mua : <strong>3</strong></p>
-                    <p>Thành tiền : <strong>600 000</strong></p> -->
                 </div>
                 <div class="float-end m-3">
                     <select class="form-select">
@@ -122,121 +84,13 @@
                         <option>3</option>
                         <option>4</option>
                     </select>
-                    <!-- <p>Số lượng mua : <strong>3</strong></p>
-                    <p>Thành tiền : <strong>600 000</strong></p> -->
                 </div>
                 <hr style="clear: both; border: 2px solid black;">
                 </div>
             </div>
 
-            <div style="border: 1px solid #C93F04; border-radius: 10px;margin-top: 50px;">
-                <div class="my-5" style="width: 90%; margin: auto;">
-                    <div class="float-start">
-                        <input type="checkbox" class="form-check-input float-start mt-2 " id="2" onclick="choose(id)" name="inp" >
-                        <a href="#" style="text-decoration: none; color: #080808;"><span><i style="font-size: 30px;"
-                                    class="bi bi-person-circle mx-3"></i></span>
-                            <span style="font-size: 22px;">thanhha13</span></a>
-                    </div>
-                    <hr style="clear: both;">
-                    <table class="table table-hover">
-                        <thead>
-                            <tr>
-                                <th style="width: 5%;">
-    
-                                </th>
-                                <th colspan="" style="width: 10%; "></th>
-                                <th style="width: 30%;"> Product</th>
-                                <th>Price</th>
-                                <th style="width: 20%;">Quantity</th>
-                                <th>Total</th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>
-                                    <input type="checkbox"  class="form-check-input" onclick="selectOne(id)" id="mmm" name="carttest">
-                                </td>
-                                <td>
-                                    <div>
-                                        <img th:src="@{/Client/images/Hinh7_book7.jpg}" style="width: 50%;" alt="">
-                                    </div>
-                                </td>
-                                <td ><a href="#">Chiếc Lá Cuối Cùng</a></td>
-                                <td>200 000.00</td>
-                                <td>
-                                    <input type="number"  class="form-control" style="width: 100px;" min="1" step="1" value="1">
-                                </td>
-                                <td class="total_pro">200 000.00</td>
-                                <td><a href="#" style="color: #000;"><i style="font-size: 30px;" class="bi bi-trash"></i></a></td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <input type="checkbox" class="form-check-input" onclick="selectOne(id)" id="cmm" name="carttest">
-                                </td>
-                                <td>
-                                    <div>
-                                        <img th:src="@{/Client/images/Hinh4_book4.jpg}" style="width: 50%;" alt="">
-                                    </div>
-                                </td>
-                                <td><a href="#">Chiếc Lá Cuối Cùng</a></td>
-                                <td>150 000.00</td>
-                                <td>
-                                    <input type="number"  class="form-control" style="width: 100px;" min="1" step="1" value="1">
-                                </td>
-                                <td class="total_pro">150 000.00</td>
-                                <td><a href="#" style="color: #000;"><i style="font-size: 30px;" class="bi bi-trash"></i></a></td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <input type="checkbox" class="form-check-input" onclick="selectOne(id)" id="mmms" name="carttest">
-                                </td>
-                                <td>
-                                    <div>
-                                        <img th:src="@{/Client/images/Hinh11_book11.jpg}" style="width: 50%;" alt="">
-                                    </div>
-                                </td>
-                                <td><a href="#">Chiếc Lá Cuối Cùng</a></td>
-                                <td>196 000.00</td>
-                                <td>
-                                    <input type="number" class="form-control" style="width: 100px;" min="1" step="1" value="1">
-                                </td>
-                                <td class="total_pro">196 000.00</td>
-                                <td><a href="#" style="color: #000;"><i style="font-size: 30px;" class="bi bi-trash"></i></a></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <hr style="clear: both; border: 1px solid black;">
-                <div class="float-start m-3">
-                    <input type="text" width="300px" class="form-control" placeholder="Tìm kiếm mã giảm" name="" id="">
-                     <!-- <p>Số lượng mua : <strong>3</strong></p>
-                     <p>Thành tiền : <strong>600 000</strong></p> -->
-                 </div>
-                <div class="float-end m-3">
-                   <p style="font-size: 22px;">Giảm : <span style="color: #C93F04; font-weight: 500;">-30 000</span></p>
-                    <!-- <p>Số lượng mua : <strong>3</strong></p>
-                    <p>Thành tiền : <strong>600 000</strong></p> -->
-                </div>
-                <div class="float-end m-3">
-                    <select class="form-select">
-                        <option>Chọn mã giảm của shop</option>
-                        <option>2</option>
-                        <option>3</option>
-                        <option>4</option>
-                    </select>
-                    <!-- <p>Số lượng mua : <strong>3</strong></p>
-                    <p>Thành tiền : <strong>600 000</strong></p> -->
-                </div>
-                <hr style="clear: both; border: 2px solid black;">
-                </div>
 
-            </div>
-  
-            <!-- <div style="float: left;" class="mx-5 mt-3">
-                
-            </div> -->
             <div>
-
                 <div style="width: 100%; height: 150px; margin-top: 50px; border-radius: 5px;" class="border-orange">
                     <div>
                         <div style="float: left; font-size: 25px; font-weight: 500; color: #333;  margin-top: 70px; margin-left: 50px;">
@@ -246,7 +100,7 @@
                         <div style="float: right; font-size: 25px; font-weight: 500; color: #333;  margin-top: 50px;">
                            <form >
                             <p>
-                                <span>Tổng tiền : <strong class="orange-text">1 000 000 </strong></span>
+                                <span>Tổng tiền : <strong class="orange-text">{{$scope.totalAll}}</strong></span>
                                 <span class="mx-5">
                                     <button  class="button_all_orange"  onclick="addetail()">Mua hàng</button>
                                 </span>
