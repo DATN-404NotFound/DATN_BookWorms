@@ -2,7 +2,10 @@ package com.poly.DATN_BookWorms.service.impl;
 
 import java.util.List;
 
+import com.poly.DATN_BookWorms.response.BookResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.poly.DATN_BookWorms.entities.Books;
@@ -11,7 +14,7 @@ import com.poly.DATN_BookWorms.service.BookService;
 
 @Service
 public class BookServiceImp implements BookService{
-
+	BooksRepo booksRepo;
 	@Autowired
 	BooksRepo bookRepo;
 	
@@ -54,5 +57,15 @@ public class BookServiceImp implements BookService{
 	public List<Books> findByCategoryId(String cid) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Autowired
+	public BookServiceImp(BooksRepo booksRepo) {
+		this.booksRepo = booksRepo;
+	}
+
+	@Override
+	public Page<BookResponse> findAllBook(Pageable pageable) {
+		return booksRepo.findAllBook(pageable);
 	}
 }

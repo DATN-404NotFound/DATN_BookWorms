@@ -34,4 +34,8 @@ public class ax {
 	public String g() { 
 		return "Client/cart_client/deal";
 	}
+	@GetMapping("/s")
+	public String s() {
+		return "Client/Product_page/product_list";
+	}
 }

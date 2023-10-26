@@ -2,7 +2,17 @@ package com.poly.DATN_BookWorms.service.impl;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+<<<<<<< Updated upstream
 import org.springframework.security.crypto.password.PasswordEncoder;
+=======
+//import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+//import org.springframework.security.core.Authentication;
+//import org.springframework.security.core.context.SecurityContextHolder;
+//import org.springframework.security.core.userdetails.User;
+//import org.springframework.security.core.userdetails.UserDetails;
+//import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+//import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
+>>>>>>> Stashed changes
 import org.springframework.stereotype.Service;
 
 
@@ -33,12 +43,18 @@ public class AccountServiceImp implements AccountService {
 	
 	@Autowired
 	RoleRepo roleRepo;
+<<<<<<< Updated upstream
 	
 	@Autowired
 	PasswordEncoder passwordEncoder;
 	
 	@Autowired
 	CRC32Utils crc32Utils;
+=======
+
+//	@Autowired
+//	BCryptPasswordEncoder passwordEncoder;
+>>>>>>> Stashed changes
 
 //	@Override
 //	public Account findById(String username) {
@@ -57,6 +73,7 @@ public class AccountServiceImp implements AccountService {
 //	}
 
 	@Override
+<<<<<<< Updated upstream
 	public void save(AccountDTO accountDTO) {
 		Roles role = roleRepo.findById("GUEST").get();
 
@@ -84,6 +101,35 @@ public class AccountServiceImp implements AccountService {
 //		return accountRepo.save(account);
 //	}
 
+=======
+	public Account create(Account account) {
+		return null;
+	}
+
+	@Override
+	public Account update(Account account) {
+		return null;
+	}
+
+//	@Override
+//	public Account create(AccountDTO accountDTO) {
+//		Account account = new Account(passwordEncoder.encode(accountDTO.getUsername() + accountDTO.getFullname()),
+//				accountDTO.getUsername(), accountDTO.getFullname(), passwordEncoder.encode(accountDTO.getPassword()),
+//				null, null, null, null, null, null, null, null, null, null, null);
+//		Roles roles = roleService.findByName("USER");
+//		Authorities authorities = new Authorities(null, account, roles);
+//
+//		authoritiesRepo.save(authorities);
+//		accountRepo.save(account);
+//		return account;
+//	}
+//
+//	@Override
+//	public Account update(Account account) {
+//		return accountRepo.save(account);
+//	}
+//
+>>>>>>> Stashed changes
 //	public void loginFromOAuth2(OAuth2AuthenticationToken oauth2) {
 //		String email = oauth2.getPrincipal().getAttribute("email");
 //		String password = Long.toHexString(System.currentTimeMillis());
@@ -92,6 +138,7 @@ public class AccountServiceImp implements AccountService {
 //		Authentication auth = new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
 //		SecurityContextHolder.getContext().setAuthentication(auth);
 //	}
+<<<<<<< Updated upstream
 //
 //	@Override
 //	public void delete(String username) {
@@ -111,15 +158,47 @@ public class AccountServiceImp implements AccountService {
 //		return null;
 //	}
 //
+=======
+
+	@Override
+	public void delete(String username) {
+		// TODO Auto-generated method stub
+		accountRepo.deleteById(username);
+	}
+
+	@Override
+	public Account create(AccountDTO accountDTO) {
+		return null;
+	}
+
+	@Override
+	public List<Account> getAdministrators() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Account findByEmail(String email) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+>>>>>>> Stashed changes
 //	@Override
 //	public Account create(Account account) {
 //		// TODO Auto-generated method stub
 //		account.setPassword(passwordEncoder.encode(account.getPassword()));
 //		return accountRepo.save(account);
 //	}
+<<<<<<< Updated upstream
 //
 //	@Override
 //	public LoginResponse loginAccount(@RequestBody LoginDTO loginDTO) {
+=======
+
+	@Override
+	public LoginResponse loginAccount(@RequestBody LoginDTO loginDTO) {
+>>>>>>> Stashed changes
 //		// TODO Auto-generated method stub
 //		String message = "";
 //		Account account1 = accountRepo.findByUsername(loginDTO.getUsername()).get();

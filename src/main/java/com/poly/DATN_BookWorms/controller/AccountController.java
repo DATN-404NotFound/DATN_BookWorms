@@ -26,6 +26,7 @@ public class AccountController {
 	public String loginForm() {
 		return "Client/Account_page/Login";
 	}
+<<<<<<< Updated upstream
 
 //	@RequestMapping("/login-facebook")
 //	public String loginWithFacebook() {
@@ -52,5 +53,10 @@ public class AccountController {
 
 		accountService.save(accountDTO);
 		return "redirect:/login";
+=======
+	@RequestMapping("indexvv")
+	public String home(){
+		return "Client/header_footer_index/aaa";
+>>>>>>> Stashed changes
 	}
 }
