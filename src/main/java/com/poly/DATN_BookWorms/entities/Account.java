@@ -48,10 +48,8 @@ public class Account implements Serializable {
 
     private String     username ;
 
-    @Column(name="Fullname", nullable=false, length=50)
     private String     fullname ;
 
-    @Column(name="Password", nullable=false, length=50)
     private String     password ;
 
     @Temporal(TemporalType.DATE)

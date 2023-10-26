@@ -30,7 +30,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Data
 @Entity
-@Table(name="DiscountCodes", schema="dbo", catalog="BookWorm" )
+@Table(name="Discountcodes" )
 public class Discountcodes implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -38,28 +38,21 @@ public class Discountcodes implements Serializable {
     //--- ENTITY PRIMARY KEY 
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
-    @Column(name="DiscountCodeId", nullable=false)
     private Integer    discountcodeid ;
 
     //--- ENTITY DATA FIELDS 
-    @Column(name="SaleId", nullable=false, length=10)
     private String     saleid ;
 
-    @Column(name="UserId", nullable=false, length=10)
     private String     userid ;
 
     @Temporal(TemporalType.DATE)
-    @Column(name="StartDiscount")
     private Date       startdiscount ;
 
     @Temporal(TemporalType.DATE)
-    @Column(name="EndDiscount")
     private Date       enddiscount ;
 
-    @Column(name="isDelete")
     private Boolean    isdelete ;
 
-    @Column(name="MinPrice")
     private Double     minprice ;
 
     @Column(name="Status", length=50)
@@ -68,11 +61,11 @@ public class Discountcodes implements Serializable {
 
     //--- ENTITY LINKS ( RELATIONSHIP )
     @ManyToOne
-    @JoinColumn(name="UserId", referencedColumnName="Userid", insertable=false, updatable=false)
+    @JoinColumn(name="Userid", referencedColumnName="Userid", insertable=false, updatable=false)
     private Account    account ; 
 
     @ManyToOne
-    @JoinColumn(name="SaleId", referencedColumnName="CouoponCode", insertable=false, updatable=false)
+    @JoinColumn(name="Saleid", referencedColumnName="CouoponCode", insertable=false, updatable=false)
     private Sales      sales ; 
 
     //--- toString specific method
