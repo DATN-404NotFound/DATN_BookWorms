@@ -36,16 +36,17 @@ public class AccountController {
 	@Autowired
 	CustomUserDetailService customUserDetailService;
 
+
 	@RequestMapping("/login")
 	public String loginForm() {
 		return "Client/Account_page/Login";
 	}
-	@RequestMapping("/login/oauth2/code/google")
+
+	@RequestMapping("/login-google/success")
 	public String loginWithGoogle(@AuthenticationPrincipal OAuth2User performance, Model model) {
-//		if (performance == null){
-//
-//			return "account/login/oauth2/code/google";
-//		}
+		if (performance == null){
+			return "redirect:/login";
+		}
 
 		if(accountService.findByUsename(performance.getName())==null){
 			AccountDTO accountDTO = new AccountDTO();
@@ -56,9 +57,10 @@ public class AccountController {
 			accountService.save(accountDTO);
 
 		}
-		model.addAttribute("welcomeUser","Welcome"+performance.getAttribute("name"));
+		model.addAttribute("welcomeUser",performance.getAttribute("name"));
 		customUserDetailService.loadUserByUsername(performance.getName());
-		System.out.println("Had in database");
+		System.out.println("name:"+performance.getAttribute("name"));
+		System.out.println("email:"+performance.getAttribute("email"));
 		return "redirect:/product/a";
 	}
 
