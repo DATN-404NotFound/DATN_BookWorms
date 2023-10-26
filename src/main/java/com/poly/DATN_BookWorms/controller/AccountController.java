@@ -29,61 +29,61 @@ import java.util.Map;
 @Controller
 @RequestMapping("/account")
 public class AccountController {
-	
-	@Autowired
-	AccountService accountService;
 
-	@Autowired
-	CustomUserDetailService customUserDetailService;
+    @Autowired
+    AccountService accountService;
+
+    @Autowired
+    CustomUserDetailService customUserDetailService;
 
 
-	@RequestMapping("/login")
-	public String loginForm() {
-		return "Client/Account_page/Login";
-	}
+    @RequestMapping("/login")
+    public String loginForm() {
+        return "Client/Account_page/Login";
+    }
 
-	@RequestMapping("/login-google/success")
-	public String loginWithGoogle(@AuthenticationPrincipal OAuth2User performance, Model model) {
-		if (performance == null){
-			return "redirect:/login";
-		}
+    @RequestMapping("/login-google/success")
+    public String loginWithGoogle(@AuthenticationPrincipal OAuth2User performance, Model model) {
+        if (performance == null) {
+            return "redirect:/login";
+        }
 
-		if(accountService.findByUsename(performance.getName())==null){
-			AccountDTO accountDTO = new AccountDTO();
-			accountDTO.setEmail(performance.getAttribute("email"));
-			accountDTO.setUsername(performance.getName());
-			accountDTO.setFullname(performance.getAttribute("name"));
-			accountDTO.setPassword(RandomStringUtils.randomAlphabetic(8));
-			accountService.save(accountDTO);
+        if (accountService.findByUsename(performance.getName()) == null) {
+            AccountDTO accountDTO = new AccountDTO();
+            accountDTO.setEmail(performance.getAttribute("email"));
+            accountDTO.setUsername(performance.getName());
+            accountDTO.setFullname(performance.getAttribute("name"));
+            accountDTO.setPassword(RandomStringUtils.randomAlphabetic(8));
+            accountService.save(accountDTO);
 
-		}
-		model.addAttribute("welcomeUser",performance.getAttribute("name"));
-		customUserDetailService.loadUserByUsername(performance.getName());
-		System.out.println("name:"+performance.getAttribute("name"));
-		System.out.println("email:"+performance.getAttribute("email"));
-		return "redirect:/product/a";
-	}
+        }
+        //Tăng thời gian chờ lên
+        model.addAttribute("welcomeUser", performance.getAttribute("name"));
+        customUserDetailService.loadUserByUsername(performance.getName());
+        System.out.println("name:" + performance.getAttribute("name"));
+        System.out.println("email:" + performance.getAttribute("email"));
+        return "redirect:/product/a";
+    }
 
-	@GetMapping("/registration")
-	public String registrationForm(Model model) {
-		AccountDTO user = new AccountDTO();
-		model.addAttribute("user", user);
-		return "Client/Account_page/Register";
-	}
+    @GetMapping("/registration")
+    public String registrationForm(Model model) {
+        AccountDTO user = new AccountDTO();
+        model.addAttribute("user", user);
+        return "Client/Account_page/Register";
+    }
 
-	@PostMapping("/registration")
-	public String registration(@Valid @ModelAttribute("user") AccountDTO accountDTO, BindingResult result, Model model) {
-		Account  existingUser = accountService.findByUsename(accountDTO.getUsername());
+    @PostMapping("/registration")
+    public String registration(@Valid @ModelAttribute("user") AccountDTO accountDTO, BindingResult result, Model model) {
+        Account existingUser = accountService.findByUsename(accountDTO.getUsername());
 
-		if (existingUser != null)
-			result.rejectValue("Username", null, "User already registered !!!");
+        if (existingUser != null)
+            result.rejectValue("Username", null, "User already registered !!!");
 
-		if (result.hasErrors()) {
-			model.addAttribute("user", accountDTO);
-			return "Client/Account_page/Register";
-		}
-
-		accountService.save(accountDTO);
-		return "redirect:/login";
-	}
+        if (result.hasErrors()) {
+            model.addAttribute("user", accountDTO);
+            return "redirect:registration";
+        }
+        accountService.save(accountDTO);
+        return "redirect:login";
+    }
 }
