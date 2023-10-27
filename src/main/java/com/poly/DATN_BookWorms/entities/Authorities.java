@@ -38,5 +38,9 @@ public class Authorities implements Serializable {
 	private Account account;
 	@ManyToOne  @JoinColumn(name = "Roleid")
 	private Roles roles;
+	public Roles getRoles() {
+		// TODO Auto-generated method stub
+		return this.roles;
+	}
 
 }

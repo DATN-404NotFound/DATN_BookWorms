@@ -95,6 +95,8 @@ public class Account implements Serializable {
     @OneToMany(mappedBy="account")
     private List<Addressusers> listOfAddressusers ; 
 
+
+
     //--- toString specific method
 	@Override
     public String toString() { 
@@ -117,6 +119,42 @@ public class Account implements Serializable {
         return sb.toString(); 
     }
 
-	
+	public List<Authorities> getAuthorities() {
+		// TODO Auto-generated method stub
+		return this.authorities;
+	}
+
+	public String getUsername() {
+		// TODO Auto-generated method stub
+		return this.username;
+	}
+
+    public String getPassword() {
+		// TODO Auto-generated method stub
+		return this.password;
+	}
+  public String getEmail(String Email) {
+		// TODO Auto-generated method stub
+		return this.email = Email;
+	}
+      public String getFullname(String fullname) {
+		// TODO Auto-generated method stub
+		return this.fullname = fullname;
+	}
+	public void setUserid(String userid) {
+		// TODO Auto-generated method stub
+		this.userid = userid;
+	}
+
+	public void setUsername(String username2) {
+		// TODO Auto-generated method stub
+		this.username = username2;
+	}
+
+	public void setEmail(String email2) {
+		// TODO Auto-generated method stub
+		this.email = email2;
+	}
+
 
 }

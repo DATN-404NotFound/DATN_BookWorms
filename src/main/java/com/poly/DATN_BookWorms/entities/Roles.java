@@ -54,6 +54,11 @@ public class Roles implements Serializable {
 
 	public Roles(String rolename) {
 		this.rolename = rolename;
+	}
+
+	public String getRoleid() {
+		// TODO Auto-generated method stub
+		return this.roleid;
 	} 
 
 }

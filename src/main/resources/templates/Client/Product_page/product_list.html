@@ -1,31 +1,23 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-	th:replace="~{/Client/index::dynamic(~{::main})}">
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{/Client/index::dynamic(~{::main})}">
 
 <head>
-<meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Document</title>
-<link
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
-	rel="stylesheet">
-<script
-	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-<script
-	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
-<link rel="stylesheet" href="/assets/css/shopping-cart-app.css">
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<link rel="stylesheet"
-	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
-<link rel="stylesheet" href="/Client/css/_index.css">
-<link rel="stylesheet" href="/Client/css/product.css">
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+	<link rel="stylesheet" href="/assets/css/shopping-cart-app.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+	<link rel="stylesheet" href="/Client/css/_index.css">
+	<link rel="stylesheet" href="/Client/css/product.css">
 </head>
 
 <body>
-	<main ng-app="cart_app" ng-controller="cart_ctrl"
-		style="width: 98%; height: auto; margin: auto;">
+	<main ng-app="cart_app" ng-controller="cart_ctrl" style="width: 98%; height: auto; margin: auto;">
 		<div>PRODUCT OVERVIEW</div>
 		<div>
 			<div class="d-inline-flex p-3 text-white">
@@ -40,7 +32,7 @@
 
 					<script>
 						// Lắng nghe sự kiện thay đổi trên dropdown
-						document.getElementById("sortDirection").addEventListener("change", function() {
+						document.getElementById("sortDirection").addEventListener("change", function () {
 							// Lấy form và gửi yêu cầu ngay khi có sự thay đổi
 							document.getElementById("sortForm").submit();
 						});
@@ -100,8 +92,7 @@
 				</div>
 				<div class="card">
 					<div class="card-header">
-						<a class="collapsed " data-bs-toggle="collapse"
-							href="#publishCompany"> Nhà xuất bản </a>
+						<a class="collapsed " data-bs-toggle="collapse" href="#publishCompany"> Nhà xuất bản </a>
 					</div>
 					<div id="publishCompany" class="collapse">
 						<div class="card-body">
@@ -127,26 +118,26 @@
 						<div class="card-body">
 							<form action="">
 								<div class="form-check">
-									<input type="checkbox" class="form-check-input" id="check1"
-										name="option1" value="something" checked> <label
-										class="form-check-label" for="check1">Tâm lý học</label>
+									<input type="checkbox" class="form-check-input" id="check1" name="option1"
+										value="something" checked> <label class="form-check-label" for="check1">Tâm lý
+										học</label>
 								</div>
 								<div class="form-check">
-									<input type="checkbox" class="form-check-input" id="check2"
-										name="option2" value="something"> <label
-										class="form-check-label" for="check2">Chính trị</label>
+									<input type="checkbox" class="form-check-input" id="check2" name="option2"
+										value="something"> <label class="form-check-label" for="check2">Chính
+										trị</label>
 								</div>
 								<div class="form-check">
-									<input type="checkbox" class="form-check-input"> <label
-										class="form-check-label">Kỹ năng sống</label>
+									<input type="checkbox" class="form-check-input"> <label class="form-check-label">Kỹ
+										năng sống</label>
 								</div>
 								<div class="form-check">
 									<input type="checkbox" class="form-check-input"> <label
 										class="form-check-label">Sách giáo khoa</label>
 								</div>
 								<div class="form-check">
-									<input type="checkbox" class="form-check-input"> <label
-										class="form-check-label">Văn học và nghệ thuật</label>
+									<input type="checkbox" class="form-check-input"> <label class="form-check-label">Văn
+										học và nghệ thuật</label>
 								</div>
 								<div class="form-check">
 									<input type="checkbox" class="form-check-input"> <label
@@ -168,64 +159,62 @@
 						<div class="card-body">
 							<form action="">
 								<div class="form-check">
-									<input type="checkbox" class="form-check-input" id="check1"
-										name="option1" value="something" checked> <label
-										class="form-check-label" for="check1">
+									<input type="checkbox" class="form-check-input" id="check1" name="option1"
+										value="something" checked> <label class="form-check-label" for="check1">
 										<div class="stars" style="font-size: 22px;">
 											<span><i class="bi bi-star-fill"></i></span> <span><i
-												class="bi bi-star"></i></span> <span><i class="bi bi-star"></i></span>
+													class="bi bi-star"></i></span> <span><i
+													class="bi bi-star"></i></span>
 											<span><i class="bi bi-star"></i></span> <span><i
-												class="bi bi-star"></i></span>
+													class="bi bi-star"></i></span>
 										</div>
 									</label>
 								</div>
 								<div class="form-check">
-									<input type="checkbox" class="form-check-input" id="check2"
-										name="option2" value="something"> <label
-										class="form-check-label" for="check2">
+									<input type="checkbox" class="form-check-input" id="check2" name="option2"
+										value="something"> <label class="form-check-label" for="check2">
 										<div class="stars" style="font-size: 22px;">
 											<span><i class="bi bi-star-fill"></i></span> <span><i
-												class="bi bi-star-fill"></i></span> <span><i
-												class="bi bi-star"></i></span> <span><i class="bi bi-star"></i></span>
+													class="bi bi-star-fill"></i></span> <span><i
+													class="bi bi-star"></i></span> <span><i
+													class="bi bi-star"></i></span>
 											<span><i class="bi bi-star"></i></span>
 										</div>
 									</label>
 								</div>
 								<div class="form-check">
-									<input type="checkbox" class="form-check-input" id="check2"
-										name="option2" value="something"> <label
-										class="form-check-label" for="check2">
+									<input type="checkbox" class="form-check-input" id="check2" name="option2"
+										value="something"> <label class="form-check-label" for="check2">
 										<div class="stars" style="font-size: 22px;">
 											<span><i class="bi bi-star-fill"></i></span> <span><i
-												class="bi bi-star-fill"></i></span> <span><i
-												class="bi bi-star-fill"></i></span> <span><i
-												class="bi bi-star"></i></span> <span><i class="bi bi-star"></i></span>
+													class="bi bi-star-fill"></i></span> <span><i
+													class="bi bi-star-fill"></i></span> <span><i
+													class="bi bi-star"></i></span> <span><i
+													class="bi bi-star"></i></span>
 										</div>
 									</label>
 								</div>
 								<div class="form-check">
-									<input type="checkbox" class="form-check-input" id="check2"
-										name="option2" value="something"> <label
-										class="form-check-label" for="check2">
+									<input type="checkbox" class="form-check-input" id="check2" name="option2"
+										value="something"> <label class="form-check-label" for="check2">
 										<div class="stars" style="font-size: 22px;">
 											<span><i class="bi bi-star-fill"></i></span> <span><i
-												class="bi bi-star-fill"></i></span> <span><i
-												class="bi bi-star-fill"></i></span> <span><i
-												class="bi bi-star-fill"></i></span> <span><i
-												class="bi bi-star"></i></span>
+													class="bi bi-star-fill"></i></span> <span><i
+													class="bi bi-star-fill"></i></span> <span><i
+													class="bi bi-star-fill"></i></span> <span><i
+													class="bi bi-star"></i></span>
 										</div>
 									</label>
 								</div>
 								<div class="form-check">
-									<input type="checkbox" class="form-check-input" id="check2"
-										name="option2" value="something"> <label
-										class="form-check-label" for="check2">
+									<input type="checkbox" class="form-check-input" id="check2" name="option2"
+										value="something"> <label class="form-check-label" for="check2">
 										<div class="stars" style="font-size: 22px;">
 											<span><i class="bi bi-star-fill"></i></span> <span><i
-												class="bi bi-star-fill"></i></span> <span><i
-												class="bi bi-star-fill"></i></span> <span><i
-												class="bi bi-star-fill"></i></span> <span><i
-												class="bi bi-star-fill"></i></span>
+													class="bi bi-star-fill"></i></span> <span><i
+													class="bi bi-star-fill"></i></span> <span><i
+													class="bi bi-star-fill"></i></span> <span><i
+													class="bi bi-star-fill"></i></span>
 										</div>
 									</label>
 								</div>
@@ -240,9 +229,11 @@
 				<div class="row">
 					<div th:each="book : ${books}" class="col-md-3">
 						<div class="card mb-3">
-							<img th:src="@{'/Client/images/' + ${book.image}}" alt="Book Image" class="card-img-top" style="max-height: 400px;">
+							<img th:src="@{'/Client/images/' + ${book.image}}" alt="Book Image" class="card-img-top"
+								style="max-height: 400px;">
 							<div class="card-body">
-								<a class="card-title" th:text="${book.bookname}" th:href="@{|/product/detail/${book.bookid}|}" style="white-space: nowrap; color: red"></a>
+								<a class="card-title" th:text="${book.bookname}" th:href="@{|/product/detail/${book.bookid}|}"
+									style="white-space: nowrap; color: red"></a>
 
 								<p class="card-text" th:text="${book.shopname}"></p>
 								<p class="card-text" th:text="'Giá ' + ${book.price} + ' VND'"></p>
@@ -261,7 +252,8 @@
 				<!-- Hiển thị tiêu đề sắp xếp -->
 
 				<ul class="pagination justify-content-center">
-					<li th:classappend="${currentPage == 0} ? 'page-item' : ''" th:each="page, iterStat : ${#numbers.sequence(0, totalPages - 1)}">
+					<li th:classappend="${currentPage == 0} ? 'page-item' : ''"
+						th:each="page, iterStat : ${#numbers.sequence(0, totalPages - 1)}">
 						<a th:href="@{/list(page=${page})}" class="page-link" th:text="${page + 1}"></a>
 					</li>
 				</ul>

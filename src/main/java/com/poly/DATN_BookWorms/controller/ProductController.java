@@ -18,7 +18,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+// import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
@@ -32,6 +32,8 @@ public class ProductController {
     PublishingCompanyService publishingCompanyService;
     @Autowired
     WriterMasterService writerMasterService;
+
+
     @GetMapping("/product/list")
     public String listBooks(Model model,
                             @RequestParam(defaultValue = "0") int page,
@@ -65,14 +67,19 @@ public class ProductController {
 
 
 
-    @RequestMapping("/product/detail/{bookid}")
-	public String detail(Model model, @PathVariable("bookid") int id) {
+    @GetMapping("/product/detail/{bookid}")
+	public String detail(@PathVariable("bookid") int id, Model model) {
+        //  System.out.println("lkjlskjlajf");
 		Books item = bookService.findById(id);
+             System.out.println("lkjlskjlajssf"+ id);
 		
 //		List<String> images = imagebookService.findByBookId(id);
 //		System.out.print(images);
 //		model.addAttribute("images", images);
 		model.addAttribute("item", item);
+        model.addAttribute("im","Hinh4_book4.jpg");
+        
+         System.out.println("ll"+ item.getListOfImagebooks().get(0).getName());
         return "Client/Product_page/detail_product";
 	}
 }

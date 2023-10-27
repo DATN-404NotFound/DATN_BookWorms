@@ -22,11 +22,16 @@ public class AccountController {
 	@Autowired
 	AccountService accountService;
 	
-	@RequestMapping("/login")
+	@GetMapping("/login")
 	public String loginForm() {
 		return "Client/Account_page/Login";
 	}
 
+	@PostMapping("/login")
+public String loginForms() {
+		System.out.println("kjdsfkdjhskf");
+		return "Client/Account_page/Login";
+	}
 	@GetMapping("/registration")
 	public String registrationForm(Model model) {
 		AccountDTO user = new AccountDTO();
@@ -48,5 +53,10 @@ public class AccountController {
 
 		accountService.save(accountDTO);
 		return "redirect:/login";
+	}
+
+	@RequestMapping("/faild")
+	public String a(){ 
+		return "Client/Account_page/Register";
 	}
 }
