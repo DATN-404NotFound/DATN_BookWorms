@@ -30,24 +30,20 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Data
 @Entity
-@Table(name="Account", schema="dbo", catalog="BookWorm" )
+@Table(name="Account" )
 public class Account implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     //--- ENTITY PRIMARY KEY 
     @Id
-    @Column(name="Userid", nullable=false, length=10)
     private String     userid ;
 
-    //--- ENTITY DATA FIELDS 
-    @Column(name="Username", nullable=false, length=50)
+
     private String     username ;
 
-    @Column(name="Fullname", nullable=false, length=50)
     private String     fullname ;
 
-    @Column(name="Password", nullable=false, length=50)
     private String     password ;
 
     @Temporal(TemporalType.DATE)
@@ -93,6 +89,8 @@ public class Account implements Serializable {
     @OneToMany(mappedBy="account")
     private List<Addressusers> listOfAddressusers ; 
 
+
+
     //--- toString specific method
 	@Override
     public String toString() { 
@@ -113,6 +111,42 @@ public class Account implements Serializable {
         sb.append("|");
         sb.append(image);
         return sb.toString(); 
-    } 
+    }
 
+	public List<Authorities> getAuthorities() {
+		// TODO Auto-generated method stub
+		return this.authorities;
+	}
+
+	public String getUsername() {
+		// TODO Auto-generated method stub
+		return this.username;
+	}
+
+    public String getPassword() {
+		// TODO Auto-generated method stub
+		return this.password;
+	}
+  public String getEmail(String Email) {
+		// TODO Auto-generated method stub
+		return this.email = Email;
+	}
+      public String getFullname(String fullname) {
+		// TODO Auto-generated method stub
+		return this.fullname = fullname;
+	}
+	public void setUserid(String userid) {
+		// TODO Auto-generated method stub
+		this.userid = userid;
+	}
+
+	public void setUsername(String username2) {
+		// TODO Auto-generated method stub
+		this.username = username2;
+	}
+
+	public void setEmail(String email2) {
+		// TODO Auto-generated method stub
+		this.email = email2;
+	}
 }

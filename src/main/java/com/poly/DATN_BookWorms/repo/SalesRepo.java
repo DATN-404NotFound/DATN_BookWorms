@@ -9,6 +9,6 @@ import com.poly.DATN_BookWorms.entities.Sales;
 
 public interface SalesRepo extends JpaRepository<Sales, String>{
 
-        @Query("Select s from Sales m where m.shopid not null and m.intenfor like ?1")
+        @Query("Select m from Sales m where m.shopid is not null and m.intendfor like ?1")
         List<Sales> sales_of_shop_for_intendfor(String intendFor) ;
 }

@@ -29,7 +29,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Data
 @Entity
-@Table(name="ShopOnlines", schema="dbo", catalog="BookWorm" )
+@Table(name="Shoponlines")
 public class Shoponlines implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -37,14 +37,11 @@ public class Shoponlines implements Serializable {
     //--- ENTITY PRIMARY KEY 
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
-    @Column(name="ShopId", nullable=false)
     private Integer    shopid ;
 
     //--- ENTITY DATA FIELDS 
-    @Column(name="ShopName", length=50)
     private String     shopname ;
 
-    @Column(name="PhoneNumber", length=11)
     private String     phonenumber ;
 
     @Column(name="Logo", length=50)
@@ -59,16 +56,13 @@ public class Shoponlines implements Serializable {
     @Column(name="Description", length=2555)
     private String     description ;
 
-    @Column(name="ShopAddress", length=100)
     private String     shopaddress ;
 
-    @Column(name="UserId", length=10)
     private String     userid ;
 
     @Column(name="Paycount", length=10)
     private String     paycount ;
 
-    @Column(name="isActive")
     private Boolean    isactive ;
 
 
@@ -80,7 +74,7 @@ public class Shoponlines implements Serializable {
     private List<Files> listOfFiles ; 
 
     @ManyToOne
-    @JoinColumn(name="UserId", referencedColumnName="Userid", insertable=false, updatable=false)
+    @JoinColumn(name="Userid", referencedColumnName="Userid", insertable=false, updatable=false)
     private Account    account ; 
 
     //--- toString specific method

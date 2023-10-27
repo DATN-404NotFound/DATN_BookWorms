@@ -25,18 +25,16 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Data
 @Entity
-@Table(name="Roles", schema="dbo", catalog="BookWorm" )
+@Table(name="Roles")
 public class Roles implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     //--- ENTITY PRIMARY KEY 
     @Id
-    @Column(name="RoleId", nullable=false, length=10)
     private String     roleid ;
 
     //--- ENTITY DATA FIELDS 
-    @Column(name="RoleName", nullable=false, length=20)
     private String     rolename ;
 
 
@@ -52,6 +50,15 @@ public class Roles implements Serializable {
         sb.append("|");
         sb.append(rolename);
         return sb.toString(); 
-    } 
+    }
+
+	public Roles(String rolename) {
+		this.rolename = rolename;
+	}
+
+	public String getRoleid() {
+		// TODO Auto-generated method stub
+		return this.roleid;
+	} 
 
 }

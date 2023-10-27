@@ -29,7 +29,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Data
 @Entity
-@Table(name="Books", schema="dbo", catalog="BookWorm" )
+@Table(name="Books")
 public class Books implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -37,11 +37,9 @@ public class Books implements Serializable {
     //--- ENTITY PRIMARY KEY 
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
-    @Column(name="BookId", nullable=false)
     private Integer    bookid ;
 
     //--- ENTITY DATA FIELDS 
-    @Column(name="BookName", nullable=false, length=100)
     private String     bookname ;
 
     @Column(name="Language", length=20)
@@ -53,10 +51,8 @@ public class Books implements Serializable {
     @Column(name="Weight")
     private Double     weight ;
 
-    @Column(name="TotalPage")
     private Integer    totalpage ;
 
-    @Column(name="PublishingYear")
     private Integer    publishingyear ;
 
     @Column(name="Price")
@@ -68,16 +64,12 @@ public class Books implements Serializable {
     @Column(name="Statues", length=20)
     private String     statues ;
 
-    @Column(name="PublishingCompanyId", nullable=false)
     private Integer    publishingcompanyid ;
 
-    @Column(name="isActive")
     private Boolean    isactive ;
 
-    @Column(name="QuantitySold")
     private Integer    quantitysold ;
 
-    @Column(name="ShopId", nullable=false)
     private Integer    shopid ;
 
 
@@ -85,8 +77,8 @@ public class Books implements Serializable {
     @OneToMany(mappedBy="books")
     private List<Cart> listOfCart ; 
 
-
-    @JoinColumn(name="ShopId", referencedColumnName="ShopId", insertable=false, updatable=false)
+    @ManyToOne
+    @JoinColumn(name="Shopid", referencedColumnName="ShopId", insertable=false, updatable=false)
     private Shoponlines shoponlines ; 
 
     @OneToMany(mappedBy="books")
@@ -102,7 +94,7 @@ public class Books implements Serializable {
     private List<Writers> listOfWriters ; 
 
     @ManyToOne
-    @JoinColumn(name="PublishingCompanyId", referencedColumnName="PCId", insertable=false, updatable=false)
+    @JoinColumn(name="Publishingcompanyid", referencedColumnName="PCId", insertable=false, updatable=false)
     private Publishingcompanies publishingcompanies ; 
 
     @OneToMany(mappedBy="books")

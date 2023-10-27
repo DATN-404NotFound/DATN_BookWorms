@@ -30,7 +30,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Data
 @Entity
-@Table(name="HasSales", schema="dbo", catalog="BookWorm" )
+@Table(name="Hassales")
 public class Hassales implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -38,28 +38,23 @@ public class Hassales implements Serializable {
     //--- ENTITY PRIMARY KEY 
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
-    @Column(name="HasSaleId", nullable=false)
     private Integer    hassaleid ;
 
     //--- ENTITY DATA FIELDS 
-    @Column(name="BookId", nullable=false)
     private Integer    bookid ;
 
-    @Column(name="SaleId", nullable=false, length=10)
     private String     saleid ;
 
     @Temporal(TemporalType.DATE)
-    @Column(name="StartTime")
     private Date       starttime ;
 
     @Temporal(TemporalType.DATE)
-    @Column(name="EndTime")
     private Date       endtime ;
 
 
     //--- ENTITY LINKS ( RELATIONSHIP )
     @ManyToOne
-    @JoinColumn(name="BookId", referencedColumnName="BookId", insertable=false, updatable=false)
+    @JoinColumn(name="Bookid", referencedColumnName="BookId", insertable=false, updatable=false)
     private Books      books ; 
 
     //--- toString specific method

@@ -28,48 +28,43 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Data
 @Entity
-@Table(name="Payments", schema="dbo", catalog="BookWorm" )
+@Table(name="Payments")
 public class Payments implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     //--- ENTITY PRIMARY KEY 
     @Id
-    @Column(name="PaymentId", nullable=false, length=10)
     private String     paymentid ;
 
     //--- ENTITY DATA FIELDS 
-    @Column(name="BookingId", nullable=false, length=10)
     private String     bookingid ;
 
     @Temporal(TemporalType.DATE)
-    @Column(name="CreateAt", nullable=false)
     private Date       createat ;
 
     @Column(name="Status", nullable=false, length=20)
     private String     status ;
 
-    @Column(name="PAId", nullable=false, length=10)
     private String     paid ;
 
     @Column(name="Type")
     private Boolean    type ;
 
-    @Column(name="AddressUserId", nullable=false, length=10)
     private String     addressuserid ;
 
 
     //--- ENTITY LINKS ( RELATIONSHIP )
     @ManyToOne
-    @JoinColumn(name="AddressUserId", referencedColumnName="AddressUserId", insertable=false, updatable=false)
+    @JoinColumn(name="Addressuserid", referencedColumnName="AddressUserId", insertable=false, updatable=false)
     private Addressusers addressusers ; 
 
     @ManyToOne
-    @JoinColumn(name="PAId", referencedColumnName="PAId", insertable=false, updatable=false)
+    @JoinColumn(name="paid", referencedColumnName="PAId", insertable=false, updatable=false)
     private Paymentaccounts paymentaccounts ; 
 
     @ManyToOne
-    @JoinColumn(name="BookingId", referencedColumnName="BookingId", insertable=false, updatable=false)
+    @JoinColumn(name="Bookingid", referencedColumnName="BookingId", insertable=false, updatable=false)
     private Bookings   bookings ; 
 
     //--- toString specific method

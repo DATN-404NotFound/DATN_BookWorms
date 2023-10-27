@@ -29,37 +29,31 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Data
 @Entity
-@Table(name="Sales", schema="dbo", catalog="BookWorm" )
+@Table(name="Sales")
 public class Sales implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     //--- ENTITY PRIMARY KEY 
     @Id
-    @Column(name="CouoponCode", nullable=false, length=10)
     private String     couoponcode ;
 
     //--- ENTITY DATA FIELDS 
-    @Column(name="PromotionName", length=250)
     private String     promotionname ;
 
     @Temporal(TemporalType.DATE)
-    @Column(name="CreateAt")
     private Date       createat ;
 
     @Column(name="Descriptions", length=255)
     private String     descriptions ;
 
-    @Column(name="DiscountPercentage")
     private BigDecimal discountpercentage ;
 
     @Column(name="Statuses", length=20)
     private String     statuses ;
 
-    @Column(name="IntendFor", length=50)
     private String     intendfor ;
 
-    @Column(name="ShopId")
     private Integer    shopid ;
 
 

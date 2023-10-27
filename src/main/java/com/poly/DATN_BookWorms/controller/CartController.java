@@ -27,14 +27,16 @@ public class CartController {
 	SaleService saleService;
 	
 	@RequestMapping("")
-	public String cartView(Model model, @RequestParam("userId") String userId) { 
+	public String cartView(Model model) { 
 		
-			List<Cart> cartuser_list = cartService.findByUser(userId);
+			List<Cart> cartuser_list = cartService.findByUser("UID10NTN99");
 			model.addAttribute("cartuserList", cartuser_list);
-			List<Shoponlines> list_cart_shop = cartService.list_cart_shop(userId);
+			List<Shoponlines> list_cart_shop = cartService.list_cart_shop("UID10NTN99");
 			model.addAttribute("cartshoplist", list_cart_shop);
 			List<Sales> sale_shopid_intendFor = saleService.saleOfShopIntendFor("ForBook");
 			model.addAttribute("saleShopIntendFor",sale_shopid_intendFor);
+			System.out.println("chyaj1 "+cartuser_list.size() );
+			System.out.println("chyaj1 "+ list_cart_shop.size() );
 		return "Client/cart_client/cart_user";
 	}
 	
