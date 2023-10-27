@@ -1,17 +1,9 @@
 package com.poly.DATN_BookWorms.service;
 
-import java.util.List;
-
-import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.stereotype.Service;
 
 import com.poly.DATN_BookWorms.dto.AccountDTO;
-import com.poly.DATN_BookWorms.dto.LoginDTO;
 import com.poly.DATN_BookWorms.entities.Account;
-import com.poly.DATN_BookWorms.entities.Authorities;
-import com.poly.DATN_BookWorms.entities.Roles;
-import com.poly.DATN_BookWorms.response.LoginResponse;
-
 
 
 @Service

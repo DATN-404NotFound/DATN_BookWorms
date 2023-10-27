@@ -46,7 +46,7 @@ public class CustomUserDetailService implements UserDetailsService {
 					roles.stream().map((role) -> new SimpleGrantedAuthority(role.getRoleid()))
 							.collect(Collectors.toList()));
 		} else
-			throw new UsernameNotFoundException("Invalid email or password");
+			throw new UsernameNotFoundException("Invalid username or password");
 		}
 		
 	}

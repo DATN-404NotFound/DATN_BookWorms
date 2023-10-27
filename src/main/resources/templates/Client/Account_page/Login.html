@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" lang="">
   <head>
     <meta charset="ISO-8859-1" />
     <title>Login</title>
@@ -33,16 +33,33 @@
             <input type="text" class="form-control inputEmail" id="exampleInputEmail1" placeholder="Username" aria-describedby="emailHelp" name="username">
           </div>
           <div class="mb-4">
-            <label for="exampleInputPassword1" class="form-label">Password</label>
+            <label class="form-label">Password</label>
+
+
             <input type="password" class="form-control" id="exampleInputPassword1 inputPassword" placeholder="password" name="password">
             <div id="fogotPassword" class="mt-2">Fogot Password?</div>
           </div>
           <button type="submit" class="btn btnSignin mt-3">Sign in</button>
-          <p class="text-center mt-4 pOrContinueWith">or continue with</p>
-          <button class="btn btnIcon1"><img id="iconChorm" th:src="@{/Client/images/google-icon.png}"  alt=""></button>
-          <button class="btn btnIcon2"><img id="iconFB" th:src="@{/Client/images/Facebook-icon.png}" alt=""></button>
-          <p class="text-center mt-4 pRegister">Dont't have an account yet? <a th:href="@{/account/registration}">Register for free</a></p>
         </form>
+          <p class="text-center mt-4 pOrContinueWith">or continue with</p>
+
+          <div class="row">
+            <div class="col-sm-6 col-md-6">
+              <form class="w-100 px-auto" th:action="@{/oauth2/authorization/google}" >
+                <button class="btn btn-light " style="width: 150px;margin-left: 37px" type="submit"><img id="iconChrome" th:src="@{/Client/images/google-icon.png}"  alt=""></button>
+              </form>
+            </div>
+
+            <div class="col-sm-6 col-md-6">
+              <form th:action="@{/signin/facebook}" method="post"  class="w-100 px-auto">
+                <input type="hidden" name="scope" th:value="public_profile">
+                <button class="btn btn-light" type="submit"  style="width: 150px;margin-left: 37px"><img id="iconFB" th:src="@{/Client/images/Facebook-icon.png}" alt=""></button>
+              </form>
+            </div>
+          </div>
+
+        <p class="text-center mt-4 pRegister">Don't have an account yet? <a th:href="@{/account/registration}">Register for free</a></p>
+
       </div>
     </div>
   </body>

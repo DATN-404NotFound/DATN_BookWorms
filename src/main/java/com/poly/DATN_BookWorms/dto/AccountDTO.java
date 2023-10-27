@@ -24,7 +24,6 @@ public class AccountDTO {
     private String password;
     
     @Email
-    @NotEmpty(message = "Please enter valid email")
     private String email;
     
     @NotEmpty(message = "Please enter valid password confirm")

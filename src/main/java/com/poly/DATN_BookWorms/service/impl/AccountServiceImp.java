@@ -1,6 +1,7 @@
 package com.poly.DATN_BookWorms.service.impl;
 
 
+import com.poly.DATN_BookWorms.utils.CRC32_SHA256;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -38,7 +39,7 @@ public class AccountServiceImp implements AccountService {
 	PasswordEncoder passwordEncoder;
 	
 	@Autowired
-	CRC32Utils crc32Utils;
+	CRC32_SHA256 crc32Sha256;
 
 //	@Override
 //	public Account findById(String username) {
@@ -64,7 +65,7 @@ public class AccountServiceImp implements AccountService {
 			role = roleRepo.save(new Roles("GUEST","Guest", null));
 		}
 		
-		Long userId = crc32Utils.getCRC32Hash(accountDTO.getUsername());
+		Long userId = Long.valueOf(crc32Sha256.getCodeCRC32C(accountDTO.getUsername()));
 		
 		Account account = new Account();
 		account.setUserid(userId.toString());
@@ -74,8 +75,13 @@ public class AccountServiceImp implements AccountService {
 		account.setUsername(accountDTO.getUsername());
 		accountRepo.save(account);
 		
-		Long authorityId =  crc32Utils.getCRC32Hash(accountDTO.getUsername()+role.getRoleid());
+<<<<<<< Updated upstream
+		long authorityId =  crc32Utils.getCRC32Hash(accountDTO.getUsername()+role.getRoleid());
+		authoritiesRepo.save(new Authorities(Long.toString(authorityId),account, role));
+=======
+		Long authorityId = Long.valueOf(crc32Sha256.getCodeCRC32C(accountDTO.getUsername()+role.getRoleid()));
 		authoritiesRepo.save(new Authorities(authorityId.toString(),account, role));
+>>>>>>> Stashed changes
 			
 	}
 

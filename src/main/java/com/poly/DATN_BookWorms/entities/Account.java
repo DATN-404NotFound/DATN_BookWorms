@@ -58,7 +58,6 @@ public class Account implements Serializable {
     @Column(name="Age")
     private Date       age ;
 
-    @Column(name="Email", nullable=false, length=50)
     private String     email ;
 
     @Column(name="Gender")
