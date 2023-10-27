@@ -26,7 +26,7 @@ public class CartController {
 	@Autowired
 	SaleService saleService;
 	
-	@RequestMapping("")
+	@RequestMapping
 	public String cartView(Model model) { 
 		
 			List<Cart> cartuser_list = cartService.findByUser("UID10NTN99");
