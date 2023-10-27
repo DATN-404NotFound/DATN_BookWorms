@@ -27,7 +27,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Data
 @Entity
-@Table(name="Files", schema="dbo", catalog="BookWorm" )
+@Table(name="files", schema="dbo", catalog="bookworm" )
 public class Files implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -35,23 +35,23 @@ public class Files implements Serializable {
     //--- ENTITY PRIMARY KEY 
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
-    @Column(name="FileId", nullable=false)
+    @Column(name="fileid", nullable=false)
     private Integer    fileid ;
 
     //--- ENTITY DATA FIELDS 
-    @Column(name="FileName", length=50)
+    @Column(name="filename", length=50)
     private String     filename ;
 
-    @Column(name="TypeFile", length=30)
+    @Column(name="typefile", length=30)
     private String     typefile ;
 
-    @Column(name="ShopId", nullable=false)
+    @Column(name="shopid", nullable=false)
     private Integer    shopid ;
 
 
     //--- ENTITY LINKS ( RELATIONSHIP )
     @ManyToOne
-    @JoinColumn(name="ShopId", referencedColumnName="ShopId", insertable=false, updatable=false)
+    @JoinColumn(name="shopid", referencedColumnName="shopid", insertable=false, updatable=false)
     private Shoponlines shoponlines ; 
     
     //--- toString specific method

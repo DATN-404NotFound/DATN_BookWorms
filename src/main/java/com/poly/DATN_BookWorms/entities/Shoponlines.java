@@ -29,7 +29,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Data
 @Entity
-@Table(name="ShopOnlines", schema="dbo", catalog="BookWorm" )
+@Table(name="shoponlines", schema="dbo", catalog="bookworm" )
 public class Shoponlines implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -37,38 +37,36 @@ public class Shoponlines implements Serializable {
     //--- ENTITY PRIMARY KEY 
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
-    @Column(name="ShopId", nullable=false)
+    @Column(name="shopid", nullable=false)
     private Integer    shopid ;
 
     //--- ENTITY DATA FIELDS 
-    @Column(name="ShopName", length=50)
+    @Column(name="shopname", length=50)
     private String     shopname ;
 
-    @Column(name="PhoneNumber", length=11)
+    @Column(name="phonenumber", length=11)
     private String     phonenumber ;
 
-    @Column(name="Logo", length=50)
+    @Column(name="logo", length=50)
     private String     logo ;
 
-    @Column(name="Total")
+    @Column(name="total")
     private Double     total ;
 
-    @Column(name="Banner", length=50)
+    @Column(name="banner", length=50)
     private String     banner ;
 
-    @Column(name="Description", length=2555)
+    @Column(name="description", length=2555)
     private String     description ;
 
-    @Column(name="ShopAddress", length=100)
+    @Column(name="shopaddress", length=100)
     private String     shopaddress ;
 
-    @Column(name="UserId", length=10)
-    private String     userid ;
 
-    @Column(name="Paycount", length=10)
+    @Column(name="paycount", length=10)
     private String     paycount ;
 
-    @Column(name="isActive")
+    @Column(name="isactive")
     private Boolean    isactive ;
 
 
@@ -80,7 +78,7 @@ public class Shoponlines implements Serializable {
     private List<Files> listOfFiles ; 
 
     @ManyToOne
-    @JoinColumn(name="UserId", referencedColumnName="Userid", insertable=false, updatable=false)
+    @JoinColumn(name="userid", referencedColumnName="userid", insertable=false, updatable=false)
     private Account    account ; 
 
     //--- toString specific method
@@ -103,8 +101,7 @@ public class Shoponlines implements Serializable {
         sb.append("|");
         sb.append(shopaddress);
         sb.append("|");
-        sb.append(userid);
-        sb.append("|");
+
         sb.append(paycount);
         sb.append("|");
         sb.append(isactive);

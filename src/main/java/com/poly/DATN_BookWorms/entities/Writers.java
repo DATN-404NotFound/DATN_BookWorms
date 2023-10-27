@@ -27,7 +27,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Data
 @Entity
-@Table(name="Writers", schema="dbo", catalog="BookWorm" )
+@Table(name="writers", schema="dbo", catalog="bookworm" )
 public class Writers implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -35,24 +35,24 @@ public class Writers implements Serializable {
     //--- ENTITY PRIMARY KEY 
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
-    @Column(name="WriteId", nullable=false)
+    @Column(name="writeid", nullable=false)
     private Integer    writeid ;
 
     //--- ENTITY DATA FIELDS 
-    @Column(name="WrittingMasterId", nullable=false)
+    @Column(name="writtingmasterid", nullable=false)
     private Integer    writtingmasterid ;
 
-    @Column(name="BookId", nullable=false)
+    @Column(name="bookid", nullable=false)
     private Integer    bookid ;
 
 
     //--- ENTITY LINKS ( RELATIONSHIP )
     @ManyToOne
-    @JoinColumn(name="BookId", referencedColumnName="BookId", insertable=false, updatable=false)
+    @JoinColumn(name="bookid", referencedColumnName="bookid", insertable=false, updatable=false)
     private Books      books ; 
 
     @ManyToOne
-    @JoinColumn(name="WrittingMasterId", referencedColumnName="WrittingMasterId", insertable=false, updatable=false)
+    @JoinColumn(name="writtingmasterid", referencedColumnName="writtingmasterid", insertable=false, updatable=false)
     private Writtingmasters writtingmasters ; 
 
     //--- toString specific method

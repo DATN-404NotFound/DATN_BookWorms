@@ -31,7 +31,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Data
 @Entity
-@Table(name = "Categories")
+@Table(name = "categories")
 public class Categories implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -43,10 +43,10 @@ public class Categories implements Serializable {
 	private Integer categoryid;
 
 	// --- ENTITY DATA FIELDS
-	@Column(name = "Name", length = 100)
+	@Column(name = "name", length = 100)
 	private String name;
 
-	@Column(name = "Description", length = 255)	
+	@Column(name = "description", length = 255)
 	private String description;
 
 	@Temporal(TemporalType.DATE)

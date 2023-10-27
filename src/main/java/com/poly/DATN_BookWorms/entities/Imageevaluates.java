@@ -27,7 +27,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Data
 @Entity
-@Table(name="ImageEvaluates", schema="dbo", catalog="BookWorm" )
+@Table(name="imageevaluates", schema="dbo", catalog="bookworm" )
 public class Imageevaluates implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -35,17 +35,17 @@ public class Imageevaluates implements Serializable {
     //--- ENTITY PRIMARY KEY 
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
-    @Column(name="ImageEvaId", nullable=false)
+    @Column(name="imageevaId", nullable=false)
     private Integer    imageevaid ;
 
     //--- ENTITY DATA FIELDS 
-    @Column(name="Image", length=50)
+    @Column(name="image", length=50)
     private String     image ;
 
-    @Column(name="EvaluateId")
+    @Column(name="evaluateId")
     private Integer    evaluateid ;
 
-    @Column(name="Type", length=20)
+    @Column(name="type", length=20)
     private String     type ;
 
 

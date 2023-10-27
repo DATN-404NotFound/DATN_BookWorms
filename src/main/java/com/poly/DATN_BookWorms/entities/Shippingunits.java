@@ -27,7 +27,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Data
 @Entity
-@Table(name="ShippingUnits", schema="dbo", catalog="BookWorm" )
+@Table(name="shippingunits", schema="dbo", catalog="bookworm" )
 public class Shippingunits implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -35,20 +35,20 @@ public class Shippingunits implements Serializable {
     //--- ENTITY PRIMARY KEY 
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
-    @Column(name="ShippingUnitId", nullable=false)
+    @Column(name="shippingunitId", nullable=false)
     private Integer    shippingunitid ;
 
     //--- ENTITY DATA FIELDS 
-    @Column(name="Name", length=50)
+    @Column(name="name", length=50)
     private String     name ;
 
-    @Column(name="PhoneNumber", length=11)
+    @Column(name="phonenumber", length=11)
     private String     phonenumber ;
 
-    @Column(name="Email", length=50)
+    @Column(name="email", length=50)
     private String     email ;
 
-    @Column(name="Address", length=100)
+    @Column(name="address", length=100)
     private String     address ;
 
 

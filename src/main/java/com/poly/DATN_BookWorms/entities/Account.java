@@ -8,8 +8,8 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
+//import org.springframework.security.core.GrantedAuthority;
+//import org.springframework.security.core.userdetails.UserDetails;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -41,7 +41,7 @@ public class Account implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    //--- ENTITY PRIMARY KEY 
+    //--- ENTITY PRIMARY KEY
     @Id
     private String     userid ;
 
@@ -71,36 +71,36 @@ public class Account implements Serializable {
     //--- ENTITY LINKS ( RELATIONSHIP )
     @JsonIgnore
     @OneToMany(mappedBy="account", fetch = FetchType.EAGER)
-    private List<Authorities> authorities ; 
+    private List<Authorities> authorities ;
 
     @JsonIgnore
     @OneToMany(mappedBy="account")
-    private List<Bookings> listOfBookings ; 
+    private List<Bookings> listOfBookings ;
 
     @JsonIgnore
     @OneToMany(mappedBy="account")
-    private List<Paymentaccounts> listOfPaymentaccounts ; 
+    private List<Paymentaccounts> listOfPaymentaccounts ;
 
     @JsonIgnore
     @OneToMany(mappedBy="account")
-    private List<Shoponlines> listOfShoponlines ; 
+    private List<Shoponlines> listOfShoponlines ;
 
     @JsonIgnore
     @OneToMany(mappedBy="account")
-    private List<Cart> listOfCart ; 
+    private List<Cart> listOfCart ;
 
     @JsonIgnore
     @OneToMany(mappedBy="account")
-    private List<Discountcodes> listOfDiscountcodes ; 
+    private List<Discountcodes> listOfDiscountcodes ;
 
     @JsonIgnore
     @OneToMany(mappedBy="account")
-    private List<Addressusers> listOfAddressusers ; 
+    private List<Addressusers> listOfAddressusers ;
 
     //--- toString specific method
-	@Override
-    public String toString() { 
-        StringBuilder sb = new StringBuilder(); 
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
         sb.append(userid);
         sb.append("|");
         sb.append(username);
@@ -116,9 +116,8 @@ public class Account implements Serializable {
         sb.append(gender);
         sb.append("|");
         sb.append(image);
-        return sb.toString(); 
+        return sb.toString();
     }
 
-	
 
 }

@@ -27,16 +27,16 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Data
 @Entity
-@Table(name = "Authorities")
+@Table(name = "authorities")
 public class Authorities implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @Id 
+    @Id
 	private String authorityid;
 	@ManyToOne @JoinColumn(name = "userid")
 	private Account account;
-	@ManyToOne  @JoinColumn(name = "Roleid")
+	@ManyToOne  @JoinColumn(name = "roleid")
 	private Roles roles;
 
 }

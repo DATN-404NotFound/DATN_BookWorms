@@ -25,16 +25,18 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Data
 @Entity
-@Table(name="Roles")
+@Table(name="roles", schema="dbo", catalog="bookworm" )
 public class Roles implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     //--- ENTITY PRIMARY KEY 
     @Id
+    @Column(name="roleid", nullable=false, length=10)
     private String     roleid ;
 
     //--- ENTITY DATA FIELDS 
+    @Column(name="rolename", nullable=false, length=20)
     private String     rolename ;
 
 
