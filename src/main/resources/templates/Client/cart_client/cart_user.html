@@ -21,7 +21,7 @@
 
 <body>
     <main ng-app="cart_app" ng-controller="cart_ctrl">
-        <div style="width: 85%; margin: auto;">
+        <div style="width: 85%; margin: auto;" id="user1" th:text="${#request.remoteUser}">
             <div>
                 <h4>Your Cart</h4>
             </div>
@@ -108,7 +108,6 @@
         </div>
         <script th:src="@{/Client/Js/cart.js}"></script>
     </main>
-  
 </body>
 
 </html>

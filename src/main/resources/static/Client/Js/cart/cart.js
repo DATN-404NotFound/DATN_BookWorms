@@ -42,7 +42,6 @@ $(document).ready(function () {
     })
 })
 
-
 $(document).ready(function () {
     $('#deleteAll').click(function () {
         var $name = 'name="carttest"';
@@ -54,7 +53,6 @@ $(document).ready(function () {
         })
     })
 })
-
 
 
 function totalAllChoose() {
@@ -173,5 +171,38 @@ app.controller("cart_ctrl", function ($scope, $http) {
         },
     }
   
+    $scope.booking={
+        bookingid:"new",
+        createat: new Date(),
+        userid :{userid:$("#user1").text()},
+        get cost(){ 
+            return  $scope.totalAll.cartsAll
+                    .map(item => item.quantity*item.books.price)
+                    .reduce((total,quantity)=> total+=quantity,0);
+        },
+       get detailbookings (){ 
+        return $scope.totalAll.cartsAll.map(item => {
+            return {
+                dbid :"detailbooking",
+                books: {bookid:item.books.id},
+                quantity : item.quantity
+            }
+        })
+       },
+       orderstatuses :1,
+       shippingunits:1,
+       listOfPayments:1,
+
+       purch(){ 
+        var order = angular.copy(this);
+        var url = "http://localhost:8080/rest/booking/post-detail";
+
+        $http.post(url,order).then(resp =>{ 
+            $scope.totalAll.cartsAll =[];
+            location.href = "/booking/detail"+ resp.data.id
+        })
+       }
+
+    }
 })
 
