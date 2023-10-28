@@ -35,7 +35,7 @@ public class Imagebooks implements Serializable {
     //--- ENTITY PRIMARY KEY 
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
-    @Column(name="fileid", nullable=false)
+
     private Integer    filedid ;
 
     //--- ENTITY DATA FIELDS 

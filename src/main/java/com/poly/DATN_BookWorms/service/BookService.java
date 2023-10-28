@@ -2,6 +2,7 @@ package com.poly.DATN_BookWorms.service;
 
 import java.util.List;
 
+import com.poly.DATN_BookWorms.repo.BooksRepo;
 import com.poly.DATN_BookWorms.response.BookResponse;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -16,7 +17,6 @@ public interface BookService {
 
 	Books findById(int id);
 
-	List<Books> findByCategoryId(String cid);
 
 	Books create(Books book);
 
@@ -25,4 +25,6 @@ public interface BookService {
 	void delete(int id);
 	Page<BookResponse> findAllBook(Pageable pageable);
 
+	List<Books> getBooksByCategoryID(Integer categoryID);
+	Books findTopBookByQuantitySold();
 }
