@@ -20,7 +20,6 @@ import jakarta.mail.internet.MimeMessage;
 public class MailServiceImp implements MailService{
 
 	private List<MailInformation> listMails = new ArrayList<>();
-
 	JavaMailSender sender;
 	
 	@Override

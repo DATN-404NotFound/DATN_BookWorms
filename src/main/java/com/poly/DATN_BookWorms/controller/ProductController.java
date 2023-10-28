@@ -1,15 +1,11 @@
 package com.poly.DATN_BookWorms.controller;
 
-import com.poly.DATN_BookWorms.entities.Books;
-import com.poly.DATN_BookWorms.entities.Categories;
-import com.poly.DATN_BookWorms.entities.Publishingcompanies;
-import com.poly.DATN_BookWorms.entities.Writtingmasters;
+import com.poly.DATN_BookWorms.entities.*;
 import com.poly.DATN_BookWorms.response.BookResponse;
 import com.poly.DATN_BookWorms.service.BookService;
 import com.poly.DATN_BookWorms.service.CategoryService;
 import com.poly.DATN_BookWorms.service.PublishingCompanyService;
 import com.poly.DATN_BookWorms.service.WriterMasterService;
-import com.poly.DATN_BookWorms.service.impl.BookServiceImp;
 
 import java.util.List;
 
@@ -35,11 +31,25 @@ public class ProductController {
     PublishingCompanyService publishingCompanyService;
     @Autowired
     WriterMasterService writerMasterService;
+
+
     @GetMapping("/list")
     public String listBooks(Model model,
                             @RequestParam(defaultValue = "0") int page,
-                            @RequestParam(defaultValue = "8") int size) {
-        Pageable pageable = PageRequest.of(page, size);
+                            @RequestParam(defaultValue = "8") int size,
+                            @RequestParam(defaultValue = "asc") String priceSort) {
+
+        Sort priceDirection;
+        if ("asc".equalsIgnoreCase(priceSort)) {
+            priceDirection = Sort.by(Sort.Direction.DESC, "price");
+
+        } else {
+            priceDirection = Sort.by(Sort.Direction.ASC, "price");
+        }
+
+        Sort sort = priceDirection;
+
+        Pageable pageable = PageRequest.of(page, size, sort);
         List<Categories> categories = categoryService.findAll();
         List<Publishingcompanies> publishingcompanies = publishingCompanyService.findAll();
         List<Writtingmasters> writtingmasters = writerMasterService.findAll();
@@ -56,5 +66,19 @@ public class ProductController {
 
 
 
-
+    @GetMapping("/detail/{bookid}")
+	public String detail(@PathVariable("bookid") int id, Model model) {
+        //  System.out.println("lkjlskjlajf");
+		Books item = bookService.findById(id);
+             System.out.println("lkjlskjlajssf"+ id);
+		
+//		List<String> images = imagebookService.findByBookId(id);
+//		System.out.print(images);
+//		model.addAttribute("images", images);
+		model.addAttribute("item", item);
+        model.addAttribute("im","Hinh4_book4.jpg");
+        
+         System.out.println("ll"+ item.getListOfImagebooks().get(0).getName());
+        return "Client/Product_page/detail_product";
+	}
 }

@@ -38,8 +38,6 @@ public class Typebooks implements Serializable {
 	private Integer typebookid;
 
 	// --- ENTITY DATA FIELDS
-	private Integer categoryid;
-
 	private Integer bookid;
 
 	// --- ENTITY LINKS ( RELATIONSHIP )
@@ -57,7 +55,6 @@ public class Typebooks implements Serializable {
 		StringBuilder sb = new StringBuilder();
 		sb.append(typebookid);
 		sb.append("|");
-		sb.append(categoryid);
 		sb.append("|");
 		sb.append(bookid);
 		return sb.toString();

@@ -8,7 +8,6 @@ import org.springframework.data.jpa.repository.Query;
 import com.poly.DATN_BookWorms.entities.Books;
 import com.poly.DATN_BookWorms.response.BookResponse;
 
-
 public interface BooksRepo extends JpaRepository<Books, Integer>{
 	
 //	@Query("SELECT DISTINCT b FROM Books p WHERE p.category.categoryid=?1")

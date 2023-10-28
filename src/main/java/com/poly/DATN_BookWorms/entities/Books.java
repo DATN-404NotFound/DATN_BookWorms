@@ -6,6 +6,8 @@ package com.poly.DATN_BookWorms.entities;
 import java.io.Serializable;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -75,30 +77,36 @@ public class Books implements Serializable {
 
     //--- ENTITY LINKS ( RELATIONSHIP )
     @OneToMany(mappedBy="books")
-    private List<Cart> listOfCart ;
+    @JsonIgnore
+    private List<Cart> listOfCart ; 
 
     @ManyToOne
     @JoinColumn(name="Shopid", referencedColumnName="ShopId", insertable=false, updatable=false)
     private Shoponlines shoponlines ; 
 
     @OneToMany(mappedBy="books")
+    @JsonIgnore
     private List<Imagebooks> listOfImagebooks ; 
 
     @OneToMany(mappedBy="books")
+    @JsonIgnore
     private List<Detailbookings> listOfDetailbookings ; 
 
     @OneToMany(mappedBy="books")
+    @JsonIgnore
     private List<Typebooks> listOfTypebooks ; 
 
     @OneToMany(mappedBy="books")
-    private List<Writers> listOfWriters ;
+    @JsonIgnore
+    private List<Writers> listOfWriters ; 
 
     @ManyToOne
     @JoinColumn(name="Publishingcompanyid", referencedColumnName="PCId", insertable=false, updatable=false)
     private Publishingcompanies publishingcompanies ; 
 
     @OneToMany(mappedBy="books")
-    private List<Hassales> listofhassales ;
+    @JsonIgnore
+    private List<Hassales> listOfHassales ; 
 
 
     //--- toString specific method

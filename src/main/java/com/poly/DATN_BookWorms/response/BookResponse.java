@@ -13,5 +13,4 @@ public class BookResponse {
     String image;
     Double price;
     String shopname;
-
 }
