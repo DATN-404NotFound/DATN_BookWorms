@@ -12,4 +12,6 @@ public interface AccountRepo extends JpaRepository<Account, String>{
 	
 	@Query("SELECT o FROM Account o  WHERE o.username LIKE ?1")
 	Account findByUsername(String username);
+
+    Account findByEmail(String email);
 }

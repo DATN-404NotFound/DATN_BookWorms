@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 
 import com.poly.DATN_BookWorms.entities.Books;
+import org.springframework.data.jpa.repository.Query;
 
 public interface BooksRepo extends JpaRepository<Books, Integer> {
 

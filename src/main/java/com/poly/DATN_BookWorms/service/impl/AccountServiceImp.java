@@ -45,21 +45,41 @@ public class AccountServiceImp implements AccountService {
 	 CRC32_SHA256 crc32Sha256;
 
 
-//	@Override
-//	public Account findById(String username) {
-//		return accountRepo.findById(username).get();
-//	}
+	@Override
+	public Account findByUsename(String username) {
+		return accountRepo.findByUsername(username);
+	}
 
-//	@Override
-//	public Account findByEmail(String email) {
-//		return accountRepo.findByEmail(email);
-//	}
+	@Override
+	public Account findByEmail(String email) {
+		return accountRepo.findByEmail(email);
+	}
 
-//	@Override
-//	public List<Account> findAll() {
-//		// TODO Auto-generated method stub
-//		return accountRepo.findAll();
-//	}
+	@Override
+	public List<Account> getAdministrators() {
+		return null;
+	}
+
+	@Override
+	public List<Account> findAll() {
+		// TODO Auto-generated method stub
+		return accountRepo.findAll();
+	}
+
+	@Override
+	public Account create(Account account) {
+		return null;
+	}
+
+	@Override
+	public Account update(Account account) {
+		return null;
+	}
+
+	@Override
+	public void delete(String username) {
+
+	}
 
 	@Override
 
@@ -86,80 +106,7 @@ public class AccountServiceImp implements AccountService {
 			
 	}
 
-	// @Override
-	// public Account update(Account account) {
-	// 	return accountRepo.save(account);
-	// }
 
-
-	// public Account create(Account account) {
-	// 	return null;
-	// }
-
-	// @Override
-	// public Account update(Account account) {
-	// 	return null;
-	// }
-
-//	@Override
-//	public Account create(AccountDTO accountDTO) {
-//		Account account = new Account(passwordEncoder.encode(accountDTO.getUsername() + accountDTO.getFullname()),
-//				accountDTO.getUsername(), accountDTO.getFullname(), passwordEncoder.encode(accountDTO.getPassword()),
-//				null, null, null, null, null, null, null, null, null, null, null);
-//		Roles roles = roleService.findByName("USER");
-//		Authorities authorities = new Authorities(null, account, roles);
-//
-//		authoritiesRepo.save(authorities);
-//		accountRepo.save(account);
-//		return account;
-//	}
-
-	@Override
-	public void delete(String username) {
-		// TODO Auto-generated method stub
-		accountRepo.deleteById(username);
-	}
-
-	@Override
-	public List<Account> getAdministrators() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<Account> findAll() {
-		return accountRepo.findAll();
-	}
-
-	@Override
-	public Account findByEmail(String email) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Account create(Account account) {
-		// TODO Auto-generated method stub
-		account.setPassword(passwordEncoder.encode(account.getPassword()));
-		return accountRepo.save(account);
-	}
-
-//	@Override
-//	public Account create(AccountDTO accountDTO) {
-//		return null;
-//	}
-//
-//	@Override
-//	public List<Account> getAdministrators() {
-//		// TODO Auto-generated method stub
-//		return null;
-//	}
-//
-//	@Override
-//	public Account findByEmail(String email) {
-//		// TODO Auto-generated method stub
-//		return null;
-//	}
 
 
 //	@Override
@@ -188,15 +135,7 @@ public class AccountServiceImp implements AccountService {
 //		return new LoginResponse("Login Failed", false);
 //	}
 
-//	@Override
-//	public void adRoleToUser(String username, String roleName) {
-//
-//	}
-//
-//	@Override
-//	public Roles saveRole(Roles roles) {
-//		// TODO Auto-generated method stub
-//		return null;
+
 //	}
 
 
