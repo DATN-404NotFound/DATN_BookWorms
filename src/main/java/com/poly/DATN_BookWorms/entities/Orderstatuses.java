@@ -27,7 +27,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Data
 @Entity
-@Table(name="orderstatuses", schema="dbo", catalog="bookworm" )
+@Table(name="Orderstatuses")
 public class Orderstatuses implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -35,11 +35,9 @@ public class Orderstatuses implements Serializable {
     //--- ENTITY PRIMARY KEY 
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
-    @Column(name="orderstatusid", nullable=false)
     private Integer    orderstatusid ;
 
     //--- ENTITY DATA FIELDS 
-    @Column(name="statusname", length=50)
     private String     statusname ;
 
 

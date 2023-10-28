@@ -23,26 +23,28 @@ public class SaleServiceImp implements SaleService{
 
 	@Override
 	public Sales findById(String id) {
-		// TODO Auto-generated method stub
 		return saleRepo.findById(id).get();
 	}
 
 	@Override
 	public Sales create(Sales sale) {
-		// TODO Auto-generated method stub
 		return saleRepo.save(sale);
 	}
 
 	@Override
 	public Sales update(Sales sale) {
-		// TODO Auto-generated method stub
 		return saleRepo.save(sale);
 	}
 
 	@Override
 	public void delete(String id) {
-		// TODO Auto-generated method stub
+
 		saleRepo.deleteById(id);;
+	}
+
+	@Override
+	public List<Sales> saleOfShopIntendFor(String intendFor){ 
+		return saleRepo.sales_of_shop_for_intendfor(intendFor);
 	}
 
 }

@@ -5,7 +5,7 @@ package com.poly.DATN_BookWorms.entities;
 
 import java.io.Serializable;
 
-import jakarta.persistence.Column;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -27,7 +27,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Data
 @Entity
-@Table(name="files", schema="dbo", catalog="bookworm" )
+@Table(name="Files")
 public class Files implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -35,23 +35,19 @@ public class Files implements Serializable {
     //--- ENTITY PRIMARY KEY 
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
-    @Column(name="fileid", nullable=false)
     private Integer    fileid ;
 
     //--- ENTITY DATA FIELDS 
-    @Column(name="filename", length=50)
     private String     filename ;
 
-    @Column(name="typefile", length=30)
     private String     typefile ;
 
-    @Column(name="shopid", nullable=false)
     private Integer    shopid ;
 
 
     //--- ENTITY LINKS ( RELATIONSHIP )
     @ManyToOne
-    @JoinColumn(name="shopid", referencedColumnName="shopid", insertable=false, updatable=false)
+    @JoinColumn(name="Shopid", referencedColumnName="ShopId", insertable=false, updatable=false)
     private Shoponlines shoponlines ; 
     
     //--- toString specific method

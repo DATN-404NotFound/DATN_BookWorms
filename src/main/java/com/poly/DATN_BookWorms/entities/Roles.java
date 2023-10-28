@@ -21,18 +21,16 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Data
 @Entity
-@Table(name="roles", schema="dbo", catalog="bookworm" )
+@Table(name="Roles")
 public class Roles implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     //--- ENTITY PRIMARY KEY 
     @Id
-    @Column(name="roleid", nullable=false, length=10)
     private String     roleid ;
 
     //--- ENTITY DATA FIELDS 
-    @Column(name="rolename", nullable=false, length=20)
     private String     rolename ;
 
 
@@ -52,6 +50,11 @@ public class Roles implements Serializable {
 
 	public Roles(String rolename) {
 		this.rolename = rolename;
+	}
+
+	public String getRoleid() {
+		// TODO Auto-generated method stub
+		return this.roleid;
 	} 
 
 }

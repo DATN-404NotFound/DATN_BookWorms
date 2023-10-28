@@ -27,18 +27,16 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Data
 @Entity
-@Table(name="addressusers", schema="dbo", catalog="bookworm" )
+@Table(name="Addressusers")
 public class Addressusers implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     //--- ENTITY PRIMARY KEY 
     @Id
-    @Column(name="addressuserid", nullable=false, length=10)
     private String     addressuserid ;
 
     //--- ENTITY DATA FIELDS 
-    @Column(name="userid", nullable=false, length=10)
     private String     userid ;
 
     @Column(name="address", nullable=false, length=100)
@@ -47,16 +45,14 @@ public class Addressusers implements Serializable {
     @Column(name="fullname", nullable=false, length=50)
     private String     fullname ;
 
-    @Column(name="phonenumber", nullable=false, length=100)
     private String     phonenumber ;
 
-    @Column(name="statusaddress", length=20)
     private String     statusaddress ;
 
 
     //--- ENTITY LINKS ( RELATIONSHIP )
     @ManyToOne
-    @JoinColumn(name="userid", referencedColumnName="userid", insertable=false, updatable=false)
+    @JoinColumn(name="Userid", referencedColumnName="Userid", insertable=false, updatable=false)
     private Account    account ; 
 
     @OneToMany(mappedBy="addressusers")

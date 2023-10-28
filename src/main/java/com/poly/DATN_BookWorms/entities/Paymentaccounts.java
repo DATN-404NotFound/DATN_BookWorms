@@ -27,33 +27,27 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Data
 @Entity
-@Table(name="paymentaccounts", schema="dbo", catalog="bookworm" )
+@Table(name="Paymentaccounts")
 public class Paymentaccounts implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     //--- ENTITY PRIMARY KEY 
     @Id
-    @Column(name="paid", nullable=false, length=10)
     private String     paid ;
 
     //--- ENTITY DATA FIELDS 
-    @Column(name="userid", nullable=false, length=10)
     private String     userid ;
 
     @Column(name="name", length=30)
     private String     name ;
 
-    @Column(name="cccd", length=12)
     private String     cccd ;
 
-    @Column(name="bankname", length=100)
     private String     bankname ;
 
-    @Column(name="accountnumber", length=20)
     private String     accountnumber ;
 
-    @Column(name="accountname", length=30)
     private String     accountname ;
 
 
@@ -62,7 +56,7 @@ public class Paymentaccounts implements Serializable {
     private List<Payments> listOfPayments ; 
 
     @ManyToOne
-    @JoinColumn(name="userid", referencedColumnName="userid", insertable=false, updatable=false)
+    @JoinColumn(name="Userid", referencedColumnName="Userid", insertable=false, updatable=false)
     private Account    account ; 
 
     //--- toString specific method

@@ -25,14 +25,15 @@ public class BookingServiceImp implements BookingService{
 	
 	@Override
 	public Bookings create(JsonNode bookingData) {
-		ObjectMapper mapper = new ObjectMapper();
-		Bookings booking = mapper.convertValue(bookingData, Bookings.class);
-		bookingRepo.save(booking);
-		TypeReference<List<Detailbookings>> type = new TypeReference<List<Detailbookings>>() {};
-		List<Detailbookings> details = mapper.convertValue(bookingData.get("listOfDetailbookings"), type)
-					.stream().peek(d -> d.setBookings(booking)).collect(Collectors.toList());
-		detailRepo.saveAll(details);
-		return booking;
+//		ObjectMapper mapper = new ObjectMapper();
+//		Bookings booking = mapper.convertValue(bookingData, Bookings.class);
+//		bookingRepo.save(booking);
+//		TypeReference<List<Detailbookings>> type = new TypeReference<List<Detailbookings>>() {};
+//		List<Detailbookings> details = mapper.convertValue(bookingData.get("listOfDetailbookings"), type)
+//					.stream().peek(d -> d.setBookings(booking)).collect(Collectors.toList());
+//		detailRepo.saveAll(details);
+//		return booking;
+		return null;
 	}
 
 	@Override

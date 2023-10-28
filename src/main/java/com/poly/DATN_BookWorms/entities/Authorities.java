@@ -11,7 +11,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -19,23 +18,27 @@ import lombok.NoArgsConstructor;
 /**
  * JPA entity class for "Authorities"
  *
- * @author Telosys
+ * @author Lê Chí Thiên
  *
  */
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
 @Entity
-@Table(name = "authorities")
+@Table(name = "Authorities")
 public class Authorities implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @Id
+    @Id 
 	private String authorityid;
 	@ManyToOne @JoinColumn(name = "userid")
 	private Account account;
 	@ManyToOne  @JoinColumn(name = "roleid")
 	private Roles roles;
+	public Roles getRoles() {
+		// TODO Auto-generated method stub
+		return this.roles;
+	}
 
 }

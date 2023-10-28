@@ -30,14 +30,13 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Data
 @Entity
-@Table(name="bookings", schema="dbo", catalog="bookworm" )
+@Table(name="Bookings")
 public class Bookings implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     //--- ENTITY PRIMARY KEY 
     @Id
-    @Column(name="bookingid", nullable=false, length=10)
     private String     bookingid ;
 
     //--- ENTITY DATA FIELDS 
@@ -48,13 +47,10 @@ public class Bookings implements Serializable {
     @Column(name="cost")
     private Double     cost ;
 
-    @Column(name="userid", nullable=false, length=10)
     private String     userid ;
 
-    @Column(name="orderstatusid", nullable=false)
     private Integer    orderstatusid ;
 
-    @Column(name="shippingunitid", nullable=false)
     private Integer    shippingunitid ;
 
 
@@ -63,18 +59,18 @@ public class Bookings implements Serializable {
     private List<Payments> listOfPayments ; 
 
     @ManyToOne
-    @JoinColumn(name="orderstatusid", referencedColumnName="orderstatusid", insertable=false, updatable=false)
+    @JoinColumn(name="Orderstatusid", referencedColumnName="OrderStatusId", insertable=false, updatable=false)
     private Orderstatuses orderstatuses ; 
 
     @ManyToOne
-    @JoinColumn(name="userid", referencedColumnName="userid", insertable=false, updatable=false)
+    @JoinColumn(name="Userid", referencedColumnName="Userid", insertable=false, updatable=false)
     private Account    account ; 
 
     @OneToMany(mappedBy="bookings")
     private List<Detailbookings> listOfDetailbookings ; 
 
     @ManyToOne
-    @JoinColumn(name="shippingunitid", referencedColumnName="shippingunitid", insertable=false, updatable=false)
+    @JoinColumn(name="Shippingunitid", referencedColumnName="ShippingUnitId", insertable=false, updatable=false)
     private Shippingunits shippingunits ; 
 
     //--- toString specific method

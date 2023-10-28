@@ -12,36 +12,29 @@
     <link rel="stylesheet" href="/assets/css/shopping-cart-app.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
-    <link rel="stylesheet" href="/Client/css/_index.css">
-    <link rel="stylesheet" href="/Client/css/product.css">
-    
+    <link rel="stylesheet" href="../../../static/Client/css/cart_user.css">
+    <link rel="stylesheet" href="../../../static/Client/css/_index.css">
+    <link rel="stylesheet" href="../../../static/Client/css/product.css">
 </head>
 <body>
-    <main ng-app="cart_app" ng-controller="cart_ctrl">
+    <main>
         <div class="title">
             <p>Home/Libary/Cart</p>
             <h5>DETAIL</h5>
         </div>
         <div class="cart_articical">
             <div class="cart_title">
-                <p style="padding-top: 50px;">Best Seller Product In Last Month</p>
+                <p style="padding-top: 50px;">Book Detail</p>
             </div>
             <div class="cart_body">
                 <div class="contain">
                     <div class="container-fliud">
                         <div class="row">
                             <div class="col-sm-1 text-center">
+                          
                                 <div class="d-flex flex-column" style="margin-top: 100px; margin-left: 20px;">
-                                    <div class="py-1"><a style="width: 100px; height: 120px;"><img
-                                                th:src="@{/Client/images/Hinh11_book11.jpg}"
-                                                style="width: 90px; height: 120px; margin: auto;" alt=""></a>
-                                    </div>
-                                    <div class="py-1"><a style="width: 100px; height: 120px;"><img
-                                                th:src="@{/Client/images/Hinh11_book11.jpg}"
-                                                style="width: 90px; height: 120px; margin: auto;" alt=""></a>
-                                    </div>
-                                    <div class="py-1 "><a style="width: 100px; height: 120px;"><img
-                                                th:src="@{/Client/images/Hinh11_book11.jpg}"
+                                    <div class="py-1" th:each="im:${item.listOfImagebooks}" ><a style="width: 100px; height: 120px;"><img
+                                                th:src="@{|/Client/images/${im.name}|}"
                                                 style="width: 90px; height: 120px; margin: auto;" alt=""></a>
                                     </div>
                                 </div>
@@ -50,12 +43,12 @@
                                 <div class="tab-content">
                                     <div class="tab-pane active" id="pic-1"><img
                                             style="max-width: 100%; height: 50%; "
-                                            th:src="@{/Client/images/Hinh11_book11.jpg}" /></div>
+                                            th:src="@{|/Client/images/${item.listOfImagebooks.get(0).name}|}" /></div>
                                 </div>
                             </div>
-                            <div class="details col-md-6">
-                                <p>Nhiều tác giả</p>
-                                <h3 class="product-title" style="margin-top: -15px;">HẠT GIỐNG TÂM HỒN</h3>
+                            <div  class="details col-md-6">
+                                <p th:text="${item.bookname}"></p>
+                                <h3  class="product-title" style="margin-top: -15px;"></h3>
                                 <div class="rating" >
                                     <div class="stars">
                                         <span><i class="bi bi-star-fill"></i></span>
@@ -66,18 +59,13 @@
                                         <span class="review-no ms-2 text-dark">41 reviews</span>
                                     </div>
                                 </div>
-                                <p class="product-description">“Bạn hối tiếc vì không
-                                    nắm bắt lấy một cơ hội nào đó, chẳng có ai phải mất ngủ.
-                                    Bạn trải qua những ngày tháng nhạt nhẽo với công việc bạn căm ghét, người ta
-                                    chẳng hề bận lòng.
-                                    Bạn có chết mòn nơi xó tường với những ước mơ dang dở, đó không phải là việc
-                                    của họ.</p>
-                                <h4 class="price">Current price: <span>200 000VND</span></h4>
+                                <p class="product-description"></p>
+                                <h4 class="price">Current price: <span th:text="${item.price}"></span></h4>
 
                                 <input type="number" id="quantity" value="1" name="quantity" min="1" max="5">
                                 <hr class="my-4">
                                 <div class="action">
-                                    <button class="button_all_orange" ng-click="addCart(${cart.bookId})">Add to card</button>
+                                    <button class="button_all_orange" >Add to card</button>
                                     <button class="button_all_none">Buy now</button>
                                 </div>
                                 <hr class="my-5">
@@ -96,18 +84,18 @@
 
             </div>
         </div>
-        <hr style="margin-top: 70px; width: 85%; margin: auto; margin-top: 70px;" >
+         <hr style="margin-top: 70px; width: 85%; margin: auto; margin-top: 70px;" >
         <div class="shop_info mt-5" style="margin-bottom: 55px;">
             <div class="row">
                 <div class="col-md-5">
                     <div class="d-inline-flex align-content-center pe-5" style="border-right: 1px solid #999;">
                         <div class="p-1"><button class=" my-5" style="margin-left: 50px; border: none; background: none;"><img class="shop_avatar"
-                                    th:src="@{/Client/images/Logo_Nhã_Nam.jpg}" width="100%" style="border: 1px solid #666;" alt=""></button>
+                                    th:src="@{/Client/images/logo-alphabooks.jpg}" width="100%" style="border: 1px solid #666;" alt=""></button>
                         </div>
                         <div class="d-flex flex-column " style=" margin-top: 50px; ">
                             <div class="p-1 ms-3"><a
                                     style="text-decoration: none; color: #080808; font-size:20px ; font-weight: 500;"
-                                    th:href="@{|/d|}"><span>Nha Nam Official</span></a></div>
+                                    th:href="@{|/d|}"><span th:text="${item.}"></span></a></div>
                             <div class="p-1 ms-3 mt-3">
                                 <button class="shop_button"
                                     style="float: left;color: white; background-color: #C93F04;">Shop profile</button>
@@ -139,7 +127,7 @@
         <div class="des_product px-5">
             <h2>About</h2>
             <br>
-            <!-- Nav tabs -->
+        
             <ul class="nav nav-tabs" style="font-size: 25px;" role="tablist">
                 <li class="nav-item">
                     <a class="nav-link active" data-bs-toggle="tab" href="#des_product">Description</a>
@@ -152,7 +140,7 @@
                 </li>
             </ul>
 
-            <!-- Tab panes -->
+  
             <div class="scrop tab-content">
                 <div id="des_product" class="container tab-pane active"><br>
                     <h3>Mô tả</h3>
@@ -326,7 +314,7 @@
                             </div>
                         </div>
                     </div>
-                    <!-- <button class="button_all_orange my-3" style="margin-left: 40%;">See more</button> -->
+                
                 </div>
             </div>
         </div>
@@ -338,8 +326,7 @@
             </div>
             <div>
                 <div class="book_related" style="width: 90%;">
-                    <!-- <div style="width: 5% ;float: left; margin-top: 200px; margin-left: 1%;"><button class="btn"><i
-                                class="bi bi-chevron-left" style="font-size: 35px;"></i></button></div> -->
+                  
                     <div class="book_item" style="margin-left: 1%;">
                         <div class="book_img text-center">
                             <img th:src="@{/Client/images/Hinh10_book10.jpg}" alt="">
@@ -430,13 +417,12 @@
                                         style="font-size: 25px;"></i></a></div>
                         </div>
                     </div>
-                    <!-- <div style="width: 5% ;float: left; margin-top: 200px; margin-left: 1%;"><button class="btn"><i
-                                class="bi bi-chevron-right" style="font-size: 35px;"></i></button></div> -->
+                 
                 </div>
             </div>
             <button class="button_all_orange my-3" style="margin-left: 44%;">See more</button>
         </div>
-        <script th:src="@{/Client/Js/cart.js}"></script>
     </main>
 
 </body>
+</html>

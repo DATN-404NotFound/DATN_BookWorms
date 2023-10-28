@@ -27,21 +27,18 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Data
 @Entity
-@Table(name="detailbookings", schema="dbo", catalog="bookworm" )
+@Table(name="Detailbookings")
 public class Detailbookings implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     //--- ENTITY PRIMARY KEY 
     @Id
-    @Column(name="dbid", nullable=false, length=10)
     private String     dbid ;
 
     //--- ENTITY DATA FIELDS 
-    @Column(name="bookid", nullable=false)
     private Integer    bookid ;
 
-    @Column(name="bookingid", nullable=false, length=10)
     private String     bookingid ;
 
     @Column(name="quantity", nullable=false)
@@ -50,14 +47,14 @@ public class Detailbookings implements Serializable {
 
     //--- ENTITY LINKS ( RELATIONSHIP )
     @ManyToOne
-    @JoinColumn(name="bookingid", referencedColumnName="bookingid", insertable=false, updatable=false)
+    @JoinColumn(name="Bookingid", referencedColumnName="BookingId", insertable=false, updatable=false)
     private Bookings   bookings ; 
 
     @OneToMany(mappedBy="detailbookings")
     private List<Evaluates> listOfEvaluates ; 
 
     @ManyToOne
-    @JoinColumn(name="bookid", referencedColumnName="bookid", insertable=false, updatable=false)
+    @JoinColumn(name="Bookid", referencedColumnName="BookId", insertable=false, updatable=false)
     private Books      books ; 
 
     //--- toString specific method
