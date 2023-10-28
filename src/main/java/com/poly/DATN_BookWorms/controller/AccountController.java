@@ -20,7 +20,7 @@ import com.poly.DATN_BookWorms.service.AccountService;
 import com.poly.DATN_BookWorms.service.CustomUserDetailService;
 
 @Controller
-//@RequestMapping("/account")
+@RequestMapping("/account")
 public class AccountController {
 
     @Autowired
