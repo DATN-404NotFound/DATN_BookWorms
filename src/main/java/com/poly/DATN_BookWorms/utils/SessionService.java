@@ -11,6 +11,11 @@ public class SessionService {
 	@Autowired
 	HttpSession session;
 	
+	/**
+	 * @param <T>
+	 * @param name
+	 * @return
+	 */
 	public <T> T get(String name) {
 		return (T)session.getAttribute(name);
 	}

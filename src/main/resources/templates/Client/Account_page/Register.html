@@ -27,19 +27,19 @@
 				<div th:if="${param.error}">
                 <div class="alert alert-danger">Username already exits !!!</div>
            		</div>
-				<input type="text" class="form-control mt-5" placeholder="Username" name="username">
-			 	<p class="text-danger" th:errors="*{username}" th:if="${#fields.hasErrors('username')}"></p>
+				<input type="text" class="form-control mt-5" placeholder="Username" name="username" required th:field="*{username}">
+			 	<span class="text-danger" th:errors="*{username}" th:if="${#fields.hasErrors('username')}"></span>
 			 	
-				<input type="text" class="form-control mt-4" placeholder="Fullname" name="fullname">
+				<input type="text" class="form-control mt-4" placeholder="Fullname" name="fullname" required th:field="*{fullname}">
 				<p class="text-danger" th:errors="*{fullname}" th:if="${#fields.hasErrors('fullname')}"></p>
 				
-				<input type="email" class="form-control mt-4" placeholder="Email" name="email">
+				<input type="email" class="form-control mt-4" placeholder="Email" name="email" th:field="*{email}">
 				<p class="text-danger" th:errors="*{email}" th:if="${#fields.hasErrors('email')}"></p>
 				
-				<input type="password" class="form-control mt-4" placeholder="Password" name="password">
+				<input type="password" class="form-control mt-4" placeholder="Password" name="password" required th:field="*{password}">
 				<p class="text-danger" th:errors="*{password}" th:if="${#fields.hasErrors('password')}"></p>
 				
-				<input type="password" class="form-control mt-4"placeholder="Confrim Password " name="password2">
+				<input type="password" class="form-control mt-4"placeholder="Confirm Password " name="password2" required th:field="*{password2}">
 					<p class="text-danger" th:errors="*{password2}" th:if="${#fields.hasErrors('password2')}"></p>
 				
 				<button type="submit" class="btn btnContinue mt-5">Continue</button>

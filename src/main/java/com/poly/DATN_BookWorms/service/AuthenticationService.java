@@ -1,26 +1,6 @@
 package com.poly.DATN_BookWorms.service;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Set;
-
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Service;
-
-import com.poly.DATN_BookWorms.auth.AuthenticationRequest;
-import com.poly.DATN_BookWorms.auth.AuthenticationResponse;
-import com.poly.DATN_BookWorms.entities.Account;
-import com.poly.DATN_BookWorms.entities.Authorities;
-import com.poly.DATN_BookWorms.entities.Roles;
-import com.poly.DATN_BookWorms.repo.AccountRepo;
-import com.poly.DATN_BookWorms.repo.AuthoritiesRepo;
-import com.poly.DATN_BookWorms.repo.RoleRepo;
 
 import lombok.RequiredArgsConstructor;
 

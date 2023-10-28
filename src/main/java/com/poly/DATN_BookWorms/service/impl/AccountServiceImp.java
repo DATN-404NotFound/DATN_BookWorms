@@ -20,6 +20,8 @@ import com.poly.DATN_BookWorms.service.AccountService;
 import com.poly.DATN_BookWorms.service.RoleService;
 import com.poly.DATN_BookWorms.utils.CRC32Utils;
 
+import java.util.List;
+
 
 @Service
 public class AccountServiceImp implements AccountService {
@@ -39,7 +41,7 @@ public class AccountServiceImp implements AccountService {
 	PasswordEncoder passwordEncoder;
 	
 	@Autowired
-	CRC32_SHA256 crc32Sha256;
+	 CRC32_SHA256 crc32Sha256;
 
 //	@Override
 //	public Account findById(String username) {
@@ -75,20 +77,16 @@ public class AccountServiceImp implements AccountService {
 		account.setUsername(accountDTO.getUsername());
 		accountRepo.save(account);
 		
-<<<<<<< Updated upstream
-		long authorityId =  crc32Utils.getCRC32Hash(accountDTO.getUsername()+role.getRoleid());
-		authoritiesRepo.save(new Authorities(Long.toString(authorityId),account, role));
-=======
+
 		Long authorityId = Long.valueOf(crc32Sha256.getCodeCRC32C(accountDTO.getUsername()+role.getRoleid()));
 		authoritiesRepo.save(new Authorities(authorityId.toString(),account, role));
->>>>>>> Stashed changes
 			
 	}
 
-//	@Override
-//	public Account update(Account account) {
-//		return accountRepo.save(account);
-//	}
+	@Override
+	public Account update(Account account) {
+		return accountRepo.save(account);
+	}
 
 //	public void loginFromOAuth2(OAuth2AuthenticationToken oauth2) {
 //		String email = oauth2.getPrincipal().getAttribute("email");
@@ -98,32 +96,37 @@ public class AccountServiceImp implements AccountService {
 //		Authentication auth = new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
 //		SecurityContextHolder.getContext().setAuthentication(auth);
 //	}
-//
-//	@Override
-//	public void delete(String username) {
-//		// TODO Auto-generated method stub
-//		accountRepo.deleteById(username);
-//	}
-//
-//	@Override
-//	public List<Account> getAdministrators() {
-//		// TODO Auto-generated method stub
-//		return null;
-//	}
-//
-//	@Override
-//	public Account findByEmail(String email) {
-//		// TODO Auto-generated method stub
-//		return null;
-//	}
-//
-//	@Override
-//	public Account create(Account account) {
-//		// TODO Auto-generated method stub
-//		account.setPassword(passwordEncoder.encode(account.getPassword()));
-//		return accountRepo.save(account);
-//	}
-//
+
+	@Override
+	public void delete(String username) {
+		// TODO Auto-generated method stub
+		accountRepo.deleteById(username);
+	}
+
+	@Override
+	public List<Account> getAdministrators() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Account> findAll() {
+		return accountRepo.findAll();
+	}
+
+	@Override
+	public Account findByEmail(String email) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Account create(Account account) {
+		// TODO Auto-generated method stub
+		account.setPassword(passwordEncoder.encode(account.getPassword()));
+		return accountRepo.save(account);
+	}
+
 //	@Override
 //	public LoginResponse loginAccount(@RequestBody LoginDTO loginDTO) {
 //		// TODO Auto-generated method stub
@@ -148,7 +151,7 @@ public class AccountServiceImp implements AccountService {
 //		}
 //		return new LoginResponse("Login Failed", false);
 //	}
-//
+
 //	@Override
 //	public void adRoleToUser(String username, String roleName) {
 //

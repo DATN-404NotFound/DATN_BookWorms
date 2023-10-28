@@ -4,7 +4,7 @@ package com.poly.DATN_BookWorms.service;
 import com.poly.DATN_BookWorms.entities.Account;
 import com.poly.DATN_BookWorms.entities.Authorities;
 import com.poly.DATN_BookWorms.entities.Roles;
-import com.poly.DATN_BookWorms.repo.AccountRepo;
+
 import com.poly.DATN_BookWorms.repo.AuthoritiesRepo;
 import com.poly.DATN_BookWorms.repo.RoleRepo;
 import com.poly.DATN_BookWorms.utils.CRC32Utils;
@@ -17,9 +17,6 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class FacebookConnectionSignup implements ConnectionSignUp {
-    @Autowired
-    private AccountRepo accountRepo;
-
     @Autowired
     private PasswordEncoder passwordEncoder;
 

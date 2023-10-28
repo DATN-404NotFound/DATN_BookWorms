@@ -3,17 +3,16 @@
  */
 package com.poly.DATN_BookWorms.entities;
 
+
 import java.io.Serializable;
-import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
+
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import jakarta.annotation.PostConstruct;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;

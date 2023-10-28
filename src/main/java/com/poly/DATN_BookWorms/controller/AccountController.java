@@ -2,14 +2,9 @@ package com.poly.DATN_BookWorms.controller;
 
 import javax.validation.Valid;
 
-import com.poly.DATN_BookWorms.service.CustomUserDetailService;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.oauth2.core.user.DefaultOAuth2User;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,9 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.poly.DATN_BookWorms.dto.AccountDTO;
 import com.poly.DATN_BookWorms.entities.Account;
 import com.poly.DATN_BookWorms.service.AccountService;
-
-import java.util.LinkedHashMap;
-import java.util.Map;
+import com.poly.DATN_BookWorms.service.CustomUserDetailService;
 
 @Controller
 @RequestMapping("/account")
@@ -81,7 +74,7 @@ public class AccountController {
 
         if (result.hasErrors()) {
             model.addAttribute("user", accountDTO);
-            return "redirect:registration";
+            return "Client/Account_page/Register";
         }
         accountService.save(accountDTO);
         return "redirect:login";
