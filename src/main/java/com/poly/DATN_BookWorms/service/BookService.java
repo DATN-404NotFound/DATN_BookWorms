@@ -23,9 +23,6 @@ public interface BookService {
 	Books update(Books book);
 
 	void delete(int id);
-
 	Page<BookResponse> findAllBook(Pageable pageable);
-
-
 
 }

@@ -30,7 +30,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Data
 @Entity
-@Table(name="DiscountCodes", schema="dbo", catalog="BookWorm" )
+@Table(name="discountcodes", schema="dbo", catalog="bookworm" )
 public class Discountcodes implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -38,41 +38,41 @@ public class Discountcodes implements Serializable {
     //--- ENTITY PRIMARY KEY 
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
-    @Column(name="DiscountCodeId", nullable=false)
+    @Column(name="discountcodeid", nullable=false)
     private Integer    discountcodeid ;
 
     //--- ENTITY DATA FIELDS 
-    @Column(name="SaleId", nullable=false, length=10)
+    @Column(name="saleid", nullable=false, length=10)
     private String     saleid ;
 
-    @Column(name="UserId", nullable=false, length=10)
+    @Column(name="userid", nullable=false, length=10)
     private String     userid ;
 
     @Temporal(TemporalType.DATE)
-    @Column(name="StartDiscount")
+    @Column(name="startdiscount")
     private Date       startdiscount ;
 
     @Temporal(TemporalType.DATE)
-    @Column(name="EndDiscount")
+    @Column(name="enddiscount")
     private Date       enddiscount ;
 
-    @Column(name="isDelete")
+    @Column(name="isdelete")
     private Boolean    isdelete ;
 
-    @Column(name="MinPrice")
+    @Column(name="minprice")
     private Double     minprice ;
 
-    @Column(name="Status", length=50)
+    @Column(name="status", length=50)
     private String     status ;
 
 
     //--- ENTITY LINKS ( RELATIONSHIP )
     @ManyToOne
-    @JoinColumn(name="UserId", referencedColumnName="Userid", insertable=false, updatable=false)
+    @JoinColumn(name="userid", referencedColumnName="userid", insertable=false, updatable=false)
     private Account    account ; 
 
     @ManyToOne
-    @JoinColumn(name="SaleId", referencedColumnName="CouoponCode", insertable=false, updatable=false)
+    @JoinColumn(name="saleid", referencedColumnName="couoponcode", insertable=false, updatable=false)
     private Sales      sales ; 
 
     //--- toString specific method

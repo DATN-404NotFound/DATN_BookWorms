@@ -29,7 +29,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Data
 @Entity
-@Table(name="Books", schema="dbo", catalog="BookWorm" )
+@Table(name="books", schema="dbo", catalog="bookworm" )
 public class Books implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -37,56 +37,56 @@ public class Books implements Serializable {
     //--- ENTITY PRIMARY KEY 
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
-    @Column(name="BookId", nullable=false)
+    @Column(name="bookid", nullable=false)
     private Integer    bookid ;
 
     //--- ENTITY DATA FIELDS 
-    @Column(name="BookName", nullable=false, length=100)
+    @Column(name="bookname", nullable=false, length=100)
     private String     bookname ;
 
-    @Column(name="Language", length=20)
+    @Column(name="language", length=20)
     private String     language ;
 
-    @Column(name="Size", length=20)
+    @Column(name="size", length=20)
     private String     size ;
 
-    @Column(name="Weight")
+    @Column(name="weight")
     private Double     weight ;
 
-    @Column(name="TotalPage")
+    @Column(name="totalpage")
     private Integer    totalpage ;
 
-    @Column(name="PublishingYear")
+    @Column(name="publishingyear")
     private Integer    publishingyear ;
 
-    @Column(name="Price")
+    @Column(name="price")
     private Double     price ;
 
-    @Column(name="Quantity")
+    @Column(name="quantity")
     private Integer    quantity ;
 
-    @Column(name="Statues", length=20)
+    @Column(name="statues", length=20)
     private String     statues ;
 
-    @Column(name="PublishingCompanyId", nullable=false)
+    @Column(name="publishingcompanyid", nullable=false)
     private Integer    publishingcompanyid ;
 
-    @Column(name="isActive")
+    @Column(name="isactive")
     private Boolean    isactive ;
 
-    @Column(name="QuantitySold")
+    @Column(name="quantitysold")
     private Integer    quantitysold ;
 
-    @Column(name="ShopId", nullable=false)
+    @Column(name="shopid", nullable=false)
     private Integer    shopid ;
 
 
     //--- ENTITY LINKS ( RELATIONSHIP )
     @OneToMany(mappedBy="books")
-    private List<Cart> listOfCart ; 
+    private List<Cart> listOfCart ;
 
     @ManyToOne
-    @JoinColumn(name="ShopId", referencedColumnName="ShopId", insertable=false, updatable=false)
+    @JoinColumn(name="shopid", referencedColumnName="shopid", insertable=false, updatable=false)
     private Shoponlines shoponlines ; 
 
     @OneToMany(mappedBy="books")
@@ -99,14 +99,14 @@ public class Books implements Serializable {
     private List<Typebooks> listOfTypebooks ; 
 
     @OneToMany(mappedBy="books")
-    private List<Writers> listOfWriters ; 
+    private List<Writers> listOfWriters ;
 
     @ManyToOne
-    @JoinColumn(name="PublishingCompanyId", referencedColumnName="PCId", insertable=false, updatable=false)
-    private Publishingcompanies publishingcompanies ; 
+    @JoinColumn(name="publishingcompanyid", referencedColumnName="pcid", insertable=false, updatable=false)
+    private Publishingcompanies publishingcompanies ;
 
     @OneToMany(mappedBy="books")
-    private List<Hassales> listOfHassales ; 
+    private List<Hassales> listofhassales ;
 
 
     //--- toString specific method

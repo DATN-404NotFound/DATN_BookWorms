@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import com.poly.DATN_BookWorms.entities.Writtingmasters;
 import com.poly.DATN_BookWorms.repo.WrittingmastersRepo;
 import com.poly.DATN_BookWorms.service.WriterMasterService;
-
+import org.springframework.stereotype.Service;
 
 @Service
 public class WriterMasterServiceImp implements WriterMasterService{

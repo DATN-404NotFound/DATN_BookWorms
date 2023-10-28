@@ -59,13 +59,8 @@ public class BookServiceImp implements BookService{
 		return null;
 	}
 
-	@Autowired
-	public BookServiceImp(BooksRepo booksRepo) {
-		this.booksRepo = booksRepo;
-	}
-
 	@Override
 	public Page<BookResponse> findAllBook(Pageable pageable) {
-		return booksRepo.findAllBook(pageable);
+		return bookRepo.findAllBook(pageable);
 	}
 }

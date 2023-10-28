@@ -30,31 +30,31 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Data
 @Entity
-@Table(name="Bookings", schema="dbo", catalog="BookWorm" )
+@Table(name="bookings", schema="dbo", catalog="bookworm" )
 public class Bookings implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     //--- ENTITY PRIMARY KEY 
     @Id
-    @Column(name="BookingId", nullable=false, length=10)
+    @Column(name="bookingid", nullable=false, length=10)
     private String     bookingid ;
 
     //--- ENTITY DATA FIELDS 
     @Temporal(TemporalType.DATE)
-    @Column(name="CreateAt")
+    @Column(name="createat")
     private Date       createat ;
 
-    @Column(name="Cost")
+    @Column(name="cost")
     private Double     cost ;
 
-    @Column(name="UserId", nullable=false, length=10)
+    @Column(name="userid", nullable=false, length=10)
     private String     userid ;
 
-    @Column(name="OrderStatusId", nullable=false)
+    @Column(name="orderstatusid", nullable=false)
     private Integer    orderstatusid ;
 
-    @Column(name="ShippingUnitId", nullable=false)
+    @Column(name="shippingunitid", nullable=false)
     private Integer    shippingunitid ;
 
 
@@ -63,18 +63,18 @@ public class Bookings implements Serializable {
     private List<Payments> listOfPayments ; 
 
     @ManyToOne
-    @JoinColumn(name="OrderStatusId", referencedColumnName="OrderStatusId", insertable=false, updatable=false)
+    @JoinColumn(name="orderstatusid", referencedColumnName="orderstatusid", insertable=false, updatable=false)
     private Orderstatuses orderstatuses ; 
 
     @ManyToOne
-    @JoinColumn(name="UserId", referencedColumnName="Userid", insertable=false, updatable=false)
+    @JoinColumn(name="userid", referencedColumnName="userid", insertable=false, updatable=false)
     private Account    account ; 
 
     @OneToMany(mappedBy="bookings")
     private List<Detailbookings> listOfDetailbookings ; 
 
     @ManyToOne
-    @JoinColumn(name="ShippingUnitId", referencedColumnName="ShippingUnitId", insertable=false, updatable=false)
+    @JoinColumn(name="shippingunitid", referencedColumnName="shippingunitid", insertable=false, updatable=false)
     private Shippingunits shippingunits ; 
 
     //--- toString specific method

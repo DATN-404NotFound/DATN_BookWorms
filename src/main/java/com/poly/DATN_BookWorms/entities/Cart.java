@@ -27,7 +27,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Data
 @Entity
-@Table(name="Cart", schema="dbo", catalog="BookWorm" )
+@Table(name="cart", schema="dbo", catalog="bookworm" )
 public class Cart implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -35,27 +35,27 @@ public class Cart implements Serializable {
     //--- ENTITY PRIMARY KEY 
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
-    @Column(name="Cartid", nullable=false)
+    @Column(name="cartid", nullable=false)
     private Integer    cartid ;
 
     //--- ENTITY DATA FIELDS 
-    @Column(name="UserId", length=10)
+    @Column(name="userid", length=10)
     private String     userid ;
 
-    @Column(name="BookId")
+    @Column(name="bookid")
     private Integer    bookid ;
 
-    @Column(name="Quantity")
+    @Column(name="quantity")
     private Integer    quantity ;
 
 
     //--- ENTITY LINKS ( RELATIONSHIP )
     @ManyToOne
-    @JoinColumn(name="UserId", referencedColumnName="Userid", insertable=false, updatable=false)
+    @JoinColumn(name="userid", referencedColumnName="userid", insertable=false, updatable=false)
     private Account    account ; 
 
     @ManyToOne
-    @JoinColumn(name="BookId", referencedColumnName="BookId", insertable=false, updatable=false)
+    @JoinColumn(name="bookid", referencedColumnName="bookid", insertable=false, updatable=false)
     private Books      books ; 
 
     //--- toString specific method

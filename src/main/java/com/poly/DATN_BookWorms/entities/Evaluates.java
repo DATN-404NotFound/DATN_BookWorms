@@ -32,7 +32,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Data
 @Entity
-@Table(name="Evaluates", schema="dbo", catalog="BookWorm" )
+@Table(name="evaluates", schema="dbo", catalog="bookworm" )
 public class Evaluates implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -40,27 +40,27 @@ public class Evaluates implements Serializable {
     //--- ENTITY PRIMARY KEY 
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
-    @Column(name="EvaluateId", nullable=false)
+    @Column(name="evaluateid", nullable=false)
     private Integer    evaluateid ;
 
     //--- ENTITY DATA FIELDS 
-    @Column(name="DBId", nullable=false, length=10)
+    @Column(name="dbid", nullable=false, length=10)
     private String     dbid ;
 
-    @Column(name="Rating")
+    @Column(name="rating")
     private Integer    rating ;
 
-    @Column(name="ReviewText", nullable=false, length=2555)
+    @Column(name="reviewtext", nullable=false, length=2555)
     private String     reviewtext ;
 
     @Temporal(TemporalType.DATE)
-    @Column(name="EvaluateDate")
+    @Column(name="evaluatedate")
     private Date       evaluatedate ;
 
 
     //--- ENTITY LINKS ( RELATIONSHIP )
     @ManyToOne
-    @JoinColumn(name="DBId", referencedColumnName="DBId", insertable=false, updatable=false)
+    @JoinColumn(name="dbid", referencedColumnName="dbid", insertable=false, updatable=false)
     private Detailbookings detailbookings ; 
 
     @OneToMany(mappedBy="evaluates")

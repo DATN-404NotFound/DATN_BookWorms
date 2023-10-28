@@ -8,10 +8,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class BookResponse {
-private String bookname;
-    private String name;
-    private Double price;
-    private String shopname;
-
+    Integer bookid;
+    String bookname;
+    String image;
+    Double price;
+    String shopname;
 
 }

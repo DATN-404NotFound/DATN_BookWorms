@@ -27,7 +27,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Data
 @Entity
-@Table(name="ImageBooks", schema="dbo", catalog="BookWorm" )
+@Table(name="imagebooks", schema="dbo", catalog="bookworm" )
 public class Imagebooks implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -35,23 +35,23 @@ public class Imagebooks implements Serializable {
     //--- ENTITY PRIMARY KEY 
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
-    @Column(name="FiledId", nullable=false)
+    @Column(name="fileid", nullable=false)
     private Integer    filedid ;
 
     //--- ENTITY DATA FIELDS 
-    @Column(name="Name", length=255)
+
     private String     name ;
 
-    @Column(name="TypeFile", length=20)
+    @Column(name="typefile", length=20)
     private String     typefile ;
 
-    @Column(name="BookId")
+    @Column(name="bookid")
     private Integer    bookid ;
 
 
     //--- ENTITY LINKS ( RELATIONSHIP )
     @ManyToOne
-    @JoinColumn(name="BookId", referencedColumnName="BookId", insertable=false, updatable=false)
+    @JoinColumn(name="bookid", referencedColumnName="bookid", insertable=false, updatable=false)
     private Books      books ; 
 
     //--- toString specific method
