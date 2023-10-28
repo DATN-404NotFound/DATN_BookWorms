@@ -8,6 +8,8 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -54,6 +56,7 @@ public class Categories implements Serializable {
 
 	// --- ENTITY LINKS ( RELATIONSHIP )
 	@OneToMany(mappedBy = "categories")
+	@JsonIgnore
 	private List<Typebooks> listOfTypebooks;
 
 	// --- toString specific method
