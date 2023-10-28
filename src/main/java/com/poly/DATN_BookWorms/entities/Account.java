@@ -9,7 +9,6 @@ import java.util.Date;
 import java.util.List;
 
 
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
@@ -117,6 +116,5 @@ public class Account implements Serializable {
         return sb.toString(); 
     }
 
-	
 
 }

@@ -36,12 +36,14 @@ public class AccountServiceImp implements AccountService {
 	
 	@Autowired
 	RoleRepo roleRepo;
+
 	
 	@Autowired
 	PasswordEncoder passwordEncoder;
 	
 	@Autowired
 	 CRC32_SHA256 crc32Sha256;
+
 
 //	@Override
 //	public Account findById(String username) {
@@ -60,6 +62,7 @@ public class AccountServiceImp implements AccountService {
 //	}
 
 	@Override
+
 	public void save(AccountDTO accountDTO) {
 		Roles role = roleRepo.findById("GUEST").get();
 
@@ -83,18 +86,32 @@ public class AccountServiceImp implements AccountService {
 			
 	}
 
-	@Override
-	public Account update(Account account) {
-		return accountRepo.save(account);
-	}
+	// @Override
+	// public Account update(Account account) {
+	// 	return accountRepo.save(account);
+	// }
 
-//	public void loginFromOAuth2(OAuth2AuthenticationToken oauth2) {
-//		String email = oauth2.getPrincipal().getAttribute("email");
-//		String password = Long.toHexString(System.currentTimeMillis());
+
+	// public Account create(Account account) {
+	// 	return null;
+	// }
+
+	// @Override
+	// public Account update(Account account) {
+	// 	return null;
+	// }
+
+//	@Override
+//	public Account create(AccountDTO accountDTO) {
+//		Account account = new Account(passwordEncoder.encode(accountDTO.getUsername() + accountDTO.getFullname()),
+//				accountDTO.getUsername(), accountDTO.getFullname(), passwordEncoder.encode(accountDTO.getPassword()),
+//				null, null, null, null, null, null, null, null, null, null, null);
+//		Roles roles = roleService.findByName("USER");
+//		Authorities authorities = new Authorities(null, account, roles);
 //
-//		UserDetails user = User.withUsername(email).password(passwordEncoder.encode(password)).roles("GUEST").build();
-//		Authentication auth = new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
-//		SecurityContextHolder.getContext().setAuthentication(auth);
+//		authoritiesRepo.save(authorities);
+//		accountRepo.save(account);
+//		return account;
 //	}
 
 	@Override
@@ -128,7 +145,26 @@ public class AccountServiceImp implements AccountService {
 	}
 
 //	@Override
+//	public Account create(AccountDTO accountDTO) {
+//		return null;
+//	}
+//
+//	@Override
+//	public List<Account> getAdministrators() {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
+//
+//	@Override
+//	public Account findByEmail(String email) {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
+
+
+//	@Override
 //	public LoginResponse loginAccount(@RequestBody LoginDTO loginDTO) {
+
 //		// TODO Auto-generated method stub
 //		String message = "";
 //		Account account1 = accountRepo.findByUsername(loginDTO.getUsername()).get();
@@ -163,10 +199,5 @@ public class AccountServiceImp implements AccountService {
 //		return null;
 //	}
 
-	@Override
-	public Account findByUsename(String username) {
-		// TODO Auto-generated method stub
-		return accountRepo.findByUsername(username);
-	}
 
 }

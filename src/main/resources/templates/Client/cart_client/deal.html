@@ -15,11 +15,12 @@
     <link rel="stylesheet" href="../../../static/Client/css/cart_user.css">
     <link rel="stylesheet" href="../../../static/Client/css/_index.css">
     <link rel="stylesheet" href="../../../static/Client/css/product.css">
+    <script th:src="@{/Client/Js/cart.js}"></script>
 </head>
 
 <body>
 
-    <main style="width: 90%; margin: auto;">
+    <main ng-app="cart_app" ng-controller="cart_ctrl" style="width: 90%; margin: auto;">
         <article style="width: 70%; height: auto; float: left;">
             <div class="mt-4" style="width: 100%; background-color: rgb(240, 240, 240);  border-radius: 10px;">
                 <div class="my-2 pt-5" style="width: 90%; margin: auto;">
@@ -308,6 +309,7 @@
                 <button class="btn btn-success float-end">Đặt hàng</button>
             </div>
         </aside>
+        <script th:src="@{/Client/Js/cart.js}"></script>
     </main>
 </body>
 

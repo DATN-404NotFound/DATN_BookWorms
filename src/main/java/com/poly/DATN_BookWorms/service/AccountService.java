@@ -30,5 +30,6 @@ public interface AccountService {
 	
 
 	
+//	public void loginFromOAuth2(OAuth2AuthenticationToken oauth2);
 	
 }
