@@ -37,8 +37,6 @@ public class AccountServiceImp implements AccountService {
 	@Autowired
 	RoleRepo roleRepo;
 
-	
-	@Autowired
 	PasswordEncoder passwordEncoder;
 	
 	@Autowired
@@ -84,26 +82,29 @@ public class AccountServiceImp implements AccountService {
 	@Override
 
 	public void save(AccountDTO accountDTO) {
+		//Get Role
 		Roles role = roleRepo.findById("GUEST").get();
 
 		if (role == null) {
 			role = roleRepo.save(new Roles("GUEST","Guest", null));
 		}
-		
+
+		//Băm userId and authorrityId
 		Long userId = Long.valueOf(crc32Sha256.getCodeCRC32C(accountDTO.getUsername()));
-		
+		Long authorityId = Long.valueOf(crc32Sha256.getCodeCRC32C(accountDTO.getUsername()+role.getRoleid()));
+
+		//Set info to account form DTO
 		Account account = new Account();
 		account.setUserid(userId.toString());
 		account.setEmail(accountDTO.getEmail());
 		account.setFullname(accountDTO.getFullname());
 		account.setPassword(passwordEncoder.encode(accountDTO.getPassword()));
 		account.setUsername(accountDTO.getUsername());
-		accountRepo.save(account);
-		
 
-		Long authorityId = Long.valueOf(crc32Sha256.getCodeCRC32C(accountDTO.getUsername()+role.getRoleid()));
+		//Create account and author for account
 		authoritiesRepo.save(new Authorities(authorityId.toString(),account, role));
-			
+		accountRepo.save(account);
+
 	}
 
 

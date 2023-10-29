@@ -17,7 +17,6 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class FacebookConnectionSignup implements ConnectionSignUp {
-    @Autowired
     private PasswordEncoder passwordEncoder;
 
     @Autowired

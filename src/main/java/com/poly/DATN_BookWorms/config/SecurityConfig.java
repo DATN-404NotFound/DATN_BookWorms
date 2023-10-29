@@ -9,19 +9,22 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
-import com.poly.DATN_BookWorms.service.AccountService;
 
 
 
 
 @Configuration
-//@EnableWebSecurity
+@EnableWebSecurity
 public class SecurityConfig {
+	@Bean
+	public PasswordEncoder passwordEncoder() {
+		return new BCryptPasswordEncoder();
+	}
 	//	Phân quyền sử dụng
 	@Bean
 	public SecurityFilterChain web(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests((request) -> request
-                .requestMatchers("/account/**", "/signin/**", "/signup/**", "/product/**", "/Admin/Css/**", "/Admin/Image/**", "/Admin/Js/**")
+                .requestMatchers("/account/**", "/signin/**", "/signup/**", "/product/**", "/Admin/Css/**", "/Admin/Image/**", "/Admin/Js/**","/Ibook/**")
 				.permitAll()
                 .requestMatchers("/Client/**")
 				.permitAll()
@@ -32,7 +35,7 @@ public class SecurityConfig {
 				.anyRequest().authenticated());
         http.formLogin(form -> form.loginPage("/account/login")
 				.loginProcessingUrl("/account/login")
-                .defaultSuccessUrl("/product/a")
+                .defaultSuccessUrl("/Ibook/index")
 				.permitAll());
 
         http.oauth2Login(customize -> customize.loginPage("/account/login")
@@ -49,9 +52,4 @@ public class SecurityConfig {
 
 		return http.build();
 	}
-	@Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
-	
 }

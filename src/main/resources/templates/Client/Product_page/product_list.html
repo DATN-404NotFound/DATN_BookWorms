@@ -127,12 +127,12 @@
                     <div class="card-body">
                         <form action="">
                             <div class="form-check">
-                                <input type="checkbox" class="form-check-input" id="check1"
+                                <input type="checkbox" class="form-check-input"
                                        name="option1" value="something" checked> <label
                                     class="form-check-label" for="check1">Dưới 100k</label>
                             </div>
                             <div class="form-check">
-                                <input type="checkbox" class="form-check-input" id="check2"
+                                <input type="checkbox" class="form-check-input"
                                        name="option2" value="something"> <label
                                     class="form-check-label" for="check2">Từ 100k đến 200k</label>
                             </div>
@@ -188,7 +188,7 @@
                             </label>
                             </div>
                             <div class="form-check">
-                                <input type="checkbox" class="form-check-input" id="check2"
+                                <input type="checkbox" class="form-check-input"
                                        name="option2" value="something"> <label
                                     class="form-check-label" for="check2">
                                 <div class="stars" style="font-size: 22px;">
@@ -200,7 +200,7 @@
                             </label>
                             </div>
                             <div class="form-check">
-                                <input type="checkbox" class="form-check-input" id="check2"
+                                <input type="checkbox" class="form-check-input"
                                        name="option2" value="something"> <label
                                     class="form-check-label" for="check2">
                                 <div class="stars" style="font-size: 22px;">
@@ -213,7 +213,7 @@
                             </label>
                             </div>
                             <div class="form-check">
-                                <input type="checkbox" class="form-check-input" id="check2"
+                                <input type="checkbox" class="form-check-input"
                                        name="option2" value="something"> <label
                                     class="form-check-label" for="check2">
                                 <div class="stars" style="font-size: 22px;">
@@ -265,7 +265,7 @@
             <ul class="pagination justify-content-center">
                 <li th:classappend="${currentPage == 0} ? 'page-item' : ''"
                     th:each="page, iterStat : ${#numbers.sequence(0, totalPages - 1)}">
-                    <a th:href="@{/list(page=${page})}" class="page-link" th:text="${page + 1}"></a>
+                    <a th:href="@{/product/list(page=${page})}" class="page-link" th:text="${page + 1}"></a>
                 </li>
             </ul>
         </div>

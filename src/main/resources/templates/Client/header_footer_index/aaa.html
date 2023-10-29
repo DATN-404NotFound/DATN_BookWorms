@@ -34,7 +34,7 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                     </div>
                     <div class="modal-body">
-                        <span> Welcome <span th:text="${welcomeUser}"></span> , Hope you have a great time shopping on IBook <3 </span>
+                        <span> Welcome <span th:text="${user.getFullname()}"></span> , Hope you have a great time shopping on IBook <3 </span>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>

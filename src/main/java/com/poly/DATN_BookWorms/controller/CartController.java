@@ -3,6 +3,8 @@ package com.poly.DATN_BookWorms.controller;
 import java.util.List;
 import java.util.Optional;
 
+import com.poly.DATN_BookWorms.entities.Account;
+import com.poly.DATN_BookWorms.utils.SessionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,18 +27,21 @@ public class CartController {
 
 	@Autowired
 	SaleService saleService;
+
+	@Autowired
+	SessionService sessionService;
 	
 	@RequestMapping
-	public String cartView(Model model) { 
-		
-			List<Cart> cartuser_list = cartService.findByUser("UID10NTN99");
+	public String cartView(Model model) {
+		Account user = sessionService.get("user");
+			List<Cart> cartuser_list = cartService.findByUser(user.getUserid());
 			model.addAttribute("cartuserList", cartuser_list);
-			List<Shoponlines> list_cart_shop = cartService.list_cart_shop("UID10NTN99");
+			List<Shoponlines> list_cart_shop = cartService.list_cart_shop(user.getUserid());
 			model.addAttribute("cartshoplist", list_cart_shop);
 			List<Sales> sale_shopid_intendFor = saleService.saleOfShopIntendFor("ForBook");
 			model.addAttribute("saleShopIntendFor",sale_shopid_intendFor);
-			System.out.println("chyaj1 "+cartuser_list.size() );
-			System.out.println("chyaj1 "+ list_cart_shop.size() );
+			System.out.println("run: "+cartuser_list.size() );
+			System.out.println("run: "+ list_cart_shop.size() );
 		return "Client/cart_client/cart_user";
 	}
 	
