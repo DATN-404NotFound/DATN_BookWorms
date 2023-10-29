@@ -3,8 +3,10 @@ package com.poly.DATN_BookWorms.controller;
 import com.itextpdf.text.pdf.qrcode.Mode;
 import com.poly.DATN_BookWorms.entities.Account;
 import com.poly.DATN_BookWorms.entities.Books;
+import com.poly.DATN_BookWorms.entities.Roles;
 import com.poly.DATN_BookWorms.service.BookService;
 import com.poly.DATN_BookWorms.service.CategoryService;
+import com.poly.DATN_BookWorms.service.RoleService;
 import com.poly.DATN_BookWorms.utils.SessionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -23,6 +25,9 @@ public class HomeController {
 
     @Autowired
     SessionService sessionService;
+
+    @Autowired
+    RoleService roleService;
 
     @RequestMapping("/index")
     public String home(Model model) {
@@ -61,9 +66,12 @@ public class HomeController {
     @RequestMapping("/header")
     public String header(Model model, Account user) {
         System.out.println(user.getFullname());
+
         if (user !=null){
             model.addAttribute("image", user.getImage());
             model.addAttribute("name", user.getFullname());
+
+            Roles roles = roleService.findSellerByRoleId("SELLER");
         }
         return "Client/header_footer_index/header_index";
     }

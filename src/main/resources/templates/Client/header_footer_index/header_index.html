@@ -22,8 +22,11 @@
 <div th:fragment="header">
     <div class="header_index">
         <div class="row align-items-center" style="height:70px">
-            <div class="col-sm-4 font-face">
+            <div class="col-sm-5 font-face">
                 <ul class="nav" style="margin-left: 169px;">
+                    <li class="nav-item">
+                        <a class="nav-link menu_item" style="color: #C84902;"   th:href="@{|/Ibook/seller|}">SELLER   |</a>
+                    </li>
                     <li class="nav-item">
                         <a class="nav-link menu_item" style="color: #C84902;" th:href="@{|/Ibook/index|}">HOME</a>
                     </li>
@@ -38,10 +41,10 @@
                     </li>
                 </ul>
             </div>
-            <div class="col-sm-4 text-center">
+            <div class="col-sm-2 text-center">
                 <b style="color: #FFFF; font-size: 40px; font-weight: 400;">IBOOK</b>
             </div>
-            <div class="col-sm-4 text-center">
+            <div class="col-sm-5 text-center">
                 <input class="search__input" type="text" placeholder="Search">
                 <a th:href="@{|/cart|}"><i class="bi bi-cart3 mx-4"
                                                   style="color: white; font-size: 30px;"></i></a>

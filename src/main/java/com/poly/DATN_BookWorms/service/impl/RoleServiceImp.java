@@ -25,4 +25,9 @@ public class RoleServiceImp implements RoleService{
 	public Roles findByName(String name){
 		return new Roles();
 	}
+
+	@Override
+	public Roles findSellerByRoleId(String roleId) {
+		return roleRepo.findById(roleId).get();
+	}
 }

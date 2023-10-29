@@ -239,8 +239,8 @@
                         <img th:src="@{'/Client/images/' + ${book.image}}" alt="Book Image" class="card-img-top"
                              style="max-height: 400px;">
                         <div class="card-body">
-                            <h5 class="card-title" th:text="${#strings.abbreviate(book.bookname, 30)}"
-                                style="white-space: nowrap;"></h5>
+                           <a th:href="@{|/product/detail/${book.bookid}|}"> <h5 class="card-title" th:text="${#strings.abbreviate(book.bookname, 30)}"
+                                   style="white-space: nowrap;"></h5></a>
 
 
                             <p class="card-text" th:text="${book.shopname}"></p>

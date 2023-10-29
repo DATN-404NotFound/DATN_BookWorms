@@ -21,44 +21,48 @@ import com.poly.DATN_BookWorms.service.SaleService;
 @Controller
 @RequestMapping("/cart")
 public class CartController {
-	
-	@Autowired
-	CartService cartService;
 
-	@Autowired
-	SaleService saleService;
+    @Autowired
+    CartService cartService;
 
-	@Autowired
-	SessionService sessionService;
-	
-	@RequestMapping
-	public String cartView(Model model) {
-		Account user = sessionService.get("user");
-			List<Cart> cartuser_list = cartService.findByUser(user.getUserid());
-			model.addAttribute("cartuserList", cartuser_list);
-			List<Shoponlines> list_cart_shop = cartService.list_cart_shop(user.getUserid());
-			model.addAttribute("cartshoplist", list_cart_shop);
-			List<Sales> sale_shopid_intendFor = saleService.saleOfShopIntendFor("ForBook");
-			model.addAttribute("saleShopIntendFor",sale_shopid_intendFor);
-			System.out.println("run: "+cartuser_list.size() );
-			System.out.println("run: "+ list_cart_shop.size() );
-		return "Client/cart_client/cart_user";
-	}
-	
-	
+    @Autowired
+    SaleService saleService;
+
+    @Autowired
+    SessionService sessionService;
+
+    @RequestMapping
+    public String cartView(Model model) {
+        Account user = sessionService.get("user");
+
+        List<Cart> cartuser_list = cartService.findByUser(user.getUserid());
+        model.addAttribute("cartuserList", cartuser_list);
+
+        List<Shoponlines> list_cart_shop = cartService.list_cart_shop(user.getUserid());
+        model.addAttribute("cartshoplist", list_cart_shop);
+
+        List<Sales> sale_shopid_intendFor = saleService.saleOfShopIntendFor("ForBook");
+        model.addAttribute("saleShopIntendFor", sale_shopid_intendFor);
+
+        System.out.println("run: " + cartuser_list.size());
+        System.out.println("run: " + list_cart_shop.size());
+        return "Client/cart_client/cart_user";
+    }
+
+
 //	@RequestMapping("/shopOnline")
 //	public String cartLinkShop(@RequestParam("shopId") Integer shopId) { 
 //		
 //		return "Client/Product_page/product_shop_list";
 //	}
-	
-	
+
+
 //	@RequestMapping("/product")
 //	public String cartLinkProduct() { 
 //		return "Client/Product_page/detail_product";
 //	}
 //	
-	
+
 //	@RequestMapping("/product")
 //	public String d() { 
 //		return "Client/Product_page/product_shop_list";
