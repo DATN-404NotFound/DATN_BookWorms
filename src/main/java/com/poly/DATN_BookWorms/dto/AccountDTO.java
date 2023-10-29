@@ -29,19 +29,5 @@ public class AccountDTO {
     @NotNull(message = "Please enter valid password confirm")
     private String password2;
 
-	public String getUsername() {
-		// TODO Auto-generated method stub
-		return this.username;
-	}
-
-	public String getFullname() {
-		// TODO Auto-generated method stub
-		return "hjdskjfhijkds";
-	}
-
-	public String getEmail() {
-		// TODO Auto-generated method stub
-		return "hanguyen@gmail.com";
-	}
 
 }
