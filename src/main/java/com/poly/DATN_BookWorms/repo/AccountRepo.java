@@ -3,6 +3,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 
 import com.poly.DATN_BookWorms.entities.Account;
+import org.springframework.data.jpa.repository.Query;
 
 public interface AccountRepo extends JpaRepository<Account, String>{
 	

@@ -6,6 +6,7 @@ package com.poly.DATN_BookWorms.entities;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+import java.lang.StringBuilder;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -59,8 +60,8 @@ public class Evaluates implements Serializable {
     @JoinColumn(name="dbid", referencedColumnName="DBId", insertable=false, updatable=false)
     private Detailbookings detailbookings ; 
 
-    @OneToMany(mappedBy="evaluates")
 	@Override
+    public String toString() {
         StringBuilder sb = new StringBuilder(); 
         sb.append(evaluateid);
         sb.append("|");

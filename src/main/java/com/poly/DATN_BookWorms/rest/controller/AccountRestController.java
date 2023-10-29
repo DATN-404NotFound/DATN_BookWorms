@@ -1,12 +1,13 @@
 package com.poly.DATN_BookWorms.rest.controller;
 
 
+import com.poly.DATN_BookWorms.entities.Account;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.poly.DATN_BookWorms.service.AccountService;
+
+import java.util.Optional;
 
 
 @CrossOrigin("*")
@@ -16,13 +17,13 @@ public class AccountRestController {
 	@Autowired
 	AccountService accountService;
 	
-	@GetMapping("/accounts")
-	public List<Account> getAccounts(@RequestParam("admin") Optional<Boolean> admin){
-		if(admin.orElse(false)) {
-			return accountService.getAdministrators();
-		}
-		return accountService.findAll();
-	}
+//	@GetMapping("/accounts")
+//	public List<Account> getAccounts(@RequestParam("admin") Optional<Boolean> admin){
+//		if(admin.orElse(false)) {
+//			return accountService.getAdministrators();
+//		}
+//		return accountService.findAll();
+//	}
 	
 //	@GetMapping("accounts")
 //	public List<Account> getAccounts(@RequestParam("admin") Optional<Boolean> admin){

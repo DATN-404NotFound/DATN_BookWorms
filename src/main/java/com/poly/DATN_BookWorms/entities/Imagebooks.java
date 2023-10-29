@@ -49,8 +49,10 @@ public class Imagebooks implements Serializable {
     //--- ENTITY LINKS ( RELATIONSHIP )
     @ManyToOne
     @JoinColumn(name="Bookid", referencedColumnName="BookId", insertable=false, updatable=false)
-    private Books      books ; 
+    private Books      books ;
 
+    @Override
+    public String toString() {
         StringBuilder sb = new StringBuilder(); 
         sb.append("|");
         sb.append(name);
