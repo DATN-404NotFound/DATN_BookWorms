@@ -35,7 +35,9 @@ public class BookServiceImp implements BookService{
 		// TODO Auto-generated method stub
 		return bookRepo.findById(id).get();
 	}
-	
+
+
+
 //	@Override
 //	public List<Books> findByCategoryId(String cid) {
 //		return bookRepo.findByCategoryId(cid);
@@ -60,12 +62,16 @@ public class BookServiceImp implements BookService{
 	}
 
 	@Override
-	public List<Books> findByCategoryId(String cid) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Books> getBooksByCategoryID(Integer categoryID) {
+		return bookRepo.findBooksByCategoryID(categoryID);
 	}
 	@Override
 	public Page<BookResponse> findAllBook(Pageable pageable) {
 		return bookRepo.findAllBook(pageable);
+	}
+
+	@Override
+	public Books findTopBookByQuantitySold() {
+		return bookRepo.findFirstByOrderByQuantitysoldDesc();
 	}
 }
