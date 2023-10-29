@@ -8,7 +8,9 @@ import org.springframework.data.jpa.repository.Query;
 import com.poly.DATN_BookWorms.entities.Books;
 import com.poly.DATN_BookWorms.response.BookResponse;
 
-public interface BooksRepo extends JpaRepository<Books, Integer>{
+import java.util.List;
+
+public interface BooksRepo extends JpaRepository<Books, Integer> {
 
     Books findFirstByOrderByQuantitysoldDesc();
 
@@ -17,19 +19,20 @@ public interface BooksRepo extends JpaRepository<Books, Integer>{
 //
 //	@Query("SELECT DISTINCT o FROM Product o WHERE o.name LIKE ?1")
 //	List<Books> findProductByName(String id);
-@Query("SELECT new com.poly.DATN_BookWorms.response.BookResponse(bo.bookid, bo.bookname, ib.name, bo.price, SO.shopname) " +
-        "FROM Books bo " +
-        "INNER JOIN Imagebooks ib ON bo.bookid = ib.bookid " +
-        "INNER JOIN Shoponlines SO ON bo.shopid = SO.shopid")
-Page<BookResponse> findAllBook(Pageable pageable);
+    @Query("SELECT new com.poly.DATN_BookWorms.response.BookResponse(bo.bookid, bo.bookname, ib.name, bo.price, SO.shopname) " +
+            "FROM Books bo " +
+            "INNER JOIN Imagebooks ib ON bo.bookid = ib.bookid " +
+            "INNER JOIN Shoponlines SO ON bo.shopid = SO.shopid")
+    Page<BookResponse> findAllBook(Pageable pageable);
+
     @Query("SELECT new com.poly.DATN_BookWorms.response.BookResponse(bo.bookid, bo.bookname, ib.name, bo.price, SO.shopname) " +
             "FROM Books bo " +
             "INNER JOIN Imagebooks ib ON bo.bookid = ib.bookid " +
             "INNER JOIN Shoponlines SO ON bo.shopid = SO.shopid " +
             "INNER JOIN Typebooks tb ON bo.bookid = tb.bookid " +
-            "INNER JOIN Categories C ON tb.categoryid = C.categoryid " +
+            "INNER JOIN Categories C ON tb.categories.categoryid = C.categoryid " +
             "WHERE C.name like %?1%")
-    Page<BookResponse> findCategoryBook(String category,Pageable pageable);
+    Page<BookResponse> findCategoryBook(String category, Pageable pageable);
 
     @Override
     List<Books> findAllById(Iterable<Integer> integers);
