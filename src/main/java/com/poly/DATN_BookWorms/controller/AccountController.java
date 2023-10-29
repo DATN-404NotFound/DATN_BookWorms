@@ -46,13 +46,18 @@ public class AccountController {
             accountDTO.setEmail(performance.getAttribute("email"));
             accountDTO.setUsername(performance.getName());
             accountDTO.setFullname(performance.getAttribute("name"));
-            accountDTO.setPassword(RandomStringUtils.randomAlphabetic(8));
+            accountDTO.setPassword(String.valueOf(RandomStringUtils.randomAlphabetic(8)));
             accountService.save(accountDTO);
 
         }
         //Tăng thời gian chờ lên
 
-        customUserDetailService.loadUserByUsername(performance.getName());
+       try {
+           Thread.sleep(5000);
+           customUserDetailService.loadUserByUsername(performance.getName());
+       }catch (Exception e){
+            e.printStackTrace();
+       }
         System.out.println("name:" + performance.getAttribute("name"));
         System.out.println("email:" + performance.getAttribute("email"));
         return "redirect:/Ibook/index";
