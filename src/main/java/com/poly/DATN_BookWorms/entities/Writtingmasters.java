@@ -35,15 +35,15 @@ public class Writtingmasters implements Serializable {
     //--- ENTITY PRIMARY KEY 
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
-    private Integer    writtingmasterid ;
+    public Integer    writtingmasterid ;
 
     //--- ENTITY DATA FIELDS 
-    private String     namewm ;
+    public String     namewm ;
 
 
     //--- ENTITY LINKS ( RELATIONSHIP )
     @OneToMany(mappedBy="writtingmasters")
-    private List<Writers> listOfWriters ; 
+    public List<Writers> listOfWriters ; 
 
     //--- toString specific method
 	@Override

@@ -47,6 +47,20 @@ public class Roles implements Serializable {
         sb.append(rolename);
         return sb.toString(); 
     }
+	
+
+	public Roles(String roleid, String rolename, List<Authorities> listOfAuthorities) {
+	
+		this.roleid = roleid;
+		this.rolename = rolename;
+		this.listOfAuthorities = listOfAuthorities;
+	}
+
+
+	public Roles() {
+		super();
+	}
+
 
 	public Roles(String rolename) {
 		this.rolename = rolename;

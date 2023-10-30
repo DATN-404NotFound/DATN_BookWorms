@@ -40,5 +40,14 @@ public class Authorities implements Serializable {
 		// TODO Auto-generated method stub
 		return this.roles;
 	}
+	public Authorities(String authorityid, Account account, Roles roles) {
+		super();
+		this.authorityid = authorityid;
+		this.account = account;
+		this.roles = roles;
+	}
+	public Authorities() {
+		super();
+	}
 
 }

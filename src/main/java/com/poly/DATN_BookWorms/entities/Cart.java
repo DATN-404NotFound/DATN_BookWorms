@@ -36,27 +36,39 @@ public class Cart implements Serializable {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
     @Column(name="cartid", nullable=false)
-    private Integer    cartid ;
+    public Integer    cartid ;
 
     //--- ENTITY DATA FIELDS 
-    private String     userid ;
+    public String     userid ;
 
-    private Integer    bookid ;
+    public Integer    bookid ;
 
     @Column(name="quantity")
-    private Integer    quantity ;
+    public Integer    quantity ;
 
 
     //--- ENTITY LINKS ( RELATIONSHIP )
     @ManyToOne
     @JoinColumn(name="Userid", referencedColumnName="Userid", insertable=false, updatable=false)
-    private Account    account ; 
+    public Account    account ; 
 
     @ManyToOne
     @JoinColumn(name="Bookid", referencedColumnName="BookId", insertable=false, updatable=false)
-    private Books      books ; 
+    public Books      books ; 
 
-    //--- toString specific method
+    	
+    public Cart(Account account, Books books) {
+		this.account = account;
+		this.books = books;
+	}
+    
+
+	public Cart() {
+		
+	}
+
+
+	//--- toString specific method
 	@Override
     public String toString() { 
         StringBuilder sb = new StringBuilder(); 
@@ -68,6 +80,58 @@ public class Cart implements Serializable {
         sb.append("|");
         sb.append(quantity);
         return sb.toString(); 
-    } 
+    }
+
+	public Integer getCartid() {
+		return cartid;
+	}
+
+	public void setCartid(Integer cartid) {
+		this.cartid = cartid;
+	}
+
+	public String getUserid() {
+		return userid;
+	}
+
+	public void setUserid(String userid) {
+		this.userid = userid;
+	}
+
+	public Integer getBookid() {
+		return bookid;
+	}
+
+	public void setBookid(Integer bookid) {
+		this.bookid = bookid;
+	}
+
+	public Integer getQuantity() {
+		return quantity;
+	}
+
+	public void setQuantity(Integer quantity) {
+		this.quantity = quantity;
+	}
+
+	public Account getAccount() {
+		return account;
+	}
+
+	public void setAccount(Account account) {
+		this.account = account;
+	}
+
+	public Books getBooks() {
+		return books;
+	}
+
+	public void setBooks(Books books) {
+		this.books = books;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	} 
 
 }

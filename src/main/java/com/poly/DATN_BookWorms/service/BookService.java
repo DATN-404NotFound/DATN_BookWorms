@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 import com.poly.DATN_BookWorms.entities.Books;
 import com.poly.DATN_BookWorms.response.BookResponse;
 
-@Service
+
 public interface BookService {
 
 	List<Books> findAll();

@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import org.springframework.web.bind.annotation.RestController;
 
-
+import com.poly.DATN_BookWorms.entities.Books;
 import com.poly.DATN_BookWorms.entities.Cart;
 import com.poly.DATN_BookWorms.service.CartService;
 
@@ -27,9 +27,13 @@ public class CartRestController {
 	@Autowired
 	CartService cartService;
 	
-	@GetMapping("")
+	@RequestMapping
 	public List<Cart> selectAllCart(){ 
 		return cartService.findAll();
+	}
+	@GetMapping("/user")
+	public List<Cart> selectUserCart(){ 
+		return cartService.findByUser();
 	}
 	
 //	@GetMapping("")
@@ -43,8 +47,9 @@ public class CartRestController {
 	}
 	
 	@PostMapping("/addCart")
-	public Cart addCart(@RequestBody Cart cart){ 
-		return cartService.create(cart);
+	public Cart addCart(@RequestBody Books books){ 
+		System.out.println("in b "+ books.toString());
+		return cartService.create(books);
 	}
 	
 	

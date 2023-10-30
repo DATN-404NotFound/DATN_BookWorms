@@ -16,21 +16,21 @@ import com.poly.DATN_BookWorms.service.BookService;
 @RequestMapping("/book")
 public class BookController {
 
-	@Autowired
-	BookService bookService;
+	// @Autowired
+	// BookService bookService;
 	
-	@RequestMapping("/detail")
-	public String bookDetail(@RequestParam("bookId") Integer bookId, Model model) { 
-		Books book = bookService.findById(bookId);
-		model.addAttribute("bookDetail", book);
-		return "Client/Product_page/detail_product";
-	}
+	// @RequestMapping("/detail")
+	// public String bookDetail(@RequestParam("bookId") Integer bookId, Model model) { 
+	// 	Books book = bookService.findById(bookId);
+	// 	model.addAttribute("bookDetail", book);
+	// 	return "Client/Product_page/detail_product";
+	// }
 	
-	@RequestMapping("/list")
-	public String bookList(Model model) { 
-		List<Books> bookList= bookService.findAll();
-		model.addAttribute("booklist",bookList);
-		return "Client/Product_page/product_list";
-	}
+	// @RequestMapping("/list")
+	// public String bookList(Model model) { 
+	// 	List<Books> bookList= bookService.findAll();
+	// 	model.addAttribute("booklist",bookList);
+	// 	return "Client/Product_page/product_list";
+	// }
 	
 }

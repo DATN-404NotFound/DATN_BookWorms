@@ -6,6 +6,9 @@ import com.poly.DATN_BookWorms.service.BookService;
 import com.poly.DATN_BookWorms.service.CategoryService;
 import com.poly.DATN_BookWorms.service.PublishingCompanyService;
 import com.poly.DATN_BookWorms.service.WriterMasterService;
+import com.poly.DATN_BookWorms.utils.CRC32_SHA256;
+
+import jakarta.servlet.http.HttpServletRequest;
 
 import java.util.List;
 
@@ -32,6 +35,12 @@ public class ProductController {
     PublishingCompanyService publishingCompanyService;
     @Autowired
     WriterMasterService writerMasterService;
+
+    @Autowired
+    CRC32_SHA256 crc;
+    
+    @Autowired
+    HttpServletRequest request;
 
 
     @GetMapping("/list")
@@ -78,7 +87,7 @@ public class ProductController {
 //		model.addAttribute("images", images);
 		model.addAttribute("item", item);
         model.addAttribute("im","Hinh4_book4.jpg");
-        
+        model.addAttribute("userid", crc.getCodeCRC32C(request.getRemoteUser()));
          System.out.println("ll"+ item.getListOfImagebooks().get(0).getName());
         return "Client/Product_page/detail_product";
 	}

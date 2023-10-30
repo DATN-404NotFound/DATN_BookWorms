@@ -39,62 +39,62 @@ public class Books implements Serializable {
     //--- ENTITY PRIMARY KEY 
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
-    private Integer    bookid ;
+    public Integer    bookid ;
 
     //--- ENTITY DATA FIELDS 
-    private String     bookname ;
+    public String     bookname ;
 
     @Column(name="language", length=20)
-    private String     language ;
+    public String     language ;
 
     @Column(name="size", length=20)
-    private String     size ;
+    public String     size ;
 
     @Column(name="weight")
-    private Double     weight ;
+    public Double     weight ;
 
-    private Integer    totalpage ;
+    public Integer    totalpage ;
 
-    private Integer    publishingyear ;
+    public Integer    publishingyear ;
 
     @Column(name="price")
-    private Double     price ;
+    public Double     price ;
 
     @Column(name="quantity")
-    private Integer    quantity ;
+    public Integer    quantity ;
 
     @Column(name="statues", length=20)
-    private String     statues ;
+    public String     statues ;
 
-    private Integer    publishingcompanyid ;
+    public Integer    publishingcompanyid ;
 
-    private Boolean    isactive ;
+    public Boolean    isactive ;
 
-    private Integer    quantitysold ;
+    public Integer    quantitysold ;
 
-    private Integer    shopid ;
+    public Integer    shopid ;
 
 
     //--- ENTITY LINKS ( RELATIONSHIP )
     @OneToMany(mappedBy="books")
     @JsonIgnore
-    private List<Cart> listOfCart ; 
+    public List<Cart> listOfCart ; 
 
     @ManyToOne
     @JoinColumn(name="Shopid", referencedColumnName="ShopId", insertable=false, updatable=false)
-    private Shoponlines shoponlines ; 
+    public Shoponlines shoponlines ; 
 
     @OneToMany(mappedBy="books")
     @JsonIgnore
-    private List<Imagebooks> listOfImagebooks ; 
+    public List<Imagebooks> listOfImagebooks ; 
 
     @OneToMany(mappedBy="books")
     @JsonIgnore
-    private List<Detailbookings> listOfDetailbookings ; 
+    public List<Detailbookings> listOfDetailbookings ; 
 
     @OneToMany(mappedBy="books")
     @JsonIgnore
-    private List<Typebooks> listOfTypebooks ; 
+    public List<Typebooks> listOfTypebooks ; 
 
     @OneToMany(mappedBy="books")
     @JsonIgnore
@@ -106,7 +106,7 @@ public class Books implements Serializable {
 
     @OneToMany(mappedBy="books")
     @JsonIgnore
-    private List<Hassales> listOfHassales ; 
+    public List<Hassales> listOfHassales ; 
 
 
     //--- toString specific method
@@ -141,6 +141,232 @@ public class Books implements Serializable {
         sb.append("|");
         sb.append(shopid);
         return sb.toString(); 
-    } 
+    }
 
+
+	public Integer getBookid() {
+		return bookid;
+	}
+
+
+	public void setBookid(Integer bookid) {
+		this.bookid = bookid;
+	}
+
+
+	public String getBookname() {
+		return bookname;
+	}
+
+
+	public void setBookname(String bookname) {
+		this.bookname = bookname;
+	}
+
+
+	public String getLanguage() {
+		return language;
+	}
+
+
+	public void setLanguage(String language) {
+		this.language = language;
+	}
+
+
+	public String getSize() {
+		return size;
+	}
+
+
+	public void setSize(String size) {
+		this.size = size;
+	}
+
+
+	public Double getWeight() {
+		return weight;
+	}
+
+
+	public void setWeight(Double weight) {
+		this.weight = weight;
+	}
+
+
+	public Integer getTotalpage() {
+		return totalpage;
+	}
+
+
+	public void setTotalpage(Integer totalpage) {
+		this.totalpage = totalpage;
+	}
+
+
+	public Integer getPublishingyear() {
+		return publishingyear;
+	}
+
+
+	public void setPublishingyear(Integer publishingyear) {
+		this.publishingyear = publishingyear;
+	}
+
+
+	public Double getPrice() {
+		return price;
+	}
+
+
+	public void setPrice(Double price) {
+		this.price = price;
+	}
+
+
+	public Integer getQuantity() {
+		return quantity;
+	}
+
+
+	public void setQuantity(Integer quantity) {
+		this.quantity = quantity;
+	}
+
+
+	public String getStatues() {
+		return statues;
+	}
+
+
+	public void setStatues(String statues) {
+		this.statues = statues;
+	}
+
+
+	public Integer getPublishingcompanyid() {
+		return publishingcompanyid;
+	}
+
+
+	public void setPublishingcompanyid(Integer publishingcompanyid) {
+		this.publishingcompanyid = publishingcompanyid;
+	}
+
+
+	public Boolean getIsactive() {
+		return isactive;
+	}
+
+
+	public void setIsactive(Boolean isactive) {
+		this.isactive = isactive;
+	}
+
+
+	public Integer getQuantitysold() {
+		return quantitysold;
+	}
+
+
+	public void setQuantitysold(Integer quantitysold) {
+		this.quantitysold = quantitysold;
+	}
+
+
+	public Integer getShopid() {
+		return shopid;
+	}
+
+
+	public void setShopid(Integer shopid) {
+		this.shopid = shopid;
+	}
+
+
+	public List<Cart> getListOfCart() {
+		return listOfCart;
+	}
+
+
+	public void setListOfCart(List<Cart> listOfCart) {
+		this.listOfCart = listOfCart;
+	}
+
+
+	public Shoponlines getShoponlines() {
+		return shoponlines;
+	}
+
+
+	public void setShoponlines(Shoponlines shoponlines) {
+		this.shoponlines = shoponlines;
+	}
+
+
+	public List<Imagebooks> getListOfImagebooks() {
+		return listOfImagebooks;
+	}
+
+
+	public void setListOfImagebooks(List<Imagebooks> listOfImagebooks) {
+		this.listOfImagebooks = listOfImagebooks;
+	}
+
+
+	public List<Detailbookings> getListOfDetailbookings() {
+		return listOfDetailbookings;
+	}
+
+
+	public void setListOfDetailbookings(List<Detailbookings> listOfDetailbookings) {
+		this.listOfDetailbookings = listOfDetailbookings;
+	}
+
+
+	public List<Typebooks> getListOfTypebooks() {
+		return listOfTypebooks;
+	}
+
+
+	public void setListOfTypebooks(List<Typebooks> listOfTypebooks) {
+		this.listOfTypebooks = listOfTypebooks;
+	}
+
+
+	public List<Writers> getListOfWriters() {
+		return listOfWriters;
+	}
+
+
+	public void setListOfWriters(List<Writers> listOfWriters) {
+		this.listOfWriters = listOfWriters;
+	}
+
+
+	public Publishingcompanies getPublishingcompanies() {
+		return publishingcompanies;
+	}
+
+
+	public void setPublishingcompanies(Publishingcompanies publishingcompanies) {
+		this.publishingcompanies = publishingcompanies;
+	}
+
+
+	public List<Hassales> getListOfHassales() {
+		return listOfHassales;
+	}
+
+
+	public void setListOfHassales(List<Hassales> listOfHassales) {
+		this.listOfHassales = listOfHassales;
+	}
+
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	} 
+
+	
 }

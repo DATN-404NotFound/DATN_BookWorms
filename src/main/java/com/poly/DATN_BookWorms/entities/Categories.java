@@ -42,22 +42,22 @@ public class Categories implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	
-	private Integer categoryid;
+	public Integer categoryid;
 
 	// --- ENTITY DATA FIELDS
 	@Column(name = "Name", length = 100)
-	private String name;
+	public String name;
 
 	@Column(name = "Description", length = 255)	
-	private String description;
+	public String description;
 
 	@Temporal(TemporalType.DATE)
-	private Date dateadded;
+	public Date dateadded;
 
 	// --- ENTITY LINKS ( RELATIONSHIP )
 	@OneToMany(mappedBy = "categories")
 	@JsonIgnore
-	private List<Typebooks> listOfTypebooks;
+	public List<Typebooks> listOfTypebooks;
 
 	// --- toString specific method
 	@Override

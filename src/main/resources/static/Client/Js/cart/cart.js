@@ -98,6 +98,9 @@ function check2(e) {
     }
 }
 
+function as(){ 
+	alert("lll")
+}
 
 function check() {
     var f = document.getElementsByName('inp');
@@ -125,6 +128,46 @@ function check() {
 const app = angular.module("cart_app", []);
 let host = "http://localhost:8080/rest/cart"
 app.controller("cart_ctrl", function ($scope, $http) {
+	
+	$scope.cart={ 
+		items:[],
+		add(id){ 
+			console.log("ennn"+ id)
+		var item = this.items.find(item => item.id = id);
+			if(item){ 
+				// nếu có trong gỏ hàng items rồi thì tăng số lượng
+				item.quantity ++;
+				urlup = `${host}/updateCart`;
+				$http.put(urlup,item).then(resp =>{
+					
+				})
+
+			}
+			else{
+				$http.get(`/rest/books/`+id).then(resp =>{ 
+					var s = resp.data;
+                    console.log("kkk"+ resp.data)
+					// $http.post(`${host}/addCart`, s).then(resp=>{ 
+					// this.items.push(resp.data)
+					// console.log("in "+ resp.data)
+					
+				
+				
+				})
+			}
+		},
+		load(){ 
+		
+            var url = `${host}/user`
+			$http.get(url).then(resp=> { 
+				items = resp.data;
+					console.log("an"+ items.length);
+				
+			});
+		}	
+	}
+	
+    $scope.cart.load();
     $scope.totalAll = {
         cartsAll: [],
         get getall() {

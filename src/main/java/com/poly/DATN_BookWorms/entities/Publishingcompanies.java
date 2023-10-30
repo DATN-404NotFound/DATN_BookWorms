@@ -33,18 +33,18 @@ public class Publishingcompanies implements Serializable {
     //--- ENTITY PRIMARY KEY 
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
-    private Integer    pcid ;
+    public Integer    pcid ;
 
     //--- ENTITY DATA FIELDS 
-    private String     namepc ;
+    public String     namepc ;
 
-    private String     phone ;
+    public String     phone ;
 
-    private String     emaill ;
+    public String     emaill ;
 
-    private String     address ;
+    public String     address ;
 
-    private String     profile ;
+    public String     profile ;
 
 
     //--- ENTITY LINKS ( RELATIONSHIP )

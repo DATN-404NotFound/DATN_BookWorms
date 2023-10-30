@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.poly.DATN_BookWorms.entities.Authorities;
 
-@Service
+
 public interface AuthoritiesService {
 	
 	public List<Authorities> findAuthoritiesOfAdministrators();

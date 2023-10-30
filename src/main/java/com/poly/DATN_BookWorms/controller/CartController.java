@@ -4,11 +4,17 @@ import java.util.List;
 import java.util.Optional;
 
 import com.poly.DATN_BookWorms.entities.Account;
+import com.poly.DATN_BookWorms.entities.Books;
+import com.poly.DATN_BookWorms.utils.CRC32_SHA256;
 import com.poly.DATN_BookWorms.utils.SessionService;
+
+import jakarta.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -28,28 +34,30 @@ public class CartController {
     @Autowired
     SaleService saleService;
 
-    @Autowired
-    SessionService sessionService;
+
 
     @RequestMapping
-    public String cartView(Model model) {
-        Account user = sessionService.get("user");
+    public String cartView(Model model,HttpServletRequest request) {
 
-        List<Cart> cartuser_list = cartService.findByUser(user.getUserid());
+        List<Cart> cartuser_list = cartService.findByUser();
         model.addAttribute("cartuserList", cartuser_list);
 
-        List<Shoponlines> list_cart_shop = cartService.list_cart_shop(user.getUserid());
+        List<Shoponlines> list_cart_shop = cartService.list_cart_shop();
         model.addAttribute("cartshoplist", list_cart_shop);
 
-        List<Sales> sale_shopid_intendFor = saleService.saleOfShopIntendFor("ForBook");
+        List<Sales> sale_shopid_intendFor = saleService.saleOfShopIntendFor("D");
         model.addAttribute("saleShopIntendFor", sale_shopid_intendFor);
 
         System.out.println("run: " + cartuser_list.size());
         System.out.println("run: " + list_cart_shop.size());
+        String username = request.getRemoteUser();
+        model.addAttribute("requestusername", username);
+        System.out.println("kkkusser "+  username );
         return "Client/cart_client/cart_user";
     }
 
-
+  
+	
 //	@RequestMapping("/shopOnline")
 //	public String cartLinkShop(@RequestParam("shopId") Integer shopId) { 
 //		

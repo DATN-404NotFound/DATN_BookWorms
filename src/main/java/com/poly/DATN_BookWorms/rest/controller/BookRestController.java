@@ -45,6 +45,7 @@ public class BookRestController {
 	
 	@GetMapping("{id}")
 	public Books getOne(@PathVariable("id")int id) {
+		System.out.println("111111111111111"+ bookService.findById(id));
 		return bookService.findById(id);
 	}
 }

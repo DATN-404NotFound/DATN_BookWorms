@@ -21,9 +21,12 @@
 
 <body>
     <main ng-app="cart_app" ng-controller="cart_ctrl">
-        <div style="width: 85%; margin: auto;" id="user1">
-            <div>
+        <div style="width: 85%; margin: auto; margin-top: 100px;" id="user1">
+            <div class="mx-5" >
                 <h4>Your Cart</h4>
+                <div id="username">
+                    <h1 th:text="${requestusername}"> </h1>
+                </div>
             </div>
             <!-- sử dụng lặp shop -->
             <div th:each="l:${cartshoplist}" style="border: 1px solid #C93F04; border-radius: 10px; margin-top: 50px;">
@@ -77,7 +80,7 @@
                 </div>
                 <div class="float-end m-3">
                     <select class="form-select" th:value="*{saleShopIntendFor}" th:attr="ng-change=@{|cartsvoucher.changevoucher(*{saleShopIntendFor})|}">
-                        <option th:each="i : ${saleShopIntendFor}" th:if="${i.shopid == l.shopId}" th:value="${i.couoponcode}" th:text="${i.promotionname}"></option>
+                        <option th:each="i : ${saleShopIntendFor}" th:if="${i.shopid == l.shopid}" th:value="${i.couoponcode}" th:text="${i.promotionname}"></option>
                     </select>
                 </div>
                 <hr style="clear: both; border: 2px solid black;">
