@@ -42,7 +42,7 @@ public class CartRestController {
 //	}
 	
 	@GetMapping("/rest/cart/{cartid}")
-	public Cart SelectById(@PathVariable("cartid") Integer cartid){ 
+	public Cart SelectById(@PathVariable("cartid") Long cartid){ 
 		System.out.println("jkkkk");
 		return cartService.findById(cartid);
 	}
@@ -59,7 +59,7 @@ public class CartRestController {
 	}
 	
 	@DeleteMapping("/rest/cart/{cartid}")
-	public void delete(@PathVariable("cartid") int cartid) { 
+	public void delete(@PathVariable("cartid") Long cartid) { 
 		System.out.println("cartid "+ cartid);
 		cartService.delete(cartid);
 	}

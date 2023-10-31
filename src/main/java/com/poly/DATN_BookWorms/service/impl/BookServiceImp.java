@@ -31,7 +31,7 @@ public class BookServiceImp implements BookService{
 	}
 
 	@Override
-	public Books findById(int id) {
+	public Books findById(Long id) {
 		// TODO Auto-generated method stub
 		return bookRepo.findById(id).get();
 	}
@@ -56,7 +56,7 @@ public class BookServiceImp implements BookService{
 	}
 
 	@Override
-	public void delete(int id) {
+	public void delete(Long id) {
 		// TODO Auto-generated method stub
 		bookRepo.deleteById(id);
 	}

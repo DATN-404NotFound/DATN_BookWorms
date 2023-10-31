@@ -198,7 +198,7 @@ app.controller("cart_ctrl", function ($scope, $http) {
 			})
 		}},
 		load(){ 
-		
+            console.log("kjskljfdksjdfkjdklsfjs")
             var url = `${host}/user`
 			$http.get(url).then(resp=> { 
 				items = resp.data;

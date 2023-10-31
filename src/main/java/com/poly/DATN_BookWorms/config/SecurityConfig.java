@@ -22,11 +22,11 @@ public class SecurityConfig {
 	public SecurityFilterChain web(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests((request) -> request
                 .requestMatchers("/account/**", "/signin/**", "/signup/**", "/product/**", "/Admin/Css/**", "/Admin/Image/**", "/Admin/Js/**","/Ibook/**")
-				.permitAll()
+				.permitAll().requestMatchers("rest/cart","/rest/*/*").permitAll()
                 .requestMatchers("/Client/**")
 				.permitAll()
                 .requestMatchers("static/**")
-				.permitAll() .requestMatchers("rest/**","rest/*/*").permitAll()
+				.permitAll()
                 .requestMatchers("/admin/**").hasAuthority("ADMIN")
                 .requestMatchers("/seller/**").hasAuthority("SELLER")
 				.anyRequest().authenticated());

@@ -6,6 +6,9 @@ package com.poly.DATN_BookWorms.entities;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.lang.StringBuilder;
 
 import jakarta.persistence.Column;

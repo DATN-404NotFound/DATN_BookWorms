@@ -10,6 +10,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -39,7 +40,7 @@ public class Books implements Serializable {
     //--- ENTITY PRIMARY KEY 
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
-    public Integer    bookid ;
+    public Long    bookid ;
 
     //--- ENTITY DATA FIELDS 
     public String     bookname ;
@@ -100,7 +101,8 @@ public class Books implements Serializable {
     @JsonIgnore
     private List<Writers> listOfWriters ; 
 
-    @ManyToOne
+    @ManyToOne 
+
     @JoinColumn(name="Publishingcompanyid", referencedColumnName="PCId", insertable=false, updatable=false)
     private Publishingcompanies publishingcompanies ; 
 
@@ -144,12 +146,12 @@ public class Books implements Serializable {
     }
 
 
-	public Integer getBookid() {
+	public Long getBookid() {
 		return bookid;
 	}
 
 
-	public void setBookid(Integer bookid) {
+	public void setBookid(Long bookid) {
 		this.bookid = bookid;
 	}
 

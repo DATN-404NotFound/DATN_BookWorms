@@ -58,7 +58,7 @@ public class CartController {
     }
 
     @RequestMapping("/delete/{cartid}")
-    public String deletecart(@PathVariable("cartid") Integer cartid) { 
+    public String deletecart(@PathVariable("cartid") Long cartid) { 
 //    	cartService.delete(cartid);
     	System.out.println("xmm");
     	cartService.delete(cartid);

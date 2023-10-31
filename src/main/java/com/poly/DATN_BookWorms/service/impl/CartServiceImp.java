@@ -41,7 +41,7 @@ public class CartServiceImp implements CartService {
 	
 
 	@Override
-	public Cart findById(int cartid) {
+	public Cart findById(Long cartid) {
 		// TODO Auto-generated method stub
 		System.out.println("lll");
 		return cartRepo.findById(cartid).get();
@@ -60,7 +60,7 @@ public class CartServiceImp implements CartService {
 	}
 
 	@Override
-	public void delete(int cartid) {
+	public void delete(Long cartid) {
 		// TODO Auto-generated method stub
 		cartRepo.deleteById(cartid);
 	}

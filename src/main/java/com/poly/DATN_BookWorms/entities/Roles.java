@@ -6,10 +6,12 @@ package com.poly.DATN_BookWorms.entities;
 import java.io.Serializable;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
+
 import lombok.Data;
-import lombok.NoArgsConstructor;
+
 
 /**
  * JPA entity class for "Roles"
@@ -17,8 +19,7 @@ import lombok.NoArgsConstructor;
  * @author Telosys
  *
  */
-@NoArgsConstructor
-@AllArgsConstructor
+
 @Data
 @Entity
 @Table(name="Roles")
@@ -36,6 +37,7 @@ public class Roles implements Serializable {
 
     //--- ENTITY LINKS ( RELATIONSHIP )
     @OneToMany(mappedBy="roles")
+    @JsonIgnore
     private List<Authorities> listOfAuthorities ; 
 
     //--- toString specific method

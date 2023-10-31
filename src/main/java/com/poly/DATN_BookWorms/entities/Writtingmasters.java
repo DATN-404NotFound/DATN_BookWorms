@@ -6,6 +6,8 @@ package com.poly.DATN_BookWorms.entities;
 import java.io.Serializable;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -43,6 +45,7 @@ public class Writtingmasters implements Serializable {
 
     //--- ENTITY LINKS ( RELATIONSHIP )
     @OneToMany(mappedBy="writtingmasters")
+    @JsonIgnore
     public List<Writers> listOfWriters ; 
 
     //--- toString specific method

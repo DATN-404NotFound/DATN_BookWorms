@@ -77,7 +77,7 @@ public class ProductController {
 
 
     @GetMapping("/detail/{bookid}")
-	public String detail(@PathVariable("bookid") int id, Model model) {
+	public String detail(@PathVariable("bookid") Long id, Model model) {
         //  System.out.println("lkjlskjlajf");
 		Books item = bookService.findById(id);
              System.out.println("lkjlskjlajssf"+ id);

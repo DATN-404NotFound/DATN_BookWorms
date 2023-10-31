@@ -14,11 +14,11 @@ public interface CartService {
 	
 	public List<Shoponlines> list_cart_shop();
 	
-	public Cart findById(int cartid);
+	public Cart findById(Long cartid);
 	
 	public Cart create(Cart cart);
 	
-	public void delete(int cartid);
+	public void delete(Long cartid);
 	
 	public Cart update(Cart cart);
 

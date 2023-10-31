@@ -16,14 +16,14 @@ public interface BookService {
 
 	List<Books> findAll();
 
-	Books findById(int id);
+	Books findById(Long id);
 
 
 	Books create(Books book);
 
 	Books update(Books book);
 
-	void delete(int id);
+	void delete(Long id);
 	Page<BookResponse> findAllBook(Pageable pageable);
 
 	List<Books> getBooksByCategoryID(Integer categoryID);

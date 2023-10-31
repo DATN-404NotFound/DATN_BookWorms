@@ -39,12 +39,12 @@ public class BookRestController {
 	}
 	
 	@DeleteMapping("{id}")
-	public void delete(@PathVariable("id")int id) {
+	public void delete(@PathVariable("id")Long id) {
 		bookService.delete(id);
 	}
 	
 	@GetMapping("/{id}")
-	public Books getOne(@PathVariable("id")int id) {
+	public Books getOne(@PathVariable("id")Long id) {
 		System.out.println("111111111111111"+ bookService.findById(id));
 		return bookService.findById(id);
 	}

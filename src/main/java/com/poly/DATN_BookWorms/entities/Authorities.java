@@ -5,6 +5,8 @@ package com.poly.DATN_BookWorms.entities;
 
 import java.io.Serializable;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 
 import jakarta.persistence.Id;
@@ -21,8 +23,7 @@ import lombok.NoArgsConstructor;
  * @author Lê Chí Thiên
  *
  */
-@NoArgsConstructor
-@AllArgsConstructor
+
 @Data
 @Entity
 @Table(name = "Authorities")
@@ -32,8 +33,10 @@ public class Authorities implements Serializable {
 
     @Id 
 	private String authorityid;
+	
 	@ManyToOne @JoinColumn(name = "userid")
 	private Account account;
+
 	@ManyToOne  @JoinColumn(name = "roleid")
 	private Roles roles;
 	public Roles getRoles() {
@@ -47,7 +50,7 @@ public class Authorities implements Serializable {
 		this.roles = roles;
 	}
 	public Authorities() {
-		super();
+	
 	}
 
 }
