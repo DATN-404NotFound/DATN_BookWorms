@@ -76,5 +76,9 @@ public class HomeController {
         return "Client/header_footer_index/header_index";
     }
 
+    @RequestMapping("/seller")
+    public String seller(Model model){
+        return "SellerChannel/index";
+    }
 
 }
