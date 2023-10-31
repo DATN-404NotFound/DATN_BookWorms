@@ -5,8 +5,11 @@ package com.poly.DATN_BookWorms.entities;
 
 import java.io.Serializable;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -23,8 +26,7 @@ import lombok.NoArgsConstructor;
  * @author Telosys
  *
  */
-@NoArgsConstructor
-@AllArgsConstructor
+
 @Data
 @Entity
 @Table(name="Cart")
@@ -36,7 +38,7 @@ public class Cart implements Serializable {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
     @Column(name="cartid", nullable=false)
-    public Integer    cartid ;
+    public Long    cartid ;
 
     //--- ENTITY DATA FIELDS 
     public String     userid ;
@@ -48,7 +50,7 @@ public class Cart implements Serializable {
 
 
     //--- ENTITY LINKS ( RELATIONSHIP )
-    @ManyToOne
+    @ManyToOne 
     @JoinColumn(name="Userid", referencedColumnName="Userid", insertable=false, updatable=false)
     public Account    account ; 
 
@@ -82,11 +84,11 @@ public class Cart implements Serializable {
         return sb.toString(); 
     }
 
-	public Integer getCartid() {
+	public Long getCartid() {
 		return cartid;
 	}
 
-	public void setCartid(Integer cartid) {
+	public void setCartid(Long cartid) {
 		this.cartid = cartid;
 	}
 
