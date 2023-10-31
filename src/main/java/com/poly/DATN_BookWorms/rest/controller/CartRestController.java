@@ -19,19 +19,19 @@ import com.poly.DATN_BookWorms.entities.Books;
 import com.poly.DATN_BookWorms.entities.Cart;
 import com.poly.DATN_BookWorms.service.CartService;
 
+@CrossOrigin("*")
 @RestController
-@CrossOrigin("")
-@RequestMapping("/rest/cart")
+
 public class CartRestController {
 	
 	@Autowired
 	CartService cartService;
 	
-	@RequestMapping
+	@GetMapping("/rest/cart")
 	public List<Cart> selectAllCart(){ 
 		return cartService.findAll();
 	}
-	@GetMapping("/user")
+	@GetMapping("/rest/cart/user")
 	public List<Cart> selectUserCart(){ 
 		return cartService.findByUser();
 	}
@@ -41,25 +41,26 @@ public class CartRestController {
 //		return cartService.findByUser(userId);
 //	}
 	
-	@GetMapping("/{carid}")
+	@GetMapping("/rest/cart/{cartid}")
 	public Cart SelectById(@PathVariable("cartid") Integer cartid){ 
+		System.out.println("jkkkk");
 		return cartService.findById(cartid);
 	}
 	
-	@PostMapping("/addCart")
-	public Cart addCart(@RequestBody Books books){ 
-		System.out.println("in b "+ books.toString());
-		return cartService.create(books);
+	@PostMapping("/rest/cart")
+	public void post(@RequestBody Cart auth) { 
+		System.out.println("kkkkkkkkkn");
 	}
 	
-	
-	@PutMapping("/updateCart")
+	@PutMapping("/rest/cart")
 	public Cart updateCart(@RequestBody Cart cart){ 
+		System.out.println("update");
 		return cartService.update(cart);
 	}
 	
-	@DeleteMapping("/deleteCart")
-	public void deteleCart(@RequestBody Cart cart){ 
-		cartService.delete(cart);
+	@DeleteMapping("/rest/cart/{cartid}")
+	public void delete(@PathVariable("cartid") int cartid) { 
+		System.out.println("cartid "+ cartid);
+		cartService.delete(cartid);
 	}
 }

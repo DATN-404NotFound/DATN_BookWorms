@@ -23,7 +23,7 @@ public class BookRestController {
 	@Autowired
 	BookService bookService;
 	
-	@GetMapping()
+	@GetMapping
 	public List<Books> getAll() {
 		return bookService.findAll();
 	}
@@ -43,7 +43,7 @@ public class BookRestController {
 		bookService.delete(id);
 	}
 	
-	@GetMapping("{id}")
+	@GetMapping("/{id}")
 	public Books getOne(@PathVariable("id")int id) {
 		System.out.println("111111111111111"+ bookService.findById(id));
 		return bookService.findById(id);

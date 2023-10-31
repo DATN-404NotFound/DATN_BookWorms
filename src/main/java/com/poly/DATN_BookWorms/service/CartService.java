@@ -16,9 +16,9 @@ public interface CartService {
 	
 	public Cart findById(int cartid);
 	
-	public Cart create(Books cart);
+	public Cart create(Cart cart);
 	
-	public void delete(Cart cart);
+	public void delete(int cartid);
 	
 	public Cart update(Cart cart);
 

@@ -10,9 +10,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
 
-
-
-
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
@@ -29,7 +26,7 @@ public class SecurityConfig {
                 .requestMatchers("/Client/**")
 				.permitAll()
                 .requestMatchers("static/**")
-				.permitAll()
+				.permitAll() .requestMatchers("rest/**","rest/*/*").permitAll()
                 .requestMatchers("/admin/**").hasAuthority("ADMIN")
                 .requestMatchers("/seller/**").hasAuthority("SELLER")
 				.anyRequest().authenticated());

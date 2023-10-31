@@ -43,25 +43,26 @@ public class CartServiceImp implements CartService {
 	@Override
 	public Cart findById(int cartid) {
 		// TODO Auto-generated method stub
+		System.out.println("lll");
 		return cartRepo.findById(cartid).get();
 	}
 
 	@Override
-	public Cart create(Books book) {
+	public Cart create(Cart book) {
 //		 
-		Books books = new Books();
-		books = book;
-		Account account = new Account();
-		account = sessionService.get("user");
-		Cart cart = new Cart(account, books);
+	
+//		Account account = new Account();
+//		account = sessionService.get("user");
+//		Cart cart = new Cart(account, books);
+//		System.out.println("in tại đât");
 		// TODO Auto-generated method stub
-		return cartRepo.save(cart);
+		return cartRepo.save(book);
 	}
 
 	@Override
-	public void delete(Cart cart) {
+	public void delete(int cartid) {
 		// TODO Auto-generated method stub
-		cartRepo.delete(cart);
+		cartRepo.deleteById(cartid);
 	}
 
 	@Override
