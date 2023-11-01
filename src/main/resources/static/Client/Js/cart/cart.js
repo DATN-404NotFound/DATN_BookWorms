@@ -1,5 +1,5 @@
 var purchase = [];
-var tong=0;
+var tong = 0;
 function choose(e) {
     check()
     var a = document.getElementById(e);
@@ -17,7 +17,7 @@ function choose(e) {
                 purchase.push(d[i].getAttribute('id'));
             }
         }
-     
+
     }
     else {
         console.log("klkklkk")
@@ -26,7 +26,7 @@ function choose(e) {
             var index = purchase.findIndex(item => item == d[i].getAttribute('id'));
             purchase.splice(index, 1);
         }
-       
+
     }
     checkAll();
 }
@@ -45,7 +45,7 @@ $(document).ready(function () {
             checkAll();
         })
     })
-   
+
 })
 
 $(document).ready(function () {
@@ -86,18 +86,18 @@ function selectOne(e) {
     }
     check2(e);
     check();
-   checkAll();
+    checkAll();
     console.log(purchase)
 }
 
-function checkAll(){ 
+function checkAll() {
     this.tong = 0;
-    console.log("kdsjfkgldsjg"+ purchase)
-    for(var  i =0; i<purchase.length;i++){ 
-        var strprice = document.getElementById('cartid'+purchase[i]).innerText;
+    console.log("kdsjfkgldsjg" + purchase)
+    for (var i = 0; i < purchase.length; i++) {
+        var strprice = document.getElementById('cartid' + purchase[i]).innerText;
         var reply = strprice.replace(',', '');
-         this.tong +=  Number(reply);
-        
+        this.tong += Number(reply);
+
     }
     document.getElementById("allPrice").innerText = this.tong;
 }
@@ -122,13 +122,10 @@ function check2(e) {
     }
 }
 
-function as(){ 
-	alert("lll")
-}
 
 function check() {
     var f = document.getElementsByName('inp');
-    console.log("len"+ f.length)
+    console.log("len" + f.length)
     var index = 0;
     for (var i = 0; i < f.length; i++) {
         if (f[i].checked) {
@@ -146,200 +143,246 @@ function check() {
                 c.disabled = !a;
             }
         }
-     
+
     }
 }
+//  function changeone(id){ 
+// 		var e = document.getElementById(id).value
+//         console.log("cchangeone"+ e)
+//     }
 
-function mm(id){ 
-    console.log("kksksk"+id)
+function mm(id) {
+    console.log("kksksk" + id)
 }
 
 const app = angular.module("cart_app", []);
 
-// app.config(function($httpProvider){ 
-//     $httpProvider.defaults.headers.common['Authorization'] = "Basic aGF0aGFuaDAzOm5ndXllbnRoYW5oaGE=";
-//})
 let host = "http://localhost:8080/rest/cart"
 app.controller("cart_ctrl", function ($scope, $http) {
-	
-	$scope.cart={ 
-		items:[],
-		add(id){ 
-			console.log("ennn"+ id)
-		var item = this.items.find(item => item.id = id);
-			if(item){ 
-				// nếu có trong gỏ hàng items rồi thì tăng số lượng
-				item.quantity ++;
-				urlup = `${host}/updateCart`;
-				$http.put(urlup,item).then(resp =>{
-					
-				})
 
-			}
-			else{
-				$http.get(`/rest/books/`+id).then(resp =>{ 
-					var s = resp.data;
-                    console.log("kkk"+ JSON.stringify(s))
+    $scope.cart = {
+        items: [],
+        add(id) {
+            console.log("ennn" + id)
+            var item = this.items.find(item => item.books.bookid == id);
 
-                   $scope.cartss ={
-                        cartid :"",
-                        user:{userid:"2361ba0a"},
-                        book :{bookid: s.bookid},
+            if (item) {
+                // nếu có trong gỏ hàng items rồi thì tăng số lượng
+                item.quantity++;
+                console.log("ok có " + item.books.bookid)
+                var updatecart = `${host}`;
+                console.log("url " + updatecart);
+                var cartupdate = angular.copy(item);
+                $http.put(updatecart, cartupdate).then(resp => {
+
+                })
+
+            }
+            else {
+                $http.get(`/rest/books/` + id).then(resp => {
+                    var s = resp.data;
+                    console.log("kkk" + JSON.stringify(s))
+
+                    $scope.cartss = {
+                        cartid: "",
+                        userid: "2361ba0a",
+                        bookid: s.bookid,
                         quantity: 1
                     }
                     var addc = angular.copy($scope.cartss)
-                    $http.post(`/rest/cart`, addc).then(resp=>{ 
-					 this.items.push(resp.data)
-					console.log("in "+ resp.data)
-					
-				
-				
-				})
-			})
-		}},
-		load(){ 
+                    $http.post(`/rest/cart`, addc).then(resp => {
+                        this.items.push(resp.data)
+                        console.log("in " + resp.data)
+
+
+
+                    })
+                })
+            }
+        },
+        load() {
             console.log("kjskljfdksjdfkjdklsfjs")
             var url = `${host}/user`
-			$http.get(url).then(resp=> { 
-				items = resp.data;
-					console.log("an"+ items.length);
-				
-			});
-		}, 
-        update(){ 
-            $http.put(`${host}`).then(resp=> { 
-				items = resp.data;
-					console.log("an"+ items.length);
-				
-			});
+            $http.get(url).then(resp => {
+                this.items = resp.data;
+                console.log("an" + this.items[0].books.bookid);
+
+            });
+        },
+        update() {
+            $http.put(`${host}`).then(resp => {
+                items = resp.data;
+                console.log("an" + items.length);
+
+            });
         }
-        ,delete(id){ 
+        , delete(id) {
             console.log("xxXoá tành công")
-            $http.delete(`${host}/`+id).then(resp=> { 
-				console.log("Xoá tành công")
-				
-			});
+            $http.delete(`${host}/` + id).then(resp => {
+                console.log("Xoá tành công")
+
+            });
         }
-        	
-	}
+
+    }
+
     $scope.cart.load();
+    $scope.changeone = function () {
+		 console.log("12 - " );
+        // var e = document.getElementById("quantity" + cartid).value
+        // var urlcart = `${host}/` + cartid;
+        // var a = e;
+        // console.log("12 - " + a);
+        // var cartchange = {};
+        // $http.get(urlcart).then(resp => {
+        //     cartchange = resp.data;
+        //     console.log("cart- " + cartchange.quantity)
+        //     cartchange.quantity = Number(a);
+
+        //     $http.put(`${host}`, cartchange).then(resp => {
+        //         console.log("Thành công " + resp.data.cartid + "- " + resp.data.quantity)
+        //         document.getElementById("cartid" + cartid).innerHTML =  resp.data.quantity * resp.data.books.price;
+                
+                //"${#numbers.formatDecimal("+resp.data.quantity * resp.data.books.price +",0,'COMMA',2,'POINT')}"
+                //resp.data.quantity * resp.data.books.price;
+           // })
 
 
-    $scope.totalAll ={
-		cartsAll:[],
-        
-        loadc(id){ 
-            console.log("a"+id)
+        //})
+    }
+
+    $scope.totalAll = {
+        cartsAll: [],
+
+        loadc(id) {
+            console.log("a" + id)
             purchase.forEach((n) => {
                 var urlcart = "http://localhost:8080/rest/cart/" + n;
                 console.log(purchase)
-               $http.get(urlcart).then(resp => {
-            //         console.log("b3")
-                     this.cartsAll.push(resp.data);
+                $http.get(urlcart).then(resp => {
+
+                    //         console.log("b3")
+                    this.cartsAll.push(resp.data);
                     //  var tol = 0;
                     //  for(var i=0; i<this.cartsAll.length;i++){ 
-						
+
                     //      tol += (this.cartsAll[i].quantity * this.cartsAll[i].books.price);
                     //        console.log("chay "+ tol);
                     //  }
-                   
+
                     //  this.tong = tol;
                     //  console.log("tong"+ this.tong)
-        
-                 });
-            //     var totl =  this.cartsAll
-			// .map(item => item.quantity* item.books.price)
-			// .reduce((total,quantity)=> total += quantity,0);
-				
-			// console.log("total "+ totl)
+
+                });
+                //     var totl =  this.cartsAll
+                // .map(item => item.quantity* item.books.price)
+                // .reduce((total,quantity)=> total += quantity,0);
+
+                // console.log("total "+ totl)
             });
-			
-		},
-		
-	
-		
+
+        },
+
+
+
         // cartsAll: [],
         // getonecart(){ 
         //     console.log("Á")
-      
+
         // },
-       
-            //console.log("b1")
-            // var amout = 0;
-            // if (purchase.length > 0) {
-            //     console.log("b2")
-               
-            // }
-            // cartsAll.forEach((n) => {
-            //     amout = n.books.price * n.quantity;
-            // })
-            // return amout;
-       
-      
+
+        //console.log("b1")
+        // var amout = 0;
+        // if (purchase.length > 0) {
+        //     console.log("b2")
+
+        // }
+        // cartsAll.forEach((n) => {
+        //     amout = n.books.price * n.quantity;
+        // })
+        // return amout;
+
+
     }
 
 
-    
 
-    $scope.changequantity = function(quantity,cartid){ 
-        var urlcart = `${host}/` + cartid;
-        console.log("12");
-        var cartchange ={};
-        $http.get(urlcart).then(resp =>{ 
-            cartchange = resp.data;
-        })
-        cartchange.quantity = quantity;
-        $http.put(urlcart,cartchange).then(resp =>{
-        })
-    }
 
-    $scope.cartsvoucher={
-        voucherAll :[],
-        changevoucher(couoponcode){ 
-            var urlsale ="http://localhost:8080/rest/sale/"+couoponcode
-            var con = this.voucherAll.find(item =>  item.couoponcode == couoponcode)
-            if(con){ 
+    // $scope.changequantity = function (quantity, cartid) {
+    //     var urlcart = `${host}/` + cartid;
+    //     var a = (quantity + 1)
+    //     console.log("12 - " + a);
+    //     var cartchange = {};
+    //     $http.get(urlcart).then(resp => {
+    //         cartchange = resp.data;
+    //         console.log("cart- " + cartchange.quantity)
+    //         cartchange.quantity = Number(quantity + 1);
+
+    //         $http.put(`${host}`, cartchange).then(resp => {
+    //             console.log("Thành công " + resp.data.cartid + "- " + resp.data.quantity)
+    //         })
+
+
+    //     })
+    // }
+
+    $scope.cartsvoucher = {
+        voucherAll: [],
+        changevoucher(couoponcode) {
+            var urlsale = "http://localhost:8080/rest/sale/" + couoponcode
+            var con = this.voucherAll.find(item => item.couoponcode == couoponcode)
+            if (con) {
                 con.couoponcode = couoponcode;
             }
-            else{
-                $http.get(urlsale) .then(resp =>{ 
-                    voucherAll.push(resp.data); 
+            else {
+                $http.get(urlsale).then(resp => {
+                    voucherAll.push(resp.data);
                 })
             }
         },
     }
-  
-    $scope.booking={
-        bookingid:"new",
+
+    $scope.deletecart = function (id) {
+        console.log("deletecart")
+        var ho = "http://localhost:8080/rest/cart/" + id;
+        $http.delete(ho).then(resp => {
+            console.log(resp.data);
+        });
+        location.href = "/cart";
+    }
+    
+    
+    $scope.booking = {
+        bookingid: "new",
         createat: new Date(),
-        userid :{userid:$("#user1").text()},
-        get cost(){ 
-            return  $scope.totalAll.cartsAll
-                    .map(item => item.quantity*item.books.price)
-                    .reduce((total,quantity)=> total+=quantity,0);
+        userid: { userid: $("#user1").text() },
+        get cost() {
+            return $scope.totalAll.cartsAll
+                .map(item => item.quantity * item.books.price)
+                .reduce((total, quantity) => total += quantity, 0);
         },
-       get detailbookings (){ 
-        return $scope.totalAll.cartsAll.map(item => {
-            return {
-                dbid :"detailbooking",
-                books: {bookid:item.books.id},
-                quantity : item.quantity
-            }
-        })
-       },
-       orderstatuses :1,
-       shippingunits:1,
-       listOfPayments:1,
+        get detailbookings() {
+            return $scope.totalAll.cartsAll.map(item => {
+                return {
+                    dbid: "detailbooking",
+                    books: { bookid: item.books.id },
+                    quantity: item.quantity
+                }
+            })
+        },
+        orderstatuses: 1,
+        shippingunits: 1,
+        listOfPayments: 1,
 
-       purch(){ 
-        var order = angular.copy(this);
-        var url = "http://localhost:8080/rest/booking/post-detail";
+        purch() {
+            var order = angular.copy(this);
+            var url = "http://localhost:8080/rest/booking/post-detail";
 
-        $http.post(url,order).then(resp =>{ 
-            $scope.totalAll.cartsAll =[];
-            location.href = "/booking/detail"+ resp.data.id
-        })
-       }
+            $http.post(url, order).then(resp => {
+                $scope.totalAll.cartsAll = [];
+                location.href = "/booking/detail" + resp.data.id
+            })
+        }
 
     }
 })

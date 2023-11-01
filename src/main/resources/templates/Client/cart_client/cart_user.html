@@ -63,10 +63,11 @@
                                 <td ><a href="/book/detail?bookid = ${p.bookid}" th:text="${b.books.bookname}"></a></td>
                                 <td th:text ="${#numbers.formatDecimal(b.books.price,0,'COMMA',2,'POINT')}"></td>
                                 <td>
-                                    <input type="number" th:attr="ng-change=@{|changequantity(${b.quantity},${b.cartid})|}" class="form-control" style="width: 100px;" min="1" step="1"  th:value ="${b.quantity}">
+                                    <input type="number" th:id="quantity+${b.cartid}" ng-click="changeone()" class="form-control" style="width: 100px;" min="1" step="1" th:value="${b.quantity}" >
                                 </td>
+                                <!-- th:attr="ng-click=@{|changequantity(${b.quantity},${b.cartid})|}" -->
                                 <td class="total_pro"  th:id="cartid+${b.cartid}" th:text ="${#numbers.formatDecimal(b.books.price * b.quantity,0,'COMMA',2,'POINT')}"></td>
-                                <td><a  th:id="${b.cartid}"  th:href="@{|cart/delete/${b.cartid}|}" style="color: #000;"><i style="font-size: 30px;" class="bi bi-trash"></i></a></td>
+                                <td><a  th:id="${b.cartid}"  href="#" th:attr="ng-click=@{|deletecart(${b.cartid})|}" style="color: #000;"><i style="font-size: 30px;" class="bi bi-trash"></i></a></td>
                             </tr>
                         </tbody>
                     </table>

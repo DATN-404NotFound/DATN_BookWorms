@@ -21,17 +21,17 @@ import com.poly.DATN_BookWorms.service.CartService;
 
 @CrossOrigin("*")
 @RestController
-
+@RequestMapping("/rest/cart")
 public class CartRestController {
 	
 	@Autowired
 	CartService cartService;
 	
-	@GetMapping("/rest/cart")
+	@GetMapping
 	public List<Cart> selectAllCart(){ 
 		return cartService.findAll();
 	}
-	@GetMapping("/rest/cart/user")
+	@GetMapping("/user")
 	public List<Cart> selectUserCart(){ 
 		return cartService.findByUser();
 	}
@@ -41,24 +41,25 @@ public class CartRestController {
 //		return cartService.findByUser(userId);
 //	}
 	
-	@GetMapping("/rest/cart/{cartid}")
+	@GetMapping("/{cartid}")
 	public Cart SelectById(@PathVariable("cartid") Long cartid){ 
 		System.out.println("jkkkk");
 		return cartService.findById(cartid);
 	}
 	
-	@PostMapping("/rest/cart")
-	public void post(@RequestBody Cart auth) { 
+	@PostMapping
+	public Cart post(@RequestBody Cart auth) { 
 		System.out.println("kkkkkkkkkn");
+		return cartService.create(auth);
 	}
 	
-	@PutMapping("/rest/cart")
+	@PutMapping
 	public Cart updateCart(@RequestBody Cart cart){ 
 		System.out.println("update");
 		return cartService.update(cart);
 	}
 	
-	@DeleteMapping("/rest/cart/{cartid}")
+	@DeleteMapping("/{cartid}")
 	public void delete(@PathVariable("cartid") Long cartid) { 
 		System.out.println("cartid "+ cartid);
 		cartService.delete(cartid);

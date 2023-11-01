@@ -29,15 +29,14 @@ import lombok.NoArgsConstructor;
 
 @Data
 @Entity
-@Table(name="Cart")
+@Table(name="cart")
 public class Cart implements Serializable {
 
-    private static final long serialVersionUID = 1L;
 
     //--- ENTITY PRIMARY KEY 
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
-    @Column(name="cartid", nullable=false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="cartid")
     public Long    cartid ;
 
     //--- ENTITY DATA FIELDS 
@@ -58,12 +57,7 @@ public class Cart implements Serializable {
     @JoinColumn(name="Bookid", referencedColumnName="BookId", insertable=false, updatable=false)
     public Books      books ; 
 
-    	
-    public Cart(Account account, Books books) {
-		this.account = account;
-		this.books = books;
-	}
-    
+
 
 	public Cart() {
 		
@@ -132,8 +126,6 @@ public class Cart implements Serializable {
 		this.books = books;
 	}
 
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	} 
+
 
 }
