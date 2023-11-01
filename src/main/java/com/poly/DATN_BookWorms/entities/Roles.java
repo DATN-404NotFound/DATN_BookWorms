@@ -10,6 +10,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
  * JPA entity class for "Roles"
@@ -36,6 +37,7 @@ public class Roles implements Serializable {
 
     //--- ENTITY LINKS ( RELATIONSHIP )
     @OneToMany(mappedBy="roles")
+    @JsonIgnore
     private List<Authorities> listOfAuthorities ; 
 
     //--- toString specific method

@@ -16,6 +16,7 @@ import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
  * JPA entity class for "Shippingunits"
@@ -52,6 +53,7 @@ public class Shippingunits implements Serializable {
 
     //--- ENTITY LINKS ( RELATIONSHIP )
     @OneToMany(mappedBy="shippingunits")
+    @JsonIgnore
     private List<Bookings> listOfBookings ; 
 
     //--- toString specific method

@@ -13,6 +13,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 /**
@@ -32,13 +33,12 @@ public class Authorities implements Serializable {
 
     @Id 
 	private String authorityid;
+
 	@ManyToOne @JoinColumn(name = "userid")
 	private Account account;
+
+	// TODO Auto-generated method stub
 	@ManyToOne  @JoinColumn(name = "roleid")
 	private Roles roles;
-	public Roles getRoles() {
-		// TODO Auto-generated method stub
-		return this.roles;
-	}
 
 }

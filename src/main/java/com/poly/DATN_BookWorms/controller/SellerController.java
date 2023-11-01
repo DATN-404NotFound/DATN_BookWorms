@@ -19,4 +19,13 @@ public class SellerController {
     public String sales(Model model){
         return "SellerChannel/DashboardSales";
     }
+    @RequestMapping("/shop/shopProfile")
+    public String shopProfile(Model model){
+        return "SellerChannel/ProfileShop";
+    }
+
+    @RequestMapping("/shop/shopProfile/change")
+    public String changeProfile(Model model){
+        return "SellerChannel/ChangeProfile";
+    }
 }

@@ -16,6 +16,7 @@ import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
  * JPA entity class for "Detailbookings"
@@ -51,6 +52,7 @@ public class Detailbookings implements Serializable {
     private Bookings   bookings ; 
 
     @OneToMany(mappedBy="detailbookings")
+    @JsonIgnore
     private List<Evaluates> listOfEvaluates ; 
 
     @ManyToOne

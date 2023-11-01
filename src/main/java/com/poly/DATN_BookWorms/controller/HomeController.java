@@ -65,8 +65,6 @@ public class HomeController {
 
     @RequestMapping("/header")
     public String header(Model model, Account user) {
-        System.out.println(user.getFullname());
-
         if (user !=null){
             model.addAttribute("image", user.getImage());
             model.addAttribute("name", user.getFullname());

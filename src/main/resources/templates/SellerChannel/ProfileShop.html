@@ -25,11 +25,12 @@
         <div class="container-fluid">
           <div class="row justify-content-center">
             <div class="col-12">
-              <h2 class="h3 mb-4 page-title">Profile</h2>
+              <h2 class="h3  page-title">Shop Profile</h2>
+              <p class="mb-4 text-muted">View Shop status and update your Shop profile</p>
               <div class="row mt-5 align-items-center">
                 <div class="col-md-3 text-center mb-5">
                   <div class="avatar avatar-xl">
-                    <img src="SellerChannel/assets/avatars/face-1.jpg" alt="..." class="avatar-img rounded-circle">
+                    <img th:src="@{/SellerChannel/assets/avatars/face-1.jpg}" alt="..." class="avatar-img rounded-circle">
                   </div>
                 </div>
                 <div class="col">
@@ -63,14 +64,14 @@
                         </div> <!-- .col -->
                         <div class="col">
                           <a href="#">
-                            <h3 class="h5 mt-4 mb-1">Personal</h3>
+                            <h3 class="h5 mt-4 mb-1">Profile</h3>
                           </a>
                           <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris blandit nisl ullamcorper, rutrum metus in, congue lectus.</p>
                         </div> <!-- .col -->
                       </div> <!-- .row -->
                     </div> <!-- .card-body -->
                     <div class="card-footer">
-                      <a href="" class="d-flex justify-content-between text-muted"><span>Account Settings</span><i class="fe fe-chevron-right"></i></a>
+                      <a href="#!/shop/shopProfile/change" class="d-flex justify-content-between text-muted"><span>Profile Settings</span><i class="fe fe-chevron-right"></i></a>
                     </div> <!-- .card-footer -->
                   </div> <!-- .card -->
                 </div> <!-- .col-md-->

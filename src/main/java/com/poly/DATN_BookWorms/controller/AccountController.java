@@ -50,14 +50,7 @@ public class AccountController {
             accountService.save(accountDTO);
 
         }
-        //Tăng thời gian chờ lên
-
-       try {
-           Thread.sleep(5000);
-           customUserDetailService.loadUserByUsername(performance.getName());
-       }catch (Exception e){
-            e.printStackTrace();
-       }
+        customUserDetailService.loadUserByUsername(performance.getName());
         System.out.println("name:" + performance.getAttribute("name"));
         System.out.println("email:" + performance.getAttribute("email"));
         return "redirect:/Ibook/index";
