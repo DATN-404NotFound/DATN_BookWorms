@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{/Client/index::dynamic(~{::main})}">
 
 <head>
     <meta charset="UTF-8" />
@@ -81,14 +81,15 @@
                       </tr>
                       <tr>
                         <th>Date of birth</th>
-                        <td ><input type="date" class="inpDate"></td>
+                        <td ><input type="date" id="inpDate"></td>
                         <td><i class="bi bi-pencil"></i></td>
                       </tr>
                     </tbody>
                   </table>
                   <div class="chooseImageAccount">
                     <img class="imageAccount" src="../../../static/Client/images//Logo_Nha_Nam.jpg" alt="">
-                    <button class="btnChooseImage">Choose image</button>
+                    <!-- <button class="btnChooseImage">Choose image</button> -->
+                    <input type="file" value="Choose Image" class="btnChooseImage">
                   </div>
             </div>
         </div>

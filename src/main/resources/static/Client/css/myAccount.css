@@ -65,15 +65,16 @@ li{
     margin: 40px 0 0 25px;
     background-color: white;
 }
-.inpDate{
-    width: 100%;
+#inpDate{
+    width: 60%;
     height: 100%;
-    padding-left: 0px !important;
+    border: none !important;
 }
-.inpDate:focus{
-    width: 100%;
+#inpDate:focus{
+    width: 60%;
     height: 100%;
-    padding-left: 0px !important;
+    border: none !important;
+    box-shadow: none !important;
 }
 th{
     border-right: 1px solid #B3B3B3;
