@@ -67,4 +67,11 @@ public class BookServiceImp implements BookService{
 		return bookRepo.findAllBook(pageable);
 	}
 
+	@Override
+	public List<Books> findRelatedBooks(Integer bookid) {
+		// TODO Auto-generated method stub
+		return bookRepo.findRelatedBooks(bookid);
+	}
+
+	
 }

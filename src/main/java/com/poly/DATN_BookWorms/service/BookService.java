@@ -26,4 +26,6 @@ public interface BookService {
 	
 	Page<BookResponse> findAllBook(Pageable pageable);
 	
+	List<Books> findRelatedBooks(Integer bookid);
+	
 }
