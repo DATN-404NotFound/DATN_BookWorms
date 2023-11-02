@@ -39,27 +39,19 @@ public class CartController {
 
     @RequestMapping
     public String cartView(Model model,HttpServletRequest request) {
-
         List<Cart> cartuser_list = cartService.findByUser();
         model.addAttribute("cartuserList", cartuser_list);
-
         List<Shoponlines> list_cart_shop = cartService.list_cart_shop();
         model.addAttribute("cartshoplist", list_cart_shop);
-
         List<Sales> sale_shopid_intendFor = saleService.saleOfShopIntendFor("D");
         model.addAttribute("saleShopIntendFor", sale_shopid_intendFor);
-
-        System.out.println("run: " + cartuser_list.size());
-        System.out.println("run: " + list_cart_shop.size());
         String username = request.getRemoteUser();
         model.addAttribute("requestusername", username);
-        System.out.println("kkkusser "+  username );
         return "Client/cart_client/cart_user";
     }
 
     @RequestMapping("/delete/{cartid}")
     public String deletecart(@PathVariable("cartid") Long cartid) { 
-//    	cartService.delete(cartid);
     	System.out.println("xmm");
     	cartService.delete(cartid);
     	return "redirect:/cart";

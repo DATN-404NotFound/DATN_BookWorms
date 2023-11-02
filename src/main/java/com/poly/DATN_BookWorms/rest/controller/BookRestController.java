@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.poly.DATN_BookWorms.entities.Books;
+import com.poly.DATN_BookWorms.entities.Shoponlines;
 import com.poly.DATN_BookWorms.service.BookService;
 
 @CrossOrigin("*")
@@ -47,5 +48,11 @@ public class BookRestController {
 	public Books getOne(@PathVariable("id")Long id) {
 		System.out.println("111111111111111"+ bookService.findById(id));
 		return bookService.findById(id);
+	}
+	
+	@GetMapping("/list/{id}")
+	public List<Shoponlines> listshopDeal(@PathVariable("id") Long id){ 
+		System.out.println("listshopBooks "+ bookService.list_shopId_deal(id));
+		return bookService.list_shopId_deal(id);
 	}
 }

@@ -19,6 +19,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.poly.DATN_BookWorms.entities.Books;
 import com.poly.DATN_BookWorms.entities.Cart;
 import com.poly.DATN_BookWorms.service.CartService;
+import com.poly.DATN_BookWorms.utils.CRC32_SHA256;
+
+import jakarta.servlet.http.HttpServletRequest;
 
 @CrossOrigin("*")
 @RestController
@@ -28,6 +31,12 @@ public class CartRestController {
 	@Autowired
 	CartService cartService;
 	
+	@Autowired
+	HttpServletRequest rquest;
+	
+	@Autowired
+	CRC32_SHA256 crc;
+	
 	@GetMapping
 	public List<Cart> selectAllCart(){ 
 		return cartService.findAll();
@@ -36,11 +45,7 @@ public class CartRestController {
 	public List<Cart> selectUserCart(){ 
 		return cartService.findByUser();
 	}
-	
-//	@GetMapping("")
-//	public List<Cart> selectCartOfUser(@RequestParam("userid") Optional<String> userId){ 
-//		return cartService.findByUser(userId);
-//	}
+
 	
 	@GetMapping("/{cartid}")
 	public Cart SelectById(@PathVariable("cartid") Long cartid){ 
@@ -50,8 +55,7 @@ public class CartRestController {
 	
 	@PostMapping
 	public Cart post(@RequestBody Cart auth) { 
-		System.out.println("kkkkkkkkkn");
-		System.err.println("in cart "+ auth.toString());
+		auth.setUserid( crc.getCodeCRC32C(rquest.getRemoteUser()));
 		return cartService.create(auth);
 	}
 	
