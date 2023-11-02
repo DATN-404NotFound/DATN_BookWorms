@@ -1,6 +1,7 @@
 var purchase = [];
 var tong = 0;
-var json =[];
+var json = [];
+
 function choose(e) {
     check()
     var a = document.getElementById(e);
@@ -18,7 +19,6 @@ function choose(e) {
                 purchase.push(d[i].getAttribute('id'));
             }
         }
-
     }
     else {
         console.log("klkklkk")
@@ -27,11 +27,9 @@ function choose(e) {
             var index = purchase.findIndex(item => item == d[i].getAttribute('id'));
             purchase.splice(index, 1);
         }
-
     }
     checkAll();
 }
-
 
 
 $(document).ready(function () {
@@ -49,6 +47,7 @@ $(document).ready(function () {
 
 })
 
+
 $(document).ready(function () {
     $('#deleteAll').click(function () {
         var $name = 'name="carttest"';
@@ -63,7 +62,6 @@ $(document).ready(function () {
 })
 
 
-
 function totalAllChoose() {
     if (purchase.length > 0) {
         purchase.forEach((n) => {
@@ -73,45 +71,90 @@ function totalAllChoose() {
 }
 
 
-
 function selectOne(e) {
     var one = document.getElementById(e);
-    // var strprice = document.getElementById('cartid'+e).innerText;
-    // var reply = strprice.replace(',', '');
     if (one.checked) {
         purchase.push(one.getAttribute('id'));
-        // this.tong +=  Number(reply);
-        console.log("num")
     }
     else {
         var item = purchase.findIndex(item => item == e);
         purchase.splice(item, 1);
-        // this.tong -=  Number(reply);
     }
     check2(e);
     check();
     checkAll();
     console.log(purchase)
 }
-// function meet(d)
-// { 
 
-//     console.log("c")
-// }
 
-$(document).ready(function () {
-    $('.clickchange').click(function () {
-        console.log()
-        // var $id = $('.clickchange').attr('id')
-        // console.log("checlclick"+ $id)
-        // $.get("http://localhost:8080/rest/cart/"+$id, function(data, status){
-		// 	json = data;
-		// 	console.log("In "+ json.cartid)
-        //     alert("Data: " + data+ "\nStatus: " + status);
-        //   });
-    })
-})
+function Active(cartid, action) {
+    var e = document.getElementById("quantity" + cartid).value;
+    $.get("http://localhost:8080/rest/cart/" + cartid, function (data, status) {
+        json = data;
+        json.quantity = e;
+        var shop = json.books.shopid;
+        console.log("ship = "+ shop)
+        switch (action) {
+            case 'PUT': {
+                updateCart(cartid, json);
+                break;
+            }
+            case 'DELETE': {
+                deleteCart(cartid,shop);
+                break;
+            }
+        }
+    });
+}
 
+
+function updateCart(id, json) {
+    $.ajax({
+        url: "http://localhost:8080/rest/cart",
+        type: "PUT",
+        data: JSON.stringify(json),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (resultData) {
+            console.log(resultData);
+            $("#cart" + id).children().eq(5).text(formatNumber(resultData.books.price * resultData.quantity, ".", ","));
+            console.log("ok");
+            checkAll();
+        },
+    });
+   
+}
+
+function deleteCart(id,shop) {
+    $.ajax({
+        url: "http://localhost:8080/rest/cart/" + id,
+        type: "DELETE",
+        success: function (resultData) {
+            console.log(resultData)
+        },
+    });
+    $("#cart" + id).remove();
+    var index = purchase.findIndex(item => item == id);
+    purchase.splice(index, 1);
+   var chi=  $("#cart" + shop).children();
+   if(chi.length ==0){ 
+    $("#shop" + shop).remove();
+   }
+    checkAll();
+}
+
+
+function formatNumber(nStr, decSeperate, groupSeperate) {
+    nStr += '';
+    x = nStr.split(decSeperate);
+    x1 = x[0];
+    x2 = x.length > 1 ? '.' + x[1] : '';
+    var rgx = /(\d+)(\d{3})/;
+    while (rgx.test(x1)) {
+        x1 = x1.replace(rgx, '$1' + groupSeperate + '$2');
+    }
+    return x1 + x2 + ".00";
+}
 
 function checkAll() {
     this.tong = 0;
@@ -122,25 +165,30 @@ function checkAll() {
         this.tong += Number(reply);
 
     }
-    document.getElementById("allPrice").innerText = this.tong;
+    document.getElementById("allPrice").innerText = formatNumber(this.tong, ".", ",");
 }
+
 
 function check2(e) {
     var one = document.getElementById(e);
     var parent = one.parentElement.parentElement.parentElement;
     var chil = parent.children;
     var a = 0;
-    for (var i = 0; i < chil.length; i++) {
+    for (var i = 0; i < chil.length;i++) {
+        console.log(chil.length);
         if (chil[i].children[0].children[0].checked) {
-            a++;
+     	a += 1;
             var pa = parent.parentElement.parentElement;
             var shops = pa.children[0].children[0];
+            console.log("i "+ a +" - leng - "+ chil.length)
             if (chil.length == a) {
                 shops.checked = true;
             }
-            else {
-                shops.checked = false;
-            }
+        }
+        else{ 
+            var pa = parent.parentElement.parentElement;
+            var shops = pa.children[0].children[0];
+            shops.checked = false;
         }
     }
 }
@@ -209,80 +257,21 @@ app.controller("cart_ctrl", function ($scope, $http) {
                     $http.post(`/rest/cart`, addc).then(resp => {
                         this.items.push(resp.data)
                         console.log("in " + resp.data)
-
-
-
                     })
                 })
             }
         },
         load() {
-            console.log("kjskljfdksjdfkjdklsfjs")
             var url = `${host}/user`
             $http.get(url).then(resp => {
                 this.items = resp.data;
-                console.log("an" + this.items[0].books.bookid);
-
             });
         },
-        update() {
-            $http.put(`${host}`).then(resp => {
-                items = resp.data;
-                console.log("an" + items.length);
-
-            });
-        }
-        , delete(id) {
-            console.log("xxXoá tành công")
-            $http.delete(`${host}/` + id).then(resp => {
-                console.log("Xoá tành công")
-
-            });
-        }
 
     }
 
 
     $scope.cart.load();
-    $scope.changeonecart = function (cartid) {
-		 console.log("12 - " +cartid);
-        var e = document.getElementById("quantity" + cartid).value
-        var urlcart = `${host}/` + cartid;
-        var a = e;
-        console.log("12 - " + a);
-        var cartchange = {};
-        $http.get(urlcart).then(resp => {
-            cartchange = resp.data;
-            console.log("cart- " + cartchange.quantity)
-            cartchange.quantity = Number(a);
-
-            $http.put(`${host}`, cartchange).then(resp => {
-                console.log("Thành công " + resp.data.cartid + "- " + resp.data.quantity)
-           })
-
-
-        })
-    }
-    $scope.totalAll = {
-        cartsAll: [],
-
-        loadc(id) {
-            console.log("a" + id)
-            purchase.forEach((n) => {
-                var urlcart = "http://localhost:8080/rest/cart/" + n;
-                console.log(purchase)
-                $http.get(urlcart).then(resp => {
-                    this.cartsAll.push(resp.data);
-
-                });
-            });
-
-        },
-
-
-    }
-
-
 
     $scope.cartsvoucher = {
         voucherAll: [],
@@ -300,15 +289,8 @@ app.controller("cart_ctrl", function ($scope, $http) {
         },
     }
 
-    $scope.deletecart = function (id) {
-        console.log("deletecart")
-        var ho = "http://localhost:8080/rest/cart/" + id;
-        $http.delete(ho).then(resp => {
-            console.log(resp.data);
-        });
-        location.href = "/cart";
-    }
-    
+
+
     $scope.booking = {
         bookingid: "new",
         createat: new Date(),
