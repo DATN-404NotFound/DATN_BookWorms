@@ -10,6 +10,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.*;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -23,6 +24,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Data
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name="Roles")
 public class Roles implements Serializable {
 
@@ -50,28 +53,6 @@ public class Roles implements Serializable {
         sb.append(rolename);
         return sb.toString(); 
     }
-	
 
-	public Roles(String roleid, String rolename, List<Authorities> listOfAuthorities) {
-	
-		this.roleid = roleid;
-		this.rolename = rolename;
-		this.listOfAuthorities = listOfAuthorities;
-	}
-
-
-	public Roles() {
-		super();
-	}
-
-
-	public Roles(String rolename) {
-		this.rolename = rolename;
-	}
-
-	public String getRoleid() {
-		// TODO Auto-generated method stub
-		return this.roleid;
-	} 
 
 }
