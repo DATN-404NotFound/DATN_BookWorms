@@ -30,16 +30,13 @@ public class SecurityConfig {
 	@Bean
 	public SecurityFilterChain web(HttpSecurity http) throws Exception {
 		http.authorizeHttpRequests((request) -> request
-				.requestMatchers("/account/**", "/signin/**", "/signup/**", "/product/**", "/Admin/Css/**", "/Admin/Image/**", "/Admin/Js/**","/Ibook/**")
+				.requestMatchers("/account/**", "/signin/**", "/signup/**", "/product/**", "/Admin/**","/Ibook/index","/Ibook/header")
 				.permitAll().requestMatchers("rest/**").permitAll()
 				.requestMatchers("/Client/**")
 				.permitAll()
 				.requestMatchers("static/**")
 				.permitAll()
-				.requestMatchers("/SellerChannel/angularJS/**")
-				.permitAll()
 				.requestMatchers("/admin/**").hasAuthority("ADMIN")
-//				.requestMatchers("/seller/**").hasAuthority("SELLER")
 				.anyRequest().authenticated());
 		http.formLogin(form -> form.loginPage("/account/login")
 				.loginProcessingUrl("/account/login")

@@ -2,8 +2,11 @@ package com.poly.DATN_BookWorms.controller;
 
 import com.itextpdf.text.pdf.qrcode.Mode;
 import com.poly.DATN_BookWorms.entities.Account;
+import com.poly.DATN_BookWorms.entities.Authorities;
 import com.poly.DATN_BookWorms.entities.Books;
 import com.poly.DATN_BookWorms.entities.Roles;
+import com.poly.DATN_BookWorms.repo.AuthoritiesRepo;
+import com.poly.DATN_BookWorms.service.AuthoritiesService;
 import com.poly.DATN_BookWorms.service.BookService;
 import com.poly.DATN_BookWorms.service.CategoryService;
 import com.poly.DATN_BookWorms.service.RoleService;
@@ -28,6 +31,9 @@ public class HomeController {
 
     @Autowired
     RoleService roleService;
+
+    @Autowired
+    AuthoritiesService authoritiesService;
 
     @RequestMapping("/index")
     public String home(Model model) {
@@ -76,6 +82,14 @@ public class HomeController {
 
     @RequestMapping("/seller")
     public String seller(Model model){
+        Account user = sessionService.get("user");
+        List<Authorities> authorities = user.getAuthorities();
+        for (int i = 0; i < authorities.size(); i++) {
+            if (authorities.get(i).getRoles().getRoleid().equals("SELLER")){
+                return "SellerChannel/index";
+            }
+        }
+
         return "SellerChannel/index";
     }
 
