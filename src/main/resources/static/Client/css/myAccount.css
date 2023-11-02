@@ -139,13 +139,52 @@ th, td{
 }
 .btnNewAddress{
     float: right;
-    margin: 30px 62px 0 0;
+    margin: 30px 71px 0 0;
     width: 145px;
     background-color: #F25019;
     font-size: 15px;
     color: white;
 }
+/* box new address */
 
+.boxNewAddress{
+    width: 750px;
+    margin-left: calc(50% - 375px);
+    margin-top: 37px;
+}
+.btnFinish-newAddress{
+    background-color: #F25019;
+    color: white;
+    width: 145px;
+    height: 46.25px;
+    margin-left: calc(100% - 320px);
+}
+.btnCancel-newAddress{
+    background-color: #D9D9D9;
+    width: 145px;
+    height: 46.25px;
+    margin-left: 20px;
+}
+#formNewAddress{
+    padding: 0 30px 0 30px;
+}
+#fullName-newAddress, #phone-newAddress, #specificAddress-newAddress, #formNewAddress div select{
+    height: 50px;
+    font-size: 15px !important;
+    padding-left: 30px !important;
+}
+#fullName-newAddress:focus, #phone-newAddress:focus, #specificAddress-newAddress:focus, #formNewAddress div select:focus{
+    height: 50px;
+    font-size: 15px !important;
+    box-shadow: none !important;
+    border: 1px black solid;
+}
+#province-newAddress option:hover{
+    background-color: #F25019 !important;
+}
+#formNewAddress div label{
+    font-size: 15px;
+}
 /* change password */
 
 #titleChangePassword{
@@ -153,23 +192,23 @@ th, td{
     font-weight: 600;
     margin-left: 70px;
 }
-form{
+#changePassword{
     width: 897.5px;
     margin: 40px 0 0 60.5px;
 }
-input{
+#OldPassword, #NewPassword, #confirmNewPassword{
     height: 60px;
     font-size: 15px !important;
     border: none !important;
     padding-left: 35px !important;
 }
-input:focus{
+#OldPassword:focus, #NewPassword:focus, #confirmNewPassword:focus{
     height: 60px;
     font-size: 15px !important;
     border: none !important;
     box-shadow: none !important;
 }
-.btnSave{
+.btnSaveChangePassword{
     float: right;
     margin: 30px 0px 0 0;
     width: 145px;
@@ -179,6 +218,16 @@ input:focus{
 }
 /* order */
 
+.nav-tabs{
+    width: 989px;
+    margin: 10px 0 0 24px;
+}
+.nav-tabs li a{
+    color: #000;
+    font-size: 18px;
+    font-weight: 700;
+    padding-bottom: 15px;
+}
 #titleOrder{
     font-size: 30px;
     font-weight: 600;
@@ -188,6 +237,8 @@ input:focus{
     height: 300px;
     margin: 30px 0 0 24px;
     background-color: #F0F0F0;
+    border-radius: 5px;
+    box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.5);
 }
 .cardHeader{
     height: 62.5px;
@@ -616,4 +667,3 @@ input:focus{
     height: 46.25px;
     margin-right: 52px;
 }
-

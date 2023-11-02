@@ -61,25 +61,85 @@
                     <div class="row address1">
                         <div class="col-9">
                             <p class="NamePhone">Thanh Tùng | 0909331232</p>
-                            <p class="pAddressDetail">Đường Giải Phóng, Phường Tân Lợi, Thành phố Buôn Ma Thuật, Đắk LắK</p>
+                            <p class="pAddressDetail">Đường Giải Phóng, Phường Tân Lợi, Thành phố Buôn Ma Thuật, Đắk LắK
+                            </p>
                         </div>
                         <div class="col-3">
-                            <i class="bi bi-pencil float-end"></i><br>
+                            <a href=""><i class="bi bi-pencil float-end"></i></a><br>
                             <button class="btn float-end me-3 mt-3 btnSetToDefault">Set to default</button>
                         </div>
                     </div>
                     <div class="row address1 mt-4">
                         <div class="col-9">
                             <p class="NamePhone">Thanh Tùng | 0909331232</p>
-                            <p class="pAddressDetail">43 đường  Nguyễn Chí Diểu, Phường An Hải Bắc, Quận Sơn Trà, Đà Nẵng</p>
+                            <p class="pAddressDetail">43 đường Nguyễn Chí Diểu, Phường An Hải Bắc, Quận Sơn Trà, Đà Nẵng
+                            </p>
                         </div>
                         <div class="col-3">
-                            <i class="bi bi-pencil float-end"></i><br>
+                            <a href=""><i class="bi bi-pencil float-end"></i></a><br>
                             <button class="btn float-end me-3 mt-3 btnSetToDefault">Set to default</button>
                         </div>
                     </div>
                 </div>
-                <button class="btn btnNewAddress">New address</button>
+                <button type="button" class="btn btnNewAddress" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    New address
+                </button>
+                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content boxNewAddress">
+                            <div class="modal-header" style="border: none;">
+                                <h3 class="modal-title" id="exampleModalLabel">New Address</h3>
+                            </div>
+                            <div class="modal-body">
+                                <form id="formNewAddress" class="row">
+                                    <div class="mb-3 col-6">
+                                        <input type="text" class="form-control" id="fullName-newAddress"
+                                            placeholder="Fullname">
+                                    </div>
+                                    <div class="mb-3 col-6">
+                                        <input type="text" class="form-control" id="numberPhone-newAddress"
+                                            placeholder="Number phone">
+                                    </div>
+                                    <div class="mb-3">
+                                        <select name="" class="form-select" id="province-newAddress">
+                                            <option value="">Province/City</option>
+                                            <option value="">Ho Chi Minh</option>
+                                        </select>
+                                    </div>
+                                    <div class="mb-3">
+                                        <select name="" class="form-select" id="district-newAddress">
+                                            <option value="">District</option>
+                                            <option value="">12 District</option>
+                                        </select>
+                                    </div>
+                                    <div class="mb-3">
+                                        <select name="" class="form-select" id="ward-newAddress">
+                                            <option value="">Ward</option>
+                                            <option value="">Tan Thoi Hiep ward</option>
+                                        </select>
+                                    </div>
+                                    <div class="mb-3">
+                                        <input type="text" class="form-control" id="specificAddress-newAddress"
+                                            placeholder="Specific Address">
+                                    </div>
+                                    <div class="mb-5">
+                                        <label class="me-3">Status Address:</label>
+                                        <input type="radio" class="" name="statusAddress"
+                                            id="statusAddress-default" value="Default">
+                                        <label for="statusAddress-default" class="me-3">Mặc định</label>
+                                        <input type="radio" class="" name="statusAddress" id="statusAddress-non"
+                                            value="Non">
+                                        <label for="statusAddress-non" class="">Không</label>
+                                    </div>
+                                    <button type="button" class="btn btnFinish-newAddress">Finish</button>
+                                    <button type="button" class="btn btnCancel-newAddress"
+                                    data-bs-dismiss="modal">Cancel</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

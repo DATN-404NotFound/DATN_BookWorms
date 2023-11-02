@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="UTF-8" />
@@ -18,7 +18,7 @@
         <div class="frameMyAccount">
             <div class="frameMyAccount-left">
                 <div class="infomation">
-                    <img class="logoAccount" src="../../../static/Client/images/Logo_Nha_Nam.jpg" alt="" />
+                    <img class="logoAccount" src="../../../static/Client/images/LOGO_Website1.png" alt="" />
                     <span class="spanProfile">
                         <p class="nameAccount mt-1">Lê Thanh Tùng</p>
                         <p class="idAccount">ID: UID1LTT01</p>
@@ -56,51 +56,183 @@
                 </div>
             </div>
             <div class="frameMyAccount-right">
-                <p class="mt-4 ms-5" id="titleOrder">Order</p>
-                <div class="order">
-                    <div class="cardHeader">
-                        <span>
-                            <img id="logoAccountOrder" src="../../../static/Client/images/Logo_Nha_Nam.jpg" alt="">
-                            <p class="ms-2 mt-3 nameAccountOrder">tungle1204</p>
-                        </span>
-                        <button class="btn btnChat">Chat</button>
-                        <button class="btn btnReport">Report</button>
-                        <p id="pStatus">Status: Finish</p>
+                <ul class="nav nav-tabs">
+                    <li class="nav-item">
+                        <a class="nav-link active" id="tab1" data-toggle="tab" href="#tabAll">All</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="tab2" data-toggle="tab" href="#tabWayToPay">Way to pay</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="tab3" data-toggle="tab" href="#tabTransprot">Transport</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="tab4" data-toggle="tab" href="#tabSuccess">Success</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="tab5" data-toggle="tab" href="#tabReturnRefund">Return/Refund</a>
+                    </li>
+                </ul>
+
+                <div class="tab-content">
+                    <div id="tabAll" class="tab-pane fade show active">
+                        
+                        <div class="order">
+                            <div class="cardHeader">
+                                <span>
+                                    <img id="logoAccountOrder" src="../../../static/Client/images/LOGO_Website1.png"
+                                        alt="">
+                                    <p class="ms-2 mt-3 nameAccountOrder">tungle1204</p>
+                                </span>
+                                <button class="btn btnChat">Chat</button>
+                                <button class="btn btnReport">Report</button>
+                                <p id="pStatus">Status: Finish</p>
+                            </div>
+                            <div class="cardBody">
+                                <img class="imgBook" src="../../../static/Client/images/but-ky-nguoi-di-san.jpg" alt="">
+                                <p class="nameBook">Bút Ký Người Đi Săn <br> x1</p>
+                                <p class="price">155.00</p>
+                            </div>
+                            <div class="cardFooter">
+                                <p class="total">Total: 310.00</p>
+                                <button class="btn btnRating">Rating</button>
+                                <button class="btn btnDetail-order">Detail</button>
+                            </div>
+                        </div>
+                        <div class="order">
+                            <div class="cardHeader">
+                                <span>
+                                    <img id="logoAccountOrder" src="../../../static/Client/images/LOGO_Website1.png"
+                                        alt="">
+                                    <p class="ms-2 mt-3 nameAccountOrder">tungle1204</p>
+                                </span>
+                                <button class="btn btnChat">Chat</button>
+                                <button class="btn btnReport">Report</button>
+                                <p id="pStatus">Status: Finish</p>
+                            </div>
+                            <div class="cardBody">
+                                <img class="imgBook" src="../../../static/Client/images/but-ky-nguoi-di-san.jpg" alt="">
+                                <p class="nameBook">Bút Ký Người Đi Săn <br> x1</p>
+                                <p class="price">155.00</p>
+                            </div>
+                            <div class="cardFooter">
+                                <p class="total">Total: 310.00</p>
+                                <button class="btn btnDetail-order">Detail</button>
+                            </div>
+                        </div>
                     </div>
-                    <div class="cardBody">
-                        <img class="imgBook" src="../../../static/Client/images/but-ky-nguoi-di-san.jpg" alt="">
-                        <p class="nameBook">Bút Ký Người Đi Săn <br> x1</p>
-                        <p class="price">155.00</p>
+                    <div id="tabWayToPay" class="tab-pane fade">
+                        
+                        <div class="order">
+                            <div class="cardHeader">
+                                <span>
+                                    <img id="logoAccountOrder" src="../../../static/Client/images/LOGO_Website1.png"
+                                        alt="">
+                                    <p class="ms-2 mt-3 nameAccountOrder">tungle1204</p>
+                                </span>
+                                <button class="btn btnChat">Chat</button>
+                                <button class="btn btnReport">Report</button>
+                                <p id="pStatus">Status: Finish</p>
+                            </div>
+                            <div class="cardBody">
+                                <img class="imgBook" src="../../../static/Client/images/230748_di-mot-ngay-dang.jpg"
+                                    alt="">
+                                <p class="nameBook">Đi một ngày đàng<br> x1</p>
+                                <p class="price">155.00</p>
+                            </div>
+                            <div class="cardFooter">
+                                <p class="total">Total: 310.00</p>
+                                <button class="btn btnRating">Rating</button>
+                                <button class="btn btnDetail-order">Detail</button>
+                            </div>
+                        </div>
                     </div>
-                    <div class="cardFooter">
-                        <p class="total">Total: 310.00</p>
-                        <button class="btn btnRating">Rating</button>
-                        <button class="btn btnDetail">Detail</button>
+                    <div id="tabTransprot" class="tab-pane fade">
+                        
+                        <div class="order">
+                            <div class="cardHeader">
+                                <span>
+                                    <img id="logoAccountOrder" src="../../../static/Client/images/LOGO_Website1.png"
+                                        alt="">
+                                    <p class="ms-2 mt-3 nameAccountOrder">tungle1204</p>
+                                </span>
+                                <button class="btn btnChat">Chat</button>
+                                <button class="btn btnReport">Report</button>
+                                <p id="pStatus">Status: Finish</p>
+                            </div>
+                            <div class="cardBody">
+                                <img class="imgBook" src="../../../static/Client/images/238377_noi-voi-tuoi-hai-muoi.jpg"
+                                    alt="">
+                                <p class="nameBook">Nói với tuổi 20<br> x1</p>
+                                <p class="price">155.00</p>
+                            </div>
+                            <div class="cardFooter">
+                                <p class="total">Total: 310.00</p>
+                                <button class="btn btnRating">Rating</button>
+                                <button class="btn btnDetail-order">Detail</button>
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <div class="order">
-                    <div class="cardHeader">
-                        <span>
-                            <img id="logoAccountOrder" src="../../../static/Client/images/Logo_Nha_Nam.jpg" alt="">
-                            <p class="ms-2 mt-3 nameAccountOrder">tungle1204</p>
-                        </span>
-                        <button class="btn btnChat">Chat</button>
-                        <button class="btn btnReport">Report</button>
-                        <p id="pStatus">Status: Finish</p>
+                    <div id="tabSuccess" class="tab-pane fade">
+                        
+                        <div class="order">
+                            <div class="cardHeader">
+                                <span>
+                                    <img id="logoAccountOrder" src="../../../static/Client/images/LOGO_Website1.png"
+                                        alt="">
+                                    <p class="ms-2 mt-3 nameAccountOrder">tungle1204</p>
+                                </span>
+                                <button class="btn btnChat">Chat</button>
+                                <button class="btn btnReport">Report</button>
+                                <p id="pStatus">Status: Finish</p>
+                            </div>
+                            <div class="cardBody">
+                                <img class="imgBook" src="../../../static/Client/images/250616_de-men-phieu-luu-ky-tai-ban-2018.jpg"
+                                    alt="">
+                                <p class="nameBook">Dế Mèn Phiêu Lưu Ký<br> x1</p>
+                                <p class="price">155.00</p>
+                            </div>
+                            <div class="cardFooter">
+                                <p class="total">Total: 310.00</p>
+                                <button class="btn btnRating">Rating</button>
+                                <button class="btn btnDetail-order">Detail</button>
+                            </div>
+                        </div>
                     </div>
-                    <div class="cardBody">
-                        <img class="imgBook" src="../../../static/Client/images/but-ky-nguoi-di-san.jpg" alt="">
-                        <p class="nameBook">Bút Ký Người Đi Săn <br> x1</p>
-                        <p class="price">155.00</p>
-                    </div>
-                    <div class="cardFooter">
-                        <p class="total">Total: 310.00</p>
-                        <button class="btn btnDetail-order">Detail</button>
+                    <div id="tabReturnRefund" class="tab-pane fade">
+                        
+                        <div class="order">
+                            <div class="cardHeader">
+                                <span>
+                                    <img id="logoAccountOrder" src="../../../static/Client/images/LOGO_Website1.png"
+                                        alt="">
+                                    <p class="ms-2 mt-3 nameAccountOrder">tungle1204</p>
+                                </span>
+                                <button class="btn btnChat">Chat</button>
+                                <button class="btn btnReport">Report</button>
+                                <p id="pStatus">Status: Finish</p>
+                            </div>
+                            <div class="cardBody">
+                                <img class="imgBook" src="../../../static/Client/images/340504_song-hai-hoa-voi-cam-xuc.jpg"
+                                    alt="">
+                                <p class="nameBook">Sống Hài Hòa Với Cảm Xúc<br> x1</p>
+                                <p class="price">155.00</p>
+                            </div>
+                            <div class="cardFooter">
+                                <p class="total">Total: 310.00</p>
+                                <button class="btn btnRating">Rating</button>
+                                <button class="btn btnDetail-order">Detail</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="../../../static/Client/Js/MyAccount/order.js"></script>
+
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js "
         integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN "
         crossorigin="anonymous "></script>
