@@ -53,7 +53,12 @@
                         <tbody  th:id="cart+${l.shopid}">
                             <tr th:each="b:${cartuserList}" th:if="${b.books.shoponlines.shopid == l.shopid}" th:id="cart+${b.cartid}">
                                 <td>
+<<<<<<< Updated upstream
                                     <input type="checkbox" th:value="${b.cartid}"   onclick="selectOne(id)"  class="form-check-input"  th:id="${b.cartid}" name="carttest">
+=======
+                                    <input type="checkbox" th:value="${b.cartid}" th:attr="ng-click=@{|totalAll.loadc(${b.cartid})|}" onclick="selectOne(id)"  class="form-check-input"  th:id="${b.cartid}" name="carttest">
+
+>>>>>>> Stashed changes
                                 </td>
                                 <td>
                                     <div>
@@ -63,9 +68,18 @@
                                 <td ><a th:href="@{|/product/detail/${b.books.bookid}|}" th:text="${b.books.bookname}"></a></td>
                                 <td th:text ="${#numbers.formatDecimal(b.books.price,0,'COMMA',2,'POINT')}"></td>
                                 <td>
+<<<<<<< Updated upstream
                                     <input type="number"  th:id="quantity+${b.cartid}"  th:attr="onclick=@{|Active(${b.cartid},'PUT')|}" class="form-control" style="width: 100px;" min="1" step="1" th:value="${b.quantity}" >
+=======
+                                    <script th:src="@{/Client/Js/cart/cart.js}">
+
+                                    </script>
+
+                                    <input type="number" th:id="quantity+${b.cartid}" ng-click="changeone()" class="form-control" style="width: 100px;" min="1" step="1" th:value="${b.quantity}" >
+
+>>>>>>> Stashed changes
                                 </td>
-                                <!-- th:attr="ng-click=@{|changequantity(${b.quantity},${b.cartid})|}" -->
+                                <!-- th:attr="ng-click=@{|changequantity(${b.quantity},${b.cartid})|}" -->  
                                 <td class="total_pro"  th:id="cartid+${b.cartid}" th:text ="${#numbers.formatDecimal(b.books.price * b.quantity,0,'COMMA',2,'POINT')}"></td>
                                 <td><a  th:id="${b.cartid}"  href="#" th:attr="onclick=@{|Active(${b.cartid},'DELETE')|}" style="color: #000;"><i style="font-size: 30px;" class="bi bi-trash"></i></a></td>
                             </tr>
