@@ -26,13 +26,13 @@
                         <div class="d-inline-flex align-content-center pe-5 " style="border-right: 1px solid #999;">
                             <div class="p-1"><button class=" my-1"
                                     style="margin-left: 50px; border: none; background: none;"><img class="shop_avatar"
-                                        th:src="@{/Client/images/Logo_Nhã_Nam.jpg}" width="100%"
+                                        th:src="@{'/Client/images/' + ${info.logo}}" width="100%"
                                         style="border: 1px solid #666;" alt=""></button>
                             </div>
                             <div class="d-flex flex-column " style=" margin-top: 10px; ">
                                 <div class="p-1 ms-3"><a
                                         style="text-decoration: none; color: white; font-size:20px ; font-weight: 500;"
-                                        href="#"><span>Nha Nam Official</span></a></div>
+                                        href="#"><span th:text="${profile.shopname}"></span></a></div>
                                 <div class="p-1 ms-3 mt-3">
                                     <button class="shop_button"
                                         style="float: left;color: white; background-color: #C93F04;">Shop
@@ -54,7 +54,8 @@
                             </div>
                             <div class="p-1 ms-3 mt-2">
                                 <div class="">
-                                    <p><span>Products </span> <span style="margin-left: 20px;">100</span></p>
+                                    <p>
+                                        <span>Products </span> <span style="margin-left: 20px;" th:text="${profile.listOfBooks.size()}"></span></p>
                                 </div>
                             </div>
                         </div>
@@ -91,7 +92,8 @@
                             <div class="book_related" style="width: 90%;">
                                 <!-- <div style="width: 5% ;float: left; margin-top: 200px; margin-left: 1%;"><button class="btn"><i
                                             class="bi bi-chevron-left" style="font-size: 35px;"></i></button></div> -->
-                                <div class="book_item" style="margin-left: 1%;">
+
+                                <div th:each="list,item : ${profile.listOfBooks}" th:if="${item.index<5}" class="book_item" style="margin-left: 1%;">
                                     <div class="book_img text-center">
                                         <img th:src="@{/Client/images/Hinh10_book10.jpg}" alt="">
                                         <button class="btn"
@@ -99,8 +101,8 @@
                                             tiết</button>
                                     </div>
                                     <div class="book_title text-center mt-3">
-                                        <a>Sống Vốn Đơn Thuần</a>
-                                        <p style="font-size: 18px;margin-top: 0px;  color: #666;">Nha Nam Official</p>
+                                        <a th:text="${item.current.bookname}"></a>
+                                        <p style="font-size: 18px;margin-top: 0px;  color: #666;" th:text="${#strings.abbreviate(item.current.shoponlines.shopname, 10)}"></p>
                                         <p style="font-size: 18px;margin-top: -10px;">Giá : <strong>200.00 VND</strong>
                                         </p>
                                     </div>
@@ -111,86 +113,7 @@
                                                     style="font-size: 25px;"></i></a></div>
                                     </div>
                                 </div>
-                                <div class="book_item">
-                                    <div class="book_img text-center">
-                                        <img th:src="@{/Client/images/Hinh7_book7.jpg}" alt="">
-                                        <button class="btn"
-                                            style="background-color: #C93F04; color: white; font-size: 18px;">Chi
-                                            tiết</button>
-                                    </div>
-                                    <div class="book_title text-center mt-3">
-                                        <a>Chiếc Lá Cuối Cùng</a>
-                                        <p style="font-size: 18px;margin-top: 0px;  color: #666;">Nha Nam Official</p>
-                                        <p style="font-size: 18px;margin-top: -10px;">Giá : <strong>200.00 VND</strong>
-                                        </p>
-                                    </div>
-                                    <div class="d-flex flex-row-reverse" style="height: 30px; margin-top: -20px;">
-                                        <div class="p-2"><a href="#" class="text-dark"><i class="bi bi-heart"
-                                                    style="font-size: 25px;"></i></a></div>
-                                        <div class="p-2"><a href="#" class="text-dark"> <i class="bi bi-cart3"
-                                                    style="font-size: 25px;"></i></a></div>
-                                    </div>
-                                </div>
-                                <div class="book_item">
-                                    <div class="book_img text-center">
-                                        <img th:src="@{/Client/images/Hinh9_book9.jpg}" alt="">
-                                        <button class="btn"
-                                            style="background-color: #C93F04; color: white; font-size: 18px;">Chi
-                                            tiết</button>
-                                    </div>
-                                    <div class="book_title text-center mt-3">
-                                        <a>Bút Ký Người Đi Săn</a>
-                                        <p style="font-size: 18px;margin-top: 0px;  color: #666;">Nha Nam Official</p>
-                                        <p style="font-size: 18px;margin-top: -10px;">Giá : <strong>200.00 VND</strong>
-                                        </p>
-                                    </div>
-                                    <div class="d-flex flex-row-reverse" style="height: 30px; margin-top: -20px;">
-                                        <div class="p-2"><a href="#" class="text-dark"><i class="bi bi-heart"
-                                                    style="font-size: 25px;"></i></a></div>
-                                        <div class="p-2"><a href="#" class="text-dark"> <i class="bi bi-cart3"
-                                                    style="font-size: 25px;"></i></a></div>
-                                    </div>
-                                </div>
-                                <div class="book_item">
-                                    <div class="book_img text-center">
-                                        <img th:src="@{/Client/images/Hinh1_book1.jpg}" alt="">
-                                        <button class="btn"
-                                            style="background-color: #C93F04; color: white; font-size: 18px;">Chi
-                                            tiết</button>
-                                    </div>
-                                    <div class="book_title text-center mt-3">
-                                        <a>Hành tinh của kẻ ...</a>
-                                        <p style="font-size: 18px;margin-top: 0px;  color: #666;">Nha Nam Official</p>
-                                        <p style="font-size: 18px;margin-top: -10px;">Giá : <strong>200.00 VND</strong>
-                                        </p>
-                                    </div>
-                                    <div class="d-flex flex-row-reverse" style="height: 30px; margin-top: -20px;">
-                                        <div class="p-2"><a href="#" class="text-dark"><i class="bi bi-heart"
-                                                    style="font-size: 25px;"></i></a></div>
-                                        <div class="p-2"><a href="#" class="text-dark"> <i class="bi bi-cart3"
-                                                    style="font-size: 25px;"></i></a></div>
-                                    </div>
-                                </div>
-                                <div class="book_item">
-                                    <div class="book_img text-center">
-                                        <img th:src="@{/Client/images/Hinh2_book2.jpg}" alt="">
-                                        <button class="btn"
-                                            style="background-color: #C93F04; color: white; font-size: 18px;">Chi
-                                            tiết</button>
-                                    </div>
-                                    <div class="book_title text-center mt-3">
-                                        <a>Thuật Thao Túng</a>
-                                        <p style="font-size: 18px;margin-top: 0px;  color: #666;">Nha Nam Official</p>
-                                        <p style="font-size: 18px;margin-top: -10px;">Giá : <strong>200.00 VND</strong>
-                                        </p>
-                                    </div>
-                                    <div class="d-flex flex-row-reverse" style="height: 30px; margin-top: -20px;">
-                                        <div class="p-2"><a href="#" class="text-dark"><i class="bi bi-heart"
-                                                    style="font-size: 25px;"></i></a></div>
-                                        <div class="p-2"><a href="#" class="text-dark"> <i class="bi bi-cart3"
-                                                    style="font-size: 25px;"></i></a></div>
-                                    </div>
-                                </div>
+
                                 <!-- <div style="width: 5% ;float: left; margin-top: 200px; margin-left: 1%;"><button class="btn"><i
                                             class="bi bi-chevron-right" style="font-size: 35px;"></i></button></div> -->
                             </div>
