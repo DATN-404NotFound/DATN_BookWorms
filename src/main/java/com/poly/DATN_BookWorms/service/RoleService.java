@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.poly.DATN_BookWorms.entities.Roles;
 
-@Service
+
 public interface RoleService {
 
 	public List<Roles> findAll();

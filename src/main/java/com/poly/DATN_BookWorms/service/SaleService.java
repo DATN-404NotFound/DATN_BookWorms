@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.poly.DATN_BookWorms.entities.Sales;
 
-@Service
+
 public interface SaleService {
 
 	List<Sales> findAll();

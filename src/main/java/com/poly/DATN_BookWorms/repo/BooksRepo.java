@@ -6,11 +6,12 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import com.poly.DATN_BookWorms.entities.Books;
+import com.poly.DATN_BookWorms.entities.Shoponlines;
 import com.poly.DATN_BookWorms.response.BookResponse;
 
 import java.util.List;
 
-public interface BooksRepo extends JpaRepository<Books, Integer> {
+public interface BooksRepo extends JpaRepository<Books, Long> {
 
     Books findFirstByOrderByQuantitysoldDesc();
 
@@ -35,9 +36,12 @@ public interface BooksRepo extends JpaRepository<Books, Integer> {
     Page<BookResponse> findCategoryBook(String category, Pageable pageable);
 
     @Override
-    List<Books> findAllById(Iterable<Integer> integers);
+    List<Books> findAllById(Iterable<Long> integers);
 
     @Query("SELECT b FROM Books b INNER JOIN b.listOfTypebooks tb WHERE tb.categories.categoryid = :categoryID")
     List<Books> findBooksByCategoryID(Integer categoryID);
+    
+    @Query("Select b.shoponlines from Books b where b.bookid like ?1")
+	List<Shoponlines> list_shopId_deal(Long bookid);
 }
 

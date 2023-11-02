@@ -5,6 +5,8 @@ package com.poly.DATN_BookWorms.entities;
 
 import java.io.Serializable;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -61,6 +63,50 @@ public class Imagebooks implements Serializable {
         sb.append("|");
         sb.append(bookid);
         return sb.toString(); 
-    } 
+    }
+
+	public Integer getFiledid() {
+		return filedid;
+	}
+
+	public void setFiledid(Integer filedid) {
+		this.filedid = filedid;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getTypefile() {
+		return typefile;
+	}
+
+	public void setTypefile(String typefile) {
+		this.typefile = typefile;
+	}
+
+	public Integer getBookid() {
+		return bookid;
+	}
+
+	public void setBookid(Integer bookid) {
+		this.bookid = bookid;
+	}
+
+	public Books getBooks() {
+		return books;
+	}
+
+	public void setBooks(Books books) {
+		this.books = books;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	} 
 
 }

@@ -5,8 +5,11 @@ package com.poly.DATN_BookWorms.entities;
 
 import java.io.Serializable;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -23,40 +26,45 @@ import lombok.NoArgsConstructor;
  * @author Telosys
  *
  */
-@NoArgsConstructor
-@AllArgsConstructor
+
 @Data
 @Entity
-@Table(name="Cart")
+@Table(name="cart")
 public class Cart implements Serializable {
 
-    private static final long serialVersionUID = 1L;
 
     //--- ENTITY PRIMARY KEY 
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
-    @Column(name="cartid", nullable=false)
-    private Integer    cartid ;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="cartid")
+    public Long    cartid ;
 
     //--- ENTITY DATA FIELDS 
-    private String     userid ;
+    public String     userid ;
 
-    private Integer    bookid ;
+    public Integer    bookid ;
 
     @Column(name="quantity")
-    private Integer    quantity ;
+    public Integer    quantity ;
 
 
     //--- ENTITY LINKS ( RELATIONSHIP )
-    @ManyToOne
+    @ManyToOne 
     @JoinColumn(name="Userid", referencedColumnName="Userid", insertable=false, updatable=false)
-    private Account    account ; 
+    public Account    account ; 
 
     @ManyToOne
     @JoinColumn(name="Bookid", referencedColumnName="BookId", insertable=false, updatable=false)
-    private Books      books ; 
+    public Books      books ; 
 
-    //--- toString specific method
+
+
+	public Cart() {
+		
+	}
+
+
+	//--- toString specific method
 	@Override
     public String toString() { 
         StringBuilder sb = new StringBuilder(); 
@@ -68,6 +76,56 @@ public class Cart implements Serializable {
         sb.append("|");
         sb.append(quantity);
         return sb.toString(); 
-    } 
+    }
+
+	public Long getCartid() {
+		return cartid;
+	}
+
+	public void setCartid(Long cartid) {
+		this.cartid = cartid;
+	}
+
+	public String getUserid() {
+		return userid;
+	}
+
+	public void setUserid(String userid) {
+		this.userid = userid;
+	}
+
+	public Integer getBookid() {
+		return bookid;
+	}
+
+	public void setBookid(Integer bookid) {
+		this.bookid = bookid;
+	}
+
+	public Integer getQuantity() {
+		return quantity;
+	}
+
+	public void setQuantity(Integer quantity) {
+		this.quantity = quantity;
+	}
+
+	public Account getAccount() {
+		return account;
+	}
+
+	public void setAccount(Account account) {
+		this.account = account;
+	}
+
+	public Books getBooks() {
+		return books;
+	}
+
+	public void setBooks(Books books) {
+		this.books = books;
+	}
+
+
 
 }

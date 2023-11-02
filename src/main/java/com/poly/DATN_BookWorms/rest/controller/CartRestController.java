@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,46 +16,58 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import org.springframework.web.bind.annotation.RestController;
 
-
+import com.poly.DATN_BookWorms.entities.Books;
 import com.poly.DATN_BookWorms.entities.Cart;
 import com.poly.DATN_BookWorms.service.CartService;
+import com.poly.DATN_BookWorms.utils.CRC32_SHA256;
 
+import jakarta.servlet.http.HttpServletRequest;
+
+@CrossOrigin("*")
 @RestController
-@RequestMapping("/rest")
+@RequestMapping("/rest/cart")
 public class CartRestController {
 	
 	@Autowired
 	CartService cartService;
 	
-	@GetMapping("cardAll")
-	public ResponseEntity<List<Cart>> selectAllCart(){
-		List<Cart> cartAll = cartService.findAll();
-		return ResponseEntity.ok(cartAll);
+	@Autowired
+	HttpServletRequest rquest;
+	
+	@Autowired
+	CRC32_SHA256 crc;
+	
+	@GetMapping
+	public List<Cart> selectAllCart(){ 
+		return cartService.findAll();
 	}
+	@GetMapping("/user")
+	public List<Cart> selectUserCart(){ 
+		return cartService.findByUser();
+	}
+
 	
-//	@GetMapping("")
-//	public List<Cart> selectCartOfUser(@RequestParam("userid") Optional<String> userId){ 
-//		return cartService.findByUser(userId);
-//	}
-	
-	@GetMapping("/{carid}")
-	public Cart SelectById(@PathVariable("cartid") Integer cartid){ 
+	@GetMapping("/{cartid}")
+	public Cart SelectById(@PathVariable("cartid") Long cartid){ 
+		System.out.println("jkkkk");
 		return cartService.findById(cartid);
 	}
 	
-	@PostMapping("/addCart")
-	public Cart addCart(@RequestBody Cart cart){ 
-		return cartService.create(cart);
+	@PostMapping
+	public Cart post(@RequestBody Cart auth) { 
+		auth.setUserid( crc.getCodeCRC32C(rquest.getRemoteUser()));
+		return cartService.create(auth);
 	}
 	
-	
-	@PutMapping("/updateCart")
+	@PutMapping
 	public Cart updateCart(@RequestBody Cart cart){ 
+		System.out.println("update");
 		return cartService.update(cart);
 	}
 	
-	@DeleteMapping("/deleteCart")
-	public void deteleCart(@RequestBody Cart cart){ 
-		cartService.delete(cart);
+	@DeleteMapping("/{cartid}")
+	public void delete(@PathVariable("cartid") Long cartid) { 
+		System.out.println("cartid "+ cartid);
+		cartService.delete(cartid);
 	}
 }

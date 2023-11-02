@@ -9,23 +9,26 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.poly.DATN_BookWorms.entities.Books;
+import com.poly.DATN_BookWorms.entities.Shoponlines;
 import com.poly.DATN_BookWorms.response.BookResponse;
 
-@Service
+
 public interface BookService {
 
 	List<Books> findAll();
 
-	Books findById(int id);
+	Books findById(Long id);
 
 
 	Books create(Books book);
 
 	Books update(Books book);
 
-	void delete(int id);
+	void delete(Long id);
 	Page<BookResponse> findAllBook(Pageable pageable);
 
 	List<Books> getBooksByCategoryID(Integer categoryID);
 	Books findTopBookByQuantitySold();
+	
+	List<Shoponlines> list_shopId_deal(Long bookid);
 }

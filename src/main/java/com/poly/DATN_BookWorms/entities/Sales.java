@@ -8,6 +8,8 @@ import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -37,25 +39,25 @@ public class Sales implements Serializable {
 
     //--- ENTITY PRIMARY KEY 
     @Id
-    private String     couoponcode ;
+    public String     couoponcode ;
 
     //--- ENTITY DATA FIELDS 
-    private String     promotionname ;
+    public String     promotionname ;
 
     @Temporal(TemporalType.DATE)
-    private Date       createat ;
+    public Date       createat ;
 
     @Column(name="descriptions", length=255)
-    private String     descriptions ;
+    public String     descriptions ;
 
-    private BigDecimal discountpercentage ;
+    public BigDecimal discountpercentage ;
 
     @Column(name="statuses", length=20)
-    private String     statuses ;
+    public String     statuses ;
 
-    private String     intendfor ;
+    public String     intendfor ;
 
-    private Integer    shopid ;
+    public Integer    shopid ;
 
 
     //--- ENTITY LINKS ( RELATIONSHIP )

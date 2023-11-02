@@ -7,7 +7,7 @@ import com.poly.DATN_BookWorms.entities.Cart;
 import com.poly.DATN_BookWorms.entities.Shoponlines;
 
 
-public interface CartRepo extends JpaRepository<Cart,Integer> {
+public interface CartRepo extends JpaRepository<Cart,Long> {
 
 	@Query("Select c from Cart c where c.account.userid like ?1")
 	List<Cart> findCartByUser(String userid);

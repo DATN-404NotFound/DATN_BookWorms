@@ -9,6 +9,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.poly.DATN_BookWorms.entities.Books;
+import com.poly.DATN_BookWorms.entities.Shoponlines;
 import com.poly.DATN_BookWorms.repo.BooksRepo;
 import com.poly.DATN_BookWorms.service.BookService;
 
@@ -20,7 +21,7 @@ import com.poly.DATN_BookWorms.response.BookResponse;
 
 @Service
 public class BookServiceImp implements BookService{
-	BooksRepo booksRepo;
+
 	@Autowired
 	BooksRepo bookRepo;
 	
@@ -31,7 +32,7 @@ public class BookServiceImp implements BookService{
 	}
 
 	@Override
-	public Books findById(int id) {
+	public Books findById(Long id) {
 		// TODO Auto-generated method stub
 		return bookRepo.findById(id).get();
 	}
@@ -56,7 +57,7 @@ public class BookServiceImp implements BookService{
 	}
 
 	@Override
-	public void delete(int id) {
+	public void delete(Long id) {
 		// TODO Auto-generated method stub
 		bookRepo.deleteById(id);
 	}
@@ -73,5 +74,11 @@ public class BookServiceImp implements BookService{
 	@Override
 	public Books findTopBookByQuantitySold() {
 		return bookRepo.findFirstByOrderByQuantitysoldDesc();
+	}
+
+	@Override
+	public List<Shoponlines> list_shopId_deal(Long bookid) {
+		// TODO Auto-generated method stub
+		return bookRepo.list_shopId_deal(bookid);
 	}
 }

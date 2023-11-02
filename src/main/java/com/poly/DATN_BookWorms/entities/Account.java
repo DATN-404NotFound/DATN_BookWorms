@@ -115,5 +115,253 @@ public class Account implements Serializable {
     }
 
 
+
+
+
+	public String getUserid() {
+		return userid;
+	}
+
+
+
+
+
+	public void setUserid(String userid) {
+		this.userid = userid;
+	}
+
+
+
+
+
+	public String getUsername() {
+		return username;
+	}
+
+
+
+
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+
+
+
+
+	public String getFullname() {
+		return fullname;
+	}
+
+
+
+
+
+	public void setFullname(String fullname) {
+		this.fullname = fullname;
+	}
+
+
+
+
+
+	public String getPassword() {
+		return password;
+	}
+
+
+
+
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+
+
+
+
+	public Date getAge() {
+		return age;
+	}
+
+
+
+
+
+	public void setAge(Date age) {
+		this.age = age;
+	}
+
+
+
+
+
+	public String getEmail() {
+		return email;
+	}
+
+
+
+
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+
+
+
+
+	public Boolean getGender() {
+		return gender;
+	}
+
+
+
+
+
+	public void setGender(Boolean gender) {
+		this.gender = gender;
+	}
+
+
+
+
+
+	public String getImage() {
+		return image;
+	}
+
+
+
+
+
+	public void setImage(String image) {
+		this.image = image;
+	}
+
+
+
+
+
+	public List<Authorities> getAuthorities() {
+		return authorities;
+	}
+
+
+
+
+
+	public void setAuthorities(List<Authorities> authorities) {
+		this.authorities = authorities;
+	}
+
+
+
+
+
+	public List<Bookings> getListOfBookings() {
+		return listOfBookings;
+	}
+
+
+
+
+
+	public void setListOfBookings(List<Bookings> listOfBookings) {
+		this.listOfBookings = listOfBookings;
+	}
+
+
+
+
+
+	public List<Paymentaccounts> getListOfPaymentaccounts() {
+		return listOfPaymentaccounts;
+	}
+
+
+
+
+
+	public void setListOfPaymentaccounts(List<Paymentaccounts> listOfPaymentaccounts) {
+		this.listOfPaymentaccounts = listOfPaymentaccounts;
+	}
+
+
+
+
+
+	public List<Shoponlines> getListOfShoponlines() {
+		return listOfShoponlines;
+	}
+
+
+
+
+
+	public void setListOfShoponlines(List<Shoponlines> listOfShoponlines) {
+		this.listOfShoponlines = listOfShoponlines;
+	}
+
+
+
+
+
+	public List<Cart> getListOfCart() {
+		return listOfCart;
+	}
+
+
+
+
+
+	public void setListOfCart(List<Cart> listOfCart) {
+		this.listOfCart = listOfCart;
+	}
+
+
+
+
+
+	public List<Discountcodes> getListOfDiscountcodes() {
+		return listOfDiscountcodes;
+	}
+
+
+
+
+
+	public void setListOfDiscountcodes(List<Discountcodes> listOfDiscountcodes) {
+		this.listOfDiscountcodes = listOfDiscountcodes;
+	}
+
+
+
+
+
+	public List<Addressusers> getListOfAddressusers() {
+		return listOfAddressusers;
+	}
+
+
+
+
+
+	public void setListOfAddressusers(List<Addressusers> listOfAddressusers) {
+		this.listOfAddressusers = listOfAddressusers;
+	}
+
+
+
+
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
+
 	
 }

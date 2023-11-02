@@ -5,6 +5,8 @@ package com.poly.DATN_BookWorms.entities;
 
 import java.io.Serializable;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 
 import jakarta.persistence.Id;
@@ -22,8 +24,7 @@ import lombok.NoArgsConstructor;
  * @author Lê Chí Thiên
  *
  */
-@NoArgsConstructor
-@AllArgsConstructor
+
 @Data
 @Entity
 @Table(name = "Authorities")

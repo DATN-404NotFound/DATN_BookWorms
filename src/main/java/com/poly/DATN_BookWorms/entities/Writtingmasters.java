@@ -6,6 +6,8 @@ package com.poly.DATN_BookWorms.entities;
 import java.io.Serializable;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -36,10 +38,10 @@ public class Writtingmasters implements Serializable {
     //--- ENTITY PRIMARY KEY 
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
-    private Integer    writtingmasterid ;
+    public Integer    writtingmasterid ;
 
     //--- ENTITY DATA FIELDS 
-    private String     namewm ;
+    public String     namewm ;
 
 
     //--- ENTITY LINKS ( RELATIONSHIP )

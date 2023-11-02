@@ -5,6 +5,8 @@ package com.poly.DATN_BookWorms.entities;
 
 import java.io.Serializable;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -35,19 +37,19 @@ public class Typebooks implements Serializable {
 	// --- ENTITY PRIMARY KEY
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Integer typebookid;
+	public Integer typebookid;
 
 	// --- ENTITY DATA FIELDS
-	private Integer bookid;
+	public Integer bookid;
 
 	// --- ENTITY LINKS ( RELATIONSHIP )
 	@ManyToOne
 	@JoinColumn(name = "Bookid", referencedColumnName = "BookId", insertable = false, updatable = false)
-	private Books books;
+	public Books books;
 
 	@ManyToOne
 	@JoinColumn(name = "Categoryid", referencedColumnName = "CategoryId", insertable = false, updatable = false)
-	private Categories categories;
+	public Categories categories;
 
 	// --- toString specific method
 	@Override

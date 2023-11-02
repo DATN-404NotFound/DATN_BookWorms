@@ -4,6 +4,8 @@ package com.poly.DATN_BookWorms.entities;
 import java.io.Serializable;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -36,24 +38,24 @@ public class Shoponlines implements Serializable {
     //--- ENTITY PRIMARY KEY 
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
-    private Integer    shopid ;
+    public Integer    shopid ;
 
     //--- ENTITY DATA FIELDS 
-    private String     shopname ;
+    public String     shopname ;
 
-    private String     phonenumber ;
+    public String     phonenumber ;
 
     @Column(name="logo", length=50)
-    private String     logo ;
+    public  String     logo ;
 
     @Column(name="total")
-    private Double     total ;
+    public Double     total ;
 
     @Column(name="banner", length=50)
-    private String     banner ;
+    public String     banner ;
 
     @Column(name="description", length=2555)
-    private String     description ;
+    public String     description ;
 
     private String     shopaddress ;
 
