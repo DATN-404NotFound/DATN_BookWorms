@@ -19,6 +19,7 @@ import jakarta.persistence.TemporalType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonIgnore;;
 
 /**
  * JPA entity class for "Bookings"
@@ -56,6 +57,7 @@ public class Bookings implements Serializable {
 
     //--- ENTITY LINKS ( RELATIONSHIP )
     @OneToMany(mappedBy="bookings")
+    @JsonIgnore
     private List<Payments> listOfPayments ; 
 
     @ManyToOne
@@ -67,6 +69,7 @@ public class Bookings implements Serializable {
     private Account    account ; 
 
     @OneToMany(mappedBy="bookings")
+    @JsonIgnore
     private List<Detailbookings> listOfDetailbookings ; 
 
     @ManyToOne
