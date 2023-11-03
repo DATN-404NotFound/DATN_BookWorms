@@ -3,6 +3,7 @@ package com.poly.DATN_BookWorms.repo;
 import java.util.List;
 
 import com.poly.DATN_BookWorms.response.BookResponse;
+import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -33,9 +34,12 @@ Page<BookResponse> findAllBook(Pageable pageable);
             "WHERE C.name like %?1%")
     Page<BookResponse> findCategoryBook(String category,Pageable pageable);
 
-    @Override
-    List<Books> findAllById(Iterable<Integer> integers);
+
 
     @Query("SELECT b FROM Books b INNER JOIN b.listOfTypebooks tb WHERE tb.categories.categoryid = :categoryID")
     List<Books> findBooksByCategoryID(Integer categoryID);
+
+    Page<Books> findByshopid(Integer shopid, Pageable pageable);
+
+    List<Books> findByShopid(Integer shopId);
 }

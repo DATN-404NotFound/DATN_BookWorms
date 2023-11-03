@@ -42,7 +42,7 @@ public class ProductController {
         List<Categories> categories = categoryService.findAll();
         List<Publishingcompanies> publishingcompanies = publishingCompanyService.findAll();
         List<Writtingmasters> writtingmasters = writerMasterService.findAll();
-        Page<BookResponse> bookPage = bookService.findAllBook(pageable);
+        Page<Books> bookPage = bookService.findAll(pageable);
 
         model.addAttribute("books", bookPage.getContent());
         model.addAttribute("currentPage", page);

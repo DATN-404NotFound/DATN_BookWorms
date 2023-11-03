@@ -236,14 +236,14 @@
             <div class="row">
                 <div th:each="book : ${books}" class="col-md-3">
                     <div class="card mb-3">
-                        <img th:src="@{'/Client/images/' + ${book.image}}" alt="Book Image" class="card-img-top"
+                        <img th:src="@{'/Client/images/' + ${book.listOfImagebooks.get(0).name}}" alt="Book Image" class="card-img-top"
                              style="max-height: 400px;">
                         <div class="card-body">
                             <h5 class="card-title" th:text="${#strings.abbreviate(book.bookname, 30)}"
                                 style="white-space: nowrap;"></h5>
 
 
-                            <p class="card-text" th:text="${book.shopname}"></p>
+                            <p class="card-text" th:text="${book.shoponlines.shopname}"></p>
                             <p class="card-text"
                                th:text="${#numbers.formatDecimal(book.price, 0, 'POINT', 0, 'COMMA')} +'₫'"></p>
 
