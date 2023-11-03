@@ -45,8 +45,8 @@ public class HomeController {
         model.addAttribute("education2", education2);
         if (education != null && !education.isEmpty()) {
             for (Books educationItem : education) {
-                System.out.println("Tên sản phẩm: " + educationItem.getBookname());
-                System.out.println("Giá sản phẩm: " + educationItem.getPrice());
+//                System.out.println("Tên sản phẩm: " + educationItem.getBookname());
+//                System.out.println("Giá sản phẩm: " + educationItem.getPrice());
                 System.out.println();
             }
         } else {

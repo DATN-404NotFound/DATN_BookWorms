@@ -146,6 +146,12 @@ public class Books implements Serializable {
     }
 
 
+	public List<Imagebooks> getListOfImagebooks() {
+		// TODO Auto-generated method stub
+		return listOfImagebooks;
+	}
+
+
 
 	
 }

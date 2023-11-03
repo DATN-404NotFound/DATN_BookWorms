@@ -60,14 +60,6 @@ $(document).ready(function () {
 })
 
 
-function totalAllChoose() {
-    if (purchase.length > 0) {
-        purchase.forEach((n) => {
-
-        })
-    }
-}
-
 
 function selectOne(e) {
     var one = document.getElementById(e);
@@ -319,20 +311,46 @@ app.controller("cart_ctrl", function ($scope, $http) {
 var shoponline = [];
 var deal = [];
 var books = [];
+var salevoucher = [];
+
+
+function voucherSelected(shopid) {
+    var vou = $('#voucher' + shopid).children("option:selected").val();
+    $.get("http://localhost:8080/rest/discount/" + vou, function (data, status) {
+        console.log(data)
+        if(!data || data.value === null){
+            console.log("voucher null")
+        }
+        else{ 
+            var v = salevoucher.find(i => i.saleid == vou);
+            if (v) {
+                console.log("đã có v")
+            }
+            else {
+                salevoucher.push(data);
+                console.log("sales " +  JSON.stringify(data))
+                localStorage.setItem('sales', JSON.stringify(salevoucher));
+            }
+          
+        }
+
+    });
+}
 
 function selectShop(item) {
-    var y = this.shoponline.find(i => i.shopid == itemm);
-    if (y) {
-        console.log("đã có");
-    } else {
-        $.get("http://localhost:8080/rest/shoponline/" + item, function (data, status) {
-            console.log(data)
+    $.get("http://localhost:8080/rest/shoponline/" + item, function (data, status) {
+        console.log(data)
+        var y = shoponline.find(i => i.shopid == data.shopid);
+        if (y) {
+            console.log("đã có")
+        }
+        else {
             shoponline.push(data);
-            console.log("shop " + shoponline)
+            console.log("shop " + shoponline.length)
             localStorage.setItem('shoponline', JSON.stringify(shoponline));
-        })
-    }
-
+            voucherSelected(data.shopid);
+        }
+    });
 }
 
 function findBook(item) {
@@ -358,16 +376,56 @@ function findCart(item) {
 }
 
 
+
 function deals() {
+    shoponline = [];
+    salevoucher = [];
+    books = [];
+    deal = [];
     console.log(purchase);
     purchase.forEach(item => {
         console.log(item);
         findCart(item);
         localStorage.setItem('deal', JSON.stringify(deal));
-        location.href = "/order";
+       location.href = "/order";
     })
 
 }
+
+function clicks(id) {
+    console.log("od " + id)
+}
+$(document).ready(function () {
+    iii();
+});
+
+
+ function iii() {
+    var a = JSON.parse(localStorage.getItem('books'));
+    var b = JSON.parse(localStorage.getItem('deal'));
+    var c = JSON.parse(localStorage.getItem('shoponline'));
+    var d = JSON.parse(localStorage.getItem('sales'));
+    
+   c.forEach(m=>{ 
+    var ab=0;
+    b.forEach(i =>{ 
+        if(i.books.shopid == m.shopid){ 
+            ab += (i.books.price* i.quantity);
+        }
+    })
+    if(d.length >0){ 
+        d.forEach(j =>{ 
+            if(j.sales.shopid == m.shopid){ 
+                ab -= (ab*j.sales.discountpercentage);
+            }
+         })
+    }
+     document.getElementById('priceItem'+m.shopid).innerText = ab;
+
+   })
+ }    
+
+
 
 
 const app1 = angular.module("order_app", []);
@@ -375,24 +433,34 @@ app1.controller("order_ctrl", function ($scope, $http) {
     $scope.bookItem = [];
     $scope.dealItem = [];
     $scope.shopItem = [];
+    $scope.salesItem = [];
+    $scope.priceitem = 0;
+    // $scope.dealTotal = function (id) {
+    //     var totalItem = 0;
+    //     var a = document.getElementsByClassName('total' + id);
+    //     console.log(a)
+
+    // }
     $scope.loadDeal = function () {
+        var t = 0
         console.log("cả : ")
         $scope.bookItem = JSON.parse(localStorage.getItem('books'));
         $scope.dealItem = JSON.parse(localStorage.getItem('deal'));
         $scope.shopItem = JSON.parse(localStorage.getItem('shoponline'));
-        console.log("cả 3 : " + $scope.shopItem.length)
+        $scope.salesItem = JSON.parse(localStorage.getItem('sales'));
+        console.log("cả 3 : " + $scope.shopItem.length);
     }
     $scope.loadDeal();
-    $scope.setImage = function (bookId) {
-        let url = `http://localhost:8080/rest/imagebook/` + bookId;
-        $http.get(url).then(resp => {
-            $scope.image = resp.data;
-            console.log("shop: ", resp.data)
-        }).catch(error => {
-            console.log("Error", error)
-        });
-        document.getElementById(bookId).src = "/Client/images/" + $scope.image.name;
-    }
+    // $scope.setImage = function (bookId) {
+    //     let url = `http://localhost:8080/rest/imagebook/` + bookId;
+    //     $http.get(url).then(resp => {
+    //         $scope.image = resp.data;
+    //         console.log("shop: ", resp.data)
+    //     }).catch(error => {
+    //         console.log("Error", error)
+    //     });
+    //     document.getElementById(bookId).src = "/Client/images/" + $scope.image.name;
+    // }
 
 
 });

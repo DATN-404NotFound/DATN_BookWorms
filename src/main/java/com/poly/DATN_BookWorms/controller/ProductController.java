@@ -88,7 +88,7 @@ public class ProductController {
 		model.addAttribute("item", item);
         model.addAttribute("im","Hinh4_book4.jpg");
         model.addAttribute("userid", crc.getCodeCRC32C(request.getRemoteUser()));
-         System.out.println("ll"+ item.getListOfImagebooks().get(0).getName());
+       //  System.out.println("ll"+ item.getListOfImagebooks().get(0).getName());
         return "Client/Product_page/detail_product";
 	}
 }

@@ -37,7 +37,7 @@ public class Hassales implements Serializable {
 
     //--- ENTITY PRIMARY KEY 
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Integer    hassaleid ;
 
     //--- ENTITY DATA FIELDS 

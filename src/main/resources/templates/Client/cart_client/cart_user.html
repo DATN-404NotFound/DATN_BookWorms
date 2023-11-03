@@ -53,12 +53,7 @@
                         <tbody  th:id="cart+${l.shopid}">
                             <tr th:each="b:${cartuserList}" th:if="${b.books.shoponlines.shopid == l.shopid}" th:id="cart+${b.cartid}">
                                 <td>
-<<<<<<< Updated upstream
                                     <input type="checkbox" th:value="${b.cartid}"   onclick="selectOne(id)"  class="form-check-input"  th:id="${b.cartid}" name="carttest">
-=======
-                                    <input type="checkbox" th:value="${b.cartid}" th:attr="ng-click=@{|totalAll.loadc(${b.cartid})|}" onclick="selectOne(id)"  class="form-check-input"  th:id="${b.cartid}" name="carttest">
-
->>>>>>> Stashed changes
                                 </td>
                                 <td>
                                     <div>
@@ -68,16 +63,7 @@
                                 <td ><a th:href="@{|/product/detail/${b.books.bookid}|}" th:text="${b.books.bookname}"></a></td>
                                 <td th:text ="${#numbers.formatDecimal(b.books.price,0,'COMMA',2,'POINT')}"></td>
                                 <td>
-<<<<<<< Updated upstream
                                     <input type="number"  th:id="quantity+${b.cartid}"  th:attr="onclick=@{|Active(${b.cartid},'PUT')|}" class="form-control" style="width: 100px;" min="1" step="1" th:value="${b.quantity}" >
-=======
-                                    <script th:src="@{/Client/Js/cart/cart.js}">
-
-                                    </script>
-
-                                    <input type="number" th:id="quantity+${b.cartid}" ng-click="changeone()" class="form-control" style="width: 100px;" min="1" step="1" th:value="${b.quantity}" >
-
->>>>>>> Stashed changes
                                 </td>
                                 <!-- th:attr="ng-click=@{|changequantity(${b.quantity},${b.cartid})|}" -->  
                                 <td class="total_pro"  th:id="cartid+${b.cartid}" th:text ="${#numbers.formatDecimal(b.books.price * b.quantity,0,'COMMA',2,'POINT')}"></td>
@@ -93,7 +79,7 @@
                    <p style="font-size: 22px;">Giảm : <span style="color: #C93F04; font-weight: 500;"  ng-model="s.discountpercentage" ng-if="s.shopid ==  ${p.shopId}" id="voucher_sale"></span></p>
                 </div>
                 <div class="float-end m-3">
-                    <select class="form-select" th:value="*{saleShopIntendFor}" th:attr="ng-change=@{|cartsvoucher.changevoucher(*{saleShopIntendFor})|}">
+                    <select class="form-select" th:id="voucher+${l.shopid}" th:value="*{saleShopIntendFor}" th:attr="ng-change=@{|cartsvoucher.changevoucher(*{saleShopIntendFor})|}">
                         <option th:each="i : ${saleShopIntendFor}" th:if="${i.shopid == l.shopid}" th:value="${i.couoponcode}" th:text="${i.promotionname}"></option>
                     </select>
                 </div>
