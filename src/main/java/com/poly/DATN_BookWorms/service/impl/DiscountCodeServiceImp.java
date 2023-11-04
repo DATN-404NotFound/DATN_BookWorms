@@ -53,4 +53,10 @@ public class DiscountCodeServiceImp implements DiscountCodeService {
 		return null;
 	}
 
+	@Override
+	public List<Discountcodes> findDisountForSys(String userid) {
+		// TODO Auto-generated method stub
+		return discountcodesRepo.findDisountForSys(userid);
+	}
+
 }

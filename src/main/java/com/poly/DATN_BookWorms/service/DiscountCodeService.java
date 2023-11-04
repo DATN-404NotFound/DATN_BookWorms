@@ -11,6 +11,8 @@ public interface DiscountCodeService {
 	
 	public Discountcodes findSalesId(String salesid, String userid);
 	
+	public List<Discountcodes> findDisountForSys(String userid);
+	
 	//public List<Shoponlines> list_cart_shop();
 	
 	public Discountcodes findById(Integer discountid);

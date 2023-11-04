@@ -36,31 +36,31 @@ public class Addressusers implements Serializable {
 
     //--- ENTITY PRIMARY KEY 
     @Id
-    private String     addressuserid ;
+    public String     addressuserid ;
 
     //--- ENTITY DATA FIELDS 
     private String     userid ;
 
     @Column(name="address", nullable=false, length=100)
-    private String     address ;
+    public String     address ;
 
     @Column(name="fullname", nullable=false, length=50)
-    private String     fullname ;
+    public String     fullname ;
 
-    private String     phonenumber ;
+    public String     phonenumber ;
 
-    private String     statusaddress ;
+    public String     statusaddress ;
 
 
     //--- ENTITY LINKS ( RELATIONSHIP )
     @ManyToOne
    
     @JoinColumn(name="Userid", referencedColumnName="Userid", insertable=false, updatable=false)
-    private Account    account ; 
+    public Account    account ; 
 
     @OneToMany(mappedBy="addressusers")
     @JsonIgnore
-    private List<Payments> listOfPayments ; 
+    public List<Payments> listOfPayments ; 
 
     //--- toString specific method
 	@Override
