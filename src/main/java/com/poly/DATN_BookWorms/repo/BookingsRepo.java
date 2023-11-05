@@ -18,7 +18,7 @@ public interface BookingsRepo extends JpaRepository<Bookings, String>{
 	
 
 	@Query("Select b from Bookings b where b.account.userid like ?1")
-	List<Cart> findCartByUser(String userid);
+	List<Bookings> findBookingByUser(String userid);
 	
 	@Query("Select b.shoponlines from Books b where b.bookid in (Select c.books.bookid from Cart c where c.account.userid like ?1 )")
 	List<Shoponlines> list_cart_shopId(String userid);

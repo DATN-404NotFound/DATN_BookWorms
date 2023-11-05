@@ -32,26 +32,26 @@ import lombok.NoArgsConstructor;
 @Table(name="Imagebooks")
 public class Imagebooks implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+    public static final long serialVersionUID = 1L;
 
     //--- ENTITY PRIMARY KEY 
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
-    private Integer    filedid ;
+    public Integer    filedid ;
 
     //--- ENTITY DATA FIELDS 
 
-    private String     name ;
+    public String     name ;
 
-    private String     typefile ;
+    public String     typefile ;
 
-    private Integer    bookid ;
+    public Integer    bookid ;
 
 
     //--- ENTITY LINKS ( RELATIONSHIP )
     @ManyToOne
     @JoinColumn(name="Bookid", referencedColumnName="BookId", insertable=false, updatable=false)
-    private Books      books ;
+    public Books      books ;
 
     @Override
     public String toString() {
