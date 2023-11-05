@@ -5,7 +5,7 @@
     <div th:fragment="maccount" >
         <div class="boxOrderDetail-top" >
             <p class="mt-4" id="pDiaChiNhanHang">Địa chỉ nhận hàng</p>
-            <p class="mt-4" id="pID-orderDetail">ID: <span></span></p> <br>
+            <p class="mt-4" id="pID-orderDetail">ID: <span th:text="${db.get(0).bookings.bookingid}"></span></p> <br>
             <p id="pAddressDetail">
                 <span th:text="${adr.addressusers.fullname}"></span> <br>
                 <span th:text="${adr.addressusers.phonenumber}"></span> <br>

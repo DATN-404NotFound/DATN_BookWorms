@@ -99,17 +99,39 @@ a:hover{
     border-radius: 50%;
     margin-top: 47%;
 }
-.btnChooseImage{
-    width: 180px;
-    height: 67.5px;
-    margin: 25px 0 0 6.5px;
-    font-size: 15px;
-    color: white;
-    background-color: #F25019;
-    border-radius: 5px;
-    border: none;
+
+
+.file-input{
+    margin: 25px 0 0 45px;
+    
+}
+.file-input__input {
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
 }
 
+.file-input__label {
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #fff;
+    font-size: 14px;
+    padding: 10px 12px;
+    background-color: #F25019;
+    box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.25);
+}
+
+.file-input__label svg {
+    height: 16px;
+    margin-right: 4px;
+}
 /* css address */
 
 #titleAddressSetting{
