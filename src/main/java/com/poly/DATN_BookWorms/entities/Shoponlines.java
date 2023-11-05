@@ -22,66 +22,66 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  * JPA entity class for "Shoponlines"
  *
  * @author Telosys
- *
  */
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
 @Entity
-@Table(name="Shoponlines")
+@Table(name = "Shoponlines")
 public class Shoponlines implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     //--- ENTITY PRIMARY KEY 
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
-    private Integer    shopid ;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer shopid;
 
     //--- ENTITY DATA FIELDS 
-    private String     shopname ;
+    private String shopname;
 
-    private String     phonenumber ;
+    private String phonenumber;
 
-    @Column(name="logo", length=50)
-    private String     logo ;
+    private String logo;
 
-    @Column(name="total")
-    private Double     total ;
+    @Column(name = "total")
+    private Double total;
 
-    @Column(name="banner", length=50)
-    private String     banner ;
+    @Column(name = "banner", length = 50)
+    private String banner;
 
-    @Column(name="description", length=2555)
-    private String     description ;
+    @Column(name = "description", length = 2555)
+    private String description;
 
-    private String     shopaddress ;
+    @OneToMany(mappedBy = "shoponlines")
+    @JsonIgnore
+    private List<AddressShop> listOfAddressShop;
 
-    private String     userid ;
+    private String userid;
 
-    @Column(name="paycount", length=10)
-    private String     paycount ;
+    @Column(name = "paycount", length = 10)
+    private String paycount;
 
-    private Boolean    isactive ;
+    private Boolean isactive;
 
 
     //--- ENTITY LINKS ( RELATIONSHIP )
-    @OneToMany(mappedBy="shoponlines")
+    @OneToMany(mappedBy = "shoponlines")
     @JsonIgnore
-    private List<Books> listOfBooks ; 
+    private List<Books> listOfBooks;
 
-    @OneToMany(mappedBy="shoponlines")
+    @OneToMany(mappedBy = "shoponlines")
     @JsonIgnore
-    private List<Files> listOfFiles ; 
+    private List<Files> listOfFiles;
 
     @ManyToOne
-    @JoinColumn(name="Userid", referencedColumnName="Userid", insertable=false, updatable=false)
-    private Account    account ; 
+    @JoinColumn(name = "Userid", referencedColumnName = "Userid", insertable = false, updatable = false)
+    private Account account;
 
     //--- toString specific method
-	@Override
-    public String toString() { 
-        StringBuilder sb = new StringBuilder(); 
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
         sb.append(shopid);
         sb.append("|");
         sb.append(shopname);
@@ -96,12 +96,12 @@ public class Shoponlines implements Serializable {
         sb.append("|");
         sb.append(description);
         sb.append("|");
-        sb.append(shopaddress);
+        sb.append(listOfAddressShop);
         sb.append("|");
         sb.append(paycount);
         sb.append("|");
         sb.append(isactive);
-        return sb.toString(); 
-    } 
+        return sb.toString();
+    }
 
 }

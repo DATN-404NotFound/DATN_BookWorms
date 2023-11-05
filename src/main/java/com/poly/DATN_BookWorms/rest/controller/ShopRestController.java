@@ -1,7 +1,9 @@
 package com.poly.DATN_BookWorms.rest.controller;
 
 import com.poly.DATN_BookWorms.entities.Account;
+import com.poly.DATN_BookWorms.entities.AddressShop;
 import com.poly.DATN_BookWorms.entities.Shoponlines;
+import com.poly.DATN_BookWorms.service.AddressShopService;
 import com.poly.DATN_BookWorms.service.ShopService;
 import com.poly.DATN_BookWorms.utils.SessionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +20,10 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.Objects;
+import java.util.Optional;
 
 @CrossOrigin("*")
 @RestController
@@ -28,6 +33,10 @@ public class ShopRestController {
     ShopService shopService;
     @Autowired
     SessionService sessionService;
+
+    @Autowired
+    AddressShopService addressShopService;
+
 
     @GetMapping("/detail")
     public ResponseEntity<Shoponlines> getShopDetail() {
@@ -45,20 +54,53 @@ public class ShopRestController {
         return ResponseEntity.ok(shoponlines);
     }
 
-    @PostMapping(value = "/save/image", consumes = { MediaType.MULTIPART_FORM_DATA_VALUE })
-    public void saveImage(@RequestParam("fileImage") MultipartFile multipartFile, @RequestParam("shopId") String shopId ) throws Exception{
-        String fileName = StringUtils.cleanPath(Objects.requireNonNull(multipartFile.getOriginalFilename()));
-        String uploadDir = "D:/DATN/DATN_BookWorms/src/main/resources/static/SellerChannel/images/";
-        Path uploadPath = Paths.get(uploadDir);
-        if (!Files.exists(uploadPath)){
-            Files.createDirectories(uploadPath);
+    @PostMapping(value = "/save/profile", consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public void saveProfileChange(@RequestParam(value = "fileImage") Optional<MultipartFile> multipartFile, @RequestParam("shopId") String shopId) throws Exception {
+        if (multipartFile.isEmpty()) {
+            Shoponlines shoponlines = shopService.findById(Integer.parseInt(shopId));
+            shopService.save(shoponlines);
+        } else {
+            MultipartFile file = multipartFile.get();
+            String fileName = StringUtils.cleanPath(Objects.requireNonNull(file.getOriginalFilename()));
+            String uploadDir = "D:/DATN/DATN_BookWorms/src/main/resources/static/SellerChannel/images/";
+            Path uploadPath = Paths.get(uploadDir);
+            if (!Files.exists(uploadPath)) {
+                Files.createDirectories(uploadPath);
+            }
+            try {
+                InputStream inputStream = file.getInputStream();
+                Path filePath = uploadPath.resolve(fileName);
+                Files.copy(inputStream, filePath, StandardCopyOption.REPLACE_EXISTING);
+                //save change profile
+                Shoponlines shoponlines = shopService.findById(Integer.parseInt(shopId));
+                shoponlines.setLogo(fileName);
+                shopService.save(shoponlines);
+            } catch (IOException e) {
+                throw new IOException("Could not  save uploaded file: " + fileName);
+            }
         }
-        try {
-            InputStream inputStream  = multipartFile.getInputStream();
-            Path filePath = uploadPath.resolve(fileName);
-            Files.copy(inputStream,filePath, StandardCopyOption.REPLACE_EXISTING);
-        }catch (IOException e){
-            throw new IOException("Could not  save uploaded file: " +fileName);
-        }
+
+
+    }
+
+    @GetMapping("/address")
+    public ResponseEntity<AddressShop> getAddressShop() {
+        Account user = sessionService.get("user");
+        Shoponlines shopDetail = shopService.findUserId(user.getUserid());
+        AddressShop addressShop = addressShopService.findByShop(shopDetail);
+        return ResponseEntity.ok(addressShop);
+    }
+
+    @PostMapping(value = "/address/createOrUpdate", produces = MediaType.APPLICATION_JSON_VALUE)
+    public void saveAddressShop(@RequestBody AddressShop addressShop) throws IOException {
+        Date now = new Date();
+        addressShop.setCreateat(now);
+        addressShop.setIsactive(true);
+        // Shop user there
+        Account user = sessionService.get("user");
+        Shoponlines shopDetail = shopService.findUserId(user.getUserid());
+        addressShop.setShoponlines(shopDetail);
+        //save address default
+        addressShopService.save(addressShop);
     }
 }
