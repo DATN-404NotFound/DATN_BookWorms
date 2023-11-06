@@ -312,28 +312,39 @@ var shoponline = [];
 var deal = [];
 var books = [];
 var salevoucher = [];
+var paymentaccount = [];
 
 
 $(document).ready(function() {
 	$('#voucherOther').change(function() {
 
 		var a = $('#voucherOther').children("option:selected").val();
-
-		if (a == 0) {
-			console.log("a - " + a)
-			document.getElementById('totalSales').innerText = formatNumber(0, ".", ",")
-		}
-		else {
 			$.get("http://localhost:8080/rest/discount/" + a, function(data, status) {
 				console.log(data)
-				// var b= document.getElementById('totalQuantity').innerText;
-                // var reply = b.replace(',', '');
-                // var c  =  Number(reply)* data.sales.;
+				var b= document.getElementById('totalPriceAll').innerText;
+                var reply = b.replace(',', '');
+                var c  =  Number(reply)* data.sales.discountpercentage;
+				 document.getElementById('totalSales').innerText= formatNumber(c,".",",");
+				 calculatorPrice();
 			});
-		}
+		
 	})
 
 });
+
+
+$(document).ready(function() {
+	$('#pay').change(function() {
+		var a = $('#pay').children("option:selected").val();
+		if (a == 1) {
+			$('#pa').show()
+		}
+		else {
+			$('#pa').hide()
+		}
+	})
+});
+
 
 
 function voucherSelected(shopid) {
@@ -386,6 +397,13 @@ function findCart(item) {
 	})
 }
 
+function findPaymentAccount() {
+	$.get("http://localhost:8080/rest/paymentaccount/user", function(data, status) {
+		deal.push(data);
+		localStorage.setItem('deal', JSON.stringify(deal));
+		findBook(data);
+	})
+}
 
 
 function deals() {
@@ -405,6 +423,7 @@ function deals() {
 
 $(document).ready(function() {
 	loadWin();
+	$('#pa').hide()
 });
 
 
@@ -435,10 +454,26 @@ function loadWin() {
 
 	})
 	document.getElementById('totalPriceAll').innerText = formatNumber(totalPriceAll, ".", ",");
+	calculatorPrice();
+}
+
+function calculatorPrice(){ 
+	// var reply = b.replace(',', '');
+	// var c  =  Number(reply)* data.sales.;
+var a = document.getElementById('totalPriceAll').innerText.replace(',','');
+var b = document.getElementById('shippingPrice').innerText.replace(',','');
+var c  = document.getElementById('totalSales').innerText.replace(',','');
+var d = document.getElementById('totalFreeShip').innerText.replace(',','');
+var e = document.getElementById('totalFinal');
+var f = Number(a)+Number(b)- Number(c) - Number(d);
+console.log("SS"+ f)
+e.innerText = formatNumber(f, ".", ",");
 }
 
 
-
+function ab(){ 
+	console.log("lllllllll")
+}
 const app1 = angular.module("order_app", []);
 app1.controller("order_ctrl", function($scope, $http) {
 	$scope.bookItem = [];
@@ -465,5 +500,65 @@ app1.controller("order_ctrl", function($scope, $http) {
 		}).catch(error => {
 			console.log("Error", error)
 		});;
+	}
+
+	$scope.paymentCart = function(){ 
+		console.log("chạys")
+		$scope.shopItem.forEach(i =>{ 
+			
+			$scope.bookings = { 
+				bookingid  : "",
+				createat : new Date(),
+				cost: document.getElementById('priceItem'+i.shopid).innerText,
+				userid :"",
+				orderstatusid: 1,
+				shippingunitid :1,
+				get listOfPayments(){ 
+					return {
+						paymentid : "",
+						createat: new Date(),
+						status : "Chưa thanh toán",
+						paid: document.getElementById('pa').values(),
+						type: document.getElementById('pay').value(),
+						addressuserid : document.getElementById('addressship').value(),
+						addressusers : {addressuserid :document.getElementById('addressship').value()},
+						paymentaccounts: {addressuserid :document.getElementById('pac').value()},
+					}
+				},
+				orderstatuses :{orderstatusid : 1 },
+				account :{userid : "" },
+				get listOfDetailbookings(){ 
+					return $scope.dealItem.map(item => {
+						if( item.books.shopid == i.shopid){
+							return {
+								dbid : "",
+								bookid : item.books.bookid,
+								quantity: item.quantity,
+								books:{bookid: item.books.bookid}
+							}
+						}
+				
+					})
+				}
+	
+					
+
+			}
+			console.log("chạy")
+					var booking = angular.copy($scope.bookings);
+					//thực hiện đặt hàng
+					$http.post(`/rest/booking`,booking).then(resp =>{ 
+						alert("Đặt hàng thành công");
+						// $scope.cart.clear();
+						
+						 //location.href = "/cart";
+						console.log("ksjd"+ resp.data)
+					}).catch(error =>{
+						alert("Đặt hàng lỗi !");
+						console.log(error)})
+				
+		});
+
+
 	}
 });
