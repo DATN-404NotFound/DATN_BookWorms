@@ -28,4 +28,9 @@ public class SellerController {
     public String changeProfile(Model model){
         return "SellerChannel/ChangeProfile";
     }
+
+    @RequestMapping("/shop/setting/address")
+    public String addressSetting(Model model){
+        return "SellerChannel/AddressSetting";
+    }
 }

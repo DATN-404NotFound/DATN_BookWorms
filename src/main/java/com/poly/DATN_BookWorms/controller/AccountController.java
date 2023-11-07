@@ -51,8 +51,6 @@ public class AccountController {
 
         }
         customUserDetailService.loadUserByUsername(performance.getName());
-        System.out.println("name:" + performance.getAttribute("name"));
-        System.out.println("email:" + performance.getAttribute("email"));
         return "redirect:/Ibook/index";
     }
 
