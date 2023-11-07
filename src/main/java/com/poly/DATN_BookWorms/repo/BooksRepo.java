@@ -1,5 +1,9 @@
 package com.poly.DATN_BookWorms.repo;
 
+import java.util.List;
+
+import com.poly.DATN_BookWorms.response.BookResponse;
+import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -35,13 +39,13 @@ public interface BooksRepo extends JpaRepository<Books, Long> {
             "WHERE C.name like %?1%")
     Page<BookResponse> findCategoryBook(String category, Pageable pageable);
 
-    @Override
-    List<Books> findAllById(Iterable<Long> integers);
+
 
     @Query("SELECT b FROM Books b INNER JOIN b.listOfTypebooks tb WHERE tb.categories.categoryid = :categoryID")
     List<Books> findBooksByCategoryID(Integer categoryID);
-    
-    @Query("Select b.shoponlines from Books b where b.bookid like ?1")
-	List<Shoponlines> list_shopId_deal(Long bookid);
+
+    Page<Books> findByshopid(Integer shopid, Pageable pageable);
+
+    List<Books> findByShopid(Integer shopId);
 }
 

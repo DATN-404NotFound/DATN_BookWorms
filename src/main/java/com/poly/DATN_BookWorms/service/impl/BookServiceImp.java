@@ -1,6 +1,7 @@
 package com.poly.DATN_BookWorms.service.impl;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import com.poly.DATN_BookWorms.response.BookResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +38,10 @@ public class BookServiceImp implements BookService{
 		return bookRepo.findById(id).get();
 	}
 
+	@Override
+	public Page<Books> findAll(Pageable pageable) {
+		return bookRepo.findAll(pageable);
+	}
 
 
 //	@Override
@@ -77,8 +82,17 @@ public class BookServiceImp implements BookService{
 	}
 
 	@Override
-	public List<Shoponlines> list_shopId_deal(Long bookid) {
-		// TODO Auto-generated method stub
-		return bookRepo.list_shopId_deal(bookid);
+	public Page<Books> findByshopid(Integer shopid, Pageable pageable) {
+		return bookRepo.findByshopid(shopid, pageable);
+	}
+
+	@Override
+	public List<Books> findTop5LowestQuantityBooksByShopId(Integer shopId) {
+		List<Books> booksWithSameShopId = bookRepo.findByShopid(shopId);
+		booksWithSameShopId.sort((book1, book2) -> book1.getQuantity().compareTo(book2.getQuantity()));
+		List<Books> top5LowestQuantityBooks = booksWithSameShopId.stream()
+				.limit(5)
+				.collect(Collectors.toList());
+		return top5LowestQuantityBooks;
 	}
 }
