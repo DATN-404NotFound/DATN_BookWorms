@@ -32,20 +32,20 @@ import lombok.NoArgsConstructor;
 @Table(name="Imagebooks")
 public class Imagebooks implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+    public static final long serialVersionUID = 1L;
 
     //--- ENTITY PRIMARY KEY 
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
-    private Integer    filedid ;
+    public Integer    filedid ;
 
     //--- ENTITY DATA FIELDS 
 
-    private String     name ;
+    public String     name ;
 
-    private String     typefile ;
+    public String     typefile ;
 
-    private Integer    bookid ;
+    public Integer    bookid ;
 
 
     //--- ENTITY LINKS ( RELATIONSHIP )
@@ -65,48 +65,6 @@ public class Imagebooks implements Serializable {
         return sb.toString(); 
     }
 
-	public Integer getFiledid() {
-		return filedid;
-	}
 
-	public void setFiledid(Integer filedid) {
-		this.filedid = filedid;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public String getTypefile() {
-		return typefile;
-	}
-
-	public void setTypefile(String typefile) {
-		this.typefile = typefile;
-	}
-
-	public Integer getBookid() {
-		return bookid;
-	}
-
-	public void setBookid(Integer bookid) {
-		this.bookid = bookid;
-	}
-
-	public Books getBooks() {
-		return books;
-	}
-
-	public void setBooks(Books books) {
-		this.books = books;
-	}
-
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	} 
 
 }

@@ -19,45 +19,49 @@ import com.poly.DATN_BookWorms.entities.Roles;
 @Service
 public class CustomUserDetailService implements UserDetailsService {
 
-	@Autowired
-	AccountService accountService;
+    @Autowired
+    AccountService accountService;
 
-	@Autowired
-	RoleService roleService;
+    @Autowired
+    RoleService roleService;
 
-	@Autowired
-	AuthoritiesService authoritiesService;
+    @Autowired
+    AuthoritiesService authoritiesService;
 
-	@Autowired
-	SessionService sessionService;
-
-	
-	@Override
-	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		// TODO Auto-generated method stub
-		//Search account trong database
-		Account account = accountService.findByUsename(username);
-		//Get author của account
-		List<Authorities> authorities = account.getAuthorities();
-		//Lấy Role của account từ author
-		List<Roles> roles = new ArrayList<>();
-		for (Authorities author : authorities) {
-			roles.add(author.getRoles());
-		}
-
-		if (account != null) {
-			//Lưu account in session
-			sessionService.set("user",account);
-			//login in security
-			return new org.springframework.security.core.userdetails.User(account.getUsername(), account.getPassword(),
-					roles.stream().map((role) -> new SimpleGrantedAuthority(role.getRoleid()))
-							.collect(Collectors.toList()));
+    @Autowired
+    SessionService sessionService;
 
 
-		} else
-			throw new UsernameNotFoundException("Invalid username or password");
-		}
-		
-	}
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        // TODO Auto-generated method stub
+        //Search account trong database
+        Account account = accountService.findByUsename(username);
+        //Get author của account
+        List<Authorities> authorities = account.getAuthorities();
+        //Lấy Role của account từ author
+        List<Roles> roles = new ArrayList<>();
+        for (Authorities author : authorities) {
+            roles.add(author.getRoles());
+        }
+
+        if (account != null) {
+            //Lưu account in session
+            sessionService.set("user", account);
+            //login in
+            try {
+                Thread.sleep(5000);
+                return new org.springframework.security.core.userdetails.User(account.getUsername(), account.getPassword(),
+                        roles.stream().map((role) -> new SimpleGrantedAuthority(role.getRoleid()))
+                                .collect(Collectors.toList()));
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+
+        } else
+            throw new UsernameNotFoundException("Invalid username or password");
+    }
+
+}
 
 

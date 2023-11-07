@@ -35,21 +35,21 @@ public class Files implements Serializable {
 
     //--- ENTITY PRIMARY KEY 
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
-    private Integer    fileid ;
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    public Integer    fileid ;
 
     //--- ENTITY DATA FIELDS 
-    private String     filename ;
+    public String     filename ;
 
-    private String     typefile ;
+    public String     typefile ;
 
-    private Integer    shopid ;
+    public Integer    shopid ;
 
 
     //--- ENTITY LINKS ( RELATIONSHIP )
     @ManyToOne
     @JoinColumn(name="Shopid", referencedColumnName="ShopId", insertable=false, updatable=false)
-    private Shoponlines shoponlines ; 
+    public Shoponlines shoponlines ; 
     
     //--- toString specific method
 	@Override

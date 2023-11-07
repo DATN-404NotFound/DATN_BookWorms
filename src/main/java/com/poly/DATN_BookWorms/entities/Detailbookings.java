@@ -18,6 +18,7 @@ import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
  * JPA entity class for "Detailbookings"
@@ -72,6 +73,63 @@ public class Detailbookings implements Serializable {
         sb.append("|");
         sb.append(quantity);
         return sb.toString(); 
-    } 
+    }
+
+	public Bookings setBookings(Bookings booking) {
+		// TODO Auto-generated method stub
+		return booking;
+	}
+
+	public String getDbid() {
+		return dbid;
+	}
+
+	public void setDbid(String dbid) {
+		this.dbid = dbid;
+	}
+
+	public Integer getBookid() {
+		return bookid;
+	}
+
+	public void setBookid(Integer bookid) {
+		this.bookid = bookid;
+	}
+
+	public String getBookingid() {
+		return bookingid;
+	}
+
+	public void setBookingid(String bookingid) {
+		this.bookingid = bookingid;
+	}
+
+	public Integer getQuantity() {
+		return quantity;
+	}
+
+	public void setQuantity(Integer quantity) {
+		this.quantity = quantity;
+	}
+
+	public List<Evaluates> getListOfEvaluates() {
+		return listOfEvaluates;
+	}
+
+	public void setListOfEvaluates(List<Evaluates> listOfEvaluates) {
+		this.listOfEvaluates = listOfEvaluates;
+	}
+
+	public Books getBooks() {
+		return books;
+	}
+
+	public void setBooks(Books books) {
+		this.books = books;
+	}
+
+	public Bookings getBookings() {
+		return bookings;
+	} 
 
 }

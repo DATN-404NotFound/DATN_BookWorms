@@ -18,6 +18,7 @@ import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
  * JPA entity class for "Shoponlines"
@@ -56,28 +57,28 @@ public class Shoponlines implements Serializable {
     @Column(name="description", length=2555)
     public String     description ;
 
-    private String     shopaddress ;
+    public String     shopaddress ;
 
-    private String     userid ;
+    public String     userid ;
 
     @Column(name="paycount", length=10)
-    private String     paycount ;
+    public String     paycount ;
 
-    private Boolean    isactive ;
+    public Boolean    isactive ;
 
 
     //--- ENTITY LINKS ( RELATIONSHIP )
     @OneToMany(mappedBy="shoponlines")
     @JsonIgnore
-    private List<Books> listOfBooks ; 
+    public List<Books> listOfBooks ; 
 
     @OneToMany(mappedBy="shoponlines")
     @JsonIgnore
-    private List<Files> listOfFiles ; 
+    public List<Files> listOfFiles ; 
 
     @ManyToOne
     @JoinColumn(name="Userid", referencedColumnName="Userid", insertable=false, updatable=false)
-    private Account    account ; 
+    public Account    account ; 
 
     //--- toString specific method
 	@Override

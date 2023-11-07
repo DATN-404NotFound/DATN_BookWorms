@@ -21,6 +21,7 @@ import jakarta.persistence.TemporalType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonIgnore;;
 
 /**
  * JPA entity class for "Bookings"
@@ -33,9 +34,8 @@ import lombok.NoArgsConstructor;
 @Data
 @Entity
 @Table(name="Bookings")
-public class Bookings implements Serializable {
+public class Bookings {
 
-    private static final long serialVersionUID = 1L;
 
     //--- ENTITY PRIMARY KEY 
     @Id
@@ -54,6 +54,9 @@ public class Bookings implements Serializable {
     private Integer    orderstatusid ;
 
     private Integer    shippingunitid ;
+    
+    @Column(name="Note")
+    private String note;
 
 
     //--- ENTITY LINKS ( RELATIONSHIP )
@@ -92,7 +95,107 @@ public class Bookings implements Serializable {
         sb.append(orderstatusid);
         sb.append("|");
         sb.append(shippingunitid);
+        sb.append("|");
+        sb.append(note);
         return sb.toString(); 
-    } 
+    }
+
+	public String getBookingid() {
+		return bookingid;
+	}
+
+	public void setBookingid(String bookingid) {
+		this.bookingid = bookingid;
+	}
+
+	public Date getCreateat() {
+		return createat;
+	}
+
+	public void setCreateat(Date createat) {
+		this.createat = createat;
+	}
+
+	public Double getCost() {
+		return cost;
+	}
+
+	public void setCost(Double cost) {
+		this.cost = cost;
+	}
+
+	public String getUserid() {
+		return userid;
+	}
+
+	public void setUserid(String userid) {
+		this.userid = userid;
+	}
+
+	public Integer getOrderstatusid() {
+		return orderstatusid;
+	}
+
+	public void setOrderstatusid(Integer orderstatusid) {
+		this.orderstatusid = orderstatusid;
+	}
+
+	public Integer getShippingunitid() {
+		return shippingunitid;
+	}
+
+	public void setShippingunitid(Integer shippingunitid) {
+		this.shippingunitid = shippingunitid;
+	}
+
+	public List<Payments> getListOfPayments() {
+		return listOfPayments;
+	}
+
+	public void setListOfPayments(List<Payments> listOfPayments) {
+		this.listOfPayments = listOfPayments;
+	}
+
+	public Orderstatuses getOrderstatuses() {
+		return orderstatuses;
+	}
+
+	public void setOrderstatuses(Orderstatuses orderstatuses) {
+		this.orderstatuses = orderstatuses;
+	}
+
+	public Account getAccount() {
+		return account;
+	}
+
+	public void setAccount(Account account) {
+		this.account = account;
+	}
+
+	public List<Detailbookings> getListOfDetailbookings() {
+		return listOfDetailbookings;
+	}
+
+	public void setListOfDetailbookings(List<Detailbookings> listOfDetailbookings) {
+		this.listOfDetailbookings = listOfDetailbookings;
+	}
+
+	public Shippingunits getShippingunits() {
+		return shippingunits;
+	}
+
+	public void setShippingunits(Shippingunits shippingunits) {
+		this.shippingunits = shippingunits;
+	}
+
+	public String getNote() {
+		return note;
+	}
+
+	public void setNote(String note) {
+		this.note = note;
+	} 
+	
+	
 
 }

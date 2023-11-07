@@ -99,12 +99,12 @@ public class Books implements Serializable {
 
     @OneToMany(mappedBy="books")
     @JsonIgnore
-    private List<Writers> listOfWriters ; 
+    public List<Writers> listOfWriters ; 
 
     @ManyToOne 
 
     @JoinColumn(name="Publishingcompanyid", referencedColumnName="PCId", insertable=false, updatable=false)
-    private Publishingcompanies publishingcompanies ; 
+    public Publishingcompanies publishingcompanies ; 
 
     @OneToMany(mappedBy="books")
     @JsonIgnore
@@ -146,229 +146,12 @@ public class Books implements Serializable {
     }
 
 
-	public Long getBookid() {
-		return bookid;
-	}
-
-
-	public void setBookid(Long bookid) {
-		this.bookid = bookid;
-	}
-
-
-	public String getBookname() {
-		return bookname;
-	}
-
-
-	public void setBookname(String bookname) {
-		this.bookname = bookname;
-	}
-
-
-	public String getLanguage() {
-		return language;
-	}
-
-
-	public void setLanguage(String language) {
-		this.language = language;
-	}
-
-
-	public String getSize() {
-		return size;
-	}
-
-
-	public void setSize(String size) {
-		this.size = size;
-	}
-
-
-	public Double getWeight() {
-		return weight;
-	}
-
-
-	public void setWeight(Double weight) {
-		this.weight = weight;
-	}
-
-
-	public Integer getTotalpage() {
-		return totalpage;
-	}
-
-
-	public void setTotalpage(Integer totalpage) {
-		this.totalpage = totalpage;
-	}
-
-
-	public Integer getPublishingyear() {
-		return publishingyear;
-	}
-
-
-	public void setPublishingyear(Integer publishingyear) {
-		this.publishingyear = publishingyear;
-	}
-
-
-	public Double getPrice() {
-		return price;
-	}
-
-
-	public void setPrice(Double price) {
-		this.price = price;
-	}
-
-
-	public Integer getQuantity() {
-		return quantity;
-	}
-
-
-	public void setQuantity(Integer quantity) {
-		this.quantity = quantity;
-	}
-
-
-	public String getStatues() {
-		return statues;
-	}
-
-
-	public void setStatues(String statues) {
-		this.statues = statues;
-	}
-
-
-	public Integer getPublishingcompanyid() {
-		return publishingcompanyid;
-	}
-
-
-	public void setPublishingcompanyid(Integer publishingcompanyid) {
-		this.publishingcompanyid = publishingcompanyid;
-	}
-
-
-	public Boolean getIsactive() {
-		return isactive;
-	}
-
-
-	public void setIsactive(Boolean isactive) {
-		this.isactive = isactive;
-	}
-
-
-	public Integer getQuantitysold() {
-		return quantitysold;
-	}
-
-
-	public void setQuantitysold(Integer quantitysold) {
-		this.quantitysold = quantitysold;
-	}
-
-
-	public Integer getShopid() {
-		return shopid;
-	}
-
-
-	public void setShopid(Integer shopid) {
-		this.shopid = shopid;
-	}
-
-
-	public List<Cart> getListOfCart() {
-		return listOfCart;
-	}
-
-
-	public void setListOfCart(List<Cart> listOfCart) {
-		this.listOfCart = listOfCart;
-	}
-
-
-	public Shoponlines getShoponlines() {
-		return shoponlines;
-	}
-
-
-	public void setShoponlines(Shoponlines shoponlines) {
-		this.shoponlines = shoponlines;
-	}
-
-
 	public List<Imagebooks> getListOfImagebooks() {
+		// TODO Auto-generated method stub
 		return listOfImagebooks;
 	}
 
 
-	public void setListOfImagebooks(List<Imagebooks> listOfImagebooks) {
-		this.listOfImagebooks = listOfImagebooks;
-	}
-
-
-	public List<Detailbookings> getListOfDetailbookings() {
-		return listOfDetailbookings;
-	}
-
-
-	public void setListOfDetailbookings(List<Detailbookings> listOfDetailbookings) {
-		this.listOfDetailbookings = listOfDetailbookings;
-	}
-
-
-	public List<Typebooks> getListOfTypebooks() {
-		return listOfTypebooks;
-	}
-
-
-	public void setListOfTypebooks(List<Typebooks> listOfTypebooks) {
-		this.listOfTypebooks = listOfTypebooks;
-	}
-
-
-	public List<Writers> getListOfWriters() {
-		return listOfWriters;
-	}
-
-
-	public void setListOfWriters(List<Writers> listOfWriters) {
-		this.listOfWriters = listOfWriters;
-	}
-
-
-	public Publishingcompanies getPublishingcompanies() {
-		return publishingcompanies;
-	}
-
-
-	public void setPublishingcompanies(Publishingcompanies publishingcompanies) {
-		this.publishingcompanies = publishingcompanies;
-	}
-
-
-	public List<Hassales> getListOfHassales() {
-		return listOfHassales;
-	}
-
-
-	public void setListOfHassales(List<Hassales> listOfHassales) {
-		this.listOfHassales = listOfHassales;
-	}
-
-
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	} 
 
 	
 }

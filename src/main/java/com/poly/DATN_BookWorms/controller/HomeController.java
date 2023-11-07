@@ -2,8 +2,11 @@ package com.poly.DATN_BookWorms.controller;
 
 import com.itextpdf.text.pdf.qrcode.Mode;
 import com.poly.DATN_BookWorms.entities.Account;
+import com.poly.DATN_BookWorms.entities.Authorities;
 import com.poly.DATN_BookWorms.entities.Books;
 import com.poly.DATN_BookWorms.entities.Roles;
+import com.poly.DATN_BookWorms.repo.AuthoritiesRepo;
+import com.poly.DATN_BookWorms.service.AuthoritiesService;
 import com.poly.DATN_BookWorms.service.BookService;
 import com.poly.DATN_BookWorms.service.CategoryService;
 import com.poly.DATN_BookWorms.service.RoleService;
@@ -29,6 +32,9 @@ public class HomeController {
     @Autowired
     RoleService roleService;
 
+    @Autowired
+    AuthoritiesService authoritiesService;
+
     @RequestMapping("/index")
     public String home(Model model) {
         //get user on session
@@ -45,8 +51,8 @@ public class HomeController {
         model.addAttribute("education2", education2);
         if (education != null && !education.isEmpty()) {
             for (Books educationItem : education) {
-                System.out.println("Tên sản phẩm: " + educationItem.getBookname());
-                System.out.println("Giá sản phẩm: " + educationItem.getPrice());
+//                System.out.println("Tên sản phẩm: " + educationItem.getBookname());
+//                System.out.println("Giá sản phẩm: " + educationItem.getPrice());
                 System.out.println();
             }
         } else {
@@ -65,8 +71,6 @@ public class HomeController {
 
     @RequestMapping("/header")
     public String header(Model model, Account user) {
-        System.out.println(user.getFullname());
-
         if (user !=null){
             model.addAttribute("image", user.getImage());
             model.addAttribute("name", user.getFullname());
@@ -76,5 +80,17 @@ public class HomeController {
         return "Client/header_footer_index/header_index";
     }
 
+    @RequestMapping("/seller")
+    public String seller(Model model){
+        Account user = sessionService.get("user");
+        List<Authorities> authorities = user.getAuthorities();
+        for (int i = 0; i < authorities.size(); i++) {
+            if (authorities.get(i).getRoles().getRoleid().equals("SELLER")){
+                return "SellerChannel/index";
+            }
+        }
+
+        return "SellerChannel/index";
+    }
 
 }

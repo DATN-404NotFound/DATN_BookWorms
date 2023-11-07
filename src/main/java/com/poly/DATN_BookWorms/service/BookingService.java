@@ -15,5 +15,7 @@ public interface BookingService {
 	Object findById(String id);
 
 	List<Bookings> findByUsername(String username);
+	
+	List<Bookings> findAll();
 
 }
