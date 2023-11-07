@@ -37,40 +37,40 @@ public class Account implements Serializable {
 
     //--- ENTITY PRIMARY KEY
     @Id
-    private String     userid ;
+    public String     userid ;
 
 
-    private String     username ;
+    public String     username ;
 
-    private String     fullname ;
+    public String     fullname ;
 
-    private String     password ;
+    public String     password ;
 
     @Temporal(TemporalType.DATE)
     @Column(name="Age")
-    private Date       age ;
+    public Date       age ;
 
-    private String     email ;
+    public String     email ;
 
     @Column(name="Gender")
-    private Boolean    gender ;
+    public Boolean    gender ;
 
     @Column(name="Image", length=40)
-    private String     image ;
+    public String     image ;
 
 
     //--- ENTITY LINKS ( RELATIONSHIP )
     @JsonIgnore
     @OneToMany(mappedBy="account", fetch = FetchType.EAGER)
-    private List<Authorities> authorities ;
+    public List<Authorities> authorities ;
 
     @JsonIgnore
     @OneToMany(mappedBy="account")
-    private List<Bookings> listOfBookings ;
+    public List<Bookings> listOfBookings ;
 
     @JsonIgnore
     @OneToMany(mappedBy="account")
-    private List<Paymentaccounts> listOfPaymentaccounts ;
+    public List<Paymentaccounts> listOfPaymentaccounts ;
 
     @JsonIgnore
     @OneToMany(mappedBy="account")
@@ -86,7 +86,7 @@ public class Account implements Serializable {
 
     @JsonIgnore
     @OneToMany(mappedBy="account")
-    private List<Addressusers> listOfAddressusers ;
+    public List<Addressusers> listOfAddressusers ;
 
 
 

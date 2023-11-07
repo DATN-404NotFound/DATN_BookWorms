@@ -33,9 +33,8 @@ import lombok.NoArgsConstructor;
 @Data
 @Entity
 @Table(name="Bookings")
-public class Bookings implements Serializable {
+public class Bookings {
 
-    private static final long serialVersionUID = 1L;
 
     //--- ENTITY PRIMARY KEY 
     @Id
@@ -54,6 +53,9 @@ public class Bookings implements Serializable {
     private Integer    orderstatusid ;
 
     private Integer    shippingunitid ;
+    
+    @Column(name="Note")
+    private String note;
 
 
     //--- ENTITY LINKS ( RELATIONSHIP )
@@ -92,6 +94,8 @@ public class Bookings implements Serializable {
         sb.append(orderstatusid);
         sb.append("|");
         sb.append(shippingunitid);
+        sb.append("|");
+        sb.append(note);
         return sb.toString(); 
     }
 
@@ -181,6 +185,14 @@ public class Bookings implements Serializable {
 
 	public void setShippingunits(Shippingunits shippingunits) {
 		this.shippingunits = shippingunits;
+	}
+
+	public String getNote() {
+		return note;
+	}
+
+	public void setNote(String note) {
+		this.note = note;
 	} 
 	
 	

@@ -99,12 +99,12 @@ public class Books implements Serializable {
 
     @OneToMany(mappedBy="books")
     @JsonIgnore
-    private List<Writers> listOfWriters ; 
+    public List<Writers> listOfWriters ; 
 
     @ManyToOne 
 
     @JoinColumn(name="Publishingcompanyid", referencedColumnName="PCId", insertable=false, updatable=false)
-    private Publishingcompanies publishingcompanies ; 
+    public Publishingcompanies publishingcompanies ; 
 
     @OneToMany(mappedBy="books")
     @JsonIgnore

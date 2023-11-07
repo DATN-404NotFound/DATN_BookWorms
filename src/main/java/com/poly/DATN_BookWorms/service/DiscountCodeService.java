@@ -22,4 +22,5 @@ public interface DiscountCodeService {
 	public void delete(Integer discount);
 	
 	public Discountcodes update(Discountcodes discountid);
+
 }

@@ -44,7 +44,7 @@ public class DiscountCodeServiceImp implements DiscountCodeService {
 	@Override
 	public void delete(Integer discount) {
 		// TODO Auto-generated method stub
-		
+		discountcodesRepo.deleteById(discount);
 	}
 
 	@Override
@@ -58,5 +58,6 @@ public class DiscountCodeServiceImp implements DiscountCodeService {
 		// TODO Auto-generated method stub
 		return discountcodesRepo.findDisountForSys(userid);
 	}
+
 
 }

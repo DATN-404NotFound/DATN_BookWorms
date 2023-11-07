@@ -29,9 +29,8 @@ import lombok.NoArgsConstructor;
 @Data
 @Entity
 @Table(name="Payments")
-public class Payments implements Serializable {
+public class Payments  {
 
-    private static final long serialVersionUID = 1L;
 
     //--- ENTITY PRIMARY KEY 
     @Id

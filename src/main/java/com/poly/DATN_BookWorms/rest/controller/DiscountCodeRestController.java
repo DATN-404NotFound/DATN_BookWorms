@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -41,4 +42,15 @@ public class DiscountCodeRestController {
 		return  discountCodeService.findAll();
 	}
 	
+	@DeleteMapping("/{dis}")
+	public void delete(@PathVariable("dis") Integer dis) { 
+		 discountCodeService.delete(dis);
+	}
+	
+	@DeleteMapping("/dele/{sa}")
+	public void deleteSa(@PathVariable("sa") String sa) {
+		String userid = crc32_SHA256.getCodeCRC32C(request.getRemoteUser());
+		Discountcodes dis = discountCodeService.findSalesId(sa, userid);
+		 discountCodeService.delete(dis.discountcodeid);
+	}
 }
