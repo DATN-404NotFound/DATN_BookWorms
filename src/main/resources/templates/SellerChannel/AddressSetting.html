@@ -62,15 +62,15 @@
                               <form>
                                 <div class="form-group">
                                   <label for="reciver-name" class="col-form-label">Name Reciver</label>
-                                  <input type="text" class="form-control" id="reciver-name" ng-model = "shopForm.namereciver">
+                                  <input type="text" class="form-control" id="reciver-name" ng-model = "AddressForm.namereceiver">
                                 </div>
                                 <div class="form-group">
                                   <label for="phone-name" class="col-form-label">Phone number</label>
-                                  <input type="text" class="form-control" id="phone-name" ng-model = "shopForm.phonenumber"
+                                  <input type="tel" class="form-control" id="phone-name" ng-model = "AddressForm.phonenumber">
                                 </div>
                                 <div class="form-group">
                                   <label for="address-text" class="col-form-label">Address</label>
-                                  <textarea class="form-control" id="address-text" ng-model="shopForm.address"></textarea>
+                                  <textarea class="form-control" id="address-text" ng-model="AddressForm.address"></textarea>
                                 </div>
                               </form>
                             </div>
@@ -99,15 +99,15 @@
                               </tr>
                             </thead>
                             <tbody>
-                              <tr ng-repeat="address in Address">
-                                <td>{{address.addressshopid}}</td>
-                                <td>{{address.namereceiver}}</td>
-                                <td>{{address.address}}</td>
-                                <td>{{address.phonenumbber}}</td>
-                                <td>{{address.createat}}</td>
+                              <tr ng-repeat="add in Address">
+                                <td> {{add.addressshopid}} </td>
+                                <td> {{add.namereceiver}} </td>
+                                <td> {{add.phonenumber}} </td>
+                                <td> {{add.address}} </td>
+                                <td> {{add.createat}} </td>
                                 <td>
                                   <div class="custom-control custom-switch">
-                                    <input type="checkbox" class="custom-control-input" id="c1" ng-checked="address.isactive">
+                                    <input type="checkbox" class="custom-control-input" id="c1" ng-checked="add.isactive">
                                     <label class="custom-control-label" for="c1"></label>
                                   </div>
                                 </td>
@@ -130,7 +130,7 @@
           <div class="modal-dialog modal-sm" role="document">
             <div class="modal-content">
               <div class="modal-header">
-                <h5 class="modal-title" id="defaultModalLabel">Notifications</h5>
+                <h5 class="modal-title">Notifications</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>

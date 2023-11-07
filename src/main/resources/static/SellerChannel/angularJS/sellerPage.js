@@ -120,12 +120,13 @@ app.controller("changeProfileController", function ($scope, $routeParams, $route
 //Setting Address Shop
 app.controller("addressSettingController", function ($scope, $routeParams, $route, $http, $rootScope) {
     let host = "http://localhost:8080/rest/shop/";
-    $scope.shopForm=[];
+    $scope.AddressForm=[];
+    $scope.Address = [];
     $scope.getAddressShop = function () {
         $scope.Address = [];
         let url = `${host}address`;
         $http.get(url).then(resp => {
-            $scope.address = resp.data;
+            $scope.Address = resp.data;
             console.log("address: ", resp.data);
         }).catch(error => {
             console.log("Error", error)
@@ -133,13 +134,12 @@ app.controller("addressSettingController", function ($scope, $routeParams, $rout
     }
 
     $scope.saveAddressShop = function () {
-        console.log("Save address false")
         let url = `${host}address/createOrUpdate`;
         const headers = {
             'Content-Type': "application/json" ,
             transformRequest: angular.identity
         };
-        $http.post(url, JSON.stringify($scope.shopForm),{headers:headers} ).then(resp => {
+        $http.post(url,JSON.stringify($scope.AddressForm),{headers:headers} ).then(resp => {
             console.log("Save address success!!!")
             $scope.getAddressShop();
         }).catch(error => {

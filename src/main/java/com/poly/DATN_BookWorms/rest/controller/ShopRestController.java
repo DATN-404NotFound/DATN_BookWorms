@@ -88,6 +88,7 @@ public class ShopRestController {
         Account user = sessionService.get("user");
         Shoponlines shopDetail = shopService.findUserId(user.getUserid());
         AddressShop addressShop = addressShopService.findByShop(shopDetail);
+//        System.out.println(addressShop.getAddressshopid());
         return ResponseEntity.ok(addressShop);
     }
 
