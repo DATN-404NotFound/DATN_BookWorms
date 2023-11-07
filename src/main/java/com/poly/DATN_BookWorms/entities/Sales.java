@@ -20,6 +20,7 @@ import jakarta.persistence.TemporalType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
  * JPA entity class for "Sales"
@@ -62,7 +63,7 @@ public class Sales implements Serializable {
     //--- ENTITY LINKS ( RELATIONSHIP )
     @OneToMany(mappedBy="sales")
     @JsonIgnore
-    public List<Discountcodes> listOfDiscountcodes ; 
+    private List<Discountcodes> listOfDiscountcodes ; 
 
     //--- toString specific method
 	@Override
