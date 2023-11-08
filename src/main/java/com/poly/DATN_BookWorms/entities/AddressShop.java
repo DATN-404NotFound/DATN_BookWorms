@@ -26,12 +26,12 @@ public class AddressShop implements Serializable {
     @Column(name="createat")
     private Date createat ;
 
-    Boolean isactive;
+    private Boolean isactive;
 
-    String phonenumber;
+    private String phonenumber;
 
     @ManyToOne
-    @JoinColumn(name = "shopid")
+    @JoinColumn(name = "Shopid", referencedColumnName="ShopId")
     private Shoponlines shoponlines ;
 
     @Override

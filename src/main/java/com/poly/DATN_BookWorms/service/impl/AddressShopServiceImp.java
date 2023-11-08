@@ -7,6 +7,8 @@ import com.poly.DATN_BookWorms.service.AddressShopService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class AddressShopServiceImp implements AddressShopService {
 
@@ -21,5 +23,15 @@ public class AddressShopServiceImp implements AddressShopService {
     @Override
     public void save(AddressShop addressShop) {
         addressShopRepo.save(addressShop);
+    }
+
+    @Override
+    public List<AddressShop> findByShopid(Integer shopId) {
+        return addressShopRepo.findByShopId(shopId);
+    }
+
+    @Override
+    public AddressShop findById(Integer addressShopId) {
+        return addressShopRepo.findById(addressShopId).get();
     }
 }

@@ -1,5 +1,12 @@
 package com.poly.DATN_BookWorms.controller;
 
+import com.poly.DATN_BookWorms.entities.Account;
+import com.poly.DATN_BookWorms.entities.AddressShop;
+import com.poly.DATN_BookWorms.entities.Shoponlines;
+import com.poly.DATN_BookWorms.service.AddressShopService;
+import com.poly.DATN_BookWorms.service.ShopService;
+import com.poly.DATN_BookWorms.utils.SessionService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -7,6 +14,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/Ibook/seller")
 public class SellerController {
+    @Autowired
+    ShopService shopService;
+    @Autowired
+    SessionService sessionService;
+
+    @Autowired
+    AddressShopService addressShopService;
     @RequestMapping("/index")
     public String seller(Model model){
         return "SellerChannel/index";

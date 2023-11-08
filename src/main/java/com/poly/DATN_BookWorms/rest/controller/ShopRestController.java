@@ -22,6 +22,7 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -84,12 +85,12 @@ public class ShopRestController {
     }
 
     @GetMapping("/address")
-    public ResponseEntity<AddressShop> getAddressShop() {
+    public ResponseEntity<List<AddressShop>> getAddressShop() {
         Account user = sessionService.get("user");
         Shoponlines shopDetail = shopService.findUserId(user.getUserid());
-        AddressShop addressShop = addressShopService.findByShop(shopDetail);
+        List<AddressShop> addressShops = addressShopService.findByShopid(shopDetail.getShopid());
 //        System.out.println(addressShop.getAddressshopid());
-        return ResponseEntity.ok(addressShop);
+        return ResponseEntity.ok(addressShops);
     }
 
     @PostMapping(value = "/address/createOrUpdate", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -102,6 +103,13 @@ public class ShopRestController {
         Shoponlines shopDetail = shopService.findUserId(user.getUserid());
         addressShop.setShoponlines(shopDetail);
         //save address default
+        addressShopService.save(addressShop);
+    }
+
+    @PostMapping(value = "/address/updateActive", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public void saveChangeActive(@RequestParam("addressShopId") String addressShopId) throws IOException {
+        AddressShop addressShop = addressShopService.findById(Integer.parseInt(addressShopId));
+        addressShop.setIsactive(!addressShop.getIsactive());
         addressShopService.save(addressShop);
     }
 }

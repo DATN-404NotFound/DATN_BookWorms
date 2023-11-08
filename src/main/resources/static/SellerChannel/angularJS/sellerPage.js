@@ -58,12 +58,11 @@ app.controller("changeProfileController", function ($scope, $routeParams, $route
     let host = "http://localhost:8080/rest/shop/";
     $scope.logoChange = null;
     $scope.getProfileShop = function () {
-        $scope.shop = [];
+        $rootScope.shop = [];
         let url = `${host}detail`;
         $http.get(url).then(resp => {
-            $scope.shop = resp.data;
-            localStorage.setItem("shop",resp.data);
-            console.log("shop: ", resp.data);
+            $rootScope.shop = resp.data;
+            // localStorage.setItem("shop",resp.data);
             $scope.initLogo(resp.data.logo);
         }).catch(error => {
             console.log("Error", error)
@@ -109,7 +108,7 @@ app.controller("changeProfileController", function ($scope, $routeParams, $route
 
     }
     $scope.changeProfileShop = function () {
-        $scope.saveProfileChange($scope.logoChange, $scope.shop.shopid);
+        $scope.saveProfileChange($scope.logoChange, $rootScope.shop.shopid);
 
     }
     $scope.getProfileShop();
@@ -120,14 +119,16 @@ app.controller("changeProfileController", function ($scope, $routeParams, $route
 //Setting Address Shop
 app.controller("addressSettingController", function ($scope, $routeParams, $route, $http, $rootScope) {
     let host = "http://localhost:8080/rest/shop/";
-    $scope.AddressForm=[];
+    $scope.AddressForm={};
     $scope.Address = [];
+
     $scope.getAddressShop = function () {
         $scope.Address = [];
         let url = `${host}address`;
         $http.get(url).then(resp => {
             $scope.Address = resp.data;
-            console.log("address: ", resp.data);
+            // console.log("address: ", $scope.Address);
+
         }).catch(error => {
             console.log("Error", error)
         });
@@ -144,6 +145,20 @@ app.controller("addressSettingController", function ($scope, $routeParams, $rout
             $scope.getAddressShop();
         }).catch(error => {
             console.log("Save address false")
+        });
+    }
+    $scope.changeActive = function (id) {
+        let url = `${host}address/updateActive`;
+        const headers = {
+            'Content-Type': undefined ,
+            transformRequest: angular.identity
+        };
+        formData = new FormData();
+        formData.append('addressShopId', id)
+        $http.post(url,formData,{headers:headers} ).then(resp => {
+            console.log("Save change active success!!!")
+        }).catch(error => {
+            console.log("Save change active false!!!!")
         });
     }
     $scope.getAddressShop();

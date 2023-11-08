@@ -53,9 +53,7 @@ public class Shoponlines implements Serializable {
     @Column(name = "description", length = 2555)
     private String description;
 
-    @OneToMany(mappedBy = "shoponlines")
-    @JsonIgnore
-    private List<AddressShop> listOfAddressShop;
+
 
     private String userid;
 
@@ -73,6 +71,10 @@ public class Shoponlines implements Serializable {
     @OneToMany(mappedBy = "shoponlines")
     @JsonIgnore
     private List<Files> listOfFiles;
+
+    @OneToMany(mappedBy = "shoponlines")
+    @JsonIgnore
+    private List<AddressShop> listOfAddressShop;
 
     @ManyToOne
     @JoinColumn(name = "Userid", referencedColumnName = "Userid", insertable = false, updatable = false)
