@@ -41,7 +41,6 @@ public class Bookings implements Serializable {
 
     //--- ENTITY DATA FIELDS 
     @Temporal(TemporalType.DATE)
-    @Column(name="CreateAt")
     private Date       createat ;
 
     @Column(name="Cost")

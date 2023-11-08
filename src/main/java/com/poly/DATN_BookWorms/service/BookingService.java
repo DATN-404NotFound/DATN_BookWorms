@@ -15,5 +15,35 @@ public interface BookingService {
 	Object findById(String id);
 
 	List<Bookings> findByUsername(String username);
+	
+	List<Bookings> findAll();
+
+	long countUnpaid();
+	
+	long countPaid();
+
+	long countConfirm();
+
+	long countDelivering();
+
+	long countProcessed();
+
+	long countCancel();
+
+	long countRefund();
+
+	List<Bookings> unpaid();
+
+	List<Bookings> paid();
+
+	List<Bookings> confirm();
+
+	List<Bookings> delivering();
+
+	List<Bookings> processed();
+
+	List<Bookings> cancel();
+
+	List<Bookings> refund();
 
 }

@@ -37,7 +37,7 @@ public class SecurityConfig {
 		http.authorizeHttpRequests((request) -> request
 				.requestMatchers("/account/**", "/Admin/Css/**", "/Admin/Image/**", "/Admin/Js/**")
 				.permitAll().requestMatchers("/Client/**","/product/**").permitAll()
-				.requestMatchers("static/Client/**").permitAll().requestMatchers("/admin/**").hasAuthority("ADMIN")
+				.requestMatchers("static/Client/**").permitAll().requestMatchers("").hasAuthority("ADMIN")
 				.requestMatchers("/seller/**").hasAuthority("SELLER").anyRequest().authenticated())
 				.formLogin(form -> form.loginPage("/account/login").loginProcessingUrl("/account/login")
 				.defaultSuccessUrl("/product/a", false).permitAll())
