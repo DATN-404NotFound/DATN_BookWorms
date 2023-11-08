@@ -17,7 +17,7 @@ public interface BookService {
 	List<Books> findAll();
 
 	Books findById(int id);
-
+	Page<Books> findAll(Pageable pageable);
 
 	Books create(Books book);
 
@@ -28,4 +28,7 @@ public interface BookService {
 
 	List<Books> getBooksByCategoryID(Integer categoryID);
 	Books findTopBookByQuantitySold();
+
+	Page<Books> findByshopid(Integer shopid, Pageable pageable);
+	List<Books> findTop5LowestQuantityBooksByShopId(Integer shopId);
 }
