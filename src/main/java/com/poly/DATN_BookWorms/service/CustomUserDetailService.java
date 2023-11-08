@@ -57,7 +57,6 @@ public class CustomUserDetailService implements UserDetailsService {
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
-
         } else
             throw new UsernameNotFoundException("Invalid username or password");
     }

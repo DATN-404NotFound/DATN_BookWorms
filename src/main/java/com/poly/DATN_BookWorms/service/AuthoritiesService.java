@@ -18,5 +18,6 @@ public interface AuthoritiesService {
 	public void delete(String id);
 
 	public List<Authorities> getOneByRole(String username);
-	
+
+    void save(Authorities authorities);
 }
