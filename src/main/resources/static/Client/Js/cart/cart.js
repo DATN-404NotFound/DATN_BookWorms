@@ -385,6 +385,7 @@ $(document).ready(function () {
 
 
 function loadWin() {
+	console.log("KKKKKK")
 	var a = JSON.parse(localStorage.getItem('books'));
 	var b = JSON.parse(localStorage.getItem('deal'));
 	var c = JSON.parse(localStorage.getItem('shoponline'));
@@ -423,6 +424,7 @@ function calculatorPrice() {
 	var f = Number(a) + Number(b) - Number(c) - Number(d);
 	e.innerText = formatNumber(f, ".", ",");
 }
+
 
 
 const app1 = angular.module("order_app", []);
