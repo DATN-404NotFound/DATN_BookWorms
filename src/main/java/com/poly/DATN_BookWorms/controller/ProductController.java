@@ -1,11 +1,12 @@
 package com.poly.DATN_BookWorms.controller;
 
 import com.poly.DATN_BookWorms.entities.*;
-import com.poly.DATN_BookWorms.response.BookResponse;
 import com.poly.DATN_BookWorms.service.BookService;
 import com.poly.DATN_BookWorms.service.CategoryService;
 import com.poly.DATN_BookWorms.service.PublishingCompanyService;
+import com.poly.DATN_BookWorms.service.TypeBookService;
 import com.poly.DATN_BookWorms.service.WriterMasterService;
+import com.poly.DATN_BookWorms.service.WriterService;
 import com.poly.DATN_BookWorms.utils.CRC32_SHA256;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -26,7 +27,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 @RequestMapping("/product")
 public class ProductController {
-
+	@Autowired
+	TypeBookService typeBookService;
+	
+	@Autowired
+	WriterService writerService;
+	
     @Autowired
     BookService bookService;
     @Autowired
@@ -63,8 +69,8 @@ public class ProductController {
         List<Categories> categories = categoryService.findAll();
         List<Publishingcompanies> publishingcompanies = publishingCompanyService.findAll();
         List<Writtingmasters> writtingmasters = writerMasterService.findAll();
-        Page<BookResponse> bookPage = bookService.findAllBook(pageable);
-
+        Page<Books> bookPage = bookService.findAll(pageable);
+      
         model.addAttribute("books", bookPage.getContent());
         model.addAttribute("currentPage", page);
         model.addAttribute("totalPages", bookPage.getTotalPages());

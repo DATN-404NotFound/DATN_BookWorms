@@ -18,39 +18,37 @@
     <script th:src="@{/Client/Js/cart/cart.js}"></script>
     <script src="../../../static/Client/Js/cart/cart.js"></script>
 </head>
+
 <body>
     <main ng-app="cart_app" ng-controller="cart_ctrl">
-        <div class="title">
-            <p>Home/Libary/Cart</p>
-            <h5>DETAIL</h5>
-        </div>
+
         <div class="cart_articical">
             <div class="cart_title">
-                <p style="padding-top: 50px;">Book Detail</p>
+                <p style="padding-top: 70px;">Book Detail</p>
             </div>
             <div class="cart_body">
                 <div class="contain">
                     <div class="container-fliud">
                         <div class="row">
                             <div class="col-sm-1 text-center">
-                          
+
                                 <div class="d-flex flex-column" style="margin-top: 100px; margin-left: 20px;">
-                                    <div class="py-1" th:each="im:${item.listOfImagebooks}" ><a style="width: 100px; height: 120px;"><img
+                                    <div class="py-1" th:each="im:${item.listOfImagebooks}"><a
+                                            style="width: 100px; height: 120px;"><img
                                                 th:src="@{|/Client/images/${im.name}|}"
                                                 style="width: 90px; height: 120px; margin: auto;" alt=""></a>
                                     </div>
                                 </div>
                             </div>
-                            <div class="preview col-md-5 text-center">
+                            <div class="preview col-md-5 text-start" style="height: 100%;">
                                 <div class="tab-content">
-                                    <div class="tab-pane active" id="pic-1"><img
-                                            style="max-width: 100%; height: 50%; "
+                                    <div class="tab-pane active" id="pic-1"><img style="width: 80%; height: 700px; "
                                             th:src="@{|/Client/images/${item.listOfImagebooks.get(0).name}|}" /></div>
                                 </div>
                             </div>
-                            <div th:object="${item}" class="details col-md-6">
+                            <div th:object="${item}" class="details col-md-6" style="margin-top: 100px;">
                                 <p th:text="*{bookname}" style="color: red; font-weight: bold; font-size: 35px"></p>
-                                <div class="rating" >
+                                <div class="rating">
                                     <div class="stars">
                                         <span><i class="bi bi-star-fill"></i></span>
                                         <span><i class="bi bi-star-fill"></i></span>
@@ -61,22 +59,32 @@
                                     </div>
                                 </div>
                                 <p class="product-description"></p>
-                                <h4 class="price">Current price: <span th:text="${item.price} + ' VND'"></span></h4>
+                                <h2 class="price">Current price: <span
+                                        th:text="${#numbers.formatDecimal(item.price, 0, 'POINT', 0, 'COMMA')} +'₫'"></span>
+                                </h2>
 
                                 <input type="number" id="quantity" value="1" name="quantity" min="1" max="5">
                                 <hr class="my-4">
                                 <div class="action">
-                                 
-                                        <button th:attr="ng-click=@{|cart.add(${item.bookid})|}" onclick  ="as()" class="button_all_orange">Add to cart</button>
-                                
+
+                                    <button th:attr="ng-click=@{|cart.add(${item.bookid})|}" onclick="as()"
+                                        class="button_all_orange">Add to cart</button>
+
                                     <button class="button_all_none">Buy now</button>
-                               
+
                                 </div>
                                 <hr class="my-5">
                                 <div style="width: 700px" class="info_book">
-                                    <p><span>SKU</span> <span style="margin-left: 100px;" th:text="*{bookid}"></span></p>
-                                    <p><span>CATEGORY</span><span th:each="c : ${item.listOfTypebooks}"> <strong th:text="${c.categories.name}"
-                                            style="margin-left: 40px;"><br></strong></span></p>
+                                    <p><span>SKU</span> <span style="margin-left: 100px;" th:text="*{bookid}"></span>
+                                    </p>
+                                    <p><span style="float: left;">CATEGORY</span><span style="float: left;">
+                                            <div class="d-flex flex-column">
+                                                <div th:each="c : ${item.listOfTypebooks}" class="py-2"
+                                                    style="margin-left: 40px; margin-top: -10px; color: #666;">
+                                                    <strong th:text="${c.categories.name}"></strong>
+                                                </div>
+                                            </div>
+                                        </span></p>
                                     <p><span>TAGS</span> <span style="margin-left: 95px;">book,
                                             psychological</span></p>
                                 </div>
@@ -87,21 +95,23 @@
 
             </div>
         </div>
-         <hr style="margin-top: 70px; width: 85%; margin: auto; margin-top: 70px;" >
+        <hr style="margin-top: 70px; width: 85%; margin: auto; margin-top: 70px;">
         <div class="shop_info mt-5" style="margin-bottom: 55px;">
             <div class="row">
                 <div class="col-md-5">
                     <div class="d-inline-flex align-content-center pe-5" style="border-right: 1px solid #999;">
-                        <div class="p-1"><button class=" my-5" style="margin-left: 50px; border: none; background: none;"><img class="shop_avatar"
-                                    th:src="@{/Client/images/logo-alphabooks.jpg}" width="100%" style="border: 1px solid #666;" alt=""></button>
+                        <div class="p-1"><button class=" my-5"
+                                style="margin-left: 50px; border: none; background: none;"><img class="shop_avatar"
+                                    th:src="@{|/Client/images/${item.shoponlines.listOfFiles.get(0).filename}|}" width="100%"
+                                    style="border: 1px solid #666;" alt=""></button>
                         </div>
-                        <div class="d-flex flex-column " style=" margin-top: 50px; ">
+                        <div class="d-flex flex-column " style=" margin-top: 60px; ">
                             <div class="p-1 ms-3"><a
                                     style="text-decoration: none; color: #080808; font-size:20px ; font-weight: 500;"
-                                    th:href="@{|/d|}"><span th:text="${item.shoponlines.shopname}"></span></a></div>
-                            <div class="p-1 ms-3 mt-3">
-                                <a class="btn shop_button" th:href="@{/}"
-                                    style="float: left;color: white; background-color: #C93F04;">Shop profile</a>
+                                    th:href="@{|/shop/${item.shopid}|}"><span th:text="${item.shoponlines.shopname}"></span></a></div>
+                            <div class="ms-1 mt-3">
+                                <a class="btn shop_button" th:href="@{|/shop/${item.shopid}|}"
+                                    style="float: left;color: white; background-color: #C93F04;">Shop</a>
                                 <a class=" btn shop_button"
                                     style=" color: #333;background:none; border: 1px solid black;">Chat</a>
                             </div>
@@ -111,7 +121,7 @@
 
                 </div>
                 <div class="col-md-7">
-                    <div class="d-flex flex-column " style=" margin-top: 50px; font-size: 18px; ">
+                    <div class="d-flex flex-column " style=" margin-top: 50px; font-size: 25px; font-weight: 500; ">
                         <div class="p-1 ms-3">
                             <p><span>Reviews </span> <span style="margin-left: 30px;">20</span> <span
                                     style="margin-left: 100px;">Joined </span><span style="margin-left: 20px;">4 year
@@ -126,11 +136,11 @@
                 </div>
             </div>
         </div>
-        <hr  style="margin-top: 70px; width: 85%; margin: auto;">
+        <hr style="margin-top: 70px; width: 85%; margin: auto;">
         <div class="des_product px-5">
-            <h2>About</h2>
+            <h2>Thông Tin Chi Tiết</h2>
             <br>
-        
+
             <ul class="nav nav-tabs" style="font-size: 25px;" role="tablist">
                 <li class="nav-item">
                     <a class="nav-link active" data-bs-toggle="tab" href="#des_product">Description</a>
@@ -145,7 +155,7 @@
             <div th:object="${item}" class="scrop tab-content">
                 <div id="des_product" class="container tab-pane active"><br>
                     <h3>Mô tả</h3>
-                    <table class="table table-hover m-auto" style="width: 70%;">
+                    <table class="table table-hover m-auto" style="width: 100%;">
                         <thead>
                             <tr>
                                 <th>ID</th>
@@ -159,11 +169,19 @@
                             </tr>
                             <tr>
                                 <td>Tác giả</td>
-                                <td th:each="tg : ${item.listOfWriters}"> <p th:text="${tg.writtingmasters.namewm}"></p></td>
+                                <td th:each="tg : ${item.listOfWriters}">
+                                    <p th:text="${tg.writtingmasters.namewm}"></p>
+                                </td>
                             </tr>
-                            <tr >
+                            <tr>
                                 <td>Thể loại</td>
-                                <td th:each="c : ${item.listOfTypebooks}"><p th:text="${c.categories.name}"></p></td>
+                                <td>
+                                    <div  class="d-flex flex-column">
+                                        <div class="px-2" th:each="c : ${item.listOfTypebooks}">
+                                            <p th:text="${c.categories.name}"></p>
+                                        </div>
+                                    </div>
+                                </td>
                             </tr>
                             <tr>
                                 <td>Nhà xuất bản</td>
@@ -190,7 +208,8 @@
                 </div>
                 <div id="info_product" class="container tab-pane fade"><br>
                     <h3>Nội dung</h3>
-                    <p style="padding-left: 50px; font-size: 22px;">"Hạt Giống Tâm Hồn " của Dale Carnegie là quyển sách của mọi thời đại và một
+                    <p style="padding-left: 50px; font-size: 22px;">"Hạt Giống Tâm Hồn " của Dale Carnegie là quyển sách
+                        của mọi thời đại và một
                         hiện tượng đáng kinh ngạc trong ngành xuất bản Hoa Kỳ. Trong suốt nhiều thập kỷ tiếp theo và cho
                         đến tận bây giờ, tác phẩm này vẫn chiếm vị trí số một trong danh mục sách bán chạy nhất và trở
                         thành một sự kiện có một không hai trong lịch sử ngành xuất bản thế giới và được đánh giá là một
@@ -307,19 +326,20 @@
                             </div>
                         </div>
                     </div>
-                
+
                 </div>
             </div>
         </div>
         <hr class="container my-5">
         <div style="width: 100%;">
-            
+
             <div>
-                <p style="text-align: center;font-family: initial; font-weight: 500; font-size: 50px;">RELATED PRODUCTS</p>
+                <p style="text-align: center;font-family: initial; font-weight: 500; font-size: 50px;">RELATED PRODUCTS
+                </p>
             </div>
             <div>
                 <div class="book_related" style="width: 90%;">
-                  
+
                     <div class="book_item" style="margin-left: 1%;">
                         <div class="book_img text-center">
                             <img th:src="@{/Client/images/Hinh10_book10.jpg}" alt="">
@@ -410,14 +430,15 @@
                                         style="font-size: 25px;"></i></a></div>
                         </div>
                     </div>
-                 
+
                 </div>
             </div>
             <button class="button_all_orange my-3" style="margin-left: 44%;">See more</button>
         </div>
-            <script th:src="@{/Client/Js/cart/cart.js}"></script>
-    <script src="../../../static/Client/Js/cart/cart.js"></script>
+        <script th:src="@{/Client/Js/cart/cart.js}"></script>
+        <script src="../../../static/Client/Js/cart/cart.js"></script>
     </main>
 
 </body>
+
 </html>

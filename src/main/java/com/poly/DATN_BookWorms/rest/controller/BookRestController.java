@@ -29,6 +29,12 @@ public class BookRestController {
 		return bookService.findAll();
 	}
 	
+	@GetMapping("/cate/{id}")
+	public List<Books> getAll5(@PathVariable("id") Integer id) {
+		
+		return  bookService.getBooksByCategoryID(id);
+	}
+	
 	@PostMapping
 	public Books create(@RequestBody Books book) {
 		return bookService.create(book);
@@ -50,9 +56,9 @@ public class BookRestController {
 		return bookService.findById(id);
 	}
 	
-	@GetMapping("/list/{id}")
-	public List<Shoponlines> listshopDeal(@PathVariable("id") Long id){ 
-		System.out.println("listshopBooks "+ bookService.list_shopId_deal(id));
-		return bookService.list_shopId_deal(id);
-	}
+//	@GetMapping("/list/{id}")
+//	public List<Shoponlines> listshopDeal(@PathVariable("id") Long id){ 
+//		System.out.println("listshopBooks "+ bookService.list_shopId_deal(id));
+//		return bookService.list_shopId_deal(id);
+//	}
 }

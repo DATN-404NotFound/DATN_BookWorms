@@ -1,6 +1,7 @@
 package com.poly.DATN_BookWorms.service.impl;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import com.poly.DATN_BookWorms.response.BookResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.poly.DATN_BookWorms.entities.Books;
+import com.poly.DATN_BookWorms.entities.Publishingcompanies;
 import com.poly.DATN_BookWorms.entities.Shoponlines;
 import com.poly.DATN_BookWorms.repo.BooksRepo;
 import com.poly.DATN_BookWorms.service.BookService;
@@ -37,6 +39,10 @@ public class BookServiceImp implements BookService{
 		return bookRepo.findById(id).get();
 	}
 
+	@Override
+	public Page<Books> findAll(Pageable pageable) {
+		return bookRepo.findAll(pageable);
+	}
 
 
 //	@Override
@@ -77,8 +83,23 @@ public class BookServiceImp implements BookService{
 	}
 
 	@Override
-	public List<Shoponlines> list_shopId_deal(Long bookid) {
+	public Page<Books> findByshopid(Integer shopid, Pageable pageable) {
+		return bookRepo.findByshopid(shopid, pageable);
+	}
+
+	@Override
+	public List<Books> findTop5LowestQuantityBooksByShopId(Integer shopId) {
+		List<Books> booksWithSameShopId = bookRepo.findByShopid(shopId);
+		booksWithSameShopId.sort((book1, book2) -> book1.getQuantity().compareTo(book2.getQuantity()));
+		List<Books> top5LowestQuantityBooks = booksWithSameShopId.stream()
+				.limit(5)
+				.collect(Collectors.toList());
+		return top5LowestQuantityBooks;
+	}
+
+	@Override
+	public List<Publishingcompanies> getPCWithShop(Integer shopid) {
 		// TODO Auto-generated method stub
-		return bookRepo.list_shopId_deal(bookid);
+		return bookRepo.getPCWithShop(shopid);
 	}
 }
