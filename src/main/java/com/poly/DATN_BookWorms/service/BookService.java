@@ -17,7 +17,7 @@ public interface BookService {
 
 	List<Books> findAll();
 
-	Books findById(int id);
+	Books findById(Long id);
 	Page<Books> findAll(Pageable pageable);
 
 	Books create(Books book);
