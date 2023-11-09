@@ -32,7 +32,9 @@ public interface BookService {
 
 	List<Books> getBooksByCategoryID(Integer categoryID);
 	Books findTopBookByQuantitySold();
-
+	Page<Books> getBooksByCategoryID(Integer categories, Pageable pageable);
 	Page<Books> findByshopid(Integer shopid, Pageable pageable);
 	List<Books> findTop5LowestQuantityBooksByShopId(Integer shopId);
+	
+	Page<Books> findBooksNew(Pageable pageable);
 }

@@ -155,7 +155,9 @@
                 <div class="_box" style="margin-right: 5%;">
                     <img th:src="@{/Client/images/_.jpg}" alt="">
                     <div style="float: left;">
-                        <button class="_boxnow">EXPLORE NOW</button>
+                        <form action="">
+                            <button th:formaction = "@{|/product/list|}" th:method = "GET"  class="_boxnow">EXPLORE NOW</button>
+                        </form>
                     </div>
                     <div style="position: absolute; top: 40px; text-align: center; z-index: 111; left: 20px;"><a
                             style="text-decoration: none;" href="#"><span
@@ -169,8 +171,8 @@
                 <div class="_box" style="margin-left: 5%;">
                     <img th:src="@{/Client/images/langnghe.jpg}" alt="">
                     <div style="float: left;">
-                        <form th:action="@{|/c|}">
-                            <button class="_boxnow1">SHOP NOW</button>
+                        <form action="">
+                            <button th:formaction = "@{|/shop/7|}" th:method = "GET" class="_boxnow1">SHOP NOW</button>
                         </form>
                     </div>
                     <div style="position: absolute; top: 520px; text-align: center; z-index: 111; left: 40px;"><a
@@ -237,7 +239,7 @@
                            
                             <div style="width: 5% ;float: left; margin-top: 200px; margin-left: 1%;"
                                 class="scroll-button left-button">
-                                <button ng-click="prev(b)" class="btn"><i class="bi bi-chevron-left" style="font-size: 60px;"></i></button>
+                                <button ng-click="prev(b,2)" class="btn"><i class="bi bi-chevron-left" style="font-size: 60px;"></i></button>
                             </div>
                             <div ng-repeat="x in booksCate | limitTo : a : b" class="book_item" style="margin-left: 1%;">
                                 <div class="book_img text-center">
@@ -274,7 +276,7 @@
                         <div class="book_list d-flex flex-nowrap" style="width: 100%; overflow-x: scroll; ">                          
                             <div style="width: 5% ;float: left; margin-top: 200px; margin-left: 1%;"
                                 class="scroll-button left-button">
-                                <button class="btn"><i class="bi bi-chevron-left" style="font-size: 60px;"></i></button>
+                                <button ng-click="prev(b,4)" class="btn"><i class="bi bi-chevron-left" style="font-size: 60px;"></i></button>
                             </div>
                             <div ng-repeat="x in booksCate | limitTo : a : b" class="book_item" style="margin-left: 1%;">
                                 <div class="book_img text-center">
@@ -313,7 +315,7 @@
                            
                             <div style="width: 5% ;float: left; margin-top: 200px; margin-left: 1%;"
                                 class="scroll-button left-button">
-                                <button class="btn"><i class="bi bi-chevron-left" style="font-size: 60px;"></i></button>
+                                <button ng-click="prev(b,7)" class="btn"><i class="bi bi-chevron-left" style="font-size: 60px;"></i></button>
                             </div>
                             <div ng-repeat="x in booksCate | limitTo : a : b" class="book_item" style="margin-left: 1%;">
                                 <div class="book_img text-center">
@@ -408,7 +410,6 @@
                                     <h4 class="price">Current price: <span
                                             th:text="${#numbers.formatDecimal(item.price, 0, 'POINT', 0, 'COMMA')} +'₫'"></span>
                                     </h4>
-
                                     <input type="number" id="quantity" value="1" name="quantity" min="1" max="5">
                                     <hr class="my-4">
                                     <div class="action">

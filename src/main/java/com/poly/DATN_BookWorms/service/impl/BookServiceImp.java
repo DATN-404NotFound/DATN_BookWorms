@@ -102,4 +102,22 @@ public class BookServiceImp implements BookService{
 		// TODO Auto-generated method stub
 		return bookRepo.getPCWithShop(shopid);
 	}
+
+	@Override
+	public Page<Books> getBooksByCategoryID(Integer categories, Pageable pageable) {
+		// TODO Auto-generated method stub
+		return bookRepo.findBooksByCategoryID(categories, pageable);
+	}
+
+//	@Override
+//	public Page<Books> findBooksNew(Pageable pageable) {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
+
+	@Override
+	public Page<Books> findBooksNew(Pageable pageable) {
+		// TODO Auto-generated method stub
+		return bookRepo.findBooksNew(pageable);
+	}
 }

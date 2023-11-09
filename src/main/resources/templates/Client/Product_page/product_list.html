@@ -24,8 +24,8 @@
                 <div class="p-2">
                     <form action="/list">
                         <label class="text-dark">Sắp xếp:</label>
-                        <select class="btn btn-light">
-                            <option value="asc">Tăng dần</option>
+                        <select class="btn btn-light" name="or" ng-model="or" ng-change="orderBy()">
+                            <option  value="asc">Tăng dần</option>
                             <option value="desc">Giảm dần</option>
                         </select>
                     </form>
@@ -39,10 +39,10 @@
                     </script>
                 </div>
                 <div class="p-2">
-                    <a href="#" class="btn btn-primary">Mới nhất</a>
+                    <a ng-click="newyear()" class="btn btn-primary">Mới nhất</a>
                 </div>
                 <div class="p-2">
-                    <a href="#" class="btn btn-success">Bán chạy nhất</a>
+                    <a ng-click="bestseller()" class="btn btn-success">Bán chạy nhất</a>
                 </div>
             </div>
 
@@ -59,7 +59,8 @@
                             <form action="">
                                 <div th:each="category : ${categories}">
                                     <div class="form-check">
-                                        <input type="checkbox" class="form-check-input">
+                                        <input  onchange="angular.element(this).scope().filterChoose(1,this)" th:id ="${category.name}"  type="checkbox" class="form-check-input">
+                                        <!-- ng-click="filterChoose(this,s)"  th:attr ="ng-model=@{|${category.categoryid}|}" th:value="${category.categoryid}"  th:id ="${category.name}" -->
                                         <label class="form-check-label" th:text="${category.name}"></label>
                                     </div>
                                 </div>
@@ -79,7 +80,7 @@
                             <form action="">
                                 <div th:each="writer : ${writtingmasters}">
                                     <div class="form-check">
-                                        <input type="checkbox" class="form-check-input">
+                                        <input  onchange="angular.element(this).scope().filterChoose(2,this)" th:id ="${writer.namewm}"  type="checkbox" class="form-check-input">
                                         <label class="form-check-label" th:text="${writer.namewm}"></label>
                                     </div>
                                 </div>
@@ -98,7 +99,7 @@
                             <form action="">
                                 <div th:each="publishingcompani : ${publishingcompanies}">
                                     <div class="form-check">
-                                        <input type="checkbox" class="form-check-input">
+                                        <input  onchange="angular.element(this).scope().filterChoose(3,this)" th:id ="${publishingcompani.namepc}"  type="checkbox" class="form-check-input">
                                         <label class="form-check-label" th:text="${publishingcompani.namepc}"></label>
                                     </div>
                                 </div>
@@ -117,19 +118,19 @@
                         <div class="card-body">
                             <form action="">
                                 <div class="form-check">
-                                    <input type="checkbox" class="form-check-input" name="option1" value="something"
-                                        checked> <label class="form-check-label" for="check1">Dưới 100k</label>
+                                    <input  onchange="angular.element(this).scope().filterChoose(4,this)" th:id ="100000"  type="checkbox" class="form-check-input">
+                                     <label class="form-check-label" for="check1">Dưới 100k</label>
                                 </div>
                                 <div class="form-check">
-                                    <input type="checkbox" class="form-check-input" name="option2" value="something">
+                                    <input  onchange="angular.element(this).scope().filterChoose(4,this)" th:id ="150000"  type="checkbox" class="form-check-input">
                                     <label class="form-check-label" for="check2">Từ 100k đến 200k</label>
                                 </div>
                                 <div class="form-check">
-                                    <input type="checkbox" class="form-check-input"> <label class="form-check-label">Từ
+                                    <input  onchange="angular.element(this).scope().filterChoose(4,this)" th:id ="300000"  type="checkbox" class="form-check-input"> <label class="form-check-label">Từ
                                         200k đến 400k</label>
                                 </div>
                                 <div class="form-check">
-                                    <input type="checkbox" class="form-check-input"> <label class="form-check-label">Từ
+                                    <input  onchange="angular.element(this).scope().filterChoose(4,this)" th:id ="500000"  type="checkbox" class="form-check-input"> <label class="form-check-label">Từ
                                         400k đến 600k</label>
                                 </div>
                                 <div class="form-check">
@@ -152,8 +153,8 @@
                         <div class="card-body">
                             <form action="">
                                 <div class="form-check">
-                                    <input type="checkbox" class="form-check-input" id="check1" name="option1"
-                                        value="something" checked> <label class="form-check-label" for="check1">
+                                    <input  onchange="angular.element(this).scope().filterChoose(5,this)" th:id ="1"  type="checkbox" class="form-check-input">
+                                    <label class="form-check-label" for="check1">
                                         <div class="stars" style="font-size: 22px;">
                                             <span><i class="bi bi-star-fill"></i></span> <span><i
                                                     class="bi bi-star"></i></span> <span><i
@@ -164,8 +165,7 @@
                                     </label>
                                 </div>
                                 <div class="form-check">
-                                    <input type="checkbox" class="form-check-input" id="check2" name="option2"
-                                        value="something"> <label class="form-check-label" for="check2">
+                                    <input  onchange="angular.element(this).scope().filterChoose(5,this)" th:id ="2"  type="checkbox" class="form-check-input"> <label class="form-check-label" for="check2">
                                         <div class="stars" style="font-size: 22px;">
                                             <span><i class="bi bi-star-fill"></i></span> <span><i
                                                     class="bi bi-star-fill"></i></span> <span><i
@@ -176,7 +176,7 @@
                                     </label>
                                 </div>
                                 <div class="form-check">
-                                    <input type="checkbox" class="form-check-input" name="option2" value="something">
+                                    <input  onchange="angular.element(this).scope().filterChoose(5,this)" th:id ="3"  type="checkbox" class="form-check-input">
                                     <label class="form-check-label" for="check2">
                                         <div class="stars" style="font-size: 22px;">
                                             <span><i class="bi bi-star-fill"></i></span> <span><i
@@ -188,7 +188,7 @@
                                     </label>
                                 </div>
                                 <div class="form-check">
-                                    <input type="checkbox" class="form-check-input" name="option2" value="something">
+                                    <input  onchange="angular.element(this).scope().filterChoose(5,this)" th:id ="4"  type="checkbox" class="form-check-input">
                                     <label class="form-check-label" for="check2">
                                         <div class="stars" style="font-size: 22px;">
                                             <span><i class="bi bi-star-fill"></i></span> <span><i
@@ -200,7 +200,7 @@
                                     </label>
                                 </div>
                                 <div class="form-check">
-                                    <input type="checkbox" class="form-check-input" name="option2" value="something">
+                                    <input  onchange="angular.element(this).scope().filterChoose(5,this)" th:id ="5"  type="checkbox" class="form-check-input">
                                     <label class="form-check-label" for="check2">
                                         <div class="stars" style="font-size: 22px;">
                                             <span><i class="bi bi-star-fill"></i></span> <span><i
@@ -220,10 +220,36 @@
         <article>
             <div class="my-5 bg-info">
                 <div class="book_center" style="width: 100%; clear: both;">
-                    <!-- <div style="width: 5% ;float: left; margin-top: 200px; margin-left: 1%;"><button class="btn"><i
-                                class="bi bi-chevron-left" style="font-size: 35px;"></i></button></div> -->
+                    <div ng-repeat="b in sp | filterWithOr: {publishingcompanyid:[11,13]} " class="book_item" style="margin-left: 1%;">
+                        <div class="book_img text-center">
+                            <img th:src="@{|/Client/images/238377_noi-voi-tuoi-hai-muoi.jpg|}" alt="">
+                            <form action="">
+                                <button 
+                                    class="btn" style="background-color: #C93F04; color: white; font-size: 18px;">Chi
+                                    tiết</button>
+                            </form>
+                        </div>
+                        <div class="book_title text-center mt-3">
+                            <a>
+                                <p>{{b.bookname}}</p>
+                            </a>
+                            <p style="font-size: 18px;margin-top: 0px;  color: #666;"
+                              >{{b.shoponlines.shopname}}</p>
+                            <p style="font-size: 18px;margin-top: -10px;">Giá : <strong
+                                   >{{b.price}}
+                                    VND</strong>
+                            </p>
+                        </div>
+                        <div class="d-flex flex-row-reverse" style="height: 30px; margin-top: -20px;">
+                            <div class="p-2"><a href="#" class="text-dark"><i class="bi bi-heart"
+                                        style="font-size: 25px;"></i></a></div>
+                            <div class="p-2"><a href="#" class="text-dark"> <i class="bi bi-cart3"
+                                        style="font-size: 25px;"></i></a></div>
+                        </div>
+                    </div>
 
-                    <div th:each="book : ${books}" class="book_item" style="margin-left: 1%;">
+
+                    <!-- <div th:each="book : ${books}" class="book_item" style="margin-left: 1%;">
                         <div class="book_img text-center">
                             <img th:src="@{|/Client/images/${book.listOfImagebooks.get(0).name}|}" alt="">
                             <form action="">
@@ -249,10 +275,7 @@
                             <div class="p-2"><a href="#" class="text-dark"> <i class="bi bi-cart3"
                                         style="font-size: 25px;"></i></a></div>
                         </div>
-                    </div>
-
-                    <!-- <div style="width: 5% ;float: left; margin-top: 200px; margin-left: 1%;"><button class="btn"><i
-                                class="bi bi-chevron-right" style="font-size: 35px;"></i></button></div> -->
+                    </div> -->
                 </div>
                 <!-- <div th:each="book : ${books}" class="col-md-3">
                     <div class="card mb-3">

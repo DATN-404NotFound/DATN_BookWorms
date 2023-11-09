@@ -49,7 +49,13 @@ public List<Publishingcompanies> getPCWithShop(Integer shopid);
     List<Books> findBooksByCategoryID(Integer categoryID);
 
     Page<Books> findByshopid(Integer shopid, Pageable pageable);
-
+    
+    @Query("SELECT b FROM Books b INNER JOIN b.listOfTypebooks tb WHERE tb.categories.categoryid = :categoryID")
+    Page<Books> findBooksByCategoryID(Integer categoryID, Pageable pageable);
     List<Books> findByShopid(Integer shopId);
+    
+    @Query("SELECT b FROM Books b  ORDER BY b.publishingyear DESC ")
+    Page<Books> findBooksNew(Pageable pageable);
+    
 }
 
