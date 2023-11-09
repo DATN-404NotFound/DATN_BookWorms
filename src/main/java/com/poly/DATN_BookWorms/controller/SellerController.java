@@ -30,8 +30,8 @@ public class SellerController {
         return "SellerChannel/homePageSeller";
     }
     @RequestMapping("/orderManagement/sales")
-    public String sales(Model model){
-        return "SellerChannel/DashboardSales";
+    public String salesOrderManagement(Model model){
+        return "SellerChannel/Voucher";
     }
     @RequestMapping("/shop/shopProfile")
     public String shopProfile(Model model){
@@ -46,5 +46,21 @@ public class SellerController {
     @RequestMapping("/shop/setting/address")
     public String addressSetting(Model model){
         return "SellerChannel/AddressSetting";
+    }
+    @RequestMapping("/shop/setting/shipping")
+    public String shippingSetting(Model model){
+        return "SellerChannel/ShippingSetting";
+    }
+    @RequestMapping("/shop/setting/account")
+    public String accountSetting(Model model){
+        return "SellerChannel/ProfileNofication";
+    }
+    @RequestMapping("/shop/sales")
+    public String sales(Model model){
+        return "SellerChannel/DashboardSales";
+    }
+    @RequestMapping("/shop/finance/revenue")
+    public String revenueFinance(Model model){
+        return "SellerChannel/FinanceRevenue";
     }
 }
