@@ -17,6 +17,7 @@ import com.poly.DATN_BookWorms.utils.CRC32_SHA256;
 import com.poly.DATN_BookWorms.utils.SessionService;
 
 import jakarta.servlet.http.HttpServletRequest;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -77,13 +78,12 @@ public class MyAccountController {
 
     @RequestMapping("/orderMyAccount")
     public String  orderMyAccount(Model model){
-
         Account account = service.get("user");
         model.addAttribute("account", account);
-        List<Bookings> a = bookingService.findByUserId(account.getUserid());
-        System.out.println("INNNN "+ a.get(0).getListOfDetailbookings().get(0).getBooks().getListOfImagebooks().get(0).getName());
-        model.addAttribute("booking", a);
-
+        List<Bookings> booking = bookingService.findByUserId(account.getUserid());
+        model.addAttribute("booking", booking);
+//        List<Bookings> booking_StatusId = bookingService.findByStatusId(tab);
+//        model.addAttribute("bs", booking_StatusId);
         return "Client/My_account/Order";
     }
 

@@ -22,5 +22,8 @@ public interface BookingsRepo extends JpaRepository<Bookings, String>{
 	
 	@Query("Select b.shoponlines from Books b where b.bookid in (Select c.books.bookid from Cart c where c.account.userid like ?1 )")
 	List<Shoponlines> list_cart_shopId(String userid);
-	
+
+	@Query("Select b from Bookings b where b.orderstatusid = ?1")
+	List<Bookings> ListBookings_Status(String orderStatusId);
+
 }

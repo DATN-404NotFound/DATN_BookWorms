@@ -6,3 +6,8 @@ $(document).ready(function () {
         // Thực hiện các thay đổi cần thiết
     });
 });
+
+// function changeTab(tabName) {
+//     // Thay đổi URL của tab dựa trên tên tab và chuyển điều hướng đến controller
+//     window.location.href = "/orderMyAccount/tabs?tab=" + tabName;
+// }

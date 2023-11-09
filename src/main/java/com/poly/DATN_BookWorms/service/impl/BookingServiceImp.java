@@ -52,6 +52,11 @@ public class BookingServiceImp implements BookingService{
 		return bookingRepo.findAll();
 	}
 
+	@Override
+	public List<Bookings> findByStatusId(String orderStatusId) {
+		return bookingRepo.ListBookings_Status(orderStatusId);
+	}
+
 
 //	@Override
 //	public List<Bookings> findByUsername(String username) {

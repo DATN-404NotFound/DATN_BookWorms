@@ -15,32 +15,34 @@
 
 <body>
     <div th:fragment="maccount" ng-app="myPersonal" ng-controller="myPersonalCtrl">
+        <p class="mt-4 ms-4" id="titleMyPersonal">My personal</p>
         <table class="table tableMyPersonal">
             <tbody>
                 <tr>
                     <th>Username</th>
-                    <td colspan="2" th:text="${account.username}"></td>
+                    <td th:text="${account.username}"></td>
+                    <td></td>
                 </tr>
                 <tr>
                     <th>Fullname</th>
                     <td th:text="${account.fullname}"></td>
-                    <td><i class="bi bi-pencil"></i></td>
+                    <td><a href=""><i class="bi bi-pencil"></i></a></td>
                 </tr>
                 <tr>
                     <th>Email</th>
                     <td class="text-decoration-underline" th:text="${account.email}">email</td>
-                    <td><i class="bi bi-pencil"></i></td>
+                    <td><a href=""><i class="bi bi-pencil"></i></a></td>
                 </tr>
                 <tr>
                     <th>Gender</th>
                     <td th:if="${account.gender==true}">Nam</td>
                     <td th:if="${account.gender==false}">Nữ</td>
-                    <td><i class="bi bi-pencil"></i></td>
+                    <td><a href=""><i class="bi bi-pencil"></i></a></td>
                 </tr>
                 <tr>
                     <th>Date of birth</th>
                     <td><input type="date" id="inpDate" th:value="${account.age}"></td>
-                    <td><i class="bi bi-pencil"></i></td>
+                    <td><a href=""><i class="bi bi-pencil"></i></a></td>
                 </tr>
             </tbody>
         </table>
@@ -74,6 +76,9 @@
                     <span>Upload file</span></label
                 >
             </div>
+        </div>
+        <div style="clear: both;">
+            <button class="btn btnSaveMyPersonal">Save</button>
         </div>
         <script src="../../../static/Client/Js/MyAccount/myPersonal.js"></script>
         <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js "

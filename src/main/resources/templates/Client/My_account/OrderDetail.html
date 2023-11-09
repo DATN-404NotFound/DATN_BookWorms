@@ -2,8 +2,8 @@
 <html xmlns:th="http://www.thymeleaf.org" th:replace="~{/Client/My_account/index_MyAccount::dynamical(~{::maccount})}">
 
 <body>
-    <div th:fragment="maccount" >
-        <div class="boxOrderDetail-top" >
+    <div th:fragment="maccount">
+        <div class="boxOrderDetail-top">
             <p class="mt-4" id="pDiaChiNhanHang">Địa chỉ nhận hàng</p>
             <p class="mt-4" id="pID-orderDetail">ID: <span th:text="${db.get(0).bookings.bookingid}"></span></p> <br>
             <p id="pAddressDetail">
@@ -12,8 +12,8 @@
                 <span th:text="${adr.addressusers.address}"></span><br>
             </p>
             <div class="deliveryProcess">
-                <hr id="bar1">
-                <hr id="bar2">
+                <div class="bar1"></div>
+                <div class="bar2"></div>
                 <div class="orderIsConfirm">
                     <div class="icon-orderIsConfirm">
                         <i class="bi bi-journal-check"></i>
@@ -35,24 +35,28 @@
             </div>
         </div>
         <div class="boxOrderDetail-bottom">
-            <div  th:each="d : ${db}">
-            <div class="boxHeader">
-                <span>
-                    <img id="logoAccountOrderDetail" th:src="@{|/Client/images/${d.books.shoponlines.listOfFiles.get(0).filename}|}" alt="">
-                    <p class="ms-2 nameAccountOrderDetail" th:text="${d.books.shoponlines.shopname}"></p>
-                </span>
-                <button class="btn btnChat-orderDetail-top">Chat</button>
-                <button class="btn btnReport-orderDetail">Report</button>
-                <p id="pStatus-orderDetail">Status: <span th:text="${d.bookings.orderstatuses.statusname}"></span></p>
-            </div>
-            <div class="boxBody">
-                <div class="product-orderDetail">
-                    <img class="imgBook-orderDetail" th:src="@{|/Client/images/${d.books.listOfImagebooks.get(0).name}|}" alt="">
-                    <p class="nameBook"> <span th:text="${d.books.bookname}"></span><br> 
-                        x<span th:text="${d.quantity}"></span></p>
-                    <p class="price-orderDetail" th:text="${d.books.price*d.quantity}"></p>
+            <div th:each="d : ${db}">
+                <div class="boxHeader">
+                    <span>
+                        <img id="logoAccountOrderDetail"
+                            th:src="@{|/Client/images/${d.books.shoponlines.listOfFiles.get(0).filename}|}" alt="">
+                        <p class="ms-2 nameAccountOrderDetail" th:text="${d.books.shoponlines.shopname}"></p>
+                    </span>
+                    <button class="btn btnChat-orderDetail-top">Chat</button>
+                    <button class="btn btnReport-orderDetail">Report</button>
+                    <p id="pStatus-orderDetail">Status: <span id="spanStatus-orderDetail" th:text="${d.bookings.orderstatuses.statusname}"></span>
+                    </p>
                 </div>
-            </div></div>
+                <div class="boxBody">
+                    <div class="product-orderDetail">
+                        <img class="imgBook-orderDetail"
+                            th:src="@{|/Client/images/${d.books.listOfImagebooks.get(0).name}|}" alt="">
+                        <p class="nameBook"> <span th:text="${d.books.bookname}"></span><br>
+                            x<span th:text="${d.quantity}"></span></p>
+                        <p class="price-orderDetail" th:text="${d.books.price*d.quantity}"></p>
+                    </div>
+                </div>
+            </div>
             <div class="boxFooter">
                 <div class="detailInfo-left">
                     <table class="tabledetailInfo">
