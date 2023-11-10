@@ -84,6 +84,7 @@ function Active(cartid, action) {
 		console.log("ship = " + shop)
 		switch (action) {
 			case 'PUT': {
+				console("post")
 				updateCart(cartid, json);
 				break;
 			}
@@ -97,9 +98,10 @@ function Active(cartid, action) {
 
 
 function updateCart(id, json) {
+	console.log("out in ")
 	$.ajax({
 		url: "http://localhost:8080/rest/cart",
-		type: "PUT",
+		type: "POST",
 		data: JSON.stringify(json),
 		contentType: "application/json; charset=utf-8",
 		dataType: "json",
