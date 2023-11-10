@@ -12,6 +12,8 @@ import com.poly.DATN_BookWorms.entities.Cart;
 import com.poly.DATN_BookWorms.entities.Shoponlines;
 
 public interface BookingsRepo extends JpaRepository<Bookings, String>{
+    @Query("SELECT o FROM Bookings o WHERE o.createat >= :startDate AND o.createat < :endDate AND o.orderstatuses.orderstatusid = 5")
+    List<Bookings> getIsPaid(Date startDate, Date endDate);
 
 //	@Query("SELECT o FROM Bookings o WHERE o.account.username = ?1")
 //	List<Bookings> findByUsername(String username);
