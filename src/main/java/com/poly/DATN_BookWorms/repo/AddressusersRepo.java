@@ -13,4 +13,5 @@ public interface AddressusersRepo extends JpaRepository<Addressusers, String>{
 
     @Query("select ad from Addressusers ad where ad.userid = ?1")
     List<Addressusers> findByUserId(String userId);
+    
 }

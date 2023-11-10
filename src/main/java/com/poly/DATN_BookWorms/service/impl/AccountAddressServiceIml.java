@@ -20,7 +20,7 @@ public class AccountAddressServiceIml implements AccountAddressService{
 	@Override
 	public List<Addressusers> getAdressByUser(String userid) {
 		// TODO Auto-generated method stub
-		return addressusersRepo.findAddressByUser(userid);
+		return addressusersRepo.findByUserId(userid);
 	}
 
 }
