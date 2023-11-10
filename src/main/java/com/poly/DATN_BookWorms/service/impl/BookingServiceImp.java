@@ -86,7 +86,6 @@ public class BookingServiceImp implements BookingService{
 		detailRepo.saveAll(details);
 		paymentService.saveAll(payment);
 		return booking;
-		//return null;
 	}
 
 	@Override
