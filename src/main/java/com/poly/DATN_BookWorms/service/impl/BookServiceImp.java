@@ -10,6 +10,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.poly.DATN_BookWorms.entities.Books;
+import com.poly.DATN_BookWorms.entities.Publishingcompanies;
 import com.poly.DATN_BookWorms.entities.Shoponlines;
 import com.poly.DATN_BookWorms.repo.BooksRepo;
 import com.poly.DATN_BookWorms.service.BookService;
@@ -94,5 +95,29 @@ public class BookServiceImp implements BookService{
 				.limit(5)
 				.collect(Collectors.toList());
 		return top5LowestQuantityBooks;
+	}
+
+	@Override
+	public List<Publishingcompanies> getPCWithShop(Integer shopid) {
+		// TODO Auto-generated method stub
+		return bookRepo.getPCWithShop(shopid);
+	}
+
+	@Override
+	public Page<Books> getBooksByCategoryID(Integer categories, Pageable pageable) {
+		// TODO Auto-generated method stub
+		return bookRepo.findBooksByCategoryID(categories, pageable);
+	}
+
+//	@Override
+//	public Page<Books> findBooksNew(Pageable pageable) {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
+
+	@Override
+	public Page<Books> findBooksNew(Pageable pageable) {
+		// TODO Auto-generated method stub
+		return bookRepo.findBooksNew(pageable);
 	}
 }

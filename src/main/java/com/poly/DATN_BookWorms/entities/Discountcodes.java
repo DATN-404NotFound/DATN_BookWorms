@@ -39,36 +39,36 @@ public class Discountcodes implements Serializable {
 
     //--- ENTITY PRIMARY KEY 
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
-    private Integer    discountcodeid ;
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    public Integer    discountcodeid ;
 
     //--- ENTITY DATA FIELDS 
-    private String     saleid ;
+    public String     saleid ;
 
-    private String     userid ;
-
-    @Temporal(TemporalType.DATE)
-    private Date       startdiscount ;
+    public String     userid ;
 
     @Temporal(TemporalType.DATE)
-    private Date       enddiscount ;
+    public Date       startdiscount ;
 
-    private Boolean    isdelete ;
+    @Temporal(TemporalType.DATE)
+    public Date       enddiscount ;
 
-    private Double     minprice ;
+    public Boolean    isdelete ;
+
+    public Double     minprice ;
 
     @Column(name="status", length=50)
-    private String     status ;
+    public String     status ;
 
 
     //--- ENTITY LINKS ( RELATIONSHIP )
     @ManyToOne
     @JoinColumn(name="Userid", referencedColumnName="Userid", insertable=false, updatable=false)
-    private Account    account ; 
+    public Account    account ; 
 
     @ManyToOne
     @JoinColumn(name="Saleid", referencedColumnName="CouoponCode", insertable=false, updatable=false)
-    private Sales      sales ; 
+    public Sales      sales ; 
 
     //--- toString specific method
 	@Override

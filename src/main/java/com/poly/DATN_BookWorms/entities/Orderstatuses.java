@@ -57,6 +57,30 @@ public class Orderstatuses implements Serializable {
         sb.append("|");
         sb.append(statusname);
         return sb.toString(); 
-    } 
+    }
+
+	public Integer getOrderstatusid() {
+		return orderstatusid;
+	}
+
+	public void setOrderstatusid(Integer orderstatusid) {
+		this.orderstatusid = orderstatusid;
+	}
+
+	public String getStatusname() {
+		return statusname;
+	}
+
+	public void setStatusname(String statusname) {
+		this.statusname = statusname;
+	}
+
+	public List<Bookings> getListOfBookings() {
+		return listOfBookings;
+	}
+
+	public void setListOfBookings(List<Bookings> listOfBookings) {
+		this.listOfBookings = listOfBookings;
+	} 
 
 }

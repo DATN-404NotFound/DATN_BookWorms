@@ -24,8 +24,8 @@ import lombok.NoArgsConstructor;
 
 @Data
 @Entity
-@NoArgsConstructor
-@AllArgsConstructor
+// @NoArgsConstructor
+// @AllArgsConstructor
 @Table(name = "Authorities")
 public class Authorities implements Serializable {
 
@@ -41,4 +41,40 @@ public class Authorities implements Serializable {
 	@ManyToOne  @JoinColumn(name = "roleid")
 	private Roles roles;
 
+	public String getAuthorityid() {
+		return authorityid;
+	}
+
+	public void setAuthorityid(String authorityid) {
+		this.authorityid = authorityid;
+	}
+
+	public Account getAccount() {
+		return account;
+	}
+
+	public void setAccount(Account account) {
+		this.account = account;
+	}
+
+	public Roles getRoles() {
+		return roles;
+	}
+
+	public void setRoles(Roles roles) {
+		this.roles = roles;
+	}
+
+	public Authorities(String authorityid, Account account, Roles roles) {
+		super();
+		this.authorityid = authorityid;
+		this.account = account;
+		this.roles = roles;
+	}
+
+	public Authorities() {
+		super();
+	}
+
+		
 }

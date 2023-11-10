@@ -29,9 +29,8 @@ import lombok.NoArgsConstructor;
 @Data
 @Entity
 @Table(name="Payments")
-public class Payments implements Serializable {
+public class Payments  {
 
-    private static final long serialVersionUID = 1L;
 
     //--- ENTITY PRIMARY KEY 
     @Id
@@ -85,6 +84,86 @@ public class Payments implements Serializable {
         sb.append("|");
         sb.append(addressuserid);
         return sb.toString(); 
-    } 
+    }
+
+	public String getPaymentid() {
+		return paymentid;
+	}
+
+	public void setPaymentid(String paymentid) {
+		this.paymentid = paymentid;
+	}
+
+	public String getBookingid() {
+		return bookingid;
+	}
+
+	public void setBookingid(String bookingid) {
+		this.bookingid = bookingid;
+	}
+
+	public Date getCreateat() {
+		return createat;
+	}
+
+	public void setCreateat(Date createat) {
+		this.createat = createat;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	public String getPaid() {
+		return paid;
+	}
+
+	public void setPaid(String paid) {
+		this.paid = paid;
+	}
+
+	public Boolean getType() {
+		return type;
+	}
+
+	public void setType(Boolean type) {
+		this.type = type;
+	}
+
+	public String getAddressuserid() {
+		return addressuserid;
+	}
+
+	public void setAddressuserid(String addressuserid) {
+		this.addressuserid = addressuserid;
+	}
+
+	public Addressusers getAddressusers() {
+		return addressusers;
+	}
+
+	public void setAddressusers(Addressusers addressusers) {
+		this.addressusers = addressusers;
+	}
+
+	public Paymentaccounts getPaymentaccounts() {
+		return paymentaccounts;
+	}
+
+	public void setPaymentaccounts(Paymentaccounts paymentaccounts) {
+		this.paymentaccounts = paymentaccounts;
+	}
+
+	public Bookings getBookings() {
+		return bookings;
+	}
+
+	public void setBookings(Bookings bookings) {
+		this.bookings = bookings;
+	} 
 
 }

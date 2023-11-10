@@ -24,8 +24,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Data
 @Entity
-@NoArgsConstructor
-@AllArgsConstructor
+// @NoArgsConstructor
+// @AllArgsConstructor
 @Table(name="Roles")
 public class Roles implements Serializable {
 
@@ -53,6 +53,41 @@ public class Roles implements Serializable {
         sb.append(rolename);
         return sb.toString(); 
     }
+
+	public String getRoleid() {
+		return roleid;
+	}
+
+	public void setRoleid(String roleid) {
+		this.roleid = roleid;
+	}
+
+	public String getRolename() {
+		return rolename;
+	}
+
+	public void setRolename(String rolename) {
+		this.rolename = rolename;
+	}
+
+	public List<Authorities> getListOfAuthorities() {
+		return listOfAuthorities;
+	}
+
+	public void setListOfAuthorities(List<Authorities> listOfAuthorities) {
+		this.listOfAuthorities = listOfAuthorities;
+	}
+
+	public Roles(String roleid, String rolename, List<Authorities> listOfAuthorities) {
+		super();
+		this.roleid = roleid;
+		this.rolename = rolename;
+		this.listOfAuthorities = listOfAuthorities;
+	}
+
+	public Roles() {
+		super();
+	}
 
 
 }

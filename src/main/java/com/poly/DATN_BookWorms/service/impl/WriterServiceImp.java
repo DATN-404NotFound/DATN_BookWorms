@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.poly.DATN_BookWorms.entities.Writers;
+import com.poly.DATN_BookWorms.entities.Writtingmasters;
 import com.poly.DATN_BookWorms.repo.WritersRepo;
 import com.poly.DATN_BookWorms.service.WriterService;
 
@@ -18,5 +19,11 @@ public class WriterServiceImp implements WriterService{
 	public List<Writers> findAll() {
 		// TODO Auto-generated method stub
 		return writerRepo.findAll();
+	}
+
+	@Override
+	public List<Writtingmasters> getWrittingWithSHop(Integer shopid) {
+		// TODO Auto-generated method stub
+		return writerRepo.listWrittingByType(shopid);
 	}
 }

@@ -55,20 +55,20 @@ public class Shoponlines implements Serializable {
     @Column(name = "description", length = 2555)
     private String description;
 
+    public String     shopaddress ;
 
+    public String     userid ;
 
-    private String userid;
+    @Column(name="paycount", length=10)
+    public String     paycount ;
 
-    @Column(name = "paycount", length = 10)
-    private String paycount;
-
-    private Boolean isactive;
+    public Boolean    isactive ;
 
 
     //--- ENTITY LINKS ( RELATIONSHIP )
     @OneToMany(mappedBy = "shoponlines")
     @JsonIgnore
-    private List<Books> listOfBooks;
+    public List<Books> listOfBooks ; 
 
     @OneToMany(mappedBy = "shoponlines")
     @JsonIgnore

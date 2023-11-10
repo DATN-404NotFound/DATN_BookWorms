@@ -37,27 +37,27 @@ public class Paymentaccounts implements Serializable {
 
     //--- ENTITY PRIMARY KEY 
     @Id
-    private String     paid ;
+    public String     paid ;
 
     //--- ENTITY DATA FIELDS 
-    private String     userid ;
+    public String     userid ;
 
     @Column(name="name", length=30)
-    private String     name ;
+    public String     name ;
 
-    private String     cccd ;
+    public String     cccd ;
 
-    private String     bankname ;
+    public String     bankname ;
 
-    private String     accountnumber ;
+    public String     accountnumber ;
 
-    private String     accountname ;
+    public String     accountname ;
 
 
     //--- ENTITY LINKS ( RELATIONSHIP )
     @OneToMany(mappedBy="paymentaccounts")
     @JsonIgnore
-    private List<Payments> listOfPayments ; 
+    public List<Payments> listOfPayments ; 
 
     @ManyToOne
     @JoinColumn(name="Userid", referencedColumnName="Userid", insertable=false, updatable=false)

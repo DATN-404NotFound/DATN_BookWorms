@@ -11,4 +11,5 @@ public interface ShoponlinesRepo extends JpaRepository<Shoponlines, Integer>{
 
     @Query(value = "SELECT o FROM Shoponlines o where o.account.userid = ?1")
     Shoponlines findByUserId(String userId);
+    
 }

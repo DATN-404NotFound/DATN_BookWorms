@@ -10,12 +10,16 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import com.poly.DATN_BookWorms.entities.Books;
+import com.poly.DATN_BookWorms.entities.Publishingcompanies;
 import com.poly.DATN_BookWorms.entities.Shoponlines;
 import com.poly.DATN_BookWorms.response.BookResponse;
 
 import java.util.List;
 
 public interface BooksRepo extends JpaRepository<Books, Long> {
+@Query("Select b.publishingcompanies from Books b where b.shopid = ?1")
+public List<Publishingcompanies> getPCWithShop(Integer shopid);
+
 
     Books findFirstByOrderByQuantitysoldDesc();
 
@@ -45,7 +49,13 @@ public interface BooksRepo extends JpaRepository<Books, Long> {
     List<Books> findBooksByCategoryID(Integer categoryID);
 
     Page<Books> findByshopid(Integer shopid, Pageable pageable);
-
+    
+    @Query("SELECT b FROM Books b INNER JOIN b.listOfTypebooks tb WHERE tb.categories.categoryid = :categoryID")
+    Page<Books> findBooksByCategoryID(Integer categoryID, Pageable pageable);
     List<Books> findByShopid(Integer shopId);
+    
+    @Query("SELECT b FROM Books b  ORDER BY b.publishingyear DESC ")
+    Page<Books> findBooksNew(Pageable pageable);
+    
 }
 

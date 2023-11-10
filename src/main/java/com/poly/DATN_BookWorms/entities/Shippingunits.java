@@ -38,25 +38,25 @@ public class Shippingunits implements Serializable {
     //--- ENTITY PRIMARY KEY 
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
-    private Integer    shippingunitid ;
+    public Integer    shippingunitid ;
 
     //--- ENTITY DATA FIELDS 
     @Column(name="name", length=50)
-    private String     name ;
+    public String     name ;
 
-    private String     phonenumber ;
+    public String     phonenumber ;
 
     @Column(name="email", length=50)
-    private String     email ;
+    public String     email ;
 
     @Column(name="address", length=100)
-    private String     address ;
+    public String     address ;
 
 
     //--- ENTITY LINKS ( RELATIONSHIP )
     @OneToMany(mappedBy="shippingunits")
     @JsonIgnore
-    private List<Bookings> listOfBookings ; 
+    public List<Bookings> listOfBookings ; 
 
     //--- toString specific method
 	@Override

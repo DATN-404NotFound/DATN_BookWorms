@@ -99,12 +99,12 @@ public class Books implements Serializable {
 
     @OneToMany(mappedBy="books")
     @JsonIgnore
-    private List<Writers> listOfWriters ; 
+    public List<Writers> listOfWriters ; 
 
     @ManyToOne 
 
     @JoinColumn(name="Publishingcompanyid", referencedColumnName="PCId", insertable=false, updatable=false)
-    private Publishingcompanies publishingcompanies ; 
+    public Publishingcompanies publishingcompanies ; 
 
     @OneToMany(mappedBy="books")
     @JsonIgnore
@@ -144,6 +144,12 @@ public class Books implements Serializable {
         sb.append(shopid);
         return sb.toString(); 
     }
+
+
+	public List<Imagebooks> getListOfImagebooks() {
+		// TODO Auto-generated method stub
+		return listOfImagebooks;
+	}
 
 
 	public Long getBookid() {
@@ -306,16 +312,6 @@ public class Books implements Serializable {
 	}
 
 
-	public List<Imagebooks> getListOfImagebooks() {
-		return listOfImagebooks;
-	}
-
-
-	public void setListOfImagebooks(List<Imagebooks> listOfImagebooks) {
-		this.listOfImagebooks = listOfImagebooks;
-	}
-
-
 	public List<Detailbookings> getListOfDetailbookings() {
 		return listOfDetailbookings;
 	}
@@ -366,9 +362,11 @@ public class Books implements Serializable {
 	}
 
 
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	} 
+	public void setListOfImagebooks(List<Imagebooks> listOfImagebooks) {
+		this.listOfImagebooks = listOfImagebooks;
+	}
+
+
 
 	
 }
