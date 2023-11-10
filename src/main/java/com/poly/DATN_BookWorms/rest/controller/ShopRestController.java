@@ -46,11 +46,24 @@ public class ShopRestController {
         return ResponseEntity.ok(shopDetail);
     }
 
+    @GetMapping("/account")
+    public ResponseEntity<Account> getAccountShop() {
+        Account user = sessionService.get("user");
+        return ResponseEntity.ok(user);
+    }
+
     @PostMapping
     public ResponseEntity<Shoponlines> createUser(@RequestBody @Valid Shoponlines shoponlines) {
         // Lưu đối tượng người dùng vào cơ sở dữ liệu
         shopService.save(shoponlines);
+        // Trả về phản hồi thành công
+        return ResponseEntity.ok(shoponlines);
+    }
 
+    @PostMapping("/saveInfoShop")
+    public ResponseEntity<Shoponlines> saveInfoShop(@RequestBody @Valid Shoponlines shoponlines) {
+        // Lưu thay đổi thông tin shop vào SQL Serer
+        shopService.save(shoponlines);
         // Trả về phản hồi thành công
         return ResponseEntity.ok(shoponlines);
     }
