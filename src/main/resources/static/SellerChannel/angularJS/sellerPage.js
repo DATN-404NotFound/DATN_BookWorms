@@ -68,7 +68,50 @@ app.config(function ($routeProvider) {
             redirectTo: '/seller'
         });
 });
+//sales Analysis
+app.controller("salesController", function ($scope, $routeParams, $route, $http, $rootScope) {
+    let host = "http://localhost:8080/rest/salesAnalysis/";
+    var currentDate = new Date();
+    $scope.year = currentDate.getFullYear();
 
+    $scope.getSalesAnalysis = function () {
+        $scope.salesAnalysis = [];
+        $scope.salesAnalysisNow = [];
+        let url = `${host}getSalesAnalysis`;
+        var currentMonth = currentDate.getMonth() + 1;
+        for (let i = 1; i <= 12; i++) {
+            let formData;
+            formData = new FormData();
+            formData.append('year', $scope.year);
+            formData.append('month', i);
+            formData.append("reportProgress", true);
+            const headers = {
+                'Content-Type': undefined,
+                transformRequest: angular.identity
+            };
+            if (i==currentDate.getMonth() + 1){
+                $http.post(url, formData, {headers: headers}).then(resp => {
+                    $scope.salesAnalysis.push(resp.data);
+                    $scope.salesAnalysisNow.push(resp.data);
+                }).catch(error => {
+                    console.log("Error", error)
+                });
+            }else{
+                $http.post(url, formData, {headers: headers}).then(resp => {
+                    $scope.salesAnalysis.push(resp.data);
+                }).catch(error => {
+                    console.log("Error", error)
+                });
+            }
+
+
+        }
+        console.log("salesAnalysis", $scope.salesAnalysis)
+        console.log("salesAnalysisNow", $scope.salesAnalysisNow)
+        console.log("monthNow", currentDate.getMonth() + 1)
+    }
+    $scope.getSalesAnalysis();
+});
 //Display account shop
 app.controller("accountSettingController", function ($scope, $routeParams, $route, $http, $rootScope) {
     let host = "http://localhost:8080/rest/shop/";
@@ -109,7 +152,7 @@ app.controller("shopProfileController", function ($scope, $routeParams, $route, 
     $scope.getProfileShop();
 });
 //Change Profile Setting
-app.controller("changeProfileController", function ($scope, $routeParams, $route, $http, $rootScope) {
+app.controller("changeProfileController", function ($scope, $routeParams, $route, $http, $rootScope, $window) {
     let host = "http://localhost:8080/rest/shop/";
     $scope.logoChange = null;
     $scope.getProfileShop = function () {
@@ -156,9 +199,12 @@ app.controller("changeProfileController", function ($scope, $routeParams, $route
         };
         let url = `${host}save/profile`;
         $http.post(url, formData, {headers: headers}).then(resp => {
+
             console.log("Save profile success!!!")
+            $window.alert("Save profile success!!!");
         }).catch(error => {
-            console.log("Upload fail", error)
+            console.log("Save profile", error)
+            $window.alert("Save profile false!!!");
         });
 
     }
@@ -185,7 +231,7 @@ app.controller("changeProfileController", function ($scope, $routeParams, $route
 
 
 //Setting Address Shop
-app.controller("addressSettingController", function ($scope, $routeParams, $route, $http, $rootScope) {
+app.controller("addressSettingController", function ($scope, $routeParams, $route, $http, $rootScope,) {
     let host = "http://localhost:8080/rest/shop/";
     $scope.AddressForm = {};
     $scope.Address = [];
