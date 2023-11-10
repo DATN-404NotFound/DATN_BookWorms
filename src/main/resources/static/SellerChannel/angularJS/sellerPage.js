@@ -89,7 +89,7 @@ app.controller("salesController", function ($scope, $routeParams, $route, $http,
                 'Content-Type': undefined,
                 transformRequest: angular.identity
             };
-            if (i==currentDate.getMonth() + 1){
+            if (i===currentMonth){
                 $http.post(url, formData, {headers: headers}).then(resp => {
                     $scope.salesAnalysis.push(resp.data);
                     $scope.salesAnalysisNow.push(resp.data);
@@ -108,7 +108,6 @@ app.controller("salesController", function ($scope, $routeParams, $route, $http,
         }
         console.log("salesAnalysis", $scope.salesAnalysis)
         console.log("salesAnalysisNow", $scope.salesAnalysisNow)
-        console.log("monthNow", currentDate.getMonth() + 1)
     }
     $scope.getSalesAnalysis();
 });
