@@ -2,12 +2,11 @@ package com.poly.DATN_BookWorms.repo;
 
 
 
-<<<<<<< Updated upstream
-=======
+
 import java.util.Date;
 import java.util.List;
 
->>>>>>> Stashed changes
+
 import org.springframework.data.jpa.repository.JpaRepository;
 
 
