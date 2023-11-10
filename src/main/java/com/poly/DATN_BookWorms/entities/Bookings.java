@@ -21,7 +21,7 @@ import jakarta.persistence.TemporalType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import com.fasterxml.jackson.annotation.JsonIgnore;;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
  * JPA entity class for "Bookings"
@@ -36,22 +36,23 @@ import com.fasterxml.jackson.annotation.JsonIgnore;;
 @Table(name="Bookings")
 public class Bookings {
 
+    public static final long serialVersionUID = 1L;
 
     //--- ENTITY PRIMARY KEY 
     @Id
-    private String     bookingid ;
+    public String     bookingid ;
 
     //--- ENTITY DATA FIELDS 
     @Temporal(TemporalType.DATE)
     @Column(name="createat")
-    private Date       createat ;
+    public Date       createat ;
 
     @Column(name="cost")
-    private Double     cost ;
+    public Double     cost ;
 
-    private String     userid ;
+    public String     userid ;
 
-    private Integer    orderstatusid ;
+    public Integer    orderstatusid ;
 
     private Integer    shippingunitid ;
     
@@ -62,23 +63,23 @@ public class Bookings {
     //--- ENTITY LINKS ( RELATIONSHIP )
     @OneToMany(mappedBy="bookings")
     @JsonIgnore
-    private List<Payments> listOfPayments ; 
+    public List<Payments> listOfPayments ; 
 
     @ManyToOne
     @JoinColumn(name="Orderstatusid", referencedColumnName="OrderStatusId", insertable=false, updatable=false)
-    private Orderstatuses orderstatuses ; 
+    public Orderstatuses orderstatuses ; 
 
     @ManyToOne
     @JoinColumn(name="Userid", referencedColumnName="Userid", insertable=false, updatable=false)
-    private Account    account ; 
+    public Account    account ; 
 
     @OneToMany(mappedBy="bookings")
     @JsonIgnore
-    private List<Detailbookings> listOfDetailbookings ; 
+    public List<Detailbookings> listOfDetailbookings ; 
 
     @ManyToOne
     @JoinColumn(name="Shippingunitid", referencedColumnName="ShippingUnitId", insertable=false, updatable=false)
-    private Shippingunits shippingunits ; 
+    public Shippingunits shippingunits ; 
 
     //--- toString specific method
 	@Override

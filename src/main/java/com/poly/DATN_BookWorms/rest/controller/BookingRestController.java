@@ -1,15 +1,10 @@
 package com.poly.DATN_BookWorms.rest.controller;
 
 
-import java.util.List;
-
+import com.poly.DATN_BookWorms.service.BookingService;
+import com.poly.DATN_BookWorms.utils.CRC32_SHA256;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.poly.DATN_BookWorms.entities.Account;
@@ -19,6 +14,8 @@ import com.poly.DATN_BookWorms.service.BookingService;
 
 import jakarta.mail.MessagingException;
 import jakarta.servlet.http.HttpServletRequest;
+
+import java.util.List;
 
 @CrossOrigin("*")
 @RestController
@@ -30,6 +27,10 @@ public class BookingRestController {
 	@Autowired
 	AccountService accountService;
 
+	@Autowired
+	HttpServletRequest httpServletRequest;
+	@Autowired
+	CRC32_SHA256 crc;
 	@PostMapping()
 	public Bookings create(@RequestBody JsonNode bookingData, HttpServletRequest request) {
 		return bookingService.create(bookingData);
@@ -38,6 +39,16 @@ public class BookingRestController {
 	@GetMapping("")
 	public List<Bookings> getAll() {
 		return bookingService.findAll();	
+	}
+	// @GetMapping
+	// public List<Bookings> getAll(){
+
+	// 	return bookingService.findAll();
+	// }
+	@GetMapping("/user")
+	public List<Bookings> booking(){
+
+		return bookingService.findByUserId(crc.getCodeCRC32C(httpServletRequest.getRemoteUser()));
 	}
 
 }

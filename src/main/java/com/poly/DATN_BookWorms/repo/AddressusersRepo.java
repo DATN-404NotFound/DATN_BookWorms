@@ -1,15 +1,16 @@
 package com.poly.DATN_BookWorms.repo;
 
-import java.util.List;
-
+import com.poly.DATN_BookWorms.entities.Detailbookings;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import com.poly.DATN_BookWorms.entities.Addressusers;
+import org.springframework.data.jpa.repository.Query;
+
+import java.util.List;
 
 public interface AddressusersRepo extends JpaRepository<Addressusers, String>{
 
-		@Query("Select d from Addressusers d where d.account.userid like ?1")
-		public List<Addressusers> findAddressByUser(String userid);
-	
+    @Query("select ad from Addressusers ad where ad.userid = ?1")
+    List<Addressusers> findByUserId(String userId);
 }
