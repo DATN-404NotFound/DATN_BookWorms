@@ -9,6 +9,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.poly.DATN_BookWorms.entities.Books;
+import com.poly.DATN_BookWorms.entities.Publishingcompanies;
 import com.poly.DATN_BookWorms.entities.Shoponlines;
 import com.poly.DATN_BookWorms.response.BookResponse;
 
@@ -18,7 +19,9 @@ public interface BookService {
 	List<Books> findAll();
 
 	Books findById(Long id);
-
+	Page<Books> findAll(Pageable pageable);
+	
+	List<Publishingcompanies> getPCWithShop(Integer shopid);
 
 	Books create(Books book);
 
@@ -29,6 +32,9 @@ public interface BookService {
 
 	List<Books> getBooksByCategoryID(Integer categoryID);
 	Books findTopBookByQuantitySold();
+	Page<Books> getBooksByCategoryID(Integer categories, Pageable pageable);
+	Page<Books> findByshopid(Integer shopid, Pageable pageable);
+	List<Books> findTop5LowestQuantityBooksByShopId(Integer shopId);
 	
-	List<Shoponlines> list_shopId_deal(Long bookid);
+	Page<Books> findBooksNew(Pageable pageable);
 }

@@ -18,44 +18,41 @@ import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
  * JPA entity class for "Shoponlines"
  *
  * @author Telosys
- *
  */
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
 @Entity
-@Table(name="Shoponlines")
+@Table(name = "Shoponlines")
 public class Shoponlines implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     //--- ENTITY PRIMARY KEY 
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
-    public Integer    shopid ;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer shopid;
 
     //--- ENTITY DATA FIELDS 
-    public String     shopname ;
+    private String shopname;
 
-    public String     phonenumber ;
+    private String phonenumber;
 
-    @Column(name="logo", length=50)
-    public  String     logo ;
+    private String logo;
 
-    @Column(name="total")
-    public Double     total ;
+    @Column(name = "total")
+    private Double total;
 
-    @Column(name="banner", length=50)
-    public String     banner ;
+    @Column(name = "banner", length = 50)
+    private String banner;
 
-    @Column(name="description", length=2555)
-    public String     description ;
+    @Column(name = "description", length = 2555)
+    private String description;
 
     public String     shopaddress ;
 
@@ -68,22 +65,23 @@ public class Shoponlines implements Serializable {
 
 
     //--- ENTITY LINKS ( RELATIONSHIP )
-    @OneToMany(mappedBy="shoponlines")
+    @OneToMany(mappedBy = "shoponlines")
     @JsonIgnore
     public List<Books> listOfBooks ; 
 
-    @OneToMany(mappedBy="shoponlines")
+    @OneToMany(mappedBy = "shoponlines")
     @JsonIgnore
     public List<Files> listOfFiles ; 
+    private List<AddressShop> listOfAddressShop;
 
     @ManyToOne
     @JoinColumn(name="Userid", referencedColumnName="Userid", insertable=false, updatable=false)
     public Account    account ; 
 
     //--- toString specific method
-	@Override
-    public String toString() { 
-        StringBuilder sb = new StringBuilder(); 
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
         sb.append(shopid);
         sb.append("|");
         sb.append(shopname);
@@ -98,12 +96,12 @@ public class Shoponlines implements Serializable {
         sb.append("|");
         sb.append(description);
         sb.append("|");
-        sb.append(shopaddress);
+        sb.append(listOfAddressShop);
         sb.append("|");
         sb.append(paycount);
         sb.append("|");
         sb.append(isactive);
-        return sb.toString(); 
-    } 
+        return sb.toString();
+    }
 
 }

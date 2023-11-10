@@ -51,7 +51,7 @@ public class Imagebooks implements Serializable {
     //--- ENTITY LINKS ( RELATIONSHIP )
     @ManyToOne
     @JoinColumn(name="Bookid", referencedColumnName="BookId", insertable=false, updatable=false)
-    private Books      books ;
+    public Books      books ;
 
     @Override
     public String toString() {

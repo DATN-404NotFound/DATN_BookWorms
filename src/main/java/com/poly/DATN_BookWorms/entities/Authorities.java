@@ -24,8 +24,8 @@ import lombok.NoArgsConstructor;
 
 @Data
 @Entity
-@NoArgsConstructor
-@AllArgsConstructor
+// @NoArgsConstructor
+// @AllArgsConstructor
 @Table(name = "Authorities")
 public class Authorities implements Serializable {
 

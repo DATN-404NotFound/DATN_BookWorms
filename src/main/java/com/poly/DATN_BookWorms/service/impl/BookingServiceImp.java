@@ -92,16 +92,20 @@ public class BookingServiceImp implements BookingService{
 	}
 
 	@Override
-	public List<Bookings> findByUsername(String username) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Bookings> findByUserId(String userId) {
+		return bookingRepo.findBookingByUser(userId);
 	}
 
 	@Override
 	public List<Bookings> findAll() {
-		// TODO Auto-generated method stub
 		return bookingRepo.findAll();
 	}
+
+	@Override
+	public List<Bookings> findByStatusId(String orderStatusId) {
+		return bookingRepo.ListBookings_Status(orderStatusId);
+	}
+
 
 //	@Override
 //	public List<Bookings> findByUsername(String username) {

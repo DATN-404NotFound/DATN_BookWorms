@@ -37,29 +37,29 @@ public class Detailbookings implements Serializable {
 
     //--- ENTITY PRIMARY KEY 
     @Id
-    private String     dbid ;
+    public String     dbid ;
 
     //--- ENTITY DATA FIELDS 
-    private Integer    bookid ;
+    public Integer    bookid ;
 
-    private String     bookingid ;
+    public String     bookingid ;
 
     @Column(name="quantity", nullable=false)
-    private Integer    quantity ;
+    public Integer    quantity ;
 
 
     //--- ENTITY LINKS ( RELATIONSHIP )
     @ManyToOne
     @JoinColumn(name="Bookingid", referencedColumnName="BookingId", insertable=false, updatable=false)
-    private Bookings   bookings ; 
+    public Bookings   bookings ; 
 
     @OneToMany(mappedBy="detailbookings")
     @JsonIgnore
-    private List<Evaluates> listOfEvaluates ; 
+    public List<Evaluates> listOfEvaluates ; 
 
     @ManyToOne
     @JoinColumn(name="Bookid", referencedColumnName="BookId", insertable=false, updatable=false)
-    private Books      books ; 
+    public Books      books ; 
 
     //--- toString specific method
 	@Override

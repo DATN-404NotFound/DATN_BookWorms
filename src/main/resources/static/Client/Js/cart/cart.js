@@ -202,11 +202,171 @@ function check() {
 	}
 }
 
+// function filterChoose(stt,name){
+// 	console.log("chose name : "+ name)
 
+// }
 const app = angular.module("cart_app", []);
+
+
 
 let host = "http://localhost:8080/rest/cart"
 app.controller("cart_ctrl", function ($scope, $http) {
+
+	app.filter('searchField', ['$parse', function ($parse) {
+		return function (collection) {
+	
+		  var get, field;
+	
+		  collection = isObject(collection) ? toArray(collection) : collection;
+	
+		  var args = Array.prototype.slice.call(arguments, 1);
+	
+		  if(!isArray(collection) || !args.length) {
+			return collection;
+		  }
+	
+		  return collection.map(function(member) {
+	
+			field = args.map(function(field) {
+			  get = $parse(field);
+			  return get(member);
+			}).join(' ');
+	
+			return extend(member, { searchField: field });
+		  });
+		}
+	  }]);
+
+$scope.sp = [];
+$scope.loadProduct = function(){ 
+		$http.get("http://localhost:8080/rest/books").then(resp =>{ 
+			$scope.sp = resp.data;
+			console.log("nn "+JSON.stringify($scope.sp[0]))
+		})
+}
+
+$scope.loadProduct();
+
+	$scope.filterCate = [];
+	$scope.filterWrite = [];
+	$scope.filterPC = [];
+	$scope.filterPrice = [];
+	$scope.filterRatting = [];
+
+	$scope.orderBy = function () {
+		location.href = "/product/list?priceSort=" + $scope.or;
+	}
+	$scope.newyear = function () {
+		location.href = "/product/list?newYear= yes";
+	}
+	$scope.bestseller = function () {
+		location.href = "/product/list?sold= yes";
+	}
+
+	$scope.filterChoose = function (stt, name) {
+		switch (stt) {
+			case 1: {
+				$scope.process($scope.filterCate, name);
+				break;
+			}
+			case 2: {
+				$scope.process($scope.filterWrite, name);
+				break;
+			}
+			case 3: {
+				$scope.process($scope.filterPC, name);
+				break;
+			}
+			case 4: {
+				$scope.process($scope.filterPrice, name);
+				break;
+			} 
+			case 5: {
+				$scope.process($scope.filterRatting, name);
+				break;
+			}
+		}
+		$scope.loadProduct();
+	}
+
+$scope.process = function(array, name){ 
+	if (name.checked) {
+		console.log("chose name : " + name.getAttribute('id'));
+		array.push(name.getAttribute('id'));
+	}
+	else {
+		console.log("fal name : " + name);
+		var del = array.findIndex(i => i === name.getAttribute('id'));
+		array.splice(del, 1)
+	}
+	console.log("filter : "  + array)
+}
+
+
+	$scope.booksCate = [];
+	$scope.loadAll = function () {
+		console.log("aaaa")
+		$http.get("/rest/books/cate/4").then(resp => {
+			$scope.a = 4;
+			$scope.b = 0;
+			$scope.booksCate = resp.data;
+		})
+	}
+
+
+
+
+	$scope.edu = function (id, a, b) {
+		$http.get("/rest/books/cate/" + id).then(resp => {
+			$scope.a = a;
+			$scope.b = b;
+			$scope.booksCate = resp.data;
+			$scope.booksCate.forEach(i => {
+				$scope.setImage(i.bookid, id)
+			})
+		})
+	}
+	$scope.setImage = function (bookId, cate) {
+		let url = `http://localhost:8080/rest/imagebook/` + bookId;
+		$http.get(url).then(resp => {
+			var a = [];
+			a = (resp.data);
+			console.log("đmmmm" + a[0].name)
+			switch (cate) {
+				case 2: {
+					document.getElementById('imgs2' + bookId).src = "/Client/images/" + a[0].name
+					break;
+				}
+				case 4: {
+					document.getElementById('imgs4' + bookId).src = "/Client/images/" + a[0].name
+					break;
+				}
+				case 7: {
+					document.getElementById('imgs7' + bookId).src = "/Client/images/" + a[0].name
+					break;
+				}
+			}
+
+		}).catch(error => {
+			console.log("Error", error)
+		});;
+	}
+	$scope.loadAll();
+
+	$scope.next = function (id, cate) {
+		console.log("next" + id)
+		$scope.b = id + 1;
+		$scope.edu(cate, 4, $scope.b)
+
+	}
+
+	$scope.prev = function (id, cate) {
+		console.log("next" + id)
+		$scope.b = id - 1;
+		$scope.edu(cate, 4, $scope.b)
+	}
+
 	$scope.cart = {
 		items: [],
 		add(id) {
@@ -387,6 +547,7 @@ $(document).ready(function () {
 
 
 function loadWin() {
+	console.log("KKKKKK")
 	var a = JSON.parse(localStorage.getItem('books'));
 	var b = JSON.parse(localStorage.getItem('deal'));
 	var c = JSON.parse(localStorage.getItem('shoponline'));
@@ -427,6 +588,7 @@ function calculatorPrice() {
 }
 
 
+
 const app1 = angular.module("order_app", []);
 app1.controller("order_ctrl", function ($scope, $http) {
 	$scope.bookItem = [];
@@ -462,54 +624,54 @@ app1.controller("order_ctrl", function ($scope, $http) {
 		})
 	}
 	$scope.paymentCart = function () {
-			$scope.shopItem.forEach(i => {
-				var a = document.getElementById('priceItem' + i.shopid).innerText;
-				$scope.bookings = {
-					bookingid: "",
-					createat: new Date(),
-					cost: Number(a.replace(',', '')),
-					userid: "",
-					orderstatusid: 1,
-					shippingunitid: Number($('#shippunit').children("option:selected").val()),
-					note: $('#noteBooking').val(),
-					get listOfPayments() {
-						return {
-							paymentid: "",
-							createat: new Date(),
-							status: "Chưa thanh toán",
-							paid: $('#pac').children("option:selected").val(),
-							type: Number($('#pay').children("option:selected").val()),
-							addressuserid: $('#addressship').children("option:selected").val(),
-							addressusers: { addressuserid: $('#addressship').children("option:selected").val() },
-							paymentaccounts: { paid: $('#pac').children("option:selected").val() },
-						}
-					},
-					orderstatuses: { orderstatusid: 1 },
-					account: { userid: "" },
-					get listOfDetailbookings() {
-						return $scope.dealItem.map(item => {
-							if (item.books.shopid == i.shopid) {
-								return {
-									dbid: "",
-									bookid: item.books.bookid,
-									quantity: item.quantity,
-									books: { bookid: item.books.bookid }
-								}
-							}
-
-						})
+		$scope.shopItem.forEach(i => {
+			var a = document.getElementById('priceItem' + i.shopid).innerText;
+			$scope.bookings = {
+				bookingid: "",
+				createat: new Date(),
+				cost: Number(a.replace(',', '')),
+				userid: "",
+				orderstatusid: 1,
+				shippingunitid: Number($('#shippunit').children("option:selected").val()),
+				note: $('#noteBooking').val(),
+				get listOfPayments() {
+					return {
+						paymentid: "",
+						createat: new Date(),
+						status: "Chưa thanh toán",
+						paid: $('#pac').children("option:selected").val(),
+						type: Number($('#pay').children("option:selected").val()),
+						addressuserid: $('#addressship').children("option:selected").val(),
+						addressusers: { addressuserid: $('#addressship').children("option:selected").val() },
+						paymentaccounts: { paid: $('#pac').children("option:selected").val() },
 					}
-				}
-				var booking = angular.copy($scope.bookings);
-				$http.post(`/rest/bookings`, booking).then(resp => {
-					$scope.deleteDeal();
-					$http.delete("http://localhost:8080/rest/discount/" + vouchero.discountcodeid).then(resp => {
+				},
+				orderstatuses: { orderstatusid: 1 },
+				account: { userid: "" },
+				get listOfDetailbookings() {
+					return $scope.dealItem.map(item => {
+						if (item.books.shopid == i.shopid) {
+							return {
+								dbid: "",
+								bookid: item.books.bookid,
+								quantity: item.quantity,
+								books: { bookid: item.books.bookid }
+							}
+						}
+
 					})
-					location.href = "/cart"
-				}).catch(error => {
-					alert("Đặt hàng lỗi !");
-					console.log(error)
+				}
+			}
+			var booking = angular.copy($scope.bookings);
+			$http.post(`/rest/bookings`, booking).then(resp => {
+				$scope.deleteDeal();
+				$http.delete("http://localhost:8080/rest/discount/" + vouchero.discountcodeid).then(resp => {
 				})
-			});
+				location.href = "/cart"
+			}).catch(error => {
+				alert("Đặt hàng lỗi !");
+				console.log(error)
+			})
+		});
 	}
 });

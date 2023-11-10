@@ -40,7 +40,22 @@
                   <div class="row align-items-center">
                     <div class="col">
                       <strong class="mb-0">My profile</strong>
-                      <p class="text-muted mb-0">tungcfpro</p>
+                      <p class="text-muted mb-0">{{account.username}}</p>
+                    </div> <!-- .col -->
+                    <div class="col-auto">
+                      <a href="">
+                        <div class="col-3 text-center">
+                          <span class="fe fe-edit-3"></span>
+                        </div>
+                      </a>
+                    </div> <!-- .col -->
+                  </div> <!-- .row -->
+                </div> <!-- .list-group-item -->
+                <div class="list-group-item">
+                  <div class="row align-items-center">
+                    <div class="col">
+                      <strong class="mb-0">Full name</strong>
+                      <p class="text-muted mb-0">{{account.fullname}}</p>
                     </div> <!-- .col -->
                     <div class="col-auto">
                       <a href="">
@@ -55,22 +70,7 @@
                   <div class="row align-items-center">
                     <div class="col">
                       <strong class="mb-0">Phone number</strong>
-                      <p class="text-muted mb-0">0333333333</p>
-                    </div> <!-- .col -->
-                    <div class="col-auto">
-                      <a href="">
-                        <div class="col-3 text-center">
-                          <span class="fe fe-edit-3"></span>
-                        </div>
-                      </a>
-                    </div> <!-- .col -->
-                  </div> <!-- .row -->
-                </div> <!-- .list-group-item -->
-                <div class="list-group-item">
-                  <div class="row align-items-center">
-                    <div class="col">
-                      <strong class="mb-0">Phone number</strong>
-                      <p class="text-muted mb-0">0333333333</p>
+                      <p class="text-muted mb-0">{{account.gender?'Male':'Female'}}</p>
                     </div> <!-- .col -->
                     <div class="col-auto">
                       <a href="">
@@ -85,7 +85,7 @@
                   <div class="row align-items-center">
                     <div class="col">
                       <strong class="mb-0">Email</strong>
-                      <p class="text-muted mb-0">doquangtungcf@gmail.com</p>
+                      <p class="text-muted mb-0">{{account.email}}</p>
                     </div> <!-- .col -->
                     <div class="col-auto">
                       <a href="">

@@ -30,4 +30,9 @@ public class RoleServiceImp implements RoleService{
 	public Roles findSellerByRoleId(String roleId) {
 		return roleRepo.findById(roleId).get();
 	}
+
+	@Override
+	public Roles save(Roles roles) {
+		return roleRepo.save(roles);
+	}
 }

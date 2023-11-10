@@ -13,4 +13,6 @@ public interface RoleService {
 	public Roles findByName(String name);
 
 	Roles findSellerByRoleId(String roleId);
+
+	Roles save(Roles roles);
 }

@@ -1,17 +1,25 @@
 package com.poly.DATN_BookWorms.repo;
 
+import java.util.List;
+
+import com.poly.DATN_BookWorms.response.BookResponse;
+import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import com.poly.DATN_BookWorms.entities.Books;
+import com.poly.DATN_BookWorms.entities.Publishingcompanies;
 import com.poly.DATN_BookWorms.entities.Shoponlines;
 import com.poly.DATN_BookWorms.response.BookResponse;
 
 import java.util.List;
 
 public interface BooksRepo extends JpaRepository<Books, Long> {
+@Query("Select b.publishingcompanies from Books b where b.shopid = ?1")
+public List<Publishingcompanies> getPCWithShop(Integer shopid);
+
 
     Books findFirstByOrderByQuantitysoldDesc();
 
@@ -35,13 +43,19 @@ public interface BooksRepo extends JpaRepository<Books, Long> {
             "WHERE C.name like %?1%")
     Page<BookResponse> findCategoryBook(String category, Pageable pageable);
 
-    @Override
-    List<Books> findAllById(Iterable<Long> integers);
+
 
     @Query("SELECT b FROM Books b INNER JOIN b.listOfTypebooks tb WHERE tb.categories.categoryid = :categoryID")
     List<Books> findBooksByCategoryID(Integer categoryID);
+
+    Page<Books> findByshopid(Integer shopid, Pageable pageable);
     
-    @Query("Select b.shoponlines from Books b where b.bookid like ?1")
-	List<Shoponlines> list_shopId_deal(Long bookid);
+    @Query("SELECT b FROM Books b INNER JOIN b.listOfTypebooks tb WHERE tb.categories.categoryid = :categoryID")
+    Page<Books> findBooksByCategoryID(Integer categoryID, Pageable pageable);
+    List<Books> findByShopid(Integer shopId);
+    
+    @Query("SELECT b FROM Books b  ORDER BY b.publishingyear DESC ")
+    Page<Books> findBooksNew(Pageable pageable);
+    
 }
 

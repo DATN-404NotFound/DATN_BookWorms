@@ -53,6 +53,11 @@ public class AuthoritiesServiceImp implements AuthoritiesService{
 		return null;
 	}
 
+	@Override
+	public void save(Authorities authorities) {
+		authorityRepo.save(authorities);
+	}
+
 //	@Override
 //	public List<Authorities> getOneByRole(String username) {
 //		// TODO Auto-generated method stub
