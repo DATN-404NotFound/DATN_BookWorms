@@ -250,8 +250,8 @@
                                         tiết</button>
                                 </div>
                                 <div class="book_title text-center mt-3">
-                                    <a> 
-                                       <p>{{x.bookname}}</p>
+                                    <a ng-click = "detailBook(x.bookid)">
+                                        <p>{{x.bookname}}</p>
                                     </a>
                                     <p style="font-size: 18px;margin-top: 0px;  color: #666;">{{x.shoponlines.shopname}}</p>
                                     <p style="font-size: 18px;margin-top: -10px;">Giá : <strong>{{x.price}}
@@ -287,8 +287,8 @@
                                         tiết</button>
                                 </div>
                                 <div class="book_title text-center mt-3">
-                                    <a> 
-                                       <p>{{x.bookname}}</p>
+                                    <a ng-click = "detailBook(x.bookid)">
+                                        <p>{{x.bookname}}</p>
                                     </a>
                                     <p style="font-size: 18px;margin-top: 0px;  color: #666;">{{x.shoponlines.shopname}}</p>
                                     <p style="font-size: 18px;margin-top: -10px;">Giá : <strong>{{x.price}}
@@ -298,7 +298,7 @@
                                 <div class="d-flex flex-row-reverse" style="height: 35px; margin-top: 7px;margin-right: 10px;">
                                     <div class="p-2"><a href="#" class="text-dark"><i class="bi bi-heart"
                                                 style="font-size: 35px;"></i></a></div>
-                                    <div class="p-2"><a href="#" class="text-dark"> <i class="bi bi-cart3"
+                                    <div class="p-2"><a ng-click="cart.add(x.bookid)" class="text-dark"> <i class="bi bi-cart3"
                                                 style="font-size: 35px;"></i></a></div>
                                 </div>
                             </div>
@@ -326,8 +326,8 @@
                                         tiết</button>
                                 </div>
                                 <div class="book_title text-center mt-3">
-                                    <a> 
-                                       <p>{{x.bookname}}</p>
+                                    <a ng-click = "detailBook(x.bookid)">
+                                        <p>{{x.bookname}}</p>
                                     </a>
                                     <p style="font-size: 18px;margin-top: 0px;  color: #666;">{{x.shoponlines.shopname}}</p>
                                     <p style="font-size: 18px;margin-top: -10px;">Giá : <strong>{{x.price}}
@@ -337,7 +337,7 @@
                                 <div class="d-flex flex-row-reverse" style="height: 35px; margin-top: 7px;margin-right: 10px;">
                                     <div class="p-2"><a href="#" class="text-dark"><i class="bi bi-heart"
                                                 style="font-size: 35px;"></i></a></div>
-                                    <div class="p-2"><a href="#" class="text-dark"> <i class="bi bi-cart3"
+                                    <div class="p-2"><a ng-click="cart.add(x.bookid)" class="text-dark"> <i class="bi bi-cart3"
                                                 style="font-size: 35px;"></i></a></div>
                                 </div>
                             </div>

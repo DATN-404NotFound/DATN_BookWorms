@@ -272,7 +272,7 @@
                         <div class="d-flex flex-row-reverse" style="height: 30px; margin-top: -20px;">
                             <div class="p-2"><a href="#" class="text-dark"><i class="bi bi-heart"
                                         style="font-size: 25px;"></i></a></div>
-                            <div class="p-2"><a href="#" class="text-dark"> <i class="bi bi-cart3"
+                            <div class="p-2"><a th:attr="ng-click=@{|cart.add(${book.bookid})|}" class="text-dark"> <i class="bi bi-cart3"
                                         style="font-size: 25px;"></i></a></div>
                         </div>
                     </div>
@@ -314,7 +314,8 @@
             </div>
         </article>
         <br>
-
+        <script th:src="@{/Client/Js/cart/cart.js}"></script>
+        <script src="../../../static/Client/Js/cart/cart.js"></script>
         <script th:src="@{/Client/Js/cart.js}"></script>
     </main>
 </body>

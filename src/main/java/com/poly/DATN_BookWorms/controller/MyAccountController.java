@@ -80,7 +80,9 @@ public class MyAccountController {
     public String  orderMyAccount(Model model){
         Account account = service.get("user");
         model.addAttribute("account", account);
+        System.out.println("you "+ account.getUserid());
         List<Bookings> booking = bookingService.findByUserId(account.getUserid());
+        System.out.println("list");
         model.addAttribute("booking", booking);
 //        List<Bookings> booking_StatusId = bookingService.findByStatusId(tab);
 //        model.addAttribute("bs", booking_StatusId);

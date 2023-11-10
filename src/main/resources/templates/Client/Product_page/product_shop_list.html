@@ -110,19 +110,21 @@
                                     <div class="d-flex flex-row-reverse" style="height: 30px; margin-top: -20px;">
                                         <div class="p-2"><a href="#" class="text-dark"><i class="bi bi-heart"
                                                     style="font-size: 25px;"></i></a></div>
-                                        <div class="p-2"><a href="#" class="text-dark"> <i class="bi bi-cart3"
+                                        <div class="p-2"><a th:attr="ng-click=@{|cart.add(${list.bookid})|}" class="text-dark"> <i class="bi bi-cart3"
                                                     style="font-size: 25px;"></i></a></div>
                                     </div>
                                 </div>
-
+                                <div style="clear: both;">
+                                    <button class="button_all_orange my-3" style="margin-left: 44.5%;clear: both;">See more</button>
+                                </div>
                                 <!-- <div style="width: 5% ;float: left; margin-top: 200px; margin-left: 1%;"><button class="btn"><i
                                             class="bi bi-chevron-right" style="font-size: 35px;"></i></button></div> -->
                             </div>
                         </div>
-                        <button class="button_all_orange my-3" style="margin-left: 44.5%;">See more</button>
+                        
                     </div>
                     <hr>
-                    <div class="banner_shop_guest">
+                    <div class="banner_shop_guest" style="clear: both;">
                         <div class="box_banner_shop">
                             <h5 style="font-size: 35px; font-weight: 700; color: white;">Save voucher up to 60%
                                 freeshipping</h5>
@@ -143,7 +145,7 @@
                                 RELATED PRODUCTS</p>
                         </div>
                         <div>
-                            <div class="book_related" style="width: 90%;">
+                            <div class="book_related" style="width: 90%; clear: both;">
                                
                                 <div th:each="quantitys : ${minquantity}"  class="book_item" style="margin-left: 1%;">
                                     <div class="book_img text-center">
@@ -153,7 +155,7 @@
                                             tiết</button>
                                     </div>
                                     <div class="book_title text-center mt-3">
-                                        <a><p th:text="${quantitys.bookname}"></p> </a>
+                                        <a th:href ="@{|/product/detail/quantitys.bookid|}"><p th:text="${quantitys.bookname}"></p> </a>
                                         <p style="font-size: 18px;margin-top: 0px;  color: #666;" th:text="${#strings.abbreviate(quantitys.shoponlines.shopname, 10)}"></p>
                                         <p style="font-size: 18px;margin-top: -10px;">Giá : <strong th:text="${#numbers.formatDecimal(quantitys.price, 0, 'POINT', 0, 'COMMA')} +'₫'">200.00 VND</strong>
                                         </p>
@@ -161,14 +163,17 @@
                                     <div class="d-flex flex-row-reverse" style="height: 30px; margin-top: -20px;">
                                         <div class="p-2"><a href="#" class="text-dark"><i class="bi bi-heart"
                                                     style="font-size: 25px;"></i></a></div>
-                                        <div class="p-2"><a href="#" class="text-dark"> <i class="bi bi-cart3"
+                                        <div class="p-2"><a th:attr="ng-click=@{|cart.add(${quantitys.bookid})|}" class="text-dark"> <i class="bi bi-cart3"
                                                     style="font-size: 25px;"></i></a></div>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                      
+                    </div>
+                    <div style="clear: both;">
                         <button class="button_all_orange my-3" style="margin-left: 44%;">See more</button>
-                    </div>>
+                    </div>
                 </div>
                 <div id="list_pr_us" class="w-75 m-auto tab-pane fade"><br>
                     <div>
@@ -343,7 +348,7 @@
                                                 tiết</button>
                                         </div>
                                         <div class="book_title text-center mt-3">
-                                            <a><p th:text="${book.bookname}"></p> </a>
+                                            <a th:href ="@{|/product/detail/book.bookid|}"><p th:text="${book.bookname}"></p> </a>
                                             <p style="font-size: 18px;margin-top: 0px;  color: #666;" th:text="${#strings.abbreviate(book.shoponlines.shopname, 10)}"></p>
                                             <p style="font-size: 18px;margin-top: -10px;">Giá : <strong th:text="${#numbers.formatDecimal(book.price, 0, 'POINT', 0, 'COMMA')} +'₫'">200.00 VND</strong>
                                             </p>
@@ -351,7 +356,7 @@
                                         <div class="d-flex flex-row-reverse" style="height: 30px; margin-top: -20px;">
                                             <div class="p-2"><a href="#" class="text-dark"><i class="bi bi-heart"
                                                         style="font-size: 25px;"></i></a></div>
-                                            <div class="p-2"><a href="#" class="text-dark"> <i class="bi bi-cart3"
+                                            <div class="p-2"><a th:attr="ng-click=@{|cart.add(${book.bookid})|}" class="text-dark"> <i class="bi bi-cart3"
                                                         style="font-size: 25px;"></i></a></div>
                                         </div>
                                     </div>

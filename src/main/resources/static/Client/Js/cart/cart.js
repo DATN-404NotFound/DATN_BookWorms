@@ -84,7 +84,6 @@ function Active(cartid, action) {
 		console.log("ship = " + shop)
 		switch (action) {
 			case 'PUT': {
-				console("post")
 				updateCart(cartid, json);
 				break;
 			}
@@ -98,10 +97,9 @@ function Active(cartid, action) {
 
 
 function updateCart(id, json) {
-	console.log("out in ")
 	$.ajax({
 		url: "http://localhost:8080/rest/cart",
-		type: "POST",
+		type: "PUT",
 		data: JSON.stringify(json),
 		contentType: "application/json; charset=utf-8",
 		dataType: "json",
@@ -212,6 +210,10 @@ const app = angular.module("cart_app", []);
 
 let host = "http://localhost:8080/rest/cart"
 app.controller("cart_ctrl", function ($scope, $http) {
+
+	$scope.detailBook = function(id){ 
+		location.href = "/product/detail/"+id;
+	}
 
 	app.filter('searchField', ['$parse', function ($parse) {
 		return function (collection) {
@@ -469,9 +471,12 @@ $(document).ready(function () {
 
 function voucherSelected(shopid) {
 	var vou = $('#voucher' + shopid).children("option:selected").val();
+	console.log(vou)
 	$.get("http://localhost:8080/rest/discount/" + vou, function (data, status) {
 		console.log(data)
 		if (!data || data.value === null) {
+			console.log("nullrooif")
+			localStorage.setItem('sales', JSON.stringify(salevoucher));
 		}
 		else {
 			var v = salevoucher.find(i => i.saleid == vou);
@@ -480,6 +485,7 @@ function voucherSelected(shopid) {
 			else {
 				salevoucher.push(data);
 				localStorage.setItem('sales', JSON.stringify(salevoucher));
+				console.log("selas"+ salevoucher)
 			}
 		}
 	});
@@ -601,7 +607,9 @@ app1.controller("order_ctrl", function ($scope, $http) {
 		$scope.bookItem = JSON.parse(localStorage.getItem('books'));
 		$scope.dealItem = JSON.parse(localStorage.getItem('deal'));
 		$scope.shopItem = JSON.parse(localStorage.getItem('shoponline'));
+		console.log("al "+ $scope.shopItem.length)
 		$scope.salesItem = JSON.parse(localStorage.getItem('sales'));
+		
 		$scope.totalQuantity = $scope.bookItem.length;
 	}
 
@@ -627,7 +635,7 @@ app1.controller("order_ctrl", function ($scope, $http) {
 		$scope.shopItem.forEach(i => {
 			var a = document.getElementById('priceItem' + i.shopid).innerText;
 			$scope.bookings = {
-				bookingid: "",
+				bookingid: i.shopid,
 				createat: new Date(),
 				cost: Number(a.replace(',', '')),
 				userid: "",
@@ -660,18 +668,28 @@ app1.controller("order_ctrl", function ($scope, $http) {
 						}
 
 					})
-				}
+				},
+			
+
 			}
 			var booking = angular.copy($scope.bookings);
 			$http.post(`/rest/bookings`, booking).then(resp => {
 				$scope.deleteDeal();
 				$http.delete("http://localhost:8080/rest/discount/" + vouchero.discountcodeid).then(resp => {
 				})
-				location.href = "/cart"
-			}).catch(error => {
-				alert("Đặt hàng lỗi !");
+				$('#myModal').show();
+				$('#iconModel').html('<i  style="font-size: 50px;color: green;" class="bi bi-check-circle"></i> ')
+				// $('#iconModel').css({"font-size": "50px","color": "green"})
+				$('#descrptionInfor').text("Đặt hàng thành công!")
+				//  location.href = "/cart"
+				}).catch(error => {
+				$('#myModal').show();
+				$('#iconModel').html('<i  style="font-size: 50px;color: red;" class="bi bi-x-circle"></i> ')
+				// $('#iconModel').css({"font-size": "50px","color": "red"})
+				$('#descrptionInfor').text("Đặt hàng thất bại! Vui lòng thử lại")
 				console.log(error)
 			})
 		});
 	}
 });
+

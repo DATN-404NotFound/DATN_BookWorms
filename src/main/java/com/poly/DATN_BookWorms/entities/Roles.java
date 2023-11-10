@@ -78,16 +78,16 @@ public class Roles implements Serializable {
 		this.listOfAuthorities = listOfAuthorities;
 	}
 //
-//	public Roles(String roleid, String rolename, List<Authorities> listOfAuthorities) {
-//		super();
-//		this.roleid = roleid;
-//		this.rolename = rolename;
-//		this.listOfAuthorities = listOfAuthorities;
-//	}
-//
-//	public Roles() {
-//		super();
-//	}
+	public Roles(String roleid, String rolename, List<Authorities> listOfAuthorities) {
+		super();
+		this.roleid = roleid;
+		this.rolename = rolename;
+		this.listOfAuthorities = listOfAuthorities;
+	}
+
+	public Roles() {
+		super();
+	}
 
 
 }
