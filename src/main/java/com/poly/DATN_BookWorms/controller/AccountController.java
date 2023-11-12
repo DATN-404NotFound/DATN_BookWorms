@@ -53,6 +53,26 @@ public class AccountController {
         customUserDetailService.loadUserByUsername(performance.getName());
         return "redirect:/Ibook/index";
     }
+    
+    @RequestMapping("/login-facebook/success")
+    public String loginWithFaceBook(@AuthenticationPrincipal OAuth2User performance, Model model) {
+        if (performance == null) {
+            return "redirect:/login";
+        }
+
+        if (accountService.findByUsename(performance.getName()) == null) {
+            AccountDTO accountDTO = new AccountDTO();
+            accountDTO.setEmail(performance.getAttribute("email"));
+            accountDTO.setUsername(performance.getName());
+            accountDTO.setFullname(performance.getAttribute("name"));
+            accountDTO.setPassword(String.valueOf(RandomStringUtils.randomAlphabetic(8)));
+            accountService.save(accountDTO);
+
+        }
+        customUserDetailService.loadUserByUsername(performance.getName());
+        return "redirect:/Ibook/index";
+    }
+    
 
     @GetMapping("/registration")
     public String registrationForm(Model model) {
