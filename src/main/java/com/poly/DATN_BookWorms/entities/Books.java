@@ -26,95 +26,98 @@ import lombok.NoArgsConstructor;
  * JPA entity class for "Books"
  *
  * @author Telosys
- *
  */
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
 @Entity
-@Table(name="Books")
+@Table(name = "Books")
 public class Books implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     //--- ENTITY PRIMARY KEY 
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
-    public Long    bookid ;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    public Long bookid;
 
     //--- ENTITY DATA FIELDS 
-    public String     bookname ;
+    public String bookname;
 
-    @Column(name="language", length=20)
-    public String     language ;
+    @Column(name = "language", length = 20)
+    public String language;
 
-    @Column(name="size", length=20)
-    public String     size ;
+    @Column(name = "size", length = 20)
+    public String size;
 
-    @Column(name="weight")
-    public Double     weight ;
+    @Column(name = "weight")
+    public Double weight;
 
-    public Integer    totalpage ;
+    public Integer totalpage;
 
-    public Integer    publishingyear ;
+    public Integer publishingyear;
 
-    @Column(name="price")
-    public Double     price ;
+    @Column(name = "price")
+    public Double price;
 
-    @Column(name="quantity")
-    public Integer    quantity ;
+    @Column(name = "quantity")
+    public Integer quantity;
 
-    @Column(name="statues", length=20)
-    public String     statues ;
+    @Column(name = "statues", length = 20)
+    public String statues;
 
-    public Integer    publishingcompanyid ;
+    public Integer publishingcompanyid;
 
-    public Boolean    isactive ;
+    public Boolean isactive;
 
-    public Integer    quantitysold ;
+    public Integer quantitysold;
 
-    public Integer    shopid ;
+    public Integer shopid;
+
+//    @Column(name= "ProductViews")
+    public Integer productviews;
+
 
 
     //--- ENTITY LINKS ( RELATIONSHIP )
-    @OneToMany(mappedBy="books")
+    @OneToMany(mappedBy = "books")
     @JsonIgnore
-    public List<Cart> listOfCart ; 
+    public List<Cart> listOfCart;
 
     @ManyToOne
-    @JoinColumn(name="Shopid", referencedColumnName="ShopId", insertable=false, updatable=false)
-    public Shoponlines shoponlines ; 
+    @JoinColumn(name = "Shopid", referencedColumnName = "ShopId", insertable = false, updatable = false)
+    public Shoponlines shoponlines;
 
-    @OneToMany(mappedBy="books")
+    @OneToMany(mappedBy = "books")
     @JsonIgnore
-    public List<Imagebooks> listOfImagebooks ; 
+    public List<Imagebooks> listOfImagebooks;
 
-    @OneToMany(mappedBy="books")
+    @OneToMany(mappedBy = "books")
     @JsonIgnore
-    public List<Detailbookings> listOfDetailbookings ; 
+    public List<Detailbookings> listOfDetailbookings;
 
-    @OneToMany(mappedBy="books")
+    @OneToMany(mappedBy = "books")
     @JsonIgnore
-    public List<Typebooks> listOfTypebooks ; 
+    public List<Typebooks> listOfTypebooks;
 
-    @OneToMany(mappedBy="books")
+    @OneToMany(mappedBy = "books")
     @JsonIgnore
-    public List<Writers> listOfWriters ; 
+    public List<Writers> listOfWriters;
 
-    @ManyToOne 
+    @ManyToOne
 
-    @JoinColumn(name="Publishingcompanyid", referencedColumnName="PCId", insertable=false, updatable=false)
-    public Publishingcompanies publishingcompanies ; 
+    @JoinColumn(name = "Publishingcompanyid", referencedColumnName = "PCId", insertable = false, updatable = false)
+    public Publishingcompanies publishingcompanies;
 
-    @OneToMany(mappedBy="books")
+    @OneToMany(mappedBy = "books")
     @JsonIgnore
-    public List<Hassales> listOfHassales ; 
+    public List<Hassales> listOfHassales;
 
 
     //--- toString specific method
-	@Override
-    public String toString() { 
-        StringBuilder sb = new StringBuilder(); 
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
         sb.append(bookid);
         sb.append("|");
         sb.append(bookname);
@@ -142,231 +145,229 @@ public class Books implements Serializable {
         sb.append(quantitysold);
         sb.append("|");
         sb.append(shopid);
-        return sb.toString(); 
+        return sb.toString();
     }
 
 
-	public List<Imagebooks> getListOfImagebooks() {
-		// TODO Auto-generated method stub
-		return listOfImagebooks;
-	}
+    public List<Imagebooks> getListOfImagebooks() {
+        // TODO Auto-generated method stub
+        return listOfImagebooks;
+    }
 
 
-	public Long getBookid() {
-		return bookid;
-	}
+    public Long getBookid() {
+        return bookid;
+    }
 
 
-	public void setBookid(Long bookid) {
-		this.bookid = bookid;
-	}
+    public void setBookid(Long bookid) {
+        this.bookid = bookid;
+    }
 
 
-	public String getBookname() {
-		return bookname;
-	}
+    public String getBookname() {
+        return bookname;
+    }
 
 
-	public void setBookname(String bookname) {
-		this.bookname = bookname;
-	}
+    public void setBookname(String bookname) {
+        this.bookname = bookname;
+    }
 
 
-	public String getLanguage() {
-		return language;
-	}
+    public String getLanguage() {
+        return language;
+    }
 
 
-	public void setLanguage(String language) {
-		this.language = language;
-	}
+    public void setLanguage(String language) {
+        this.language = language;
+    }
 
 
-	public String getSize() {
-		return size;
-	}
+    public String getSize() {
+        return size;
+    }
 
 
-	public void setSize(String size) {
-		this.size = size;
-	}
+    public void setSize(String size) {
+        this.size = size;
+    }
 
 
-	public Double getWeight() {
-		return weight;
-	}
+    public Double getWeight() {
+        return weight;
+    }
 
 
-	public void setWeight(Double weight) {
-		this.weight = weight;
-	}
+    public void setWeight(Double weight) {
+        this.weight = weight;
+    }
 
 
-	public Integer getTotalpage() {
-		return totalpage;
-	}
+    public Integer getTotalpage() {
+        return totalpage;
+    }
 
 
-	public void setTotalpage(Integer totalpage) {
-		this.totalpage = totalpage;
-	}
+    public void setTotalpage(Integer totalpage) {
+        this.totalpage = totalpage;
+    }
 
 
-	public Integer getPublishingyear() {
-		return publishingyear;
-	}
+    public Integer getPublishingyear() {
+        return publishingyear;
+    }
 
 
-	public void setPublishingyear(Integer publishingyear) {
-		this.publishingyear = publishingyear;
-	}
+    public void setPublishingyear(Integer publishingyear) {
+        this.publishingyear = publishingyear;
+    }
 
 
-	public Double getPrice() {
-		return price;
-	}
+    public Double getPrice() {
+        return price;
+    }
 
 
-	public void setPrice(Double price) {
-		this.price = price;
-	}
+    public void setPrice(Double price) {
+        this.price = price;
+    }
 
 
-	public Integer getQuantity() {
-		return quantity;
-	}
+    public Integer getQuantity() {
+        return quantity;
+    }
 
 
-	public void setQuantity(Integer quantity) {
-		this.quantity = quantity;
-	}
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
+    }
 
 
-	public String getStatues() {
-		return statues;
-	}
+    public String getStatues() {
+        return statues;
+    }
 
 
-	public void setStatues(String statues) {
-		this.statues = statues;
-	}
+    public void setStatues(String statues) {
+        this.statues = statues;
+    }
 
 
-	public Integer getPublishingcompanyid() {
-		return publishingcompanyid;
-	}
+    public Integer getPublishingcompanyid() {
+        return publishingcompanyid;
+    }
 
 
-	public void setPublishingcompanyid(Integer publishingcompanyid) {
-		this.publishingcompanyid = publishingcompanyid;
-	}
+    public void setPublishingcompanyid(Integer publishingcompanyid) {
+        this.publishingcompanyid = publishingcompanyid;
+    }
 
 
-	public Boolean getIsactive() {
-		return isactive;
-	}
+    public Boolean getIsactive() {
+        return isactive;
+    }
 
 
-	public void setIsactive(Boolean isactive) {
-		this.isactive = isactive;
-	}
+    public void setIsactive(Boolean isactive) {
+        this.isactive = isactive;
+    }
 
 
-	public Integer getQuantitysold() {
-		return quantitysold;
-	}
+    public Integer getQuantitysold() {
+        return quantitysold;
+    }
 
 
-	public void setQuantitysold(Integer quantitysold) {
-		this.quantitysold = quantitysold;
-	}
+    public void setQuantitysold(Integer quantitysold) {
+        this.quantitysold = quantitysold;
+    }
 
 
-	public Integer getShopid() {
-		return shopid;
-	}
+    public Integer getShopid() {
+        return shopid;
+    }
 
 
-	public void setShopid(Integer shopid) {
-		this.shopid = shopid;
-	}
+    public void setShopid(Integer shopid) {
+        this.shopid = shopid;
+    }
 
 
-	public List<Cart> getListOfCart() {
-		return listOfCart;
-	}
+    public List<Cart> getListOfCart() {
+        return listOfCart;
+    }
 
 
-	public void setListOfCart(List<Cart> listOfCart) {
-		this.listOfCart = listOfCart;
-	}
+    public void setListOfCart(List<Cart> listOfCart) {
+        this.listOfCart = listOfCart;
+    }
 
 
-	public Shoponlines getShoponlines() {
-		return shoponlines;
-	}
+    public Shoponlines getShoponlines() {
+        return shoponlines;
+    }
 
 
-	public void setShoponlines(Shoponlines shoponlines) {
-		this.shoponlines = shoponlines;
-	}
+    public void setShoponlines(Shoponlines shoponlines) {
+        this.shoponlines = shoponlines;
+    }
 
 
-	public List<Detailbookings> getListOfDetailbookings() {
-		return listOfDetailbookings;
-	}
+    public List<Detailbookings> getListOfDetailbookings() {
+        return listOfDetailbookings;
+    }
 
 
-	public void setListOfDetailbookings(List<Detailbookings> listOfDetailbookings) {
-		this.listOfDetailbookings = listOfDetailbookings;
-	}
+    public void setListOfDetailbookings(List<Detailbookings> listOfDetailbookings) {
+        this.listOfDetailbookings = listOfDetailbookings;
+    }
 
 
-	public List<Typebooks> getListOfTypebooks() {
-		return listOfTypebooks;
-	}
+    public List<Typebooks> getListOfTypebooks() {
+        return listOfTypebooks;
+    }
 
 
-	public void setListOfTypebooks(List<Typebooks> listOfTypebooks) {
-		this.listOfTypebooks = listOfTypebooks;
-	}
+    public void setListOfTypebooks(List<Typebooks> listOfTypebooks) {
+        this.listOfTypebooks = listOfTypebooks;
+    }
 
 
-	public List<Writers> getListOfWriters() {
-		return listOfWriters;
-	}
+    public List<Writers> getListOfWriters() {
+        return listOfWriters;
+    }
 
 
-	public void setListOfWriters(List<Writers> listOfWriters) {
-		this.listOfWriters = listOfWriters;
-	}
+    public void setListOfWriters(List<Writers> listOfWriters) {
+        this.listOfWriters = listOfWriters;
+    }
 
 
-	public Publishingcompanies getPublishingcompanies() {
-		return publishingcompanies;
-	}
+    public Publishingcompanies getPublishingcompanies() {
+        return publishingcompanies;
+    }
 
 
-	public void setPublishingcompanies(Publishingcompanies publishingcompanies) {
-		this.publishingcompanies = publishingcompanies;
-	}
+    public void setPublishingcompanies(Publishingcompanies publishingcompanies) {
+        this.publishingcompanies = publishingcompanies;
+    }
 
 
-	public List<Hassales> getListOfHassales() {
-		return listOfHassales;
-	}
+    public List<Hassales> getListOfHassales() {
+        return listOfHassales;
+    }
 
 
-	public void setListOfHassales(List<Hassales> listOfHassales) {
-		this.listOfHassales = listOfHassales;
-	}
+    public void setListOfHassales(List<Hassales> listOfHassales) {
+        this.listOfHassales = listOfHassales;
+    }
 
 
-	public void setListOfImagebooks(List<Imagebooks> listOfImagebooks) {
-		this.listOfImagebooks = listOfImagebooks;
-	}
+    public void setListOfImagebooks(List<Imagebooks> listOfImagebooks) {
+        this.listOfImagebooks = listOfImagebooks;
+    }
 
 
-
-	
 }

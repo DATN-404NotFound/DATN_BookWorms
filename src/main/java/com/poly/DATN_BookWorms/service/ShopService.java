@@ -17,4 +17,5 @@ public interface ShopService {
     void createShopDefaultWithUser(Account user);
 
     Shoponlines findById(Integer shopId);
+
 }

@@ -11,7 +11,7 @@ public class Sales {
 
     private double monthlySales;
 
-    private double orders;
+    private int orders;
 
     private double conversionRate;
 

@@ -70,46 +70,142 @@ app.config(function ($routeProvider) {
 });
 //sales Analysis
 app.controller("salesController", function ($scope, $routeParams, $route, $http, $rootScope) {
+
+
     let host = "http://localhost:8080/rest/salesAnalysis/";
     var currentDate = new Date();
     $scope.year = currentDate.getFullYear();
-
+    $scope.salesAnalysis = [];
+    $scope.salesAnalysisNow = [];
     $scope.getSalesAnalysis = function () {
         $scope.salesAnalysis = [];
         $scope.salesAnalysisNow = [];
         let url = `${host}getSalesAnalysis`;
         var currentMonth = currentDate.getMonth() + 1;
-        for (let i = 1; i <= 12; i++) {
-            let formData;
-            formData = new FormData();
-            formData.append('year', $scope.year);
-            formData.append('month', i);
-            formData.append("reportProgress", true);
-            const headers = {
-                'Content-Type': undefined,
-                transformRequest: angular.identity
-            };
-            if (i===currentMonth){
-                $http.post(url, formData, {headers: headers}).then(resp => {
-                    $scope.salesAnalysis.push(resp.data);
-                    $scope.salesAnalysisNow.push(resp.data);
-                }).catch(error => {
-                    console.log("Error", error)
-                });
-            }else{
-                $http.post(url, formData, {headers: headers}).then(resp => {
-                    $scope.salesAnalysis.push(resp.data);
-                }).catch(error => {
-                    console.log("Error", error)
-                });
-            }
+        let formData;
+        formData = new FormData();
+        formData.append('year', $scope.year);
+        formData.append("reportProgress", true);
+        const headers = {
+            'Content-Type': undefined,
+            transformRequest: angular.identity
+        };
+        $http.post(url, formData, {headers: headers}).then(resp => {
+            $scope.salesAnalysis = resp.data;
+            $scope.salesAnalysisNow.push(resp.data[currentMonth]);
+            $scope.salesAnalysisNow.push(resp.data[currentMonth - 1]);
+            console.log("data", $scope.salesAnalysis)
+            console.log("data", $scope.salesAnalysisNow)
+        }).catch(error => {
+            console.log("Error", error)
+        });
 
 
+    }
+    $scope.growthIncreases = function (firtsMonth, secondMonth) {
+        var growth = 0;
+
+        if (Number(secondMonth) != 0) {
+            growth = (Number(firtsMonth) / Number(secondMonth)) * 100;
         }
-        console.log("salesAnalysis", $scope.salesAnalysis)
-        console.log("salesAnalysisNow", $scope.salesAnalysisNow)
+        return growth;
+    }
+    $scope.initDataChart = function () {
+        $scope.monthlySales = [];
+        $scope.orders = [];
+        $scope.conversionRate = [];
+        $scope.pagesViews = [];
+        $scope.salesPerOrder = [];
+        for (let i = 1; i < $scope.salesAnalysis.size(); i++) {
+            $scope.monthlySales.push($scope.salesAnalysis[i].monthlySales)
+            $scope.orders.push($scope.salesAnalysis[i].orders)
+            $scope.conversionRate.push($scope.salesAnalysis[i].conversionRate)
+            $scope.pagesViews.push($scope.salesAnalysis[i].pagesViews)
+            $scope.salesPerOrder.push($scope.salesAnalysis[i].salesPerOrder)
+        }
     }
     $scope.getSalesAnalysis();
+    var options = {
+        series: [{
+            name: "Monthly Sales",
+            data: [87, 57, 74, 99, 75, 38, 62, 47, 82, 56, 45, 47]
+        },
+            {
+                name: "Orders",
+                data: [87, 57, 74, 99, 75, 38, 62, 47, 82, 56, 45, 47]
+            },
+            {
+                name: 'Total Visits',
+                data: [87, 57, 74, 99, 75, 38, 62, 47, 82, 56, 45, 47]
+            }
+        ],
+        chart: {
+            height: 350,
+            type: 'line',
+            zoom: {
+                enabled: false
+            },
+        },
+        dataLabels: {
+            enabled: false
+        },
+        stroke: {
+            width: [5, 7, 5],
+            curve: 'straight',
+            dashArray: [0, 8, 5]
+        },
+        title: {
+            text: 'Page Statistics',
+            align: 'left'
+        },
+        legend: {
+            tooltipHoverFormatter: function (val, opts) {
+                return val + ' - ' + opts.w.globals.series[opts.seriesIndex][opts.dataPointIndex] + ''
+            }
+        },
+        markers: {
+            size: 0,
+            hover: {
+                sizeOffset: 6
+            }
+        },
+        xaxis: {
+            categories: ['01 Jan', '02 Jan', '03 Jan', '04 Jan', '05 Jan', '06 Jan', '07 Jan', '08 Jan', '09 Jan',
+                '10 Jan', '11 Jan', '12 Jan'
+            ],
+        },
+        tooltip: {
+            y: [
+                {
+                    title: {
+                        formatter: function (val) {
+                            return val + " (mins)"
+                        }
+                    }
+                },
+                {
+                    title: {
+                        formatter: function (val) {
+                            return val + " per session"
+                        }
+                    }
+                },
+                {
+                    title: {
+                        formatter: function (val) {
+                            return val;
+                        }
+                    }
+                }
+            ]
+        },
+        grid: {
+            borderColor: '#f1f1f1',
+        }
+    };
+
+    var chart = new ApexCharts(document.querySelector("#myChart"), options);
+    chart.render();
 });
 //Display account shop
 app.controller("accountSettingController", function ($scope, $routeParams, $route, $http, $rootScope) {

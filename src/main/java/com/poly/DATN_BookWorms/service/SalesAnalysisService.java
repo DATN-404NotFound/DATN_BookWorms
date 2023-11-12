@@ -8,5 +8,7 @@ import java.util.Date;
 public interface SalesAnalysisService {
     double getMonthSales(Date startDate, Date endDate);
 
-    double getMonthOrder(Date month);
+    int getMonthOrder(Date startDate, Date endDate);
+
+    int getProductView(Integer shopId);
 }
