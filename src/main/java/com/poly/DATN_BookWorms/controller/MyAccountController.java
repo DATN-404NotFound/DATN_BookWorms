@@ -82,7 +82,7 @@ public class MyAccountController {
         model.addAttribute("account", account);
         System.out.println("you "+ account.getUserid());
         List<Bookings> booking = bookingService.findByUserId(account.getUserid());
-        System.out.println("list");
+        System.out.println("list"+ booking.get(0).listOfDetailbookings.get(0).books.shoponlines.listOfFiles.get(0).filename);
         model.addAttribute("booking", booking);
 //        List<Bookings> booking_StatusId = bookingService.findByStatusId(tab);
 //        model.addAttribute("bs", booking_StatusId);

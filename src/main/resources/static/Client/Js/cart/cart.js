@@ -211,49 +211,23 @@ const app = angular.module("cart_app", []);
 let host = "http://localhost:8080/rest/cart"
 app.controller("cart_ctrl", function ($scope, $http) {
 
-	$scope.detailBook = function(id){ 
-		location.href = "/product/detail/"+id;
+
+	$scope.pc = [];
+	$scope.sp = [];
+	$scope.loadProduct = function () {
+		$http.get("http://localhost:8080/rest/books").then(resp => {
+			$scope.sp = resp.data;
+			console.log("nn " + JSON.stringify($scope.sp[0]))
+		
+		})
 	}
 
-	app.filter('searchField', ['$parse', function ($parse) {
-		return function (collection) {
-	
-		  var get, field;
-	
-		  collection = isObject(collection) ? toArray(collection) : collection;
-	
-		  var args = Array.prototype.slice.call(arguments, 1);
-	
-		  if(!isArray(collection) || !args.length) {
-			return collection;
-		  }
-	
-		  return collection.map(function(member) {
-	
-			field = args.map(function(field) {
-			  get = $parse(field);
-			  return get(member);
-			}).join(' ');
-	
-			return extend(member, { searchField: field });
-		  });
-		}
-	  }]);
-
-$scope.sp = [];
-$scope.loadProduct = function(){ 
-		$http.get("http://localhost:8080/rest/books").then(resp =>{ 
-			$scope.sp = resp.data;
-			console.log("nn "+JSON.stringify($scope.sp[0]))
-		})
-}
-
-$scope.loadProduct();
-
+	$scope.loadProduct();
 	$scope.filterCate = [];
 	$scope.filterWrite = [];
 	$scope.filterPC = [];
 	$scope.filterPrice = [];
+	// "0-100000","100000-200000","200000-400000","400000-600000","600000-10000000"
 	$scope.filterRatting = [];
 
 	$scope.orderBy = function () {
@@ -281,9 +255,68 @@ $scope.loadProduct();
 				break;
 			}
 			case 4: {
-				$scope.process($scope.filterPrice, name);
+				var a = name.getAttribute('id');
+				console.log("KKKKcx"+ typeof(a))
+				if (name.checked) {
+					
+					switch (a) {
+						case '0': {
+
+							$scope.filterPrice.push("0-100000");
+							console.log($scope.filterPrice)
+							break;
+						}
+						case '1': {
+							$scope.filterPrice.push("100000-200000");
+							break;
+						}
+						case '2': {
+							$scope.filterPrice.push("200000-400000");
+							break;
+						}
+						case '4': {
+							$scope.filterPrice.push("400000-600000");
+							break;
+						}
+						case '6': {
+							$scope.filterPrice.push("600000-10000000");
+							break;
+
+						}
+					}
+				}
+				else {
+					switch (a) {
+						case '0': {
+							var del = $scope.filterPrice.findIndex(i => i === "0-100000");
+							$scope.filterPrice.splice(del, 1);
+							break;
+						}
+						case '1': {
+							var del = $scope.filterPrice.findIndex(i => i === "100000-200000");
+							$scope.filterPrice.splice(del, 1);
+							break;
+						}
+						case '2': {
+							var del = $scope.filterPrice.findIndex(i => i === "200000-400000");
+							$scope.filterPrice.splice(del, 1);
+							break;
+						}
+						case '4': {
+							var del = $scope.filterPrice.findIndex(i => i === "400000-600000");
+							$scope.filterPrice.splice(del, 1);
+							break;
+						}
+						case '6': {
+							var del = $scope.filterPrice.findIndex(i => i === "600000-10000000");
+							$scope.filterPrice.splice(del, 1);
+							break;
+						}
+
+					}
+				}
 				break;
-			} 
+			}
 			case 5: {
 				$scope.process($scope.filterRatting, name);
 				break;
@@ -292,18 +325,48 @@ $scope.loadProduct();
 		$scope.loadProduct();
 	}
 
-$scope.process = function(array, name){ 
-	if (name.checked) {
-		console.log("chose name : " + name.getAttribute('id'));
-		array.push(name.getAttribute('id'));
+	$scope.pr = ["Nhà xuất bản Trẻ"];
+	$scope.filterByGenres = function (b) {
+		if($scope.filterPC.length ==0){ 
+			return ($scope.filterPC.indexOf(b.publishingcompanies.namepc) == -1);
+		}
+		else{ 
+			return ($scope.filterPC.indexOf(b.publishingcompanies.namepc) !== -1);
+		}
+		
+	};
+
+	$scope.filterByPrice = function (b) {
+		var object ;
+		if($scope.filterPrice.length==0){ 
+			return (b.price >=0 && b.price <=10000000)
+		}
+		else{ 
+			$scope.filterPrice.forEach(p =>{ 
+				if((b.price >= Number(p.substring(0, p.indexOf("-"))) && b.price <= Number(p.substring(p.indexOf("-")+1,p.length)))){
+					 console.log("min "+ p.substring(p.indexOf("-")+1,p.length))
+					object = b
+				}
+			})
+			return object;
+		}
+	
+	};
+
+
+
+	$scope.process = function (array, name) {
+		if (name.checked) {
+			console.log("chose name : " + name.getAttribute('id'));
+			array.push(name.getAttribute('id'));
+		}
+		else {
+			console.log("fal name : " + name);
+			var del = array.findIndex(i => i === name.getAttribute('id'));
+			array.splice(del, 1)
+		}
+		console.log("filter : " + array)
 	}
-	else {
-		console.log("fal name : " + name);
-		var del = array.findIndex(i => i === name.getAttribute('id'));
-		array.splice(del, 1)
-	}
-	console.log("filter : "  + array)
-}
 
 
 	$scope.booksCate = [];
@@ -380,7 +443,7 @@ $scope.process = function(array, name){
 				var updatecart = `${host}`;
 				var cartupdate = angular.copy(item);
 				$http.put(updatecart, cartupdate).then(resp => {
-
+					$scope.cart.load();
 				})
 
 			} else {
@@ -394,7 +457,8 @@ $scope.process = function(array, name){
 					}
 					var addc = angular.copy($scope.cartss)
 					$http.post(`/rest/cart`, addc).then(resp => {
-						this.items.push(resp.data)
+						this.items.push(resp.data);
+						$scope.cart.load();
 					})
 				})
 			}
@@ -485,7 +549,7 @@ function voucherSelected(shopid) {
 			else {
 				salevoucher.push(data);
 				localStorage.setItem('sales', JSON.stringify(salevoucher));
-				console.log("selas"+ salevoucher)
+				console.log("selas" + salevoucher)
 			}
 		}
 	});
@@ -596,7 +660,7 @@ function calculatorPrice() {
 
 
 const app1 = angular.module("order_app", []);
-app1.controller("order_ctrl", function ($scope, $http) {
+app1.controller("order_ctrl", function ($scope, $http, $timeout) {
 	$scope.bookItem = [];
 	$scope.dealItem = [];
 	$scope.shopItem = [];
@@ -607,9 +671,9 @@ app1.controller("order_ctrl", function ($scope, $http) {
 		$scope.bookItem = JSON.parse(localStorage.getItem('books'));
 		$scope.dealItem = JSON.parse(localStorage.getItem('deal'));
 		$scope.shopItem = JSON.parse(localStorage.getItem('shoponline'));
-		console.log("al "+ $scope.shopItem.length)
+		console.log("al " + $scope.shopItem.length)
 		$scope.salesItem = JSON.parse(localStorage.getItem('sales'));
-		
+
 		$scope.totalQuantity = $scope.bookItem.length;
 	}
 
@@ -632,6 +696,7 @@ app1.controller("order_ctrl", function ($scope, $http) {
 		})
 	}
 	$scope.paymentCart = function () {
+		var timeoutTimer = 0;
 		$scope.shopItem.forEach(i => {
 			var a = document.getElementById('priceItem' + i.shopid).innerText;
 			$scope.bookings = {
@@ -640,8 +705,8 @@ app1.controller("order_ctrl", function ($scope, $http) {
 				cost: Number(a.replace(',', '')),
 				userid: "",
 				orderstatusid: 1,
-				shippingunitid: Number($('#shippunit').children("option:selected").val()),
-				note: $('#noteBooking').val(),
+				shippingunitid: Number($('#shippunit' + i.shopid).children("option:selected").val()),
+				note: $('#noteBooking' + i.shopid).val(),
 				get listOfPayments() {
 					return {
 						paymentid: "",
@@ -651,7 +716,7 @@ app1.controller("order_ctrl", function ($scope, $http) {
 						type: Number($('#pay').children("option:selected").val()),
 						addressuserid: $('#addressship').children("option:selected").val(),
 						addressusers: { addressuserid: $('#addressship').children("option:selected").val() },
-						paymentaccounts: { paid: $('#pac').children("option:selected").val() },
+
 					}
 				},
 				orderstatuses: { orderstatusid: 1 },
@@ -666,13 +731,16 @@ app1.controller("order_ctrl", function ($scope, $http) {
 								books: { bookid: item.books.bookid }
 							}
 						}
+						else {
+							console.log("khác shop" + item.books.shopid)
+							return;
+						}
 
 					})
 				},
-			
-
 			}
 			var booking = angular.copy($scope.bookings);
+			console.log("ind " + JSON.stringify($scope.bookings))
 			$http.post(`/rest/bookings`, booking).then(resp => {
 				$scope.deleteDeal();
 				$http.delete("http://localhost:8080/rest/discount/" + vouchero.discountcodeid).then(resp => {
@@ -682,7 +750,7 @@ app1.controller("order_ctrl", function ($scope, $http) {
 				// $('#iconModel').css({"font-size": "50px","color": "green"})
 				$('#descrptionInfor').text("Đặt hàng thành công!")
 				//  location.href = "/cart"
-				}).catch(error => {
+			}).catch(error => {
 				$('#myModal').show();
 				$('#iconModel').html('<i  style="font-size: 50px;color: red;" class="bi bi-x-circle"></i> ')
 				// $('#iconModel').css({"font-size": "50px","color": "red"})

@@ -10,6 +10,7 @@ import com.poly.DATN_BookWorms.service.WriterService;
 import com.poly.DATN_BookWorms.utils.CRC32_SHA256;
 
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 import java.util.List;
 import java.util.Optional;
@@ -49,7 +50,12 @@ public class ProductController {
 
 	@Autowired
 	HttpServletRequest request;
+	
+	@Autowired
+	HttpServletResponse resp;
 
+	
+	
 	@GetMapping("/list")
 	public String listBooks(Model model, @RequestParam(defaultValue = "0") int page,
 			@RequestParam(defaultValue = "8") int size, @RequestParam(defaultValue = "asc") String priceSort,
