@@ -204,7 +204,7 @@ function check() {
 
 const app = angular.module("cart_app", []);
 let host = "http://localhost:8080/rest/cart"
-app.controller("cart_ctrl", function ($scope, $http) {
+app.controller("cart_ctrl", function ($scope, $http,$rootScope) {
 
 // Product list
 	$scope.sp = [];
@@ -339,6 +339,12 @@ app.controller("cart_ctrl", function ($scope, $http) {
 
 	};
 
+	$(document).ready(function () {
+		$('#showtab').click(function(){ 
+			console.log("dm")
+			$('.nav-pills a[href="#products_us"]').tab('show'); 
+		})
+	});
 
 
 	$scope.filterByCate = function (b) {
@@ -351,7 +357,7 @@ app.controller("cart_ctrl", function ($scope, $http) {
 	};
 
 	$scope.filterByWriter = function (b) {
-		if ($scope.filterValueWrite.length == 0) {
+		if ($scope.filterWrite.length == 0) {
 			return ($scope.filterValueWrite.indexOf(b.bookid) == -1);
 		}
 		else {
@@ -531,6 +537,23 @@ app.controller("cart_ctrl", function ($scope, $http) {
 	$scope.detailBook = function(bookid){ 
 		location.href = "/product/detail/"+bookid;
 	}
+
+//Shop Page 
+$scope.ListBookOfShop =[]
+$scope.toShopDetail = function(shopid){ 
+	$http.get("http://localhost:8080/rest/books/shop?shopid="+shopid).then(resp =>{ 
+		localStorage.setItem('productShop', JSON.stringify(resp.data));
+		location.href = "/shop/"+shopid
+	})
+}
+
+
+
+
+$(document).ready(function () {
+	console.log("In sl "+localStorage.getItem("productShop"));
+	$scope.ListBookOfShop = JSON.parse(localStorage.getItem('productShop'));
+});
 
 // Cart Page
 	$scope.cartsvoucher = {

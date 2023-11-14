@@ -107,9 +107,9 @@
                         <div class="d-flex flex-column " style=" margin-top: 60px; ">
                             <div class="p-1 ms-3"><a
                                     style="text-decoration: none; color: #080808; font-size:20px ; font-weight: 500;"
-                                    th:href="@{|/shop/${item.shopid}|}"><span th:text="${item.shoponlines.shopname}"></span></a></div>
+                                    th:attr="ng-click=@{|toShopDetail(${item.shopid})|}"><span th:text="${item.shoponlines.shopname}"></span></a></div>
                             <div class="ms-1 mt-3">
-                                <a class="btn shop_button" th:href="@{|/shop/${item.shopid}|}"
+                                <a class="btn shop_button" th:attr="ng-click=@{|toShopDetail(${item.shopid})|}"
                                     style="float: left;color: white; background-color: #C93F04;">Shop</a>
                                 <a class=" btn shop_button"
                                     style=" color: #333;background:none; border: 1px solid black;">Chat</a>
@@ -348,7 +348,7 @@
                                 tiết</button>
                         </div>
                         <div class="book_title text-center mt-3">
-                            <a th:href ="@{|/product/detail/book.bookid|}"><p th:text="${book.bookname}"></p> </a>
+                            <a th:href ="@{|/product/detail/${book.bookid}|}"><p th:text="${book.bookname}"></p> </a>
                             <p style="font-size: 18px;margin-top: 0px;  color: #666;" th:text="${#strings.abbreviate(book.shoponlines.shopname, 10)}"></p>
                             <p style="font-size: 18px;margin-top: -10px;">Giá : <strong th:text="${#numbers.formatDecimal(book.price, 0, 'POINT', 0, 'COMMA')} +'₫'">200.00 VND</strong>
                             </p>

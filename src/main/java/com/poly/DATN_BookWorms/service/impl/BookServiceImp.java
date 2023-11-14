@@ -138,4 +138,10 @@ public class BookServiceImp implements BookService{
 		// TODO Auto-generated method stub
 		return bookRepo.getListBookWithEvaluer(listeva);
 	}
+
+	@Override
+	public List<Books> findByShopList(Integer shopid) {
+		// TODO Auto-generated method stub
+		return bookRepo.findByShopid(shopid);
+	}
 }

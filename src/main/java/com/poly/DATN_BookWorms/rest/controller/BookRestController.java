@@ -58,6 +58,11 @@ public class BookRestController {
 		System.out.println("111111111111111"+ bookService.findById(id));
 		return bookService.findById(id);
 	}
+	@GetMapping("/shop")
+	public List<Books> getBookListShop(@RequestParam("shopid") Integer shopid) {
+	
+		return bookService.findByShopList(shopid);
+	}
 	
 	@GetMapping("/type")
 	public List<Integer> getBookWithTypeBook(@RequestParam("listtype") String listtype){ 
