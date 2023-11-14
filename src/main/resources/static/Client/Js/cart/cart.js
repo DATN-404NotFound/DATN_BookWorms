@@ -200,26 +200,29 @@ function check() {
 	}
 }
 
-// function filterChoose(stt,name){
-// 	console.log("chose name : "+ name)
 
-// }
+
 const app = angular.module("cart_app", []);
-
-
-
 let host = "http://localhost:8080/rest/cart"
 app.controller("cart_ctrl", function ($scope, $http) {
 
-
-	$scope.pc = [];
+// Product list
 	$scope.sp = [];
 	$scope.loadProduct = function () {
 		$http.get("http://localhost:8080/rest/books").then(resp => {
 			$scope.sp = resp.data;
-			console.log("nn " + JSON.stringify($scope.sp[0]))
-		
 		})
+	}
+
+	$scope.setImageBook = function (bookId) {
+		let url = `http://localhost:8080/rest/imagebook/` + bookId;
+		$http.get(url).then(resp => {
+			var a = [];
+			a = (resp.data);
+			document.getElementById('product' + bookId).src = "/Client/images/" + a[0].name
+		}).catch(error => {
+			console.log("Error", error)
+		});;
 	}
 
 	$scope.loadProduct();
@@ -227,27 +230,28 @@ app.controller("cart_ctrl", function ($scope, $http) {
 	$scope.filterWrite = [];
 	$scope.filterPC = [];
 	$scope.filterPrice = [];
-	// "0-100000","100000-200000","200000-400000","400000-600000","600000-10000000"
+	$scope.filterValueCate = [];
+	$scope.filterValueWrite = [];
 	$scope.filterRatting = [];
+	$scope.filterValueRatting = [];
 
-	$scope.orderBy = function () {
-		location.href = "/product/list?priceSort=" + $scope.or;
-	}
 	$scope.newyear = function () {
-		location.href = "/product/list?newYear= yes";
+		$scope.or = "-publishingyear"
 	}
 	$scope.bestseller = function () {
-		location.href = "/product/list?sold= yes";
+		$scope.or = "-quantitysold"
 	}
 
 	$scope.filterChoose = function (stt, name) {
 		switch (stt) {
 			case 1: {
 				$scope.process($scope.filterCate, name);
+				$scope.getList(1, "type", "listtype", $scope.filterCate);
 				break;
 			}
 			case 2: {
 				$scope.process($scope.filterWrite, name);
+				$scope.getList(2, "writer", "listwriter", $scope.filterWrite);
 				break;
 			}
 			case 3: {
@@ -256,12 +260,11 @@ app.controller("cart_ctrl", function ($scope, $http) {
 			}
 			case 4: {
 				var a = name.getAttribute('id');
-				console.log("KKKKcx"+ typeof(a))
+				console.log("KKKKcx" + typeof (a))
 				if (name.checked) {
-					
+
 					switch (a) {
 						case '0': {
-
 							$scope.filterPrice.push("0-100000");
 							console.log($scope.filterPrice)
 							break;
@@ -319,40 +322,71 @@ app.controller("cart_ctrl", function ($scope, $http) {
 			}
 			case 5: {
 				$scope.process($scope.filterRatting, name);
+				$scope.getList(3, "Eva", "listeva", $scope.filterRatting);
 				break;
 			}
 		}
 		$scope.loadProduct();
 	}
 
-	$scope.pr = ["Nhà xuất bản Trẻ"];
 	$scope.filterByGenres = function (b) {
-		if($scope.filterPC.length ==0){ 
+		if ($scope.filterPC.length == 0) {
 			return ($scope.filterPC.indexOf(b.publishingcompanies.namepc) == -1);
 		}
-		else{ 
+		else {
 			return ($scope.filterPC.indexOf(b.publishingcompanies.namepc) !== -1);
 		}
-		
+
 	};
 
-	$scope.filterByPrice = function (b) {
-		var object ;
-		if($scope.filterPrice.length==0){ 
-			return (b.price >=0 && b.price <=10000000)
+
+
+	$scope.filterByCate = function (b) {
+		if ($scope.filterCate.length == 0) {
+			return ($scope.filterValueCate.indexOf(b.bookid) == -1);
 		}
-		else{ 
-			$scope.filterPrice.forEach(p =>{ 
-				if((b.price >= Number(p.substring(0, p.indexOf("-"))) && b.price <= Number(p.substring(p.indexOf("-")+1,p.length)))){
-					 console.log("min "+ p.substring(p.indexOf("-")+1,p.length))
+		else {
+			return ($scope.filterValueCate.indexOf(b.bookid) !== -1);
+		}
+	};
+
+	$scope.filterByWriter = function (b) {
+		if ($scope.filterValueWrite.length == 0) {
+			return ($scope.filterValueWrite.indexOf(b.bookid) == -1);
+		}
+		else {
+			return ($scope.filterValueWrite.indexOf(b.bookid) !== -1);
+		}
+	};
+
+	$scope.filterByRatting = function (b) {
+		if ($scope.filterRatting.length == 0) {
+			return ($scope.filterValueRatting.indexOf(b.bookid) == -1);
+		}
+		else {
+			console.log("log "+ $scope.filterValueRatting.length)
+			return ($scope.filterValueRatting.indexOf(b.bookid) !== -1);
+		}
+	};
+
+
+
+	$scope.filterByPrice = function (b) {
+		var object;
+		if ($scope.filterPrice.length == 0) {
+			return (b.price >= 0 && b.price <= 10000000)
+		}
+		else {
+			$scope.filterPrice.forEach(p => {
+				if ((b.price >= Number(p.substring(0, p.indexOf("-"))) && b.price <= Number(p.substring(p.indexOf("-") + 1, p.length)))) {
+					console.log("min " + p.substring(p.indexOf("-") + 1, p.length))
 					object = b
 				}
 			})
 			return object;
 		}
-	
-	};
 
+	};
 
 
 	$scope.process = function (array, name) {
@@ -368,10 +402,31 @@ app.controller("cart_ctrl", function ($scope, $http) {
 		console.log("filter : " + array)
 	}
 
+	$scope.getList = function (mang, name, key, value) {
+		console.log("datatype " + typeof (value))
+
+		console.log("req : " + "http://localhost:8080/rest/books/" +  name + "?"+key + "=" + value +"")
+		$http.get("http://localhost:8080/rest/books/"+name +"?"+key + "=" + value +"").then(resp =>{ 
+	
+			switch(mang){ 
+				case 1 :{ 
+					$scope.filterValueCate = resp.data;
+					break;
+				}
+				case 2 :{ 
+					$scope.filterValueWrite = resp.data;
+					break;
+				}
+				case 3 :{ 
+					$scope.filterValueRatting = resp.data;
+					break;
+				}
+			}
+		})
+	}
 
 	$scope.booksCate = [];
 	$scope.loadAll = function () {
-		console.log("aaaa")
 		$http.get("/rest/books/cate/4").then(resp => {
 			$scope.a = 4;
 			$scope.b = 0;
@@ -381,7 +436,7 @@ app.controller("cart_ctrl", function ($scope, $http) {
 
 
 
-
+// HomePage
 	$scope.edu = function (id, a, b) {
 		$http.get("/rest/books/cate/" + id).then(resp => {
 			$scope.a = a;
@@ -392,6 +447,7 @@ app.controller("cart_ctrl", function ($scope, $http) {
 			})
 		})
 	}
+
 	$scope.setImage = function (bookId, cate) {
 		let url = `http://localhost:8080/rest/imagebook/` + bookId;
 		$http.get(url).then(resp => {
@@ -412,18 +468,17 @@ app.controller("cart_ctrl", function ($scope, $http) {
 					break;
 				}
 			}
-
 		}).catch(error => {
 			console.log("Error", error)
 		});;
 	}
+
 	$scope.loadAll();
 
 	$scope.next = function (id, cate) {
 		console.log("next" + id)
 		$scope.b = id + 1;
 		$scope.edu(cate, 4, $scope.b)
-
 	}
 
 	$scope.prev = function (id, cate) {
@@ -464,17 +519,20 @@ app.controller("cart_ctrl", function ($scope, $http) {
 			}
 		},
 		load() {
-			console.log("loo")
 			var url = `${host}/user`
 			$http.get(url).then(resp => {
 				this.items = resp.data;
 			});
 		},
-
 	}
 
 	$scope.cart.load();
 
+	$scope.detailBook = function(bookid){ 
+		location.href = "/product/detail/"+bookid;
+	}
+
+// Cart Page
 	$scope.cartsvoucher = {
 		voucherAll: [],
 		changevoucher(couoponcode) {
@@ -533,6 +591,7 @@ $(document).ready(function () {
 
 
 
+
 function voucherSelected(shopid) {
 	var vou = $('#voucher' + shopid).children("option:selected").val();
 	console.log(vou)
@@ -585,6 +644,7 @@ function findCart(item) {
 		findBook(data);
 	})
 }
+
 
 function findPaymentAccount() {
 	$.get("http://localhost:8080/rest/paymentaccount/user", function (data, status) {
@@ -647,6 +707,8 @@ function loadWin() {
 	calculatorPrice();
 }
 
+
+
 function calculatorPrice() {
 	var a = document.getElementById('totalPriceAll').innerText.replace(',', '');
 	var b = document.getElementById('shippingPrice').innerText.replace(',', '');
@@ -661,6 +723,8 @@ function calculatorPrice() {
 
 const app1 = angular.module("order_app", []);
 app1.controller("order_ctrl", function ($scope, $http, $timeout) {
+
+// Deal Page
 	$scope.bookItem = [];
 	$scope.dealItem = [];
 	$scope.shopItem = [];

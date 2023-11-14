@@ -120,4 +120,22 @@ public class BookServiceImp implements BookService{
 		// TODO Auto-generated method stub
 		return bookRepo.findBooksNew(pageable);
 	}
+
+	@Override
+	public List<Integer> getBookWithTypeBook(List<Integer> listtype) {
+		// TODO Auto-generated method stub
+		return bookRepo.getListBookWithTypeBooks(listtype);
+	}
+
+	@Override
+	public List<Integer> getBookWithWriters(List<Integer> listwriter) {
+		// TODO Auto-generated method stub
+		return bookRepo.getListBookWithWriter(listwriter);
+	}
+
+	@Override
+	public List<Integer> getBookWithEvaluate(List<Integer> listeva) {
+		// TODO Auto-generated method stub
+		return bookRepo.getListBookWithEvaluer(listeva);
+	}
 }

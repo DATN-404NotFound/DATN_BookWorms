@@ -12,6 +12,7 @@ import com.poly.DATN_BookWorms.utils.CRC32_SHA256;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -98,6 +99,11 @@ public class ProductController {
 	
 	@GetMapping("/detail/{bookid}")
 	public String detail(@PathVariable("bookid") Long id, Model model) {
+		List<Integer> list = new ArrayList<Integer>();
+		list.add(1);
+		list.add(2);
+		list.add(3);
+		
 		// System.out.println("lkjlskjlajf");
 		Books item = bookService.findById(id);
 		System.out.println("lkjlskjlajssf" + id);

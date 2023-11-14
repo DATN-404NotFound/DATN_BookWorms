@@ -37,4 +37,8 @@ public interface BookService {
 	List<Books> findTop5LowestQuantityBooksByShopId(Integer shopId);
 	
 	Page<Books> findBooksNew(Pageable pageable);
+	
+	List<Integer> getBookWithTypeBook(List<Integer> listtype);
+	List<Integer> getBookWithWriters(List<Integer> listwriter);
+	List<Integer> getBookWithEvaluate(List<Integer> listeva);
 }
