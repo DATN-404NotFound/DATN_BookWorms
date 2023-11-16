@@ -370,7 +370,7 @@
                 </div>
             </div>
             <div id="tabOrderCancelled" class="tab-pane fade">
-                <div class="order" th:each="b : ${booking}" th:if="${b.orderstatuses.statusname} == 'Đơn hủy'">
+                <div class="order" th:each="b : ${booking}" th:if="${b.orderstatuses.statusname} == 'Đơn Huỷ'">
                     <div class="cardHeader">
                         <span>
                             <img id="logoAccountOrder" th:src="@{|/Client/images/${b.listOfDetailbookings.get(0).books.shoponlines.listOfFiles.get(0).filename}|}"  alt="">

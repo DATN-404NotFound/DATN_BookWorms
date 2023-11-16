@@ -18,6 +18,9 @@
     padding-bottom: 30px;
     margin-bottom: 100px;
 }
+.frameMyAccount-right button:hover{
+    background-color: #eb8e6f;
+}
 .logoAccount{
     float: left;
     width: 69px;
@@ -73,13 +76,13 @@ a:hover{
     background: #F6F6F6;
 }
 #inpDate{
-    width: 60%;
+    width: 40%;
     height: 100%;
     border: none !important;
     background: #F6F6F6;
 }
 #inpDate:focus{
-    width: 60%;
+    width: 40%;
     height: 100%;
     border: none !important;
     box-shadow: none !important;
@@ -99,16 +102,35 @@ a:hover{
     font-size: 18px;
     background-color: #F6F6F6;
 }
+#textName{
+    border: none;
+    color: #000;
+    background-color: #F6F6F6;
+    margin-right: 15px;
+}
+
+#textEmail{
+    border: none;
+    color: #000;
+    width: 250px;
+    margin-right: 15px;
+    background-color: #F6F6F6;
+}
+.inputMypersonal{
+    padding: 10px;
+    border: 1px rgb(172, 172, 172) solid !important;
+    border-radius: 5px;
+}
 .chooseImageAccount{
     float: left;
     width: 193px;
-    margin: 20px 0 0 75px;
+    margin: 0px 0 0 75px;
 }
 .imageAccount{
     width: 193px;
     height: 193px;
     border-radius: 50%;
-    margin-top: 47%;
+    margin-top: 40%;
 }
 
 .file-input{
@@ -250,6 +272,11 @@ a:hover{
     font-size: 15px !important;
     border: none !important;
     box-shadow: none !important;
+}
+#notiChangePassword{
+    margin-left: 35px;
+    color: #F25019;
+    font-size: 15px;
 }
 .btnSaveChangePassword{
     float: right;

@@ -1,37 +1,26 @@
-const app = angular.module("myPersonal", []);
-app.controller("myPersonalCtrl", function ($scope, $http) {
 
-    let host = "http://localhost:8080/rest/shop/";
-    $scope.logoChange = null;
-    $scope.getProfileShop = function () {
-        $scope.shop = [];
-        let url = `${host}detail`;
-        $http.get(url).then(resp => {
-            $scope.shop = resp.data;
-            localStorage.setItem("shop", resp.data);
-            console.log("shop: ", resp.data);
-            $scope.initLogo(resp.data.logo);
-        }).catch(error => {
-            console.log("Error", error)
-        });
-    }
+function inputFullname(){
+    var inputName = document.getElementById('textName');
+    inputName.removeAttribute("disabled");
+    inputName.classList.add('inputMypersonal');
+}
+function inputEmail(){
+    var inputEmails = document.getElementById('textEmail');
+    inputEmails.removeAttribute("disabled");
+    inputEmails.classList.add('inputMypersonal');
+}
 
-    $scope.initLogo = function (logo) {
-        if (logo == null) {
-            console.log("Error", logo);
-            document.getElementById("logo").src = "http://bootdey.com/img/Content/avatar/avatar1.png";
-        } else {
-            document.getElementById("logo").src = "/SellerChannel/images/" + logo;
-        }
-    }
+function previewImage(event) {
+    var input = event.target;
+    var logoMypersonal = document.getElementById('logoMypersonal');
 
-    $scope.changeImage = function (e) {
+    if (input.files && input.files[0]) {
         var reader = new FileReader();
+
         reader.onload = function (e) {
-            document.getElementById("logoMypersonal").src = e.target.result;
-            $scope.$apply();
+            logoMypersonal.src = e.target.result;
         };
-        reader.readAsDataURL(e.target.files[0]);
-        $scope.logoChange = e.target.files[0];
+
+        reader.readAsDataURL(input.files[0]);
     }
-});
+}

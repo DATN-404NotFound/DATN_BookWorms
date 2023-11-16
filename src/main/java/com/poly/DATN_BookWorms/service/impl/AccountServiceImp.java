@@ -2,6 +2,7 @@ package com.poly.DATN_BookWorms.service.impl;
 
 
 import com.poly.DATN_BookWorms.utils.CRC32_SHA256;
+import com.poly.DATN_BookWorms.utils.SessionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -43,6 +44,13 @@ public class AccountServiceImp implements AccountService {
     @Autowired
     CRC32_SHA256 crc32Sha256;
 
+    @Autowired
+    SessionService sessionService;
+
+    @Override
+    public Account findByUserId(String userId) {
+        return accountRepo.findByUserid(userId);
+    }
 
     @Override
     public Account findByUsename(String username) {
@@ -72,8 +80,15 @@ public class AccountServiceImp implements AccountService {
 
     @Override
     public Account update(Account account) {
-        return null;
+
+        return accountRepo.save(account);
     }
+
+    @Override
+    public Account changePassword(String password, String username) {
+        return accountRepo.changePassword(password, username);
+    }
+
 
     @Override
     public void delete(String username) {

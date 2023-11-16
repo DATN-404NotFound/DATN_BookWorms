@@ -39,10 +39,10 @@ public class AccountRestController {
 //		return account;
 //	}
 //	
-//	@PutMapping("accounts/{id}")
-//	public Account update(@RequestBody Account account, @PathVariable("id") String username) {
-//		return accountService.update(account);
-//	}
+	// @PutMapping("accounts/{id}")
+	// public Account update(@RequestBody Account account, @PathVariable("id") String username) {
+	// 	return accountService.update(account);
+	// }
 //	
 //	@DeleteMapping("accounts/{id}")
 //	public void delete(@PathVariable("id") String username) {
