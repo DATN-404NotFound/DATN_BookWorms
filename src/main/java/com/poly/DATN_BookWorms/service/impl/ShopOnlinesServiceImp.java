@@ -16,4 +16,8 @@ public class ShopOnlinesServiceImp implements ShopOnlinesService {
         // Sử dụng repository để tìm một ShopOnline theo ID
         return shoponlinesRepo.findById(id).orElse(null);
     }
+    @Override
+    public Shoponlines findShoponlinesByUserId(String userId) {
+        return shoponlinesRepo.findByUserId(userId);
+    }
 }

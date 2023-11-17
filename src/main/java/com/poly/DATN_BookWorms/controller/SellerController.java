@@ -63,4 +63,24 @@ public class SellerController {
     public String revenueFinance(Model model){
         return "SellerChannel/FinanceRevenue";
     }
+    @RequestMapping("/shop/TranportChannel/CreateProduct")
+    public String createProduct(Model model){
+        return "SellerChannel/CreateProduct";
+    }
+    @RequestMapping("/shop/TranportChannel/Transport")
+    public String Tranport(Model model){
+        return "SellerChannel/TransportChannel";
+    }
+    @RequestMapping("/shop/TranportChannel/Voucher")
+    public String Voucher(Model model){
+        return "SellerChannel/Voucher";
+    }
+    @RequestMapping("/shop/TranportChannel/CreateVoucher")
+    public String createVoucher(Model model){
+        return "SellerChannel/CreateVoucher";
+    }
+    @RequestMapping("/shop/TranportChannel/ShopRewiew")
+    public String rewiews(Model model){
+        return "SellerChannel/ShopRewiew";
+    }
 }

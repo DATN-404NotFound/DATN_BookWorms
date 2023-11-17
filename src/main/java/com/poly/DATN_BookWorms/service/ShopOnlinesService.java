@@ -6,4 +6,5 @@ import org.springframework.stereotype.Service;
 public interface ShopOnlinesService {
 
     Shoponlines findById(Integer cid);
+    Shoponlines findShoponlinesByUserId(String userId);
 }

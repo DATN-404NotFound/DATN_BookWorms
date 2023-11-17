@@ -12,6 +12,10 @@ public interface EvaluateService {
 
 	Evaluates create(JsonNode evaluate);
 
-	public List<Evaluates> findAll();
+
+
+    List<Evaluates> findEvaluatesByShopId(Integer shopId);
+
+    public List<Evaluates> findAll();
 
 }
