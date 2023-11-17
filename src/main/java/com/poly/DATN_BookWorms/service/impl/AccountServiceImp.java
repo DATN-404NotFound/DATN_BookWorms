@@ -44,6 +44,13 @@ public class AccountServiceImp implements AccountService {
 	    @Autowired
 	    CRC32_SHA256 crc32Sha256;
 
+    @Autowired
+    SessionService sessionService;
+
+    @Override
+    public Account findByUserId(String userId) {
+        return accountRepo.findByUserid(userId);
+    }
 
 	    @Override
 	    public Account findByUsename(String username) {
@@ -71,13 +78,20 @@ public class AccountServiceImp implements AccountService {
 	        return null;
 	    }
 
-	    @Override
-	    public Account update(Account account) {
-	        return null;
-	    }
+    @Override
+    public Account update(Account account) {
 
-	    @Override
-	    public void delete(String username) {
+        return accountRepo.save(account);
+    }
+
+    @Override
+    public Account changePassword(String password, String username) {
+        return accountRepo.changePassword(password, username);
+    }
+
+
+    @Override
+    public void delete(String username) {
 
 	    }
 

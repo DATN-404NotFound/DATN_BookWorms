@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" th:replace="~{/Client/My_account/index_MyAccount::dynamical(~{::maccount})}" >
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{/Client/My_account/index_MyAccount::dynamical(~{::maccount})}">
 
 <head>
     <meta charset="UTF-8" />
@@ -14,72 +14,74 @@
 </head>
 
 <body>
-    <div th:fragment="maccount" ng-app="myPersonal" ng-controller="myPersonalCtrl">
+    <div th:fragment="maccount">
         <p class="mt-4 ms-4" id="titleMyPersonal">My personal</p>
-        <table class="table tableMyPersonal">
-            <tbody>
-                <tr>
-                    <th>Username</th>
-                    <td th:text="${account.username}"></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <th>Fullname</th>
-                    <td th:text="${account.fullname}"></td>
-                    <td><a href=""><i class="bi bi-pencil"></i></a></td>
-                </tr>
-                <tr>
-                    <th>Email</th>
-                    <td class="text-decoration-underline" th:text="${account.email}">email</td>
-                    <td><a href=""><i class="bi bi-pencil"></i></a></td>
-                </tr>
-                <tr>
-                    <th>Gender</th>
-                    <td th:if="${account.gender==true}">Nam</td>
-                    <td th:if="${account.gender==false}">Nữ</td>
-                    <td><a href=""><i class="bi bi-pencil"></i></a></td>
-                </tr>
-                <tr>
-                    <th>Date of birth</th>
-                    <td><input type="date" id="inpDate" th:value="${account.age}"></td>
-                    <td><a href=""><i class="bi bi-pencil"></i></a></td>
-                </tr>
-            </tbody>
-        </table>
-        <div class="chooseImageAccount">
-            <img class="imageAccount" id="logoMypersonal"  alt=""  src="/Client/images/fahashaShop.png">
-            <!-- <button class="btnChooseImage">Choose image</button> -->
-            <!-- <input type="file" value="Choose Image" class="btnChooseImage"> -->
-            <div class="file-input">
-                <input
-                        type="file"
-                        name="file-input"
-                        id="file-input"
-                        class="file-input__input"
-                        onchange="angular.element(this).scope().changeImage(event)"/>
-                <label class="file-input__label" for="file-input">
-                    <svg
-                            aria-hidden="true"
-                            focusable="false"
-                            data-prefix="fas"
-                            data-icon="upload"
-                            class="svg-inline--fa fa-upload fa-w-16"
-                            role="img"
-                            xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 512 512"
-                    >
-                        <path
-                                fill="currentColor"
-                                d="M296 384h-80c-13.3 0-24-10.7-24-24V192h-87.7c-17.8 0-26.7-21.5-14.1-34.1L242.3 5.7c7.5-7.5 19.8-7.5 27.3 0l152.2 152.2c12.6 12.6 3.7 34.1-14.1 34.1H320v168c0 13.3-10.7 24-24 24zm216-8v112c0 13.3-10.7 24-24 24H24c-13.3 0-24-10.7-24-24V376c0-13.3 10.7-24 24-24h136v8c0 30.9 25.1 56 56 56h80c30.9 0 56-25.1 56-56v-8h136c13.3 0 24 10.7 24 24zm-124 88c0-11-9-20-20-20s-20 9-20 20 9 20 20 20 20-9 20-20zm64 0c0-11-9-20-20-20s-20 9-20 20 9 20 20 20 20-9 20-20z"
-                        ></path>
-                    </svg>
-                    <span>Upload file</span></label
-                >
+        <form th:object="${account}" action="" enctype="multipart/form-data">
+            <table class="table tableMyPersonal">
+                <tbody>
+                    <tr>
+                        <th>Username</th>
+                        <td th:text="${account.username}"></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <th>Fullname</th>
+                        <td><input id="textName" th:field="${account.fullname}" th:value="${account.fullname}"
+                                type="text" disabled><a href="#" onclick="inputFullname()"><i
+                                    class="bi bi-pencil"></i></a>
+                        </td>
+                        <td><i th:error="${account.fullname}"></i></td>
+                    </tr>
+                    <tr>
+                        <th>Email</th>
+                        <td><input id="textEmail" th:field="${account.email}" th:value="${account.email}" type="email"
+                                disabled><a href="#" onclick="inputEmail()"><i class="bi bi-pencil"></i></a></td>
+                    </tr>
+                    <tr>
+                        <th>Gender</th>
+                        <td><input value="true" th:checked="${account.gender == true} ? ${true}" type="radio"
+                                name="gender"> Nam
+                            <input value="false" th:checked="${account.gender == false } ? ${true}" type="radio"
+                                name="gender" style="margin-left: 10px;"> Nữ
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Date of birth</th>
+                        <td><input type="date" id="inpDate" th:field="${account.age}"></td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="chooseImageAccount">
+                <!-- <img class="imageAccount" id="logoMypersonal" th:src="${account.image != null} ? @{|/Client/images/${account.image}|} : @{/Client/images/avata-default.jpg}" alt="">
+                <input type="file" name="fileImage" class="btnChooseImage" onchange="previewImage(event)"> -->
+
+                <!-- Profile picture image-->
+                <img class="imageAccount rounded-circle mb-2 img-thumbnail "
+                    th:src="${account.image != null} ? @{|/Client/images/${account.image}|} : @{/Client/images/avata-default.jpg}"
+                    id="logoMypersonal">
+                <!-- Profile picture help block-->
+                <div class="small font-italic text-muted mb-4 text-center">JPG or PNG no larger than 5MB</div>
+                <!-- Profile picture upload button-->
+                <div class="file-input">
+                    <input type="file" name="fileImage" id="file-input" class="file-input__input"
+                        onchange="previewImage(event)" />
+                    <label class="file-input__label" for="file-input">
+                        <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="upload"
+                            class="svg-inline--fa fa-upload fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 512 512">
+                            <path fill="currentColor"
+                                d="M296 384h-80c-13.3 0-24-10.7-24-24V192h-87.7c-17.8 0-26.7-21.5-14.1-34.1L242.3 5.7c7.5-7.5 19.8-7.5 27.3 0l152.2 152.2c12.6 12.6 3.7 34.1-14.1 34.1H320v168c0 13.3-10.7 24-24 24zm216-8v112c0 13.3-10.7 24-24 24H24c-13.3 0-24-10.7-24-24V376c0-13.3 10.7-24 24-24h136v8c0 30.9 25.1 56 56 56h80c30.9 0 56-25.1 56-56v-8h136c13.3 0 24 10.7 24 24zm-124 88c0-11-9-20-20-20s-20 9-20 20 9 20 20 20 20-9 20-20zm64 0c0-11-9-20-20-20s-20 9-20 20 9 20 20 20 20-9 20-20z">
+                            </path>
+                        </svg>
+                        <span>Upload file</span></label>
+                </div>
             </div>
-        </div>
-        <div style="clear: both;">
-            <button class="btn btnSaveMyPersonal">Save</button>
-        </div>
+            <div style="clear: both;">
+                <button class="btn btnSaveMyPersonal"
+                    th:formaction="@{|/myAccount/updateMypersonal/${account.username}|}" th:formmethod="post"
+                    type="submit">Save</button>
+            </div>
+        </form>
         <script src="../../../static/Client/Js/MyAccount/myPersonal.js"></script>
         <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js "
             integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN "

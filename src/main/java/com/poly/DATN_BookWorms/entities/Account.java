@@ -19,6 +19,9 @@ import jakarta.persistence.TemporalType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import javax.validation.constraints.NotBlank;
 
 /**
  * JPA entity class for "Account"
@@ -39,14 +42,15 @@ public class Account implements Serializable {
     @Id
     public String     userid ;
 
-
     public String     username ;
 
+	@NotBlank(message = "Fullname is required")
     public String     fullname ;
 
     public String     password ;
 
     @Temporal(TemporalType.DATE)
+	@DateTimeFormat(pattern ="yyyy-MM-dd")
     @Column(name="Age")
     public Date       age ;
 
@@ -55,7 +59,7 @@ public class Account implements Serializable {
     @Column(name="Gender")
     public Boolean    gender ;
 
-    @Column(name="Image", length=40)
+    @Column(name="Image", length=250, columnDefinition = "TEXT")
     public String     image ;
 
 

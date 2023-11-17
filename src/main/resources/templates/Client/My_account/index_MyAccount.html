@@ -28,7 +28,7 @@
             <div class="frameMyAccount">
                 <div class="frameMyAccount-left" >
                     <div class="infomation">
-                        <img class="logoAccount" th:src="@{/Client/images/fahashaShop.png}      " alt="" />
+                        <img class="logoAccount" th:src="${account.image != null} ? @{|/Client/images/${account.image}|} : @{/Client/images/avata-default.jpg}" alt="" />
                         <span class="spanProfile">
                             <p class="nameAccount mt-2" th:text="${account.fullname}"></p>
                             <p class="idAccount">ID: <span th:text="${account.userid}"></span></p>
