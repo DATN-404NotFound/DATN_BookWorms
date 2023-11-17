@@ -10,7 +10,9 @@ import com.poly.DATN_BookWorms.service.WriterService;
 import com.poly.DATN_BookWorms.utils.CRC32_SHA256;
 
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -49,7 +51,12 @@ public class ProductController {
 
 	@Autowired
 	HttpServletRequest request;
+	
+	@Autowired
+	HttpServletResponse resp;
 
+	
+	
 	@GetMapping("/list")
 	public String listBooks(Model model, @RequestParam(defaultValue = "0") int page,
 			@RequestParam(defaultValue = "8") int size, @RequestParam(defaultValue = "asc") String priceSort,
@@ -92,15 +99,21 @@ public class ProductController {
 	
 	@GetMapping("/detail/{bookid}")
 	public String detail(@PathVariable("bookid") Long id, Model model) {
+		List<Integer> list = new ArrayList<Integer>();
+		list.add(1);
+		list.add(2);
+		list.add(3);
+		
 		// System.out.println("lkjlskjlajf");
 		Books item = bookService.findById(id);
 		System.out.println("lkjlskjlajssf" + id);
+		List<Books> b = bookService.getBooksByCategoryID(item.getListOfTypebooks().get(0).categories.categoryid);
 
 //		List<String> images = imagebookService.findByBookId(id);
 //		System.out.print(images);
 //		model.addAttribute("images", images);
 		model.addAttribute("item", item);
-		model.addAttribute("im", "Hinh4_book4.jpg");
+		model.addAttribute("books", b);
 		model.addAttribute("userid", crc.getCodeCRC32C(request.getRemoteUser()));
 		// System.out.println("ll"+ item.getListOfImagebooks().get(0).getName());
 		return "Client/Product_page/detail_product";

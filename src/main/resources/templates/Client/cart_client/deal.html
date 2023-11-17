@@ -15,21 +15,20 @@
     <link rel="stylesheet" href="../../../static/Client/css/cart_user.css">
     <link rel="stylesheet" href="../../../static/Client/css/_index.css">
     <link rel="stylesheet" href="../../../static/Client/css/product.css">
-    
+
     <script th:src="@{/Client/Js/cart/cart.js}"></script>
     <script src="../../../static/Client/Js/cart/cart.js"></script>
 </head>
 
 <body>
     <main ng-app="order_app" ng-controller="order_ctrl" style="clear: both;">
-
         <div style="width:93%; margin: auto; background-color: #C93F04; margin-top: 50px; ">
 
-            <div style="width: 70%; height: auto; float: left; margin-bottom: 150px;">
-   
-                 <div ng-repeat="l in shopItem" class="mt-4 border-sec"
+            <div style="width: 70%; float: left; margin-bottom: 150px;">
+                <div ng-repeat="l in shopItem" class="mt-4 border-sec"
                     style="width: 100%; background-color: rgb(255, 255, 255);  border-radius: 10px; clear: both;">
-                    <div class="my-2 pt-5" style="width: 90%; margin: auto;">
+                    <h3>lklds</h3>
+                    <div  class="my-2 pt-5" style="width: 90%; margin: auto;">
                         <div class="float-start">
                             <a href="#" style="text-decoration: none; color: #080808;"><span><i style="font-size: 30px;"
                                         class="bi bi-person-circle mx-3"></i></span>
@@ -40,9 +39,9 @@
                         </div>
                         <hr style="clear: both;">
                         <table class="table-hover" style="background: none;">
-                            <thead  >
+                            <thead>
                                 <tr>
-                                    <th  style="width: 10%;"></th>
+                                    <th style="width: 10%;"></th>
                                     <th style="width: 30%;color: rgb(59, 131, 155);">Product</th>
                                     <th style="color: rgb(59, 131, 155);text-align: center;">Price</th>
                                     <th style="width: 10%;color: rgb(59, 131, 155);">Quantity</th>
@@ -53,45 +52,50 @@
                                 <tr ng-repeat="d in dealItem" ng-if="d.books.shoponlines.shopid == l.shopid">
                                     <td>
                                         <div>
-                                            <img id="img{{d.books.bookid}}" style="width: 70%;"  ng-src="" alt=""
+                                            <img id="img{{d.books.bookid}}" style="width: 70%;" ng-src="" alt=""
                                                 ng-init="setImage(d.books.bookid)">
                                         </div>
                                     </td>
                                     <td><a>{{d.books.bookname}}</a></td>
                                     <td style="text-align: center;">{{d.books.price}}</td>
                                     <td style="text-align: center;"> {{d.quantity}}</td>
-                                    <td ng-class="total{{l.shopid}}" style="font-weight: 700;text-align: right; ">{{d.books.price * d.quantity }}</td>
+                                    <td ng-class="total{{l.shopid}}" style="font-weight: 700;text-align: right; ">
+                                        {{d.books.price * d.quantity }}</td>
                                 </tr>
                             </tbody>
                         </table>
                         <hr style="clear: both; border: 1px solid #666;">
 
-                        <div class="float-end m-3"  ng-repeat ="s in salesItem">
-                            <p style="font-size: 22px;" ng-if="s.sales.shopid == l.shopid" >Giảm : <strong id = "sale{{l.shopid}}" style="color: #C93F04;">{{s.sales.discountpercentage *100}} %</strong></p>
+                        <div class="float-end m-3" ng-repeat="s in salesItem">
+                            <p style="font-size: 22px;" ng-if="s.sales.shopid == l.shopid">Giảm : <strong
+                                    id="sale{{l.shopid}}" style="color: #C93F04;">{{s.sales.discountpercentage *100}}
+                                    %</strong></p>
                         </div>
-                        <div class="float-end m-3" ng-repeat ="s in salesItem" >
-                            <p style="font-size: 20px ;" ng-if="s.sales.shopid == l.shopid">Voucher : <strong id = "coup{{l.shopid}}" class="btn btn-primary">{{s.sales.couoponcode}}</strong></p>
+                        <div class="float-end m-3" ng-repeat="s in salesItem">
+                            <p style="font-size: 20px ;" ng-if="s.sales.shopid == l.shopid">Voucher : <strong
+                                    id="coup{{l.shopid}}" class="btn btn-primary">{{s.sales.couoponcode}}</strong></p>
                         </div>
                         <div class="d-flex justify-content-around mt-2" style="clear: both;">
                             <div style="width: 40%;">
-                                <select class="form-select float-start h-100" id="shippunit">
+                                <select class="form-select float-start h-100" id="shippunit{{l.shopid}}">
                                     <option value="0">Chọn đơn vị vận chuyển</option>
-                                    <option th:each="u : ${shippingunit}" th:value="${u.shippingunitid}" th:text="${u.name}"></option>
+                                    <option th:each="u : ${shippingunit}" th:value="${u.shippingunitid}"
+                                        th:text="${u.name}"></option>
                                 </select>
                             </div>
 
-                            <div class=""> <textarea class="float-end form-control" name="" id="noteBooking" cols="60" rows="2"
-                                    placeholder="Ghi chú..."></textarea>
+                            <div class=""> <textarea class="float-end form-control" name="" id="noteBooking{{l.shopid}}" cols="60"
+                                    rows="2" placeholder="Ghi chú..."></textarea>
                             </div>
                         </div>
                         <hr style="clear: both; border: 1px solid #666;">
                         <div class="float-end mx-3" style="clear: both;">
-                            <p style="font-size: 24px;"><strong>Thành tiền</strong> : <strong id = "priceItem{{l.shopid}}" onclick="clicks(id)"  style="color: #C93F04;">600 000.00</strong></p>
+                            <p style="font-size: 24px;"><strong>Thành tiền</strong> : <strong id="priceItem{{l.shopid}}"
+                                    onclick="clicks(id)" style="color: #C93F04;">600 000.00</strong></p>
                         </div>
-                    </div >
-                  <div style="clear: both;"></div>
-                </div> 
-              
+                    </div>
+                    <div style="clear: both;"></div>
+                </div>
             </div>
             <div style="width: 28%; height: auto; margin-top: 50px;float: right; margin-bottom: 150px;">
                 <aside style="width: 100%;">
@@ -104,7 +108,8 @@
                                 <hr>
                                 <h5 class="mt-3">Shipping address</h5>
                                 <select class="form-select" style="height: 50px;" id="addressship">
-                                    <option th:each="a : ${addressusser}" th:value="${a.addressuserid}" th:text="${a.address}"></option>
+                                    <option th:each="a : ${addressusser}" th:value="${a.addressuserid}"
+                                        th:text="${a.address}"></option>
                                 </select>
                                 <h5 class="mt-3">Payment</h5>
                                 <select class="form-select" id="pay" style="height: 50px;">
@@ -114,19 +119,20 @@
                                 </select>
                                 <div id="pa">
                                     <h5 class="mt-3">Tài Khoản</h5>
-                                <select id="pac" class="form-select" style="height: 50px;">
-                                    <option hidden>Chọn tài khoản thanh toán</option>
-                                    <option th:each="p : ${paymentaccount}"  th:value="${p.paid}">
-                                        <p th:text="${p.bankname}"></p> -
-                                        <p th:text="${p.name}"></p> -              
-                                        <p th:text="${p.accountnumber}"></p>
-                                    </option>
-                                </select>
+                                    <select id="pac" class="form-select" style="height: 50px;">
+                                        <option value="0" hidden>Chọn tài khoản thanh toán</option>
+                                        <option th:each="p : ${paymentaccount}" th:value="${p.paid}">
+                                            <p th:text="${p.bankname}"></p> -
+                                            <p th:text="${p.name}"></p> -
+                                            <p th:text="${p.accountnumber}"></p>
+                                        </option>
+                                    </select>
                                 </div>
                                 <h5 class="mt-3">Voucher</h5>
-                                <select class="form-select" id = "voucherOther" style="height: 50px;">
+                                <select class="form-select" id="voucherOther" style="height: 50px;">
                                     <option hidden>Chọn mã giảm giá đơn hàng</option>
-                                    <option th:each="c : ${discountcode}" th:value="${c.sales.couoponcode}" th:text="${c.sales.promotionname}"></option>
+                                    <option th:each="c : ${discountcode}" th:value="${c.sales.couoponcode}"
+                                        th:text="${c.sales.promotionname}"></option>
                                 </select>
                                 <h5 class="mt-3">Free Shipping</h5>
                                 <select class="form-select" style="height: 50px;">
@@ -152,33 +158,38 @@
                                     <div class="float-start me-5" style="width: 45%;">
                                         <p>Số lượng :</p>
                                     </div>
-                                    <div class="float-start"><strong style="text-align: left;" id="totalQuantity">{{totalQuantity}}</strong></div>
+                                    <div class="float-start"><strong style="text-align: left;"
+                                            id="totalQuantity">{{totalQuantity}}</strong></div>
                                 </div>
                                 <div style="clear: both;">
                                     <div class="float-start me-5" style="width: 45%;">
                                         <p>Tổng tiền :</p>
                                     </div>
-                                    <div class="float-start"><strong style="text-align: left;"  id="totalPriceAll">1,000,000.00</strong>
+                                    <div class="float-start"><strong style="text-align: left;"
+                                            id="totalPriceAll">1,000,000.00</strong>
                                     </div>
                                 </div>
                                 <div style="clear: both;">
                                     <div class="float-start me-5" style="width: 45%;">
                                         <p>Phí Ship :</p>
                                     </div>
-                                    <div class="float-start"><strong style="text-align: left;" id="shippingPrice">60,000.00</strong></div>
+                                    <div class="float-start"><strong style="text-align: left;"
+                                            id="shippingPrice">60,000.00</strong></div>
                                 </div>
                                 <div style="clear: both;">
                                     <div class="float-start me-5" style="width: 45%;">
                                         <p>Voucher</p>
                                     </div>
-                                    <div class="float-start"><strong style="text-align: left;" id="totalSales">0.00</strong>
+                                    <div class="float-start"><strong style="text-align: left;"
+                                            id="totalSales">0.00</strong>
                                     </div>
                                 </div>
                                 <div style="clear: both;">
                                     <div class="float-start me-5" style="width: 45%;">
                                         <p>Freeship:</p>
                                     </div>
-                                    <div class="float-start"><strong style="text-align: left;" id="totalFreeShip" > -15,000.00</strong>
+                                    <div class="float-start"><strong style="text-align: left;" id="totalFreeShip">
+                                            -15,000.00</strong>
                                     </div>
                                 </div>
                                 <hr style="clear: both;">
@@ -186,7 +197,8 @@
                                     <div class="float-start me-5" style="width: 45%;">
                                         <p style="font-weight: 500;">Thanh toán:</p>
                                     </div>
-                                    <div class="float-start orange-text"><strong style="text-align: left;" id="totalFinal"></strong>
+                                    <div class="float-start orange-text"><strong style="text-align: left;"
+                                            id="totalFinal"></strong>
                                     </div>
                                 </div>
                                 <hr style="clear: both;">
@@ -194,13 +206,38 @@
                         </div>
                     </div>
                     <div class="mt-3 mx-3">
-                         <form action="">
-                            <button class="btn btn-danger" th:formaction = "@{|/cart|}" th:method = "GET" >Huỷ</button>
-                         </form>
-                     
-                            <button class="btn btn-success float-end" ng-click = "paymentCart()">Đặt hàng</button>
-                           
-                    
+                        <form action="">
+                            <button class="btn btn-danger" th:formaction="@{|/cart|}" th:method="GET">Huỷ</button>
+                        </form>
+
+                        <button class="btn btn-success float-end"  ng-click="paymentCart()"data-bs-toggle="modal" data-bs-target="#myModal" >Đặt hàng</button>
+                        <div class="modal fade"  id="myModal">
+                            <div class="modal-dialog modal-lg" style="margin-top: 300px; height: 400px;">
+                              <div class="modal-content">
+                          
+                                <!-- Modal Header -->
+                                <div class="modal-header">
+                                  <h4 class="modal-title" id="descrptionTitle">Thông Báo</h4>
+                                  <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                </div>
+                          
+                                <!-- Modal body -->
+                                <div class="modal-body text-center" >
+                                    <p id="iconModel"></p>
+                                    <div id="descrptionInfor"></div>
+                                </div>
+                          
+                                <!-- Modal footer -->
+                                <div class="modal-footer">
+                                    <form action="">
+                                        <button class="btn btn-danger" th:formaction="@{|/cart|}" th:method="GET">Đóng</button>
+                                    </form>
+                                </div>
+                          
+                              </div>
+                            </div>
+                          </div>
+
                     </div>
                 </aside>
             </div>

@@ -18,7 +18,6 @@ import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
  * JPA entity class for "Shoponlines"
@@ -72,8 +71,8 @@ public class Shoponlines implements Serializable {
 
     @OneToMany(mappedBy = "shoponlines")
     @JsonIgnore
-    private List<Files> listOfFiles;
-
+    public List<Files> listOfFiles ; 
+    
     @OneToMany(mappedBy = "shoponlines")
     @JsonIgnore
     private List<AddressShop> listOfAddressShop;
@@ -83,8 +82,8 @@ public class Shoponlines implements Serializable {
     private List<PaymentShop> listOfPaymentShop;
 
     @ManyToOne
-    @JoinColumn(name = "Userid", referencedColumnName = "Userid", insertable = false, updatable = false)
-    private Account account;
+    @JoinColumn(name="Userid", referencedColumnName="Userid", insertable=false, updatable=false)
+    public Account    account ; 
 
     //--- toString specific method
     @Override
@@ -111,5 +110,125 @@ public class Shoponlines implements Serializable {
         sb.append(isactive);
         return sb.toString();
     }
+
+	public Integer getShopid() {
+		return shopid;
+	}
+
+	public void setShopid(Integer shopid) {
+		this.shopid = shopid;
+	}
+
+	public String getShopname() {
+		return shopname;
+	}
+
+	public void setShopname(String shopname) {
+		this.shopname = shopname;
+	}
+
+	public String getPhonenumber() {
+		return phonenumber;
+	}
+
+	public void setPhonenumber(String phonenumber) {
+		this.phonenumber = phonenumber;
+	}
+
+	public String getLogo() {
+		return logo;
+	}
+
+	public void setLogo(String logo) {
+		this.logo = logo;
+	}
+
+	public Double getTotal() {
+		return total;
+	}
+
+	public void setTotal(Double total) {
+		this.total = total;
+	}
+
+	public String getBanner() {
+		return banner;
+	}
+
+	public void setBanner(String banner) {
+		this.banner = banner;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public String getShopaddress() {
+		return shopaddress;
+	}
+
+	public void setShopaddress(String shopaddress) {
+		this.shopaddress = shopaddress;
+	}
+
+	public String getUserid() {
+		return userid;
+	}
+
+	public void setUserid(String userid) {
+		this.userid = userid;
+	}
+
+	public String getPaycount() {
+		return paycount;
+	}
+
+	public void setPaycount(String paycount) {
+		this.paycount = paycount;
+	}
+
+	public Boolean getIsactive() {
+		return isactive;
+	}
+
+	public void setIsactive(Boolean isactive) {
+		this.isactive = isactive;
+	}
+
+	public List<Books> getListOfBooks() {
+		return listOfBooks;
+	}
+
+	public void setListOfBooks(List<Books> listOfBooks) {
+		this.listOfBooks = listOfBooks;
+	}
+
+	public List<Files> getListOfFiles() {
+		return listOfFiles;
+	}
+
+	public void setListOfFiles(List<Files> listOfFiles) {
+		this.listOfFiles = listOfFiles;
+	}
+
+	public List<AddressShop> getListOfAddressShop() {
+		return listOfAddressShop;
+	}
+
+	public void setListOfAddressShop(List<AddressShop> listOfAddressShop) {
+		this.listOfAddressShop = listOfAddressShop;
+	}
+
+	public Account getAccount() {
+		return account;
+	}
+
+	public void setAccount(Account account) {
+		this.account = account;
+	}
 
 }

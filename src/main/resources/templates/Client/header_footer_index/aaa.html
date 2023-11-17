@@ -22,7 +22,7 @@
 
 <body>
 
-    <main class="container-fluid " ng-app="cart_app" ng-controller="cart_ctrl">
+    <main ng-app="cart_app" ng-controller="cart_ctrl">
         <script>
             $(document).ready(function () {
                 $('#myModal').modal('show'); // Hiển thị modal khi tải trang
@@ -95,7 +95,7 @@
                             <div class="d-inline-flex">
                                 <div class="p-1"><img th:src="@{/Client/icons/teaching.png}" alt=""
                                         style="width: 65px; height: 65px; color: #FFF;"></div>
-                                <div class="p-1" style="width:100px; height: 60px;"><a ><span>BOOK
+                                <div class="p-1" style="width:100px; height: 60px;"><a id="4,11,12,13,10" th:href="@{|/product/list|}"  onclick = "angular.element(this).scope().filterChoose1(1,this)" ><span>BOOK
                                             EDUCATION</span></a></div>
                             </div>
                         </div>
@@ -103,7 +103,7 @@
                             <div class="d-inline-flex">
                                 <div class="p-1"><img th:src="@{/Client/icons/page_variant.png}" alt=""
                                         style="width: 65px; height: 65px; color: #FFF;"></div>
-                                <div class="p-3" style="width:100px; height: 60px;"><a ><span>COMIC</span></a>
+                                <div class="p-3" style="width:100px; height: 60px;"><a id="5,8,15,6,14" th:href="@{|/product/list|}"  onclick = "angular.element(this).scope().filterChoose1(1,this)"><span >COMIC</span></a>
                                 </div>
                             </div>
                         </div>
@@ -112,7 +112,7 @@
                                 <div class="p-1"><img th:src="@{/Client/icons/book_open_outline.png}" alt=""
                                         style="width: 65px; height: 65px; color: #FFF;"></div>
                                 <div class="p-1" style="width:100px; height: 60px;"><a
-                                        th:href="@{|/product/list|}"><span>OTHER
+                                    id="1,2,3,7,9" th:href="@{|/product/list|}"  onclick = "angular.element(this).scope().filterChoose1(1,this)"><span>OTHER
                                             BOOK</span></a></div>
                             </div>
                         </div>
@@ -234,7 +234,7 @@
                 </div>
 
                 <div class="tab-content">
-                    <div id="home" class="tab-pane active ccc"><br>
+                    <div id="home" class="tab-pane active"><br>
                         <div class="book_list d-flex flex-nowrap" style="width: 100%; overflow-x: scroll; "> 
                            
                             <div style="width: 5% ;float: left; margin-top: 200px; margin-left: 1%;"
@@ -250,8 +250,8 @@
                                         tiết</button>
                                 </div>
                                 <div class="book_title text-center mt-3">
-                                    <a> 
-                                       <p>{{x.bookname}}</p>
+                                    <a ng-click = "detailBook(x.bookid)">
+                                        <p>{{x.bookname}}</p>
                                     </a>
                                     <p style="font-size: 18px;margin-top: 0px;  color: #666;">{{x.shoponlines.shopname}}</p>
                                     <p style="font-size: 18px;margin-top: -10px;">Giá : <strong>{{x.price}}
@@ -261,7 +261,7 @@
                                 <div class="d-flex flex-row-reverse" style="height: 35px; margin-top: 7px;margin-right: 10px;">
                                     <div class="p-2"><a href="#" class="text-dark"><i class="bi bi-heart"
                                                 style="font-size: 35px;"></i></a></div>
-                                    <div class="p-2"><a ng-click="cart.add(x.bookid)" class="text-dark"> <i class="bi bi-cart3"
+                                    <div class="p-2"><a ng-click="setQuantityPro(x.bookid)"  class="text-dark"> <i class="bi bi-cart3"
                                                 style="font-size: 35px;"></i></a></div>
                                 </div>
                             </div>
@@ -282,13 +282,13 @@
                                 <div class="book_img text-center">
                                     <img id="imgs4{{x.bookid}}" ng-src=""   alt=""
                                     src="">
-                                    <button class="btn"
+                                    <button class="btn"  ng-click = "detailBook(x.bookid)"
                                         style="background-color: #C93F04; color: white; font-size: 18px;">Chi
                                         tiết</button>
                                 </div>
                                 <div class="book_title text-center mt-3">
-                                    <a> 
-                                       <p>{{x.bookname}}</p>
+                                    <a ng-click = "detailBook(x.bookid)">
+                                        <p>{{x.bookname}}</p>
                                     </a>
                                     <p style="font-size: 18px;margin-top: 0px;  color: #666;">{{x.shoponlines.shopname}}</p>
                                     <p style="font-size: 18px;margin-top: -10px;">Giá : <strong>{{x.price}}
@@ -298,7 +298,7 @@
                                 <div class="d-flex flex-row-reverse" style="height: 35px; margin-top: 7px;margin-right: 10px;">
                                     <div class="p-2"><a href="#" class="text-dark"><i class="bi bi-heart"
                                                 style="font-size: 35px;"></i></a></div>
-                                    <div class="p-2"><a href="#" class="text-dark"> <i class="bi bi-cart3"
+                                    <div class="p-2"><a ng-click="cart.add(x.bookid)" class="text-dark"> <i class="bi bi-cart3"
                                                 style="font-size: 35px;"></i></a></div>
                                 </div>
                             </div>
@@ -326,8 +326,8 @@
                                         tiết</button>
                                 </div>
                                 <div class="book_title text-center mt-3">
-                                    <a> 
-                                       <p>{{x.bookname}}</p>
+                                    <a ng-click = "detailBook(x.bookid)">
+                                        <p>{{x.bookname}}</p>
                                     </a>
                                     <p style="font-size: 18px;margin-top: 0px;  color: #666;">{{x.shoponlines.shopname}}</p>
                                     <p style="font-size: 18px;margin-top: -10px;">Giá : <strong>{{x.price}}
@@ -337,7 +337,7 @@
                                 <div class="d-flex flex-row-reverse" style="height: 35px; margin-top: 7px;margin-right: 10px;">
                                     <div class="p-2"><a href="#" class="text-dark"><i class="bi bi-heart"
                                                 style="font-size: 35px;"></i></a></div>
-                                    <div class="p-2"><a href="#" class="text-dark"> <i class="bi bi-cart3"
+                                    <div class="p-2"><a ng-click="cart.add(x.bookid)" class="text-dark"> <i class="bi bi-cart3"
                                                 style="font-size: 35px;"></i></a></div>
                                 </div>
                             </div>
@@ -410,7 +410,7 @@
                                     <h4 class="price">Current price: <span
                                             th:text="${#numbers.formatDecimal(item.price, 0, 'POINT', 0, 'COMMA')} +'₫'"></span>
                                     </h4>
-                                    <input type="number" id="quantity" value="1" name="quantity" min="1" max="5">
+                                    <input type="number" id="quantity" ng-model = "quantityPro" value="1" name="quantity" min="1" max="5">
                                     <hr class="my-4">
                                     <div class="action">
                                         <button th:attr="ng-click=@{|cart.add(${item.bookid})|}"

@@ -56,8 +56,15 @@ public List<Publishingcompanies> getPCWithShop(Integer shopid);
     
     @Query("SELECT b FROM Books b  ORDER BY b.publishingyear DESC ")
     Page<Books> findBooksNew(Pageable pageable);
-
-    @Query("SELECT SUM(b.productviews) FROM Books b  WHERE b.shoponlines.shopid =?1 ")
-    int getProductViews(Integer shopId);
+    
+    @Query("Select b.bookid from Books b where b.bookid in (Select t.bookid from Typebooks t where t.categories.categoryid in ?1)")
+    List<Integer> getListBookWithTypeBooks(List<Integer> listTypeBook);
+    
+    @Query("Select b.bookid from Books b where b.bookid in (Select w.bookid from Writers w where w.writtingmasterid in ?1)")
+    List<Integer> getListBookWithWriter(List<Integer> listWriter);
+    
+    
+    @Query("Select b.bookid from Books b where b.bookid in (Select d.bookid from Detailbookings d where d.dbid in (Select e.dbid from Evaluates e where e.rating in ?1))")
+    List<Integer> getListBookWithEvaluer(List<Integer> ratinglist);
 }
 

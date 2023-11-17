@@ -1,5 +1,7 @@
 package com.poly.DATN_BookWorms.rest.controller;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.poly.DATN_BookWorms.entities.Books;
@@ -55,7 +58,43 @@ public class BookRestController {
 		System.out.println("111111111111111"+ bookService.findById(id));
 		return bookService.findById(id);
 	}
+	@GetMapping("/shop")
+	public List<Books> getBookListShop(@RequestParam("shopid") Integer shopid) {
 	
+		return bookService.findByShopList(shopid);
+	}
+	
+	@GetMapping("/type")
+	public List<Integer> getBookWithTypeBook(@RequestParam("listtype") String listtype){ 
+		String[] listty =listtype.split(",");
+		List<Integer> listtypes = new ArrayList<Integer>();
+		for(int i=0; i<listty.length;i++) { 
+			listtypes.add(Integer.parseInt(listty[i]));
+		}
+		
+		return bookService.getBookWithTypeBook(listtypes);
+	}
+	
+	@GetMapping("/writer")
+	public List<Integer> getBookWithWriter(@RequestParam("listwriter") String listwriter){ 
+		String[] listty =listwriter.split(",");
+		List<Integer> listtypes = new ArrayList<Integer>();
+		for(int i=0; i<listty.length;i++) { 
+			listtypes.add(Integer.parseInt(listty[i]));
+		}
+		
+		return bookService.getBookWithWriters(listtypes);
+	}
+	
+	@GetMapping("/Eva")
+	public List<Integer> getBookWithEvaluate(@RequestParam("listeva") String listeva){ 
+		String[] listty =listeva.split(",");
+		List<Integer> listtypes = new ArrayList<Integer>();
+		for(int i=0; i<listty.length;i++) { 
+			listtypes.add(Integer.parseInt(listty[i]));
+		}
+		return bookService.getBookWithEvaluate(listtypes);
+	}
 //	@GetMapping("/list/{id}")
 //	public List<Shoponlines> listshopDeal(@PathVariable("id") Long id){ 
 //		System.out.println("listshopBooks "+ bookService.list_shopId_deal(id));

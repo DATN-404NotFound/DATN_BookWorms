@@ -35,7 +35,7 @@ public class Files implements Serializable {
 
     //--- ENTITY PRIMARY KEY 
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     public Integer    fileid ;
 
     //--- ENTITY DATA FIELDS 

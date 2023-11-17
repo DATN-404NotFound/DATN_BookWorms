@@ -77,7 +77,7 @@ public class Roles implements Serializable {
 	public void setListOfAuthorities(List<Authorities> listOfAuthorities) {
 		this.listOfAuthorities = listOfAuthorities;
 	}
-
+//
 	public Roles(String roleid, String rolename, List<Authorities> listOfAuthorities) {
 		super();
 		this.roleid = roleid;
