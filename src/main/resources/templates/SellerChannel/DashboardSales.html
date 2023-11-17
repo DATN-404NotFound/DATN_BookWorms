@@ -26,7 +26,11 @@
     <link rel="stylesheet" href="SellerChannel/css/app-light.css" id="lightTheme" disabled>
     <link rel="stylesheet" href="SellerChannel/css/app-dark.css" id="darkTheme">
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
-
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"
+            integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V"
+            crossorigin="anonymous"></script>
 
 </head>
 <body class="vertical  dark  ">
@@ -48,7 +52,7 @@
                                         <div class="col pr-0">
                                             <p class="small  mb-0">Monthly Sales</p>
                                             <span class="h6 mb-0 text-white">{{salesAnalysisNow[0].monthlySales | currency:'VND'}}</span>
-                                            <span class="small" >+{{growthIncreases(salesAnalysisNow[0].monthlySales, salesAnalysisNow[1].monthlySales)}}%</span>
+                                            <span class="small">+{{growthIncreases(salesAnalysisNow[0].monthlySales, salesAnalysisNow[1].monthlySales)}}%</span>
 
                                         </div>
                                     </div>
@@ -167,113 +171,90 @@
                                         <a class="float-right small text-muted" href="#!">View all</a>
                                     </div>
                                     <div class="row">
-
                                         <div class="col-md-12">
                                             <div class="col-md-12 mb-4">
                                                 <div class="card shadow">
                                                     <div class="card-body">
-                                                        <ul class="nav nav-tabs mb-3" id="myTab" role="tablist">
-                                                            <li class="nav-item">
-                                                                <a class="nav-link active" id="home-tab"
-                                                                   data-toggle="tab" href="#home" role="tab"
-                                                                   aria-controls="home" aria-selected="true">According
-                                                                    to sales</a>
-                                                            </li>
-                                                            <li class="nav-item">
-                                                                <a class="nav-link" id="profile-tab" data-toggle="tab"
-                                                                   href="#profile" role="tab" aria-controls="profile"
-                                                                   aria-selected="false">By product number</a>
-                                                            </li>
-                                                            <li class="nav-item">
-                                                                <a class="nav-link" id="contact-tab" data-toggle="tab"
-                                                                   href="#contact" role="tab" aria-controls="contact"
-                                                                   aria-selected="false">Views</a>
-                                                            </li>
-                                                            <li class="nav-item">
-                                                                <a class="nav-link" id="contact-tab" data-toggle="tab"
-                                                                   href="#contact" role="tab" aria-controls="contact"
-                                                                   aria-selected="false">Conversion rate</a>
-                                                            </li>
+                                                        <h5 class="card-title"> According to sales</h5>
+                                                        <p class="card-text">Book ratings and total sales value.</p>
+                                                        <table class="table table-hover">
+                                                            <thead>
+                                                            <tr>
+                                                                <th>Book Name</th>
+                                                                <th>Language</th>
+                                                                <th>Publishing Year</th>
+                                                                <th>Price</th>
+                                                                <th>Total Page</th>
+                                                                <th>Sales</th>
+                                                                <th>Status</th>
+                                                            </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                            <tr ng-repeat ="sales in bookRankingToSales | orderBy:'sales.sale'">
+                                                                <td>{{sales.book.bookname}}</td>
+                                                                <td>{{sales.book.language}}</td>
+                                                                <td>{{sales.book.publishingyear}}</td>
+                                                                <td>{{sales.book.price}}</td>
+                                                                <td>{{sales.book.totalpage}}</td>
+                                                                <td>{{sales.sale}}</td>
+                                                                <td>
+                                                                    <span class="badge badge-pill badge-warning" ng-if="sales.book.statues == 'Hết hàng'">{{sales.book.statues}}</span>
+                                                                    <span class="badge badge-pill badge-success" ng-if="sales.book.statues == 'Còn hàng'">{{sales.book.statues}}</span>
+                                                                </td>
+                                                            </tr>
 
-                                                        </ul>
-                                                        <div class="tab-content" id="myTabContent">
-                                                            <div class="tab-pane fade show active" id="home"
-                                                                 role="tabpanel" aria-labelledby="home-tab">
-                                                                <div class="card-body">
-                                                                    <h5 class="card-title">Simple Table</h5>
-                                                                    <p class="card-text">With supporting text below as a
-                                                                        natural lead-in to additional content.</p>
-                                                                    <table class="table table-hover">
-                                                                        <thead>
-                                                                        <tr>
-                                                                            <th>ID</th>
-                                                                            <th>Name</th>
-                                                                            <th>Company</th>
-                                                                            <th>Address</th>
-                                                                            <th>Date</th>
-                                                                            <th>Status</th>
-                                                                        </tr>
-                                                                        </thead>
-                                                                        <tbody>
-                                                                        <tr>
-                                                                            <td>3224</td>
-                                                                            <td>Keith Baird</td>
-                                                                            <td>Enim Limited</td>
-                                                                            <td>901-6206 Cras Av.</td>
-                                                                            <td>Apr 24, 2019</td>
-                                                                            <td><span
-                                                                                    class="badge badge-pill badge-warning">Hold</span>
-                                                                            </td>
-                                                                        </tr>
-                                                                        <tr>
-                                                                            <td>3218</td>
-                                                                            <td>Graham Price</td>
-                                                                            <td>Nunc Lectus Incorporated</td>
-                                                                            <td>Ap #705-5389 Id St.</td>
-                                                                            <td>May 23, 2020</td>
-                                                                            <td><span
-                                                                                    class="badge badge-pill badge-success">Success</span>
-                                                                            </td>
-                                                                        </tr>
-                                                                        <tr>
-                                                                            <td>2651</td>
-                                                                            <td>Reuben Orr</td>
-                                                                            <td>Nisi Aenean Eget Limited</td>
-                                                                            <td>7425 Malesuada Rd.</td>
-                                                                            <td>Nov 4, 2019</td>
-                                                                            <td><span
-                                                                                    class="badge badge-pill badge-warning">Hold</span>
-                                                                            </td>
-                                                                        </tr>
-                                                                        <tr>
-                                                                            <td>2636</td>
-                                                                            <td>Akeem Holder</td>
-                                                                            <td>Pellentesque Associates</td>
-                                                                            <td>896 Sodales St.</td>
-                                                                            <td>Mar 27, 2020</td>
-                                                                            <td><span
-                                                                                    class="badge badge-pill badge-danger">Danger</span>
-                                                                            </td>
-                                                                        </tr>
-                                                                        <tr>
-                                                                            <td>2757</td>
-                                                                            <td>Beau Barrera</td>
-                                                                            <td>Augue Incorporated</td>
-                                                                            <td>4583 Id St.</td>
-                                                                            <td>Jan 13, 2020</td>
-                                                                            <td><span
-                                                                                    class="badge badge-pill badge-success">Success</span>
-                                                                            </td>
-                                                                        </tr>
-                                                                        </tbody>
-                                                                    </table>
-                                                                </div>
-                                                            </div>
-                                                            <div class="tab-pane fade" id="profile" role="tabpanel"
-                                                                 aria-labelledby="profile-tab"></div>
-                                                            <div class="tab-pane fade" id="contact" role="tabpanel"
-                                                                 aria-labelledby="contact-tab"></div>
-                                                        </div>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12 mb-4">
+                                                <div class="card shadow">
+                                                    <div class="card-body">
+                                                        <h5 class="card-title">By product number</h5>
+                                                        <p class="card-text">Book ratings and number of books sold.</p>
+                                                        <table class="table table-hover">
+                                                            <thead>
+                                                            <tr>
+                                                                <th>Book Name</th>
+                                                                <th>Language</th>
+                                                                <th>Publishing Year</th>
+                                                                <th>Price</th>
+                                                                <th>Total Page</th>
+                                                                <th>Sales</th>
+                                                                <th>Product Number</th>
+                                                            </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                            <tr ng-repeat ="sales in bookRankingToSales">
+                                                                <td>{{sales.book.bookname}}</td>
+                                                                <td>{{sales.book.language}}</td>
+                                                                <td>{{sales.book.publishingyear}}</td>
+                                                                <td>{{sales.book.price}}</td>
+                                                                <td>{{sales.book.totalpage}}</td>
+                                                                <td>{{sales.sale}}</td>
+                                                                <td>
+                                                                    <span class="badge badge-pill badge-warning" ng-if="sales.book.statues == 'Hết hàng'">{{sales.book.statues}}</span>
+                                                                    <span class="badge badge-pill badge-success" ng-if="sales.book.statues == 'Còn hàng'">{{sales.book.statues}}</span>
+                                                                </td>
+                                                            </tr>
+
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12 mb-4">
+                                                <div class="card shadow">
+                                                    <div class="card-body">
+                                                        <h5 class="card-title">According to views</h5>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12 mb-4">
+                                                <div class="card shadow">
+                                                    <div class="card-body">
+                                                        <h5 class="card-title">According to conversion rate</h5>
                                                     </div>
                                                 </div>
                                             </div>
@@ -286,67 +267,30 @@
                             <div class="card shadow mb-4">
                                 <div class="card-body">
                                     <div class="card-title">
-                                        <strong>Industry ranking</strong>
-                                        <a class="float-right small text-muted" href="#!">View all</a>
+                                        <strong>Category ranking</strong>
+                                        <a class="float-right small text-muted" href="">View all</a>
                                     </div>
                                     <div class="row">
 
                                         <div class="card shadow">
                                             <div class="card-body">
-                                                <h5 class="card-title">Small table</h5>
-                                                <p class="card-text">Add .table-sm to make tables more compact by
-                                                    cutting cell padding in half.</p>
+
+                                                <p class="card-text">Rank the book genre and number of products purchased.</p>
                                                 <table class="table table-hover table-sm">
                                                     <thead>
                                                     <tr>
-                                                        <th>ID</th>
-                                                        <th>Name</th>
-                                                        <th>Company</th>
-                                                        <th>Address</th>
-                                                        <th>Date</th>
-                                                        <th>Status</th>
+                                                        <th>Name Category</th>
+                                                        <th>Create Date</th>
+                                                        <th>Description</th>
+                                                        <th>Number of Order</th>
                                                     </tr>
                                                     </thead>
                                                     <tbody>
-                                                    <tr>
-                                                        <td>3224</td>
-                                                        <td>Keith Baird</td>
-                                                        <td>Enim Limited</td>
-                                                        <td>901-6206 Cras Av.</td>
-                                                        <td>Apr 24, 2019</td>
-                                                        <td><span class="text-warning">Hold</span></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>3218</td>
-                                                        <td>Graham Price</td>
-                                                        <td>Nunc Lectus Incorporated</td>
-                                                        <td>Ap #705-5389 Id St.</td>
-                                                        <td>May 23, 2020</td>
-                                                        <td><span class="text-success">Success</span></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>2651</td>
-                                                        <td>Reuben Orr</td>
-                                                        <td>Nisi Aenean Eget Limited</td>
-                                                        <td>7425 Malesuada Rd.</td>
-                                                        <td>Nov 4, 2019</td>
-                                                        <td><span class="text-warning">Hold</span></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>2636</td>
-                                                        <td>Akeem Holder</td>
-                                                        <td>Pellentesque Associates</td>
-                                                        <td>896 Sodales St.</td>
-                                                        <td>Mar 27, 2020</td>
-                                                        <td><span class="text-danger">Danger</span></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>2757</td>
-                                                        <td>Beau Barrera</td>
-                                                        <td>Augue Incorporated</td>
-                                                        <td>4583 Id St.</td>
-                                                        <td>Jan 13, 2020</td>
-                                                        <td><span class="text-success">Success</span></td>
+                                                    <tr ng-repeat="item in categoryRanking">
+                                                        <td>{{item.categories.name}}</td>
+                                                        <td>{{item.categories.dateadded}}</td>
+                                                        <td>{{item.categories.description }}</td>
+                                                        <td>{{item.orderNumbers}}</td>
                                                     </tr>
                                                     </tbody>
                                                 </table>
@@ -407,7 +351,8 @@
                                         </div>
                                         <div class="col">
                                             <small><strong>Notifications have been sent</strong></small>
-                                            <div class="my-0 text-muted small">Fusce dapibus, tellus ac cursus commodo
+                                            <div class="my-0 text-muted small">Fusce dapibus, tellus ac cursus
+                                                commodo
                                             </div>
                                             <small class="badge badge-pill badge-light text-muted">30m ago</small>
                                         </div>

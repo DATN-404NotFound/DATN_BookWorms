@@ -69,7 +69,7 @@ app.config(function ($routeProvider) {
         });
 });
 //sales Analysis
-app.controller("salesController", function ($scope, $routeParams, $route, $http, $rootScope) {
+app.controller("salesController", function ($scope, $routeParams, $route, $http, $rootScope,$timeout) {
 
 
     let host = "http://localhost:8080/rest/salesAnalysis/";
@@ -94,6 +94,9 @@ app.controller("salesController", function ($scope, $routeParams, $route, $http,
             $scope.salesAnalysis = resp.data;
             $scope.salesAnalysisNow.push(resp.data[currentMonth]);
             $scope.salesAnalysisNow.push(resp.data[currentMonth - 1]);
+            $timeout(function () {
+                $scope.initDataChart(resp.data);
+            }, 500);
             console.log("data", $scope.salesAnalysis)
             console.log("data", $scope.salesAnalysisNow)
         }).catch(error => {
@@ -110,102 +113,141 @@ app.controller("salesController", function ($scope, $routeParams, $route, $http,
         }
         return growth;
     }
-    $scope.initDataChart = function () {
-        $scope.monthlySales = [];
-        $scope.orders = [];
-        $scope.conversionRate = [];
-        $scope.pagesViews = [];
-        $scope.salesPerOrder = [];
-        for (let i = 1; i < $scope.salesAnalysis.size(); i++) {
-            $scope.monthlySales.push($scope.salesAnalysis[i].monthlySales)
-            $scope.orders.push($scope.salesAnalysis[i].orders)
-            $scope.conversionRate.push($scope.salesAnalysis[i].conversionRate)
-            $scope.pagesViews.push($scope.salesAnalysis[i].pagesViews)
-            $scope.salesPerOrder.push($scope.salesAnalysis[i].salesPerOrder)
+    $scope.initDataChart = function (salesAnalysis) {
+        $scope.mSales = [];
+        $scope.order = [];
+        $scope.cRate = [];
+        $scope.pViews = [];
+        $scope.sOrder = [];
+        for (let i = 1; i < salesAnalysis.length; i++) {
+            $scope.mSales.push(salesAnalysis[i].monthlySales)
+            $scope.order.push($scope.salesAnalysis[i].orders)
+            $scope.cRate.push($scope.salesAnalysis[i].conversionRate)
+            $scope.pViews.push($scope.salesAnalysis[i].pagesViews)
+            $scope.sOrder.push($scope.salesAnalysis[i].salesPerOrder)
         }
-    }
-    $scope.getSalesAnalysis();
-    var options = {
-        series: [{
-            name: "Monthly Sales",
-            data: [87, 57, 74, 99, 75, 38, 62, 47, 82, 56, 45, 47]
-        },
-            {
-                name: "Orders",
-                data: [87, 57, 74, 99, 75, 38, 62, 47, 82, 56, 45, 47]
-            },
-            {
-                name: 'Total Visits',
-                data: [87, 57, 74, 99, 75, 38, 62, 47, 82, 56, 45, 47]
-            }
-        ],
-        chart: {
-            height: 350,
-            type: 'line',
-            zoom: {
-                enabled: false
-            },
-        },
-        dataLabels: {
-            enabled: false
-        },
-        stroke: {
-            width: [5, 7, 5],
-            curve: 'straight',
-            dashArray: [0, 8, 5]
-        },
-        title: {
-            text: 'Page Statistics',
-            align: 'left'
-        },
-        legend: {
-            tooltipHoverFormatter: function (val, opts) {
-                return val + ' - ' + opts.w.globals.series[opts.seriesIndex][opts.dataPointIndex] + ''
-            }
-        },
-        markers: {
-            size: 0,
-            hover: {
-                sizeOffset: 6
-            }
-        },
-        xaxis: {
-            categories: ['01 Jan', '02 Jan', '03 Jan', '04 Jan', '05 Jan', '06 Jan', '07 Jan', '08 Jan', '09 Jan',
-                '10 Jan', '11 Jan', '12 Jan'
-            ],
-        },
-        tooltip: {
-            y: [
-                {
-                    title: {
-                        formatter: function (val) {
-                            return val + " (mins)"
-                        }
+        $timeout(function (){
+            var options = {
+                series: [{
+                    name: "Monthly Sales",
+                    data: $scope.mSales
+                },
+                    {
+                        name: "Orders",
+                        data: $scope.order
+                    },
+                    {
+                        name: 'ConversionRate',
+                        data:$scope.cRate
+                    }
+                    ,
+                    {
+                        name: 'Page Views',
+                        data:$scope.pViews
+                    }
+                    ,
+                    {
+                        name: 'Sales Per Order',
+                        data:$scope.sOrder
+                    }
+                ],
+                chart: {
+                    height: 350,
+                    type: 'line',
+                    zoom: {
+                        enabled: false
+                    },
+                },
+                dataLabels: {
+                    enabled: false
+                },
+                stroke: {
+                    width: [5, 7, 5],
+                    curve: 'straight',
+                    dashArray: [0, 8, 5]
+                },
+                title: {
+                    text: 'Page Statistics',
+                    align: 'left'
+                },
+                legend: {
+                    tooltipHoverFormatter: function (val, opts) {
+                        return val + ' - ' + opts.w.globals.series[opts.seriesIndex][opts.dataPointIndex] + ''
                     }
                 },
-                {
-                    title: {
-                        formatter: function (val) {
-                            return val + " per session"
-                        }
+                markers: {
+                    size: 0,
+                    hover: {
+                        sizeOffset: 6
                     }
                 },
-                {
-                    title: {
-                        formatter: function (val) {
-                            return val;
+                xaxis: {
+                    categories: ['01 Jan', '02 Feb', '03 Mar', '04 Apr', '05 May', '06 Jun', '07 July', '08 Aug', '09 Sep',
+                        '10 Oct', '11 Nov', '12 Dec'
+                    ],
+                },
+                tooltip: {
+                    y: [
+                        {
+                            title: {
+                                formatter: function (val) {
+                                    return val + " (mins)"
+                                }
+                            }
+                        },
+                        {
+                            title: {
+                                formatter: function (val) {
+                                    return val + " per session"
+                                }
+                            }
+                        },
+                        {
+                            title: {
+                                formatter: function (val) {
+                                    return val;
+                                }
+                            }
                         }
-                    }
+                    ]
+                },
+                grid: {
+                    borderColor: '#f1f1f1',
                 }
-            ]
-        },
-        grid: {
-            borderColor: '#f1f1f1',
-        }
-    };
+            };
 
-    var chart = new ApexCharts(document.querySelector("#myChart"), options);
-    chart.render();
+            var chart = new ApexCharts(document.querySelector("#myChart"), options);
+            chart.render();
+        },500);
+        console.log("data",$scope.mSales );
+    }
+    $scope.getCategoryRanking = function () {
+            $scope.categoryRanking = [];
+            let url = `${host}categoryRanking`;
+            $http.get(url).then(resp => {
+                $scope.categoryRanking = resp.data;
+                console.log("categoryRanking:", $scope.categoryRanking)
+            }).catch(error => {
+                console.log("Error", error)
+            });
+
+    }
+
+    $scope.getBookRankingToSales = function (){
+        $scope.bookRankingToSales = [];
+        let url = `${host}accordingToSales`;
+        $http.get(url).then(resp => {
+            $scope.bookRankingToSales = resp.data;
+            console.log("bookRankingToSales:", $scope.bookRankingToSales)
+        }).catch(error => {
+            console.log("Error", error)
+        });
+    }
+
+    $scope.getSalesAnalysis();
+    $scope.getCategoryRanking();
+    $scope.getBookRankingToSales();
+
 });
 //Display account shop
 app.controller("accountSettingController", function ($scope, $routeParams, $route, $http, $rootScope) {

@@ -1,7 +1,10 @@
 package com.poly.DATN_BookWorms.rest.controller;
 
+import com.poly.DATN_BookWorms.beans.BookRankingToSales;
+import com.poly.DATN_BookWorms.beans.CategoryRanking;
 import com.poly.DATN_BookWorms.beans.Sales;
 import com.poly.DATN_BookWorms.entities.Account;
+import com.poly.DATN_BookWorms.entities.Categories;
 import com.poly.DATN_BookWorms.entities.Shoponlines;
 import com.poly.DATN_BookWorms.service.SalesAnalysisService;
 import com.poly.DATN_BookWorms.service.ShopService;
@@ -14,7 +17,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.time.YearMonth;
-import java.time.temporal.TemporalAccessor;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -32,6 +34,7 @@ public class SalesAnalysisRestController {
     SessionService sessionService;
     @Autowired
     ShopService shopService;
+
     @PostMapping(value = "/getSalesAnalysis", consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<Sales>> getSalesAnalysis(@RequestParam("year") String year) {
         List<Sales> listSales = new ArrayList<>();
@@ -57,13 +60,13 @@ public class SalesAnalysisRestController {
             sales.setMonthlySales(salesAnalysisService.getMonthSales(startDate, endDate));
             sales.setOrders(salesAnalysisService.getMonthOrder(startDate, endDate));
             if (sales.getOrders() != 0) {
-                sales.setSalesPerOrder((sales.getMonthlySales() / sales.getOrders()) * 100);
+                sales.setSalesPerOrder(sales.getMonthlySales() / sales.getOrders());
             } else {
                 sales.setSalesPerOrder(0);
             }
             sales.setPagesViews(salesAnalysisService.getProductView(shoponlines.getShopid()));
             if (sales.getPagesViews() != 0) {
-                sales.setConversionRate((sales.getMonthlySales() / sales.getPagesViews()) * 100);
+                sales.setConversionRate((sales.getMonthlySales() / sales.getPagesViews()));
             } else {
                 sales.setConversionRate(0);
             }
@@ -73,4 +76,18 @@ public class SalesAnalysisRestController {
         return ResponseEntity.ok(listSales);
     }
 
+    @GetMapping("/categoryRanking")
+    public ResponseEntity<List<CategoryRanking>> getCategoryRanking() {
+
+        List<CategoryRanking> listCategoryRanking = salesAnalysisService.getCategoryRanking();
+//        System.out.println(listCategoryRanking.toString());
+        return ResponseEntity.ok(listCategoryRanking);
+    }
+
+    @GetMapping("/accordingToSales")
+    public ResponseEntity<List<BookRankingToSales>> getAccordingToSales() {
+        List<BookRankingToSales> listBookRankingToSales = salesAnalysisService.getBookRankingToSales();
+        System.out.println(listBookRankingToSales.toString());
+        return ResponseEntity.ok(listBookRankingToSales);
+    }
 }

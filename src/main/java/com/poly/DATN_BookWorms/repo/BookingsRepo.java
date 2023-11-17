@@ -26,7 +26,7 @@ public interface BookingsRepo extends JpaRepository<Bookings, String>{
     @Query("SELECT o FROM Bookings o WHERE o.createat >= :startDate AND o.createat <= :endDate AND o.orderstatuses.orderstatusid = 5")
     List<Bookings> getIsSuccess(Date startDate, Date endDate);
 
-	@Query("SELECT o FROM Bookings o WHERE o.createat >= :startDate AND o.createat <= :endDate AND o.orderstatuses.orderstatusid = 2")
+	@Query("SELECT o FROM Bookings o WHERE o.createat >= :startDate AND o.createat <= :endDate AND o.orderstatuses.orderstatusid != 6 AND o.orderstatuses.orderstatusid !=7")
 	List<Bookings> getIsPaid(Date startDate, Date endDate);
 
 //	@Query("SELECT o FROM Bookings o WHERE o.account.username = ?1")

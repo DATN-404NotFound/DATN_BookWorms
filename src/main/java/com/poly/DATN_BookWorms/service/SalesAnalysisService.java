@@ -1,8 +1,12 @@
 package com.poly.DATN_BookWorms.service;
 
+import com.poly.DATN_BookWorms.beans.BookRankingToSales;
+import com.poly.DATN_BookWorms.beans.CategoryRanking;
+import com.poly.DATN_BookWorms.entities.Categories;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.List;
 
 @Service
 public interface SalesAnalysisService {
@@ -11,4 +15,8 @@ public interface SalesAnalysisService {
     int getMonthOrder(Date startDate, Date endDate);
 
     int getProductView(Integer shopId);
+
+    List<CategoryRanking> getCategoryRanking();
+
+    List<BookRankingToSales> getBookRankingToSales();
 }
