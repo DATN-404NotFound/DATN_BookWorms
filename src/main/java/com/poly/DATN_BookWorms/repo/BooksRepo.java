@@ -66,5 +66,6 @@ public List<Publishingcompanies> getPCWithShop(Integer shopid);
     
     @Query("Select b.bookid from Books b where b.bookid in (Select d.bookid from Detailbookings d where d.dbid in (Select e.dbid from Evaluates e where e.rating in ?1))")
     List<Integer> getListBookWithEvaluer(List<Integer> ratinglist);
+
 }
 
