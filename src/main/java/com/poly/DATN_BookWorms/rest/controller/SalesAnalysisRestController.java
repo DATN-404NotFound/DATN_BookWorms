@@ -1,9 +1,11 @@
 package com.poly.DATN_BookWorms.rest.controller;
 
+import com.poly.DATN_BookWorms.beans.BookRankingToNumber;
 import com.poly.DATN_BookWorms.beans.BookRankingToSales;
 import com.poly.DATN_BookWorms.beans.CategoryRanking;
 import com.poly.DATN_BookWorms.beans.Sales;
 import com.poly.DATN_BookWorms.entities.Account;
+import com.poly.DATN_BookWorms.entities.Books;
 import com.poly.DATN_BookWorms.entities.Categories;
 import com.poly.DATN_BookWorms.entities.Shoponlines;
 import com.poly.DATN_BookWorms.service.SalesAnalysisService;
@@ -89,5 +91,17 @@ public class SalesAnalysisRestController {
         List<BookRankingToSales> listBookRankingToSales = salesAnalysisService.getBookRankingToSales();
         System.out.println(listBookRankingToSales.toString());
         return ResponseEntity.ok(listBookRankingToSales);
+    }
+    @GetMapping("/accordingToView")
+    public ResponseEntity<List<Books>> getAccordingToView() {
+        List<Books> listBookRankingToView = salesAnalysisService.getBookRankingToView();
+        System.out.println(listBookRankingToView.toString());
+        return ResponseEntity.ok(listBookRankingToView);
+    }
+    @GetMapping("/productNumber")
+    public ResponseEntity<List<BookRankingToNumber>> getProductNumber() {
+        List<BookRankingToNumber> listBookRankingToNumber = salesAnalysisService.getBookRankingToNumber();
+        System.out.println(listBookRankingToNumber.toString());
+        return ResponseEntity.ok(listBookRankingToNumber);
     }
 }

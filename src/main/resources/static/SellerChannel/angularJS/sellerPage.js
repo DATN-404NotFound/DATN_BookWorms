@@ -244,10 +244,33 @@ app.controller("salesController", function ($scope, $routeParams, $route, $http,
         });
     }
 
+    $scope.getBookRankingToNumber = function (){
+        $scope.bookRankingToNumber = [];
+        let url = `${host}productNumber`;
+        $http.get(url).then(resp => {
+            $scope.bookRankingToNumber = resp.data;
+            console.log("bookRankingToNumber:", $scope.bookRankingToNumber)
+        }).catch(error => {
+            console.log("Error", error)
+        });
+    }
+
+    $scope.getBookRankingToView = function (){
+        $scope.bookRankingToView = [];
+        let url = `${host}accordingToView`;
+        $http.get(url).then(resp => {
+            $scope.bookRankingToView = resp.data;
+            console.log("bookRankingToView:", $scope.bookRankingToView)
+        }).catch(error => {
+            console.log("Error", error)
+        });
+    }
+
     $scope.getSalesAnalysis();
     $scope.getCategoryRanking();
     $scope.getBookRankingToSales();
-
+    $scope.getBookRankingToNumber();
+    $scope.getBookRankingToView();
 });
 //Display account shop
 app.controller("accountSettingController", function ($scope, $routeParams, $route, $http, $rootScope) {

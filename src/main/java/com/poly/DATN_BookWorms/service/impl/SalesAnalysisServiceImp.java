@@ -1,5 +1,6 @@
 package com.poly.DATN_BookWorms.service.impl;
 
+import com.poly.DATN_BookWorms.beans.BookRankingToNumber;
 import com.poly.DATN_BookWorms.beans.BookRankingToSales;
 import com.poly.DATN_BookWorms.beans.CategoryRanking;
 import com.poly.DATN_BookWorms.entities.*;
@@ -163,7 +164,7 @@ public class SalesAnalysisServiceImp implements SalesAnalysisService {
                     System.out.println(listBookRankingToSales.size());
                     for (int i = 0; i < listBookRankingToSales.size(); i++) {
                         if (listBookRankingToSales.get(i).getBook().getBookid() == book.getBookid()){
-                            listBookRankingToSales.get(i).setSale(listBookRankingToSales.get(i).getSale()+ book.getPrice()+detailbooking.getQuantity());
+                            listBookRankingToSales.get(i).setSale(listBookRankingToSales.get(i).getSale()+ book.getPrice()*detailbooking.getQuantity());
                             break;
                         }
                         if (i>= listBookRankingToSales.size()){
@@ -178,6 +179,60 @@ public class SalesAnalysisServiceImp implements SalesAnalysisService {
 
         System.out.println("listBookRankingToSales " + listBookRankingToSales.size());
         return listBookRankingToSales;
+    }
+
+    @Override
+    public List<BookRankingToNumber> getBookRankingToNumber() {
+        List<Bookings> bookings = bookingsRepo.findAll();
+        List<Detailbookings> detailbookings = new ArrayList<>();
+        for (Bookings booking : bookings) {
+            detailbookings.addAll(booking.getListOfDetailbookings());
+        }
+
+        //Lấy sách của shop
+        Account user = sessionService.get("user");
+        Shoponlines shoponlines = shopService.findUserId(user.getUserid());
+        // Lấy list sách của Shop
+
+        List<Books> books = shoponlines.getListOfBooks();
+
+        List<BookRankingToNumber> listBookRankingToNumber = new ArrayList<>();
+        for (Books book : books) {
+            for (Detailbookings detailbooking : detailbookings) {
+                if (detailbooking.getBooks().getBookid().equals(book.getBookid())) {
+                    if (listBookRankingToNumber.isEmpty()) {
+                        listBookRankingToNumber.add(new BookRankingToNumber(book, detailbooking.getQuantity()));
+                        break;
+                    }
+                    System.out.println(listBookRankingToNumber.size());
+                    for (int i = 0; i < listBookRankingToNumber.size(); i++) {
+                        if (listBookRankingToNumber.get(i).getBook().getBookid() == book.getBookid()){
+                            listBookRankingToNumber.get(i).setNumbers(listBookRankingToNumber.get(i).getNumbers()+ detailbooking.getQuantity());
+                            break;
+                        }
+                        if (i>= listBookRankingToNumber.size()){
+                            listBookRankingToNumber.add(new BookRankingToNumber(book, detailbooking.getQuantity()));
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+
+
+        System.out.println("listBookRankingToSales " + listBookRankingToNumber.size());
+        return listBookRankingToNumber;
+    }
+
+    @Override
+    public List<Books> getBookRankingToView() {
+        //Lấy sách của shop
+        Account user = sessionService.get("user");
+        Shoponlines shoponlines = shopService.findUserId(user.getUserid());
+        // Lấy list sách của Shop
+
+        List<Books> books = shoponlines.getListOfBooks();
+        return books;
     }
 
 }

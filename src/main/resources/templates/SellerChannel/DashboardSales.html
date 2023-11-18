@@ -221,21 +221,22 @@
                                                                 <th>Publishing Year</th>
                                                                 <th>Price</th>
                                                                 <th>Total Page</th>
-                                                                <th>Sales</th>
+
                                                                 <th>Product Number</th>
+                                                                <th>Status</th>
                                                             </tr>
                                                             </thead>
                                                             <tbody>
-                                                            <tr ng-repeat ="sales in bookRankingToSales">
-                                                                <td>{{sales.book.bookname}}</td>
-                                                                <td>{{sales.book.language}}</td>
-                                                                <td>{{sales.book.publishingyear}}</td>
-                                                                <td>{{sales.book.price}}</td>
-                                                                <td>{{sales.book.totalpage}}</td>
-                                                                <td>{{sales.sale}}</td>
+                                                            <tr ng-repeat ="sales1 in bookRankingToNumber">
+                                                                <td>{{sales1.book.bookname}}</td>
+                                                                <td>{{sales1.book.language}}</td>
+                                                                <td>{{sales1.book.publishingyear}}</td>
+                                                                <td>{{sales1.book.price}}</td>
+                                                                <td>{{sales1.book.totalpage}}</td>
+                                                                <td>{{sales1.numbers}}</td>
                                                                 <td>
-                                                                    <span class="badge badge-pill badge-warning" ng-if="sales.book.statues == 'Hết hàng'">{{sales.book.statues}}</span>
-                                                                    <span class="badge badge-pill badge-success" ng-if="sales.book.statues == 'Còn hàng'">{{sales.book.statues}}</span>
+                                                                    <span class="badge badge-pill badge-warning" ng-if="sales1.book.statues == 'Hết hàng'">{{sales1.book.statues}}</span>
+                                                                    <span class="badge badge-pill badge-success" ng-if="sales1.book.statues == 'Còn hàng'">{{sales1.book.statues}}</span>
                                                                 </td>
                                                             </tr>
 
@@ -248,13 +249,36 @@
                                                 <div class="card shadow">
                                                     <div class="card-body">
                                                         <h5 class="card-title">According to views</h5>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-12 mb-4">
-                                                <div class="card shadow">
-                                                    <div class="card-body">
-                                                        <h5 class="card-title">According to conversion rate</h5>
+                                                        <p class="card-text">Book ratings and number of books sold.</p>
+                                                        <table class="table table-hover">
+                                                            <thead>
+                                                            <tr>
+                                                                <th>Book Name</th>
+                                                                <th>Language</th>
+                                                                <th>Publishing Year</th>
+                                                                <th>Price</th>
+                                                                <th>Total Page</th>
+
+                                                                <th>Product View</th>
+                                                                <th>Status</th>
+                                                            </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                            <tr ng-repeat ="sales2 in bookRankingToView | orderBy:'sales2.productviews'">
+                                                                <td>{{sales2.bookname}}</td>
+                                                                <td>{{sales2.language}}</td>
+                                                                <td>{{sales2.publishingyear}}</td>
+                                                                <td>{{sales2.price}}</td>
+                                                                <td>{{sales2.totalpage}}</td>
+                                                                <td>{{sales2.productviews}}</td>
+                                                                <td>
+                                                                    <span class="badge badge-pill badge-warning" ng-if="sales2.statues == 'Hết hàng'">{{sales2.statues}}</span>
+                                                                    <span class="badge badge-pill badge-success" ng-if="sales2.statues == 'Còn hàng'">{{sales2.statues}}</span>
+                                                                </td>
+                                                            </tr>
+
+                                                            </tbody>
+                                                        </table>
                                                     </div>
                                                 </div>
                                             </div>
