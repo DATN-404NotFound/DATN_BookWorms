@@ -202,7 +202,7 @@ function check() {
 
 
 
-const app = angular.module("cart_app", []);
+const app = angular.module("my_app", []);
 let host = "http://localhost:8080/rest/cart"
 app.controller("cart_ctrl", function ($scope, $http, $rootScope) {
 
@@ -351,6 +351,22 @@ app.controller("cart_ctrl", function ($scope, $http, $rootScope) {
 		})
 	});
 
+	//header
+	$scope.mms = function(){
+		console.log("search : ", $scope.searchfilter)	;
+	}
+
+	$scope.filterAll = function(b){ 
+		console.log("search1 : ",$scope.searchfilter)	;
+		if($scope.searchfilter == null){ 
+			console.log("no")	;
+			return (JSON.stringify(b).indexOf($scope.searchfilter ) == -1)
+		}
+		else{
+			console.log("yes")	; 
+			return (JSON.stringify(b).indexOf($scope.searchfilter ) != -1)
+		}
+	}
 
 	$scope.filterByCate = function (b) {
 		if ($scope.filterCate.length == 0) {
@@ -455,6 +471,35 @@ app.controller("cart_ctrl", function ($scope, $http, $rootScope) {
 
 
 	// HomePage
+	$scope.buyNow = function(id){ 
+		$scope.cart.add(id);
+		
+		$http.get("/rest/books/"+id).then(resp =>{
+			var book = []; 
+			 book.push(resp.data);
+			console.log("book : ", book);	
+			localStorage.setItem('books',JSON.stringify(book));
+			var shop = [];
+			 shop.push(book[0].shoponlines);
+			localStorage.setItem('shoponline', JSON.stringify(shop));
+			var deal = [
+				{
+					books : book[0],
+					quantity : $scope.quantityPro
+
+				}
+			]
+			var sale = [];
+			localStorage.setItem('deal', JSON.stringify(deal));
+			localStorage.setItem('sales', JSON.stringify(sale));
+		
+			location.href = "/order";
+		})
+
+
+	}
+	
+	
 	$scope.edu = function (id, a, b) {
 		$http.get("/rest/books/cate/" + id).then(resp => {
 			$scope.a = a;
@@ -630,8 +675,6 @@ $(document).ready(function () {
 });
 
 
-
-
 function voucherSelected(shopid) {
 	var vou = $('#voucher' + shopid).children("option:selected").val();
 	console.log(vou)
@@ -761,8 +804,8 @@ function calculatorPrice() {
 
 
 
-const app1 = angular.module("order_app", []);
-app1.controller("order_ctrl", function ($scope, $http, $timeout) {
+
+app.controller("order_ctrl", function ($scope, $http, $timeout) {
 
 	// Deal Page
 	$scope.bookItem = [];
@@ -775,9 +818,7 @@ app1.controller("order_ctrl", function ($scope, $http, $timeout) {
 		$scope.bookItem = JSON.parse(localStorage.getItem('books'));
 		$scope.dealItem = JSON.parse(localStorage.getItem('deal'));
 		$scope.shopItem = JSON.parse(localStorage.getItem('shoponline'));
-		console.log("al " + $scope.shopItem.length)
 		$scope.salesItem = JSON.parse(localStorage.getItem('sales'));
-
 		$scope.totalQuantity = $scope.bookItem.length;
 	}
 
@@ -851,17 +892,16 @@ app1.controller("order_ctrl", function ($scope, $http, $timeout) {
 				})
 				$('#myModal').show();
 				$('#iconModel').html('<i  style="font-size: 50px;color: green;" class="bi bi-check-circle"></i> ')
-				// $('#iconModel').css({"font-size": "50px","color": "green"})
 				$('#descrptionInfor').text("Đặt hàng thành công!")
-				//  location.href = "/cart"
 			}).catch(error => {
 				$('#myModal').show();
 				$('#iconModel').html('<i  style="font-size: 50px;color: red;" class="bi bi-x-circle"></i> ')
-				// $('#iconModel').css({"font-size": "50px","color": "red"})
 				$('#descrptionInfor').text("Đặt hàng thất bại! Vui lòng thử lại")
 				console.log(error)
 			})
 		});
 	}
 });
+
+
 

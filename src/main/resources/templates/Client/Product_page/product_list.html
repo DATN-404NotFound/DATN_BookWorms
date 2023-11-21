@@ -17,7 +17,7 @@
 </head>
 
 <body>
-    <main ng-app="cart_app" ng-controller="cart_ctrl" style="width: 98%; height: auto; margin: auto; margin-top: 70px;">
+    <main ng-controller="cart_ctrl" style="width: 98%; height: auto; margin: auto; margin-top: 70px;">
         <div>PRODUCT OVERVIEW</div>
         <div>
             <div class="d-inline-flex p-3 text-white">
@@ -233,7 +233,7 @@
         <article>
             <div class="my-5">
                 <div class="book_center" style="width: 100%; clear: both;">
-                    <div ng-repeat="b in sp | filter: filterByPrice | filter:filterByGenres | filter:filterByCate | filter:filterByWriter | filter:filterByRatting |orderBy:or" class="book_item" style="margin-left: 1%;">
+                    <div ng-repeat="b in sp | filter: filterAll" class="book_item" style="margin-left: 1%;">
                         <div class="book_img text-center">
                             <img id="product{{b.bookid}}"  ng-src="" alt=""
                             ng-init="setImageBook(b.bookid)">
@@ -259,35 +259,6 @@
                                         style="font-size: 25px;"></i></a></div>
                         </div>
                     </div>
-
-
-                    <!-- <div th:each="book : ${books}" class="book_item" style="margin-left: 1%;">
-                        <div class="book_img text-center">
-                            <img th:src="@{|/Client/images/${book.listOfImagebooks.get(0).name}|}" alt="">
-                            <form action="">
-                                <button th:formaction="@{|/product/detail/${book.bookid}|}" th:formmethod="GET"
-                                    class="btn" style="background-color: #C93F04; color: white; font-size: 18px;">Chi
-                                    tiết</button>
-                            </form>
-                        </div>
-                        <div class="book_title text-center mt-3">
-                            <a th:href="@{|/product/detail/${book.bookid}|}">
-                                <p th:text="${book.bookname}"></p>
-                            </a>
-                            <p style="font-size: 18px;margin-top: 0px;  color: #666;"
-                                th:text="${#strings.abbreviate(book.shoponlines.shopname, 10)}"></p>
-                            <p style="font-size: 18px;margin-top: -10px;">Giá : <strong
-                                    th:text="${#numbers.formatDecimal(book.price, 0, 'POINT', 0, 'COMMA')} +'₫'">200.00
-                                    VND</strong>
-                            </p>
-                        </div>
-                        <div class="d-flex flex-row-reverse" style="height: 30px; margin-top: -20px;">
-                            <div class="p-2"><a href="#" class="text-dark"><i class="bi bi-heart"
-                                        style="font-size: 25px;"></i></a></div>
-                            <div class="p-2"><a th:attr="ng-click=@{|cart.add(${book.bookid})|}" class="text-dark"> <i
-                                        class="bi bi-cart3" style="font-size: 25px;"></i></a></div>
-                        </div>
-                    </div> -->
                 </div>
 
 

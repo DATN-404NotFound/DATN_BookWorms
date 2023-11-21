@@ -69,7 +69,7 @@
                                     <button th:attr="ng-click=@{|cart.add(${item.bookid})|}" onclick="as()"
                                         class="button_all_orange">Add to cart</button>
 
-                                    <button class="button_all_none">Buy now</button>
+                                    <button th:attr="ng-click=@{|buyNow(${item.bookid})|}" class="button_all_none">Buy now</button>
 
                                 </div>
                                 <hr class="my-5">

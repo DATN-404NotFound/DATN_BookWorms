@@ -14,9 +14,11 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import com.poly.DATN_BookWorms.entities.Bookings;
+import com.poly.DATN_BookWorms.entities.Books;
 import com.poly.DATN_BookWorms.entities.Detailbookings;
 import com.poly.DATN_BookWorms.entities.Payments;
 import com.poly.DATN_BookWorms.repo.BookingsRepo;
+import com.poly.DATN_BookWorms.repo.BooksRepo;
 import com.poly.DATN_BookWorms.repo.DetailbookingsRepo;
 import com.poly.DATN_BookWorms.service.BookingService;
 import com.poly.DATN_BookWorms.service.PaymentService;
@@ -34,6 +36,10 @@ public class BookingServiceImp implements BookingService{
 	
 	@Autowired
 	HttpServletRequest request;
+	
+	@Autowired
+	BooksRepo booksRepo;
+	
 	
 	@Autowired
 	PaymentService paymentService;
@@ -62,12 +68,17 @@ public class BookingServiceImp implements BookingService{
 							
 						}
 						else { 
+							Books books = booksRepo.findById((long) d.bookid).get();
+							books.setQuantitysold(books.getQuantitysold() + d.getQuantity());
+							books.setQuantity(books.getQuantity() - d.getQuantity());
+							
 							d.setBookingid(booking.getBookingid());
 							 d.setBookings(booking);
 							 d.setDbid(crc32_SHA256.getCodeCRC32C(userid+d.getBookid()));
 							 System.out.println("IN detailbooking2 ");
 								System.out.println("IN detailbooking2 "+ d.toString());
 							 detailRepo.save(d);
+							 booksRepo.save(books);
 						}
 					}).collect(Collectors.toList());
 

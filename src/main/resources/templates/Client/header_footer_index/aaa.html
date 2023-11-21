@@ -22,7 +22,7 @@
 
 <body>
 
-    <main ng-app="cart_app" ng-controller="cart_ctrl">
+    <main   ng-controller="cart_ctrl">
         <script>
             $(document).ready(function () {
                 $('#myModal').modal('show'); // Hiển thị modal khi tải trang
@@ -415,7 +415,7 @@
                                     <div class="action">
                                         <button th:attr="ng-click=@{|cart.add(${item.bookid})|}"
                                             class="button_all_orange">Add to card</button>
-                                        <button class="button_all_none">Buy now</button>
+                                        <button class="button_all_none" th:attr="ng-click=@{|buyNow(${item.bookid})|}" >Buy now</button>
                                     </div>
                                     <hr class="my-5">
                                     <div class="info_book">
@@ -439,8 +439,6 @@
                     Buyers Love Us</a></p>
         </div>
         </div>
-        <script th:src="@{/Client/Js/cart/home.js}"></script>
-        <script src="../../../static/Client/Js/cart/home.js"></script>
         <script th:src="@{/Client/Js/cart/cart.js}"></script>
         <script src="../../../static/Client/Js/cart/cart.js"></script>
     </main>

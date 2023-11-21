@@ -59,20 +59,20 @@ public class SalesAnalysisRestController {
             Date endDate = Date.from(ngayCuoiThang.atStartOfDay().atZone(java.time.ZoneId.systemDefault()).toInstant());
             //lấy doanh số theo tháng năm
             Sales sales = new Sales();
-            sales.setMonthlySales(salesAnalysisService.getMonthSales(startDate, endDate));
-            sales.setOrders(salesAnalysisService.getMonthOrder(startDate, endDate));
-            if (sales.getOrders() != 0) {
-                sales.setSalesPerOrder(sales.getMonthlySales() / sales.getOrders());
-            } else {
-                sales.setSalesPerOrder(0);
-            }
-            sales.setPagesViews(salesAnalysisService.getProductView(shoponlines.getShopid()));
-            if (sales.getPagesViews() != 0) {
-                sales.setConversionRate((sales.getMonthlySales() / sales.getPagesViews()));
-            } else {
-                sales.setConversionRate(0);
-            }
-            listSales.add(sales);
+//            sales.setMonthlySales(salesAnalysisService.getMonthSales(startDate, endDate));
+//            sales.setOrders(salesAnalysisService.getMonthOrder(startDate, endDate));
+//            if (sales.getOrders() != 0) {
+//                sales.setSalesPerOrder(sales.getMonthlySales() / sales.getOrders());
+//            } else {
+//                sales.setSalesPerOrder(0);
+//            }
+//            sales.setPagesViews(salesAnalysisService.getProductView(shoponlines.getShopid()));
+//            if (sales.getPagesViews() != 0) {
+//                sales.setConversionRate((sales.getMonthlySales() / sales.getPagesViews()));
+//            } else {
+//                sales.setConversionRate(0);
+//            }
+//            listSales.add(sales);
         }
 
         return ResponseEntity.ok(listSales);

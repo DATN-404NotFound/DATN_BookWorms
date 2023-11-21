@@ -54,7 +54,6 @@ public class Shoponlines implements Serializable {
     @Column(name = "description", length = 2555)
     private String description;
 
-    public String shopaddress;
 
     public String userid;
 
@@ -167,13 +166,7 @@ public class Shoponlines implements Serializable {
 		this.description = description;
 	}
 
-	public String getShopaddress() {
-		return shopaddress;
-	}
-
-	public void setShopaddress(String shopaddress) {
-		this.shopaddress = shopaddress;
-	}
+	
 
 	public String getUserid() {
 		return userid;

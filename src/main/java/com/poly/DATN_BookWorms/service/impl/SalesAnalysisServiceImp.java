@@ -103,7 +103,7 @@ public class SalesAnalysisServiceImp implements SalesAnalysisService {
                     //Lấy category từ sách có trong detailbooking
 
                     for (Typebooks typebook : typebooks) {
-                        categories.add(typebook.getCategories());
+                        //categories.add(typebook.getCategories());
                     }
 
                 }
@@ -114,17 +114,17 @@ public class SalesAnalysisServiceImp implements SalesAnalysisService {
         for (Categories category : categories) {
             int count = 0;
             if (categoryRankings.isEmpty()) {
-                categoryRankings.add(new CategoryRanking(category, 1));
+               // categoryRankings.add(new CategoryRanking(category, 1));
             } else {
                 for (CategoryRanking categoryRanking : categoryRankings) {
                     count++;
-                    if (categoryRanking.getCategories().getCategoryid().equals(category.getCategoryid())) {
-                        categoryRanking.setOrderNumbers(categoryRanking.getOrderNumbers() + 1);
-                        break;
-                    }
-                    if (count >= categoryRankings.size()) {
-                        categoryRankings.add(new CategoryRanking(category, 1));
-                    }
+//                    if (categoryRanking.getCategories().getCategoryid().equals(category.getCategoryid())) {
+//                        categoryRanking.setOrderNumbers(categoryRanking.getOrderNumbers() + 1);
+//                        break;
+//                    }
+//                    if (count >= categoryRankings.size()) {
+//                        categoryRankings.add(new CategoryRanking(category, 1));
+//                    }
 
 
                 }
@@ -157,21 +157,21 @@ public class SalesAnalysisServiceImp implements SalesAnalysisService {
         for (Books book : books) {
             for (Detailbookings detailbooking : detailbookings) {
                 if (detailbooking.getBooks().getBookid().equals(book.getBookid())) {
-                    if (listBookRankingToSales.isEmpty()) {
-                        listBookRankingToSales.add(new BookRankingToSales(book, book.getPrice() * detailbooking.getQuantity()));
-                        break;
-                    }
+//                    if (listBookRankingToSales.isEmpty()) {
+//                        listBookRankingToSales.add(new BookRankingToSales(book, book.getPrice() * detailbooking.getQuantity()));
+//                        break;
+//                    }
                     System.out.println(listBookRankingToSales.size());
-                    for (int i = 0; i < listBookRankingToSales.size(); i++) {
-                        if (listBookRankingToSales.get(i).getBook().getBookid() == book.getBookid()){
-                            listBookRankingToSales.get(i).setSale(listBookRankingToSales.get(i).getSale()+ book.getPrice()*detailbooking.getQuantity());
-                            break;
-                        }
-                        if (i>= listBookRankingToSales.size()){
-                            listBookRankingToSales.add(new BookRankingToSales(book, book.getPrice() * detailbooking.getQuantity()));
-                            break;
-                        }
-                    }
+//                    for (int i = 0; i < listBookRankingToSales.size(); i++) {
+//                        if (listBookRankingToSales.get(i).getBook().getBookid() == book.getBookid()){
+//                            listBookRankingToSales.get(i).setSale(listBookRankingToSales.get(i).getSale()+ book.getPrice()*detailbooking.getQuantity());
+//                            break;
+//                        }
+//                        if (i>= listBookRankingToSales.size()){
+//                            listBookRankingToSales.add(new BookRankingToSales(book, book.getPrice() * detailbooking.getQuantity()));
+//                            break;
+//                        }
+//                    }
                 }
             }
         }
@@ -200,20 +200,20 @@ public class SalesAnalysisServiceImp implements SalesAnalysisService {
         for (Books book : books) {
             for (Detailbookings detailbooking : detailbookings) {
                 if (detailbooking.getBooks().getBookid().equals(book.getBookid())) {
-                    if (listBookRankingToNumber.isEmpty()) {
-                        listBookRankingToNumber.add(new BookRankingToNumber(book, detailbooking.getQuantity()));
-                        break;
-                    }
+//                    if (listBookRankingToNumber.isEmpty()) {
+//                        listBookRankingToNumber.add(new BookRankingToNumber(book, detailbooking.getQuantity()));
+//                        break;
+//                    }
                     System.out.println(listBookRankingToNumber.size());
                     for (int i = 0; i < listBookRankingToNumber.size(); i++) {
-                        if (listBookRankingToNumber.get(i).getBook().getBookid() == book.getBookid()){
-                            listBookRankingToNumber.get(i).setNumbers(listBookRankingToNumber.get(i).getNumbers()+ detailbooking.getQuantity());
-                            break;
-                        }
-                        if (i>= listBookRankingToNumber.size()){
-                            listBookRankingToNumber.add(new BookRankingToNumber(book, detailbooking.getQuantity()));
-                            break;
-                        }
+//                        if (listBookRankingToNumber.get(i).getBook().getBookid() == book.getBookid()){
+//                            listBookRankingToNumber.get(i).setNumbers(listBookRankingToNumber.get(i).getNumbers()+ detailbooking.getQuantity());
+//                            break;
+//                        }
+//                        if (i>= listBookRankingToNumber.size()){
+//                            listBookRankingToNumber.add(new BookRankingToNumber(book, detailbooking.getQuantity()));
+//                            break;
+//                        }
                     }
                 }
             }
