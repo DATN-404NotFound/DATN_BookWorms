@@ -51,7 +51,7 @@
                     <div class="col-md-4">
                       <div class="mx-4">
                         <strong class="mb-0 text-uppercase text-muted">Total</strong><br />
-                        <h3>$2,562.30</h3>
+                        <h3  >{{ shopPayment.total | currency:"$"}}</h3>
                         <p class="text-muted">My Bank Account: **** 6094</p>
                       </div>
                       <div class="row align-items-center">
@@ -109,56 +109,28 @@
               <div class="mb-2 align-items-center">
                 <div class="card shadow">
                   <div class="card-body">
-                    <ul class="nav nav-pills nav-fill mb-3" id="pills-tab" role="tablist">
-                      <li class="nav-item">
-                        <a class="nav-link active" id="pills-All-tab" data-toggle="pill" href="#pills-All" role="tab" aria-controls="pills-All" aria-selected="true">Paid</a>
-                      </li>
-                      <li class="nav-item">
-                        <a class="nav-link" id="pills-Waitforconfirmation-tab" data-toggle="pill" href="#pills-Waitforconfirmation" role="tab" aria-controls="pills-Waitforconfirmation" aria-selected="false">Unpaid</a>
-                      </li>
-                      
-                      
-                    </ul>
+                    <h3 class="">Submit a payment request</h3>
                     <div class="tab-content mb-1" id="pills-tabContent">
-                      <div class="tab-pane fade show active" id="pills-All" role="tabpanel" aria-labelledby="pills-All-tab"> 
-                        <div class="row">
-                          <div class="col-md-6">
-                            <div class="form-group">
-                              <label for="date-input1">Date Range</label>
-                              <input type="text" name="datetimes" class="form-control datetimes" />
-                            </div>
-                            <div class="form-group">
-                              <label for="reportrange">Predefined Date Ranges</label>
-                              <div id="reportrange" class="border px-2 py-2 bg-light">
-                                <i class="fe fe-calendar fe-16 mx-2"></i>
-                                <span></span>
+                      <div class="tab-pane fade show active" id="pills-All" role="tabpanel" aria-labelledby="pills-All-tab">
+                            <form class="col-md-6 col-sm-12" >
+                              <label for="inputAmountOfMoney" class="form-label">Amount of money</label>
+                              <input type="number" id="inputAmountOfMoney" class="form-control" aria-describedby="passwordHelpBlock" max="shopPayment.total" min="1" ng-model="paymentTotal">
+                              <div id="PaymentBlock" class="form-text">
+                                You must enter an amount greater than 0 and less than the value you currently own.
                               </div>
-                            </div>
-                          </div>
-                          <div class="col-md-6">
-                            <div class="form-group">
-                              <label for="date-input1">Search</label>
-                              <form class="mb-3">
-                                <input class="form-control text-muted" type="search" placeholder="Type something..." aria-label="Search">
-                                <br>
-                              </form>
-                            </div>
-                            <div class="form-group mt-4">
-                              <button type="button" class="btn mb-2 btn-primary"><span class="fe fe-arrow-down fe-16 mr-2"></span>Search </button>
-                            </div>
-                          </div>                     
-                        </div>    
+                              <button type="submit" class="btn btn-primary" ng-click="sendRequestPayment()">Send request</button>
+                            </form>
                       </div>
                       <div class="tab-pane fade" id="pills-Waitforconfirmation" role="tabpanel" aria-labelledby="pills-Waitforconfirmation-tab">  
                         <div class="row">
                           <div class="col-md-6">
                             <div class="form-group">
-                              <label for="date-input1">Date Range</label>
+                              <label for="">Date Range</label>
                               <input type="text" name="datetimes" class="form-control datetimes" />
                             </div>
                             <div class="form-group">
                               <label for="reportrange">Predefined Date Ranges</label>
-                              <div id="reportrange" class="border px-2 py-2 bg-light">
+                              <div id="" class="border px-2 py-2 bg-light">
                                 <i class="fe fe-calendar fe-16 mx-2"></i>
                                 <span></span>
                               </div>

@@ -20,7 +20,7 @@ import java.util.List;
 @AllArgsConstructor
 @Data
 @Entity
-@Table(name = "PaymentShop")
+@Table(name = "Paymentshop")
 public class PaymentShop implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -39,7 +39,7 @@ public class PaymentShop implements Serializable {
     private double valuepayment;
 
     @ManyToOne
-    @JoinColumn(name = "Shopid", referencedColumnName = "Shopid", insertable = false, updatable = false)
+    @JoinColumn(name = "Shopid", referencedColumnName = "Shopid")
     Shoponlines shoponlines;
 
     //--- toString specific method

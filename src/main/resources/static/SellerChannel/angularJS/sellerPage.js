@@ -68,6 +68,44 @@ app.config(function ($routeProvider) {
             redirectTo: '/seller'
         });
 });
+
+//revenue
+app.controller("revenueFinanceController", function ($scope, $routeParams, $route, $http, $rootScope,$timeout) {
+    let host = "http://localhost:8080/rest/revenueFinance/";
+    $scope.paymentTotal=[];
+    $scope.getRevenueFinance = function () {
+        $scope.shopPayment=[];
+        let url = `${host}getRevenue`;
+        $http.get(url).then(resp => {
+            $scope.shopPayment = resp.data;
+            console.log("shopPayment:", $scope.shopPayment)
+        }).catch(error => {
+            console.log("Error", error)
+        });
+    }
+
+    $scope.sendRequestPayment = function () {
+        let url = `${host}sendRequestPayment`;
+        var currentDate = new Date();
+        let formData;
+        formData = new FormData();
+
+        formData.append('paymentTotal', $scope.paymentTotal);
+        formData.append("reportProgress", true);
+        const headers = {
+            'Content-Type': undefined,
+            transformRequest: angular.identity
+        };
+        $http.post(url, formData, {headers: headers}).then(resp => {
+
+            console.log("Result: ", "success!!!!!!")
+        }).catch(error => {
+            console.log("Error", error)
+        });
+    }
+    $scope.getRevenueFinance();
+
+});
 //sales Analysis
 app.controller("salesController", function ($scope, $routeParams, $route, $http, $rootScope,$timeout) {
 
