@@ -13,5 +13,5 @@ public interface EvaluatesService {
 
     Integer sumDbidByEvaluateId(Integer id);
     
-    public List<Evaluates> getEvaByBookid(Long bookid);
+     List<Evaluates> getEvaByBookid(Long bookid);
 }

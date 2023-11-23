@@ -11,8 +11,8 @@ import org.springframework.data.jpa.repository.Query;
 public interface EvaluatesRepo extends JpaRepository<Evaluates, Integer>{
     @Query("SELECT COUNT(e.dbid) FROM Evaluates e WHERE e.evaluateid = :id")
     Integer sumDbidByEvaluateId(Integer id);
-    
-    @Query("Select e.dbid from Evaluates e where e.dbid in (Select d.dbid from Detailbookings d where d.books.bookid like ?1")
-    public List<Evaluates> getEvaByBookid(Long bookid);
+//    
+    @Query("Select e from Evaluates e where e.dbid in (Select d.dbid from Detailbookings d where d.books.bookid like ?1")
+    List<Evaluates> getEvaByBookid(Long bookid);
 
 }
