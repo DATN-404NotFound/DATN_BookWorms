@@ -44,24 +44,24 @@ public class Evaluates implements Serializable {
     //--- ENTITY PRIMARY KEY 
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
-    private Integer    evaluateid ;
+    public Integer    evaluateid ;
 
     //--- ENTITY DATA FIELDS 
-    private String     dbid ;
+    public String     dbid ;
 
     @Column(name="rating")
-    private Integer    rating ;
+    public Integer    rating ;
 
-    private String     reviewtext ;
+    public String     reviewtext ;
 
     @Temporal(TemporalType.DATE)
-    private Date       evaluatedate ;
+    public Date       evaluatedate ;
 
 
     //--- ENTITY LINKS ( RELATIONSHIP )
     @ManyToOne
     @JoinColumn(name="dbid", referencedColumnName="DBId", insertable=false, updatable=false)
-    private Detailbookings detailbookings ; 
+    public Detailbookings detailbookings ; 
 
 	@Override
     public String toString() {

@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -43,6 +44,14 @@ public class ShopController {
     @Autowired
     EvaluatesService evaluatesService;
 
+    @GetMapping
+    public String getAllShop(Model model) { 
+    	List<Shoponlines> listshop = new ArrayList<Shoponlines>();
+    	listshop = shopOnlinesService.getAllListShop();
+    	model.addAttribute("shoplist", listshop);
+    	 return "Client/Product_page/shop_list";
+    }
+    
     @GetMapping("/{id}")
     public String profile(Model model, @PathVariable("id") Integer id,
                           @RequestParam(defaultValue = "0") int page,

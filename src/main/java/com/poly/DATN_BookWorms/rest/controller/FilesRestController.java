@@ -9,24 +9,20 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.poly.DATN_BookWorms.entities.Shoponlines;
-import com.poly.DATN_BookWorms.service.ShopOnlineService;
+import com.poly.DATN_BookWorms.entities.Files;
+import com.poly.DATN_BookWorms.service.FileShopService;
 
 @RestController
 @CrossOrigin("*")
-@RequestMapping("/rest/shoponline")
-public class ShopOnlineRestController {
+@RequestMapping("/rest/files")
+public class FilesRestController {
 
 	@Autowired
-	ShopOnlineService shopOnlineService;
-	
+	FileShopService fileShopService;
+
 	@GetMapping("/{id}")
-	public Shoponlines getOne(@PathVariable("id") Integer id) { 
-		return shopOnlineService.findById(id);
+	public List<Files> getFileByShop(@PathVariable("id") Integer shopid) {
+		return fileShopService.getFileByShop(shopid);
 	}
-	
-	@GetMapping("")
-	public List<Shoponlines> getAll() { 
-		return shopOnlineService.findAll();
-	}
+
 }

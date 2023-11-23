@@ -3,6 +3,8 @@ package com.poly.DATN_BookWorms.controller;
 import com.poly.DATN_BookWorms.entities.*;
 import com.poly.DATN_BookWorms.service.BookService;
 import com.poly.DATN_BookWorms.service.CategoryService;
+import com.poly.DATN_BookWorms.service.EvaluateService;
+import com.poly.DATN_BookWorms.service.EvaluatesService;
 import com.poly.DATN_BookWorms.service.PublishingCompanyService;
 import com.poly.DATN_BookWorms.service.TypeBookService;
 import com.poly.DATN_BookWorms.service.WriterMasterService;
@@ -39,6 +41,10 @@ public class ProductController {
 
 	@Autowired
 	BookService bookService;
+	
+	@Autowired
+	EvaluatesService evaluateService;
+	
 	@Autowired
 	CategoryService categoryService;
 	@Autowired
@@ -108,11 +114,12 @@ public class ProductController {
 		Books item = bookService.findById(id);
 		System.out.println("lkjlskjlajssf" + id);
 		List<Books> b = bookService.getBooksByCategoryID(item.getListOfTypebooks().get(0).categories.categoryid);
-
+		List<Evaluates> eva_list = evaluateService.getEvaByBookid(id);
 //		List<String> images = imagebookService.findByBookId(id);
 //		System.out.print(images);
 //		model.addAttribute("images", images);
 		model.addAttribute("item", item);
+		model.addAttribute("eva", eva_list);
 		model.addAttribute("books", b);
 		model.addAttribute("userid", crc.getCodeCRC32C(request.getRemoteUser()));
 		// System.out.println("ll"+ item.getListOfImagebooks().get(0).getName());

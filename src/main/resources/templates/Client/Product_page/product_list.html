@@ -233,7 +233,7 @@
         <article>
             <div class="my-5">
                 <div class="book_center" style="width: 100%; clear: both;">
-                    <div ng-repeat="b in sp | filter: filterAll" class="book_item" style="margin-left: 1%;">
+                    <div ng-repeat="b in sp | filter: filterByPrice | filter:filterByGenres | filter:filterByCate | filter:filterByWriter | filter:filterByRatting | filter: filterAll |orderBy:or" class="book_item" style="margin-left: 1%;">
                         <div class="book_img text-center">
                             <img id="product{{b.bookid}}"  ng-src="" alt=""
                             ng-init="setImageBook(b.bookid)">

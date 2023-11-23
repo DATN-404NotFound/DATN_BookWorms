@@ -230,6 +230,18 @@ app.controller("cart_ctrl", function ($scope, $http, $rootScope) {
 			console.log("Error", error)
 		});;
 	}
+	
+		$scope.setShop = function (shopId) {
+		let url = `http://localhost:8080/rest/files/` + shopId;
+		$http.get(url).then(resp => {
+			var a = [];
+			a = (resp.data);
+			console.log("LLl", a[0].filename)
+			document.getElementById('shopimage' + shopId).src = "/Client/images/" + a[0].filename
+		}).catch(error => {
+			console.log("Error", error)
+		});;
+	}
 
 	$scope.loadProduct();
 	$scope.filterCate = [];
@@ -353,18 +365,31 @@ app.controller("cart_ctrl", function ($scope, $http, $rootScope) {
 
 	//header
 	$scope.mms = function(){
-		console.log("search : ", $scope.searchfilter)	;
+		console.log("mmss ",localStorage.getItem("searchfilter") )
+		localStorage.setItem("searchfilter",$scope.searchfilter);
+		
 	}
 
+
 	$scope.filterAll = function(b){ 
-		console.log("search1 : ",$scope.searchfilter)	;
+		$scope.searchfilter = localStorage.getItem("searchfilter")
+		console.log("mmss ",localStorage.getItem("searchfilter") )
 		if($scope.searchfilter == null){ 
-			console.log("no")	;
-			return (JSON.stringify(b).indexOf($scope.searchfilter ) == -1)
+			return (JSON.stringify(angular.lowercase(b.bookname)).indexOf($scope.searchfilter ) == -1 || JSON.stringify(b.price).indexOf($scope.searchfilter ) == -1);
 		}
 		else{
-			console.log("yes")	; 
-			return (JSON.stringify(b).indexOf($scope.searchfilter ) != -1)
+			return (JSON.stringify(angular.lowercase(b.bookname)).indexOf($scope.searchfilter ) != -1 || JSON.stringify(b.price).indexOf($scope.searchfilter ) != -1);	
+		}
+	}
+	
+	$scope.filtershop = function(s){ 
+		$scope.searchfilter = localStorage.getItem("searchfilter")
+		console.log("mmss ",localStorage.getItem("filtershop") )
+		if($scope.searchfilter == null){ 
+			return (JSON.stringify(angular.lowercase(s.shopname)).indexOf($scope.searchfilter ) == -1);
+		}
+		else{
+			return (JSON.stringify(angular.lowercase(s.shopname)).indexOf($scope.searchfilter ) != -1);	
 		}
 	}
 
@@ -376,6 +401,7 @@ app.controller("cart_ctrl", function ($scope, $http, $rootScope) {
 			return ($scope.filterValueCate.indexOf(b.bookid) !== -1);
 		}
 	};
+
 
 	$scope.filterByWriter = function (b) {
 		if ($scope.filterWrite.length == 0) {
@@ -412,17 +438,15 @@ app.controller("cart_ctrl", function ($scope, $http, $rootScope) {
 			})
 			return object;
 		}
-
 	};
 
 	$scope.filterChoose1 = function (stt, name) {
 		var la = [];
-
 		la.push(name.getAttribute('id'));
 		localStorage.setItem('filter1', la);
-
-
 	}
+	
+	
 	$scope.process = function (array, name) {
 		if (name.checked) {
 			console.log("chose name : " + name.getAttribute('id'));
@@ -435,6 +459,7 @@ app.controller("cart_ctrl", function ($scope, $http, $rootScope) {
 		}
 		console.log("filter : " + array)
 	}
+
 
 	$scope.getList = function (mang, name, key, value) {
 		console.log("datatype " + typeof (value))
@@ -468,7 +493,7 @@ app.controller("cart_ctrl", function ($scope, $http, $rootScope) {
 		})
 	}
 
-
+$scope.quantityPro = 1;
 
 	// HomePage
 	$scope.buyNow = function(id){ 
@@ -486,7 +511,6 @@ app.controller("cart_ctrl", function ($scope, $http, $rootScope) {
 				{
 					books : book[0],
 					quantity : $scope.quantityPro
-
 				}
 			]
 			var sale = [];
@@ -608,6 +632,15 @@ app.controller("cart_ctrl", function ($scope, $http, $rootScope) {
 			location.href = "/shop/" + shopid
 		})
 	}
+
+$scope.shopAll = [];
+$scope.getAllshop= function(){ 
+	$http.get("/rest/shoponline").then(resp => {
+			$scope.shopAll = resp.data;
+			
+		})
+}
+$scope.getAllshop();
 
 
 

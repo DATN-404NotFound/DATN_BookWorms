@@ -229,11 +229,11 @@
                 </div>
                 <div id="reviews_product" class="container tab-pane fade"><br>
                     <h3>Đánh giá</h3>
-                    <div class="review_box">
+                    <div th:each="e : ${eva}" class="review_box">
                         <div class="float-start">
                             <a href="#" style="text-decoration: none; color: #080808;"><span><i style="font-size: 30px;"
                                         class="bi bi-person-circle mx-3"></i></span>
-                                <span style="font-size: 22px;">thanhha13</span></a>
+                                <span style="font-size: 22px;" th:text="${e.detailbookings.account.username}"></span></a>
                         </div>
                         <div class="stars float-end mx-5 my-3" style="font-size: 22px;">
                             <span><i class="bi bi-star-fill"></i></span>
@@ -243,8 +243,7 @@
                             <span><i class="bi bi-star-half"></i></i></span>
                         </div>
                         <div class="mx-4" style="clear: both; font-size: 20px;">
-                            <p class="mx-3"> Sản phẩm khá ok giống với mô tả. Sách chính hãng, mới và có kèm theo ..Xem
-                                thêm</p>
+                            <p class="mx-3" th:text="${e.reviewtext}"></p>
                         </div>
                         <div style="margin-top: 30px; margin-left: 100px;">
                             <div style="width: 9%; height: 20%; float: left; margin-left: 10px;">
@@ -261,70 +260,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="review_box">
-                        <div class="float-start">
-                            <a href="#" style="text-decoration: none; color: #080808;"><span><i style="font-size: 30px;"
-                                        class="bi bi-person-circle mx-3"></i></span>
-                                <span style="font-size: 22px;">thanhha13</span></a>
-                        </div>
-                        <div class="stars float-end mx-5 my-3" style="font-size: 22px;">
-                            <span><i class="bi bi-star-fill"></i></span>
-                            <span><i class="bi bi-star-fill"></i></span>
-                            <span><i class="bi bi-star-fill"></i></span>
-                            <span><i class="bi bi-star-fill"></i></span>
-                            <span><i class="bi bi-star-half"></i></i></span>
-                        </div>
-                        <div class="mx-4" style="clear: both; font-size: 20px;">
-                            <p class="mx-3"> Sản phẩm khá ok giống với mô tả. Sách chính hãng, mới và có kèm theo ..Xem
-                                thêm</p>
-                        </div>
-                        <div style="margin-top: 30px; margin-left: 100px;">
-                            <div style="width: 9%; height: 20%; float: left; margin-left: 10px;">
-                                <img th:src="@{/Client/images/Hinh10_book10.jpg}" class="d-block"
-                                    style="width: 90%; height: 90%; margin-top: -10px;" alt="">
-                            </div>
-                            <div style="width: 9%; height: 20%; float: left;  margin-left: 10px;">
-                                <img th:src="@{/Client/images/Hinh10_book10.jpg}" class="d-block"
-                                    style="width: 90%; height: 90%; margin-top: -10px;" alt="">
-                            </div>
-                            <div style="width: 9%; height: 20%; float: left;  margin-left: 10px;">
-                                <img th:src="@{/Client/images/Hinh10_book10.jpg}" class="d-block"
-                                    style="width: 90%; height: 90%; margin-top: -10px;" alt="">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="review_box">
-                        <div class="float-start">
-                            <a href="#" style="text-decoration: none; color: #080808;"><span><i style="font-size: 30px;"
-                                        class="bi bi-person-circle mx-3"></i></span>
-                                <span style="font-size: 22px;">thanhha13</span></a>
-                        </div>
-                        <div class="stars float-end mx-5 my-3" style="font-size: 22px;">
-                            <span><i class="bi bi-star-fill"></i></span>
-                            <span><i class="bi bi-star-fill"></i></span>
-                            <span><i class="bi bi-star-fill"></i></span>
-                            <span><i class="bi bi-star-fill"></i></span>
-                            <span><i class="bi bi-star-half"></i></i></span>
-                        </div>
-                        <div class="mx-4" style="clear: both; font-size: 20px;">
-                            <p class="mx-3"> Sản phẩm khá ok giống với mô tả. Sách chính hãng, mới và có kèm theo ..Xem
-                                thêm</p>
-                        </div>
-                        <div style="margin-top: 30px; margin-left: 100px;">
-                            <div style="width: 9%; height: 20%; float: left; margin-left: 10px;">
-                                <img th:src="@{/Client/images/Hinh10_book10.jpg}" class="d-block"
-                                    style="width: 90%; height: 90%; margin-top: -10px;" alt="">
-                            </div>
-                            <div style="width: 9%; height: 20%; float: left;  margin-left: 10px;">
-                                <img th:src="@{/Client/images/Hinh10_book10.jpg}" class="d-block"
-                                    style="width: 90%; height: 90%; margin-top: -10px;" alt="">
-                            </div>
-                            <div style="width: 9%; height: 20%; float: left;  margin-left: 10px;">
-                                <img th:src="@{/Client/images/Hinh10_book10.jpg}" class="d-block"
-                                    style="width: 90%; height: 90%; margin-top: -10px;" alt="">
-                            </div>
-                        </div>
-                    </div>
+
 
                 </div>
             </div>
