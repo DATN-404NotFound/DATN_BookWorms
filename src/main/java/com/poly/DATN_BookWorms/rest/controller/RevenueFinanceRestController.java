@@ -37,6 +37,13 @@ public class RevenueFinanceRestController {
 
         return ResponseEntity.ok(shoponlines);
     }
+    @GetMapping("/getListFinance")
+    public ResponseEntity<List<PaymentShop>> getListFinance() {
+        Account user = sessionService.get("user");
+        Shoponlines shoponlines = shopService.findUserId(user.getUserid());
+        List<PaymentShop> listFinance = paymentShopService.findByShopId(shoponlines.getShopid());
+        return ResponseEntity.ok(listFinance);
+    }
     @PostMapping(value = "/sendRequestPayment", consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<PaymentShop> createUser(@RequestParam("paymentTotal") String paymentTotal) {
         Account user = sessionService.get("user");

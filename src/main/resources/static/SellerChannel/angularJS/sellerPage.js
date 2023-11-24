@@ -83,6 +83,16 @@ app.controller("revenueFinanceController", function ($scope, $routeParams, $rout
             console.log("Error", error)
         });
     }
+    $scope.getListFinance = function () {
+        $scope.listPayment=[];
+        let url = `${host}getListFinance`;
+        $http.get(url).then(resp => {
+            $scope.listPayment = resp.data;
+            console.log("listPayment:", $scope.listPayment)
+        }).catch(error => {
+            console.log("Error", error)
+        });
+    }
 
     $scope.sendRequestPayment = function () {
         let url = `${host}sendRequestPayment`;
@@ -99,12 +109,14 @@ app.controller("revenueFinanceController", function ($scope, $routeParams, $rout
         $http.post(url, formData, {headers: headers}).then(resp => {
 
             console.log("Result: ", "success!!!!!!")
+            $window.alert("Send request payment success!!!");
         }).catch(error => {
             console.log("Error", error)
+            $window.alert("Send request payment false!!!");
         });
     }
     $scope.getRevenueFinance();
-
+    $scope.getListFinance();
 });
 //sales Analysis
 app.controller("salesController", function ($scope, $routeParams, $route, $http, $rootScope,$timeout) {
