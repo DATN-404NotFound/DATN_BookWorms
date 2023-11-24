@@ -102,7 +102,7 @@ function updateCart(id, json) {
 		type: "PUT",
 		data: JSON.stringify(json),
 		contentType: "application/json; charset=utf-8",
-		dataType: "json",
+		 dataType: 'jsonp',
 		success: function (resultData) {
 			console.log(resultData);
 			$("#cart" + id).children().eq(5).text(formatNumber(resultData.books.price * resultData.quantity, ".", ","));
@@ -112,6 +112,8 @@ function updateCart(id, json) {
 	});
 
 }
+
+
 
 function deleteCart(id, shop) {
 	$.ajax({
@@ -203,10 +205,22 @@ function check() {
 
 
 const app = angular.module("my_app", []);
+
 let host = "http://localhost:8080/rest/cart"
 app.controller("cart_ctrl", function ($scope, $http, $rootScope) {
 
+
+	$scope.loadContent = function(bookid){ 
+		console.log("kjsdj")
+		$http.get("/Client/Js/content.json").then(resp =>{ 
+		
+			$scope.bookcontent = resp.data;
+			$scope.itembookcontent = $scope.bookcontent.find(item => item.bookid == bookid);
+			$('#content'+bookid).text($scope.itembookcontent.content)
+		})
+	}
 	// Product list
+	
 	$scope.sp = [];
 	$scope.loadProduct = function () {
 		$http.get("http://localhost:8080/rest/books").then(resp => {

@@ -44,13 +44,7 @@ public class ShopController {
     @Autowired
     EvaluatesService evaluatesService;
 
-    @GetMapping
-    public String getAllShop(Model model) { 
-    	List<Shoponlines> listshop = new ArrayList<Shoponlines>();
-    	listshop = shopOnlinesService.getAllListShop();
-    	model.addAttribute("shoplist", listshop);
-    	 return "Client/Product_page/shop_list";
-    }
+   
     
     @GetMapping("/{id}")
     public String profile(Model model, @PathVariable("id") Integer id,

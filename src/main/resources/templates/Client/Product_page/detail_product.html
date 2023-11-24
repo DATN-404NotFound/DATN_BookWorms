@@ -57,6 +57,7 @@
                                         <span class="review-no ms-2 text-dark">41 reviews</span>
                                     </div>
                                 </div>
+                                <div class="btn btn-warning" th:text="${item.statues}"></div> <b style="font-size: 20px;" class="mx-3"><span th:text="${item.productviews}"></span> <span>lượt xem</span></b>
                                 <p class="product-description"></p>
                                 <h2 class="price">Current price: <span
                                         th:text="${#numbers.formatDecimal(item.price, 0, 'POINT', 0, 'COMMA')} +'₫'"></span>
@@ -207,25 +208,7 @@
                 </div>
                 <div id="info_product" class="container tab-pane fade"><br>
                     <h3>Nội dung</h3>
-                    <p style="padding-left: 50px; font-size: 22px;">"Hạt Giống Tâm Hồn " của Dale Carnegie là quyển sách
-                        của mọi thời đại và một
-                        hiện tượng đáng kinh ngạc trong ngành xuất bản Hoa Kỳ. Trong suốt nhiều thập kỷ tiếp theo và cho
-                        đến tận bây giờ, tác phẩm này vẫn chiếm vị trí số một trong danh mục sách bán chạy nhất và trở
-                        thành một sự kiện có một không hai trong lịch sử ngành xuất bản thế giới và được đánh giá là một
-                        quyển sách có tầm ảnh hưởng nhất mọi thời đại.
-                        Đây là cuốn sách độc nhất về thể loại self-help sở hữu một lượng lớn người hâm mộ. Ngoài ra cuốn
-                        sách có doanh số bán ra cao nhất được tờ báo The New York Times bình chọn trong nhiều năm. Cuốn
-                        sách này không còn là một tác phẩm về nghệ thuật đơn thuần nữa mà là một bước thay đổi lớn trong
-                        cuộc sống của mỗi người.
-                        Nhờ có tầm hiểu biết rộng rãi và khả năng ‘ứng xử một cách nghệ thuật trong giao tiếp’ – Dale
-                        Carnegie đã viết ra một quyển sách với góc nhìn độc đáo và mới mẻ trong giao tiếp hàng ngày một
-                        cách vô cùng thú vị – Thông qua những mẫu truyện rời rạc nhưng lại đầy lý lẽ thuyết phục. Từ đó
-                        tìm ra những kinh nghiệm để đúc kết ra những nguyên tắc vô cùng ‘ngược ngạo’, nhưng cũng rất
-                        logic dưới cái nhìn vừa sâu sắc, vừa thực tế.
-                        Hơn thế nữa, Đắc Nhân Tâm còn đưa ra những nghịch lý mà từ lâu con người ta đã hiểu lầm về
-                        phương hướng giao tiếp trong mạng lưới xã hội, thì ra, người giao tiếp thông minh không phải là
-                        người có thể phát biểu ra những lời hay nhất, mà là những người học được cách mỉm cười, luôn
-                        biết cách lắng nghe, và khích lệ câu chuyện của người khác.</p>
+                    <p style="padding-left: 50px; font-size: 22px;" th:id="content+${item.bookid}"  th:attr="ng-init=@{|loadContent(${item.bookid})|}" ></p>
                 </div>
                 <div id="reviews_product" class="container tab-pane fade"><br>
                     <h3>Đánh giá</h3>
@@ -233,7 +216,7 @@
                         <div class="float-start">
                             <a href="#" style="text-decoration: none; color: #080808;"><span><i style="font-size: 30px;"
                                         class="bi bi-person-circle mx-3"></i></span>
-                                <span style="font-size: 22px;" th:text="${e.detailbookings.account.username}"></span></a>
+                                <span style="font-size: 22px;" th:text="${e.detailbookings.bookings.account.username}"></span></a>
                         </div>
                         <div class="stars float-end mx-5 my-3" style="font-size: 22px;">
                             <span><i class="bi bi-star-fill"></i></span>
@@ -289,12 +272,23 @@
                             <p style="font-size: 18px;margin-top: -10px;">Giá : <strong th:text="${#numbers.formatDecimal(book.price, 0, 'POINT', 0, 'COMMA')} +'₫'">200.00 VND</strong>
                             </p>
                         </div>
-                        <div class="d-flex flex-row-reverse" style="height: 30px; margin-top: -20px;">
-                            <div class="p-2"><a href="#" class="text-dark"><i class="bi bi-heart"
-                                        style="font-size: 25px;"></i></a></div>
-                            <div class="p-2"><a th:attr="ng-click=@{|cart.add(${book.bookid})|}" class="text-dark"> <i class="bi bi-cart3"
-                                        style="font-size: 25px;"></i></a></div>
+
+                        <div class="d-flex justify-content-between " style="margin-top: -10px;">
+                            <div class="px-2">
+                                <p style="font-size: 18px;margin-top: 10px;"> <span th:text="${book.quantitysold}"></span> <span> Đã
+                                        bán</span></p>
+                            </div>
+
+                            <div class=" text-end">
+                                <div class="d-flex flex-row-reverse" >
+                                    <div class="p-2"><a href="#" class="text-dark"><i class="bi bi-heart"
+                                                style="font-size: 25px;"></i></a></div>
+                                    <div class="p-2"><a th:attr="ng-click=@{|cart.add(${book.bookid})|}" class="text-dark"> <i class="bi bi-cart3"
+                                                style="font-size: 25px;"></i></a></div>
+                                </div>
+                            </div>
                         </div>
+                       
                     </div>
        
            

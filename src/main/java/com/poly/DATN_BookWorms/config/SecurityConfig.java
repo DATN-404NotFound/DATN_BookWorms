@@ -1,9 +1,12 @@
 package com.poly.DATN_BookWorms.config;
 
-
+import jakarta.servlet.Filter;
+import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.Customizer;
@@ -21,9 +24,14 @@ import org.springframework.security.web.DefaultRedirectStrategy;
 import org.springframework.security.web.RedirectStrategy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.security.web.session.SessionManagementFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 
 import java.io.IOException;
-
+import java.util.List;
 
 @Configuration
 @EnableWebSecurity
@@ -36,7 +44,8 @@ public class SecurityConfig {
 	@Bean
 	public RedirectStrategy redirectStrategy() {
 		return new DefaultRedirectStrategy() {
-			public String getLocation(HttpServletRequest request, HttpServletResponse response, Authentication authentication) {
+			public String getLocation(HttpServletRequest request, HttpServletResponse response,
+					Authentication authentication) {
 				String previousUrl = request.getHeader("Referer");
 				if (previousUrl != null) {
 					return previousUrl;
@@ -51,15 +60,21 @@ public class SecurityConfig {
 	public AuthenticationSuccessHandler successHandler() {
 		return new AuthenticationSuccessHandler() {
 			@Override
-			public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
+			public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
+					Authentication authentication) throws IOException, ServletException {
 				redirectStrategy().sendRedirect(request, response, "/Ibook/index");
 			}
 		};
 	}
-	//	Phân quyền sử dụng
+
+
+	// Phân quyền sử dụng
 	@Bean
 	public SecurityFilterChain web(HttpSecurity http) throws Exception {
-		http.authorizeHttpRequests((request) -> request
+		
+		http
+	.authorizeHttpRequests((request) -> request
+				
 				.requestMatchers("/account/**", "/signin/**", "/signup/**", "/product/**", "/Admin/**","/Ibook/index","/Ibook/header")
 				.permitAll().requestMatchers("rest/**").permitAll()
 				.requestMatchers("/Client/**")
@@ -85,8 +100,25 @@ public class SecurityConfig {
 				.logoutSuccessUrl("/account/login")
 				.permitAll());
 
-		http.cors().and().csrf().disable();
+
+    
+//		http.csrf().disable();
 		return http.build();
 	}
+	
+
+	
+//	@Bean
+//	 CorsConfigurationSource corsConfigurationSource() {
+//	    CorsConfiguration configuration = new CorsConfiguration();
+//	    configuration.setAllowedOrigins(List.of("*"));
+//	    configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "PATCH", "HEAD", "DELETE", "OPTIONS"));
+//	    configuration.setAllowedHeaders(List.of("Origin", "Accept", "X-Requested-With", "Content-Type", "Access-Control-Request-Method", "Access-Control-Request-Headers", "Authorization"));
+//	    configuration.setExposedHeaders(List.of("Access-Control-Allow-Origin", "Access-Control-Allow-Credentials", "Authorization"));
+//	    UrlBasedCorsConfigurationSource source = new 
+//	     UrlBasedCorsConfigurationSource();
+//	    source.registerCorsConfiguration("/**", configuration);
+//	    return source;
+//	}
 
 }

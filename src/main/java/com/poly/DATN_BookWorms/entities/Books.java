@@ -370,4 +370,14 @@ public class Books implements Serializable {
     }
 
 
+	public Integer getProductviews() {
+		return productviews;
+	}
+
+
+	public void setProductviews(Integer productviews) {
+		this.productviews = productviews;
+	}
+
+
 }

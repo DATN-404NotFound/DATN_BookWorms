@@ -112,14 +112,16 @@ public class ProductController {
 		
 		// System.out.println("lkjlskjlajf");
 		Books item = bookService.findById(id);
+		item.setProductviews(item.getProductviews()+1);
+		bookService.update(item);
 		System.out.println("lkjlskjlajssf" + id);
 		List<Books> b = bookService.getBooksByCategoryID(item.getListOfTypebooks().get(0).categories.categoryid);
-		//List<Evaluates> eva_list = evaluateService.getEvaByBookid(id);
+		List<Evaluates> eva_list = evaluateService.getEvaByBookid(id);
 //		List<String> images = imagebookService.findByBookId(id);
 //		System.out.print(images);
 //		model.addAttribute("images", images);
 		model.addAttribute("item", item);
-		//model.addAttribute("eva", eva_list);
+		model.addAttribute("eva", eva_list);
 		model.addAttribute("books", b);
 		model.addAttribute("userid", crc.getCodeCRC32C(request.getRemoteUser()));
 		// System.out.println("ll"+ item.getListOfImagebooks().get(0).getName());
@@ -133,4 +135,5 @@ public class ProductController {
 //
 //		return pageable;
 //	}
+
 }

@@ -39,7 +39,7 @@ import lombok.NoArgsConstructor;
 @Table(name="Evaluates")
 public class Evaluates implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+    public static final long serialVersionUID = 1L;
 
     //--- ENTITY PRIMARY KEY 
     @Id
