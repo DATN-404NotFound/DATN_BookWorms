@@ -8,6 +8,9 @@ import com.poly.DATN_BookWorms.repo.*;
 import com.poly.DATN_BookWorms.service.SalesAnalysisService;
 import com.poly.DATN_BookWorms.service.ShopService;
 import com.poly.DATN_BookWorms.utils.SessionService;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +20,9 @@ import java.util.List;
 
 @Service
 public class SalesAnalysisServiceImp implements SalesAnalysisService {
+	
+	private static final Logger logger = LogManager.getLogger();
+	
     @Autowired
     BookingsRepo bookingsRepo;
     @Autowired
@@ -30,27 +36,43 @@ public class SalesAnalysisServiceImp implements SalesAnalysisService {
 
     @Override
     public double getMonthSales(Date startDate, Date endDate) {
+		logger.info("get getMonthSales start.....");
+		logger.info("get getMonthSales with input startDate : {} and endDate : {}", startDate, endDate);
         List<Bookings> bookings = bookingsRepo.getIsSuccess(startDate, endDate);
-        List<Detailbookings> detailbookings = new ArrayList<>();
-        for (Bookings booking : bookings) {
-            detailbookings.addAll(booking.getListOfDetailbookings());
+        if(bookings.size() ==0) { 
+        	logger.info("get list bookings is null");
+        	return 0;
         }
-        Account user = sessionService.get("user");
-        Shoponlines shoponlines = shopService.findUserId(user.getUserid());
-
-        List<Detailbookings> listDetailBookingSales = new ArrayList<>();
-        for (Detailbookings detailbooking : detailbookings) {
-            if (detailbooking.getBooks().getShopid().equals(shoponlines.getShopid())) {
-                listDetailBookingSales.add(detailbooking);
-            }
-        }
-        //Tổng giá trị
-        double monthSales = 0;
-        for (Detailbookings listDetailbookings1 : listDetailBookingSales) {
-            monthSales += (listDetailbookings1.getQuantity() * listDetailbookings1.getBooks().getPrice()) * 0.9;
-        }
-
-        return monthSales;
+       try {
+    	   List<Detailbookings> detailbookings = new ArrayList<>();
+           for (Bookings booking : bookings) {
+           	logger.info("booking : {}", booking.toString());
+               detailbookings.addAll(booking.getListOfDetailbookings());
+           }
+           Account user = sessionService.get("user");
+           logger.info("Account : {}", user.toString());
+           Shoponlines shoponlines = shopService.findUserId(user.getUserid());
+           logger.info("shoponlines : {}", shoponlines.toString());
+           List<Detailbookings> listDetailBookingSales = new ArrayList<>();
+           for (Detailbookings detailbooking : detailbookings) {
+               if (detailbooking.getBooks().getShopid().equals(shoponlines.getShopid())) {
+               	 logger.info("detailbooking : {}", detailbooking.toString());
+                   listDetailBookingSales.add(detailbooking);
+               }
+           }
+           //Tổng giá trị
+           double monthSales = 0;
+           for (Detailbookings listDetailbookings1 : listDetailBookingSales) {
+               monthSales += (listDetailbookings1.getQuantity() * listDetailbookings1.getBooks().getPrice()) * 0.9;
+           }
+           logger.info("monthSales : {}", monthSales);
+           logger.info("getMonthSales end successfully ...");
+           return monthSales;
+	} catch (Exception e) {
+		 logger.info("Error during getMonthSales with error : {}",e);
+         return 0;
+		// TODO: handle exception
+	}
     }
 
     @Override
@@ -74,67 +96,85 @@ public class SalesAnalysisServiceImp implements SalesAnalysisService {
 
     @Override
     public int getProductView(Integer shopId) {
-
+    	  logger.info("getProductView with shopid : {}", shopId);
         return booksRepo.getProductViews(shopId);
     }
 
     @Override
     public List<CategoryRanking> getCategoryRanking() {
+    	  logger.info("getCategoryRanking start......");
         List<Bookings> bookings = bookingsRepo.findAll();
-        List<Detailbookings> detailbookings = new ArrayList<>();
-        for (Bookings booking : bookings) {
-            detailbookings.addAll(booking.getListOfDetailbookings());
-        }
-        System.out.println("detailbooking " + detailbookings.size());
-        Account user = sessionService.get("user");
-        Shoponlines shoponlines = shopService.findUserId(user.getUserid());
-        // Lấy list sách của Shop
+        logger.info("bookings list size : {}", bookings.size());
+       try {
+    	   if(bookings.size() ==0) { 
+           	logger.info("get list bookings is null");
+        
+           }
+           List<Detailbookings> detailbookings = new ArrayList<>();
+           for (Bookings booking : bookings) {
+           	 logger.info("booking item : {}", bookings.toString());
+               detailbookings.addAll(booking.getListOfDetailbookings());
+           }
+           System.out.println("detailbooking " + detailbookings.size());
+           Account user = sessionService.get("user");
+           logger.info("Account item : {}", user.toString());
+           Shoponlines shoponlines = shopService.findUserId(user.getUserid());
+           logger.info("Acshoponlinescount item : {}", shoponlines.toString());
+           // Lấy list sách của Shop
 
-        List<Books> books = shoponlines.getListOfBooks();
-        System.out.println("books " + books.size());
+           List<Books> books = shoponlines.getListOfBooks();
+           logger.info("get list books size : {}",books.size());
+           System.out.println("books " + books.size());
 
-        List<CategoryRanking> categoryRankings = new ArrayList<>();
-        List<Categories> categories = new ArrayList<>();
-        for (Books book : books) {
-            for (Detailbookings detailbooking : detailbookings) {
-                if (detailbooking.getBooks().getBookid().equals(book.getBookid())) {
-                    List<Typebooks> typebooks = book.getListOfTypebooks();
+           List<CategoryRanking> categoryRankings = new ArrayList<>();
+           logger.info("get list CategoryRanking size : {}",categoryRankings.size());
+           List<Categories> categories = new ArrayList<>();
+           for (Books book : books) {
+               for (Detailbookings detailbooking : detailbookings) {
+               	logger.info("detailbooking : {}",detailbooking.toString());
+                   if (detailbooking.getBooks().getBookid().equals(book.getBookid())) {
+                       List<Typebooks> typebooks = book.getListOfTypebooks();
+                       for (Typebooks typebook : typebooks) {
+                       	logger.info("typebook : {}",typebook.toString());
+                           //categories.add(typebook.getCategories());
+                       }
 
-                    //Lấy category từ sách có trong detailbooking
-
-                    for (Typebooks typebook : typebooks) {
-                        //categories.add(typebook.getCategories());
-                    }
-
-                }
-            }
-        }
-        System.out.println("categories " + categories.size());
-        //Thêm vào thống kê tăng số lượng nếu có từ 2 lần trở lên
-        for (Categories category : categories) {
-            int count = 0;
-            if (categoryRankings.isEmpty()) {
-               // categoryRankings.add(new CategoryRanking(category, 1));
-            } else {
-                for (CategoryRanking categoryRanking : categoryRankings) {
-                    count++;
-//                    if (categoryRanking.getCategories().getCategoryid().equals(category.getCategoryid())) {
-//                        categoryRanking.setOrderNumbers(categoryRanking.getOrderNumbers() + 1);
-//                        break;
-//                    }
-//                    if (count >= categoryRankings.size()) {
-//                        categoryRankings.add(new CategoryRanking(category, 1));
-//                    }
+                   }
+               }
+           }
+           System.out.println("categories " + categories.size());
+           //Thêm vào thống kê tăng số lượng nếu có từ 2 lần trở lên
+           for (Categories category : categories) {
+           	logger.info("category : {}",category.toString());
+               int count = 0;
+               if (categoryRankings.isEmpty()) {
+                  // categoryRankings.add(new CategoryRanking(category, 1));
+               } else {
+                   for (CategoryRanking categoryRanking : categoryRankings) {
+                   	logger.info("categoryRanking : {}",categoryRanking.toString());
+                       count++;
+//                       if (categoryRanking.getCategories().getCategoryid().equals(category.getCategoryid())) {
+//                           categoryRanking.setOrderNumbers(categoryRanking.getOrderNumbers() + 1);
+//                           break;
+//                       }
+//                       if (count >= categoryRankings.size()) {
+//                           categoryRankings.add(new CategoryRanking(category, 1));
+//                       }
 
 
-                }
-            }
+                   }
+               }
 
-            System.out.println(count);
+               System.out.println(count);
 
-        }
-        System.out.println("categoryRaking " + categoryRankings.size());
-        return categoryRankings;
+           }
+           System.out.println("categoryRaking " + categoryRankings.size());
+           return categoryRankings;
+	} catch (Exception e) {
+		logger.error("Error during getCategoryRanking with error : {}", e);
+		return null;
+		// TODO: handle exception
+	}
     }
 
     @Override

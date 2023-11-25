@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -24,6 +26,9 @@ import com.poly.DATN_BookWorms.service.BookService;
 @RestController
 @RequestMapping("/rest/books")
 public class BookRestController {
+
+	
+	
 	@Autowired
 	BookService bookService;
 	
@@ -55,7 +60,6 @@ public class BookRestController {
 	
 	@GetMapping("/{id}")
 	public Books getOne(@PathVariable("id")Long id) {
-		System.out.println("111111111111111"+ bookService.findById(id));
 		return bookService.findById(id);
 	}
 	@GetMapping("/shop")

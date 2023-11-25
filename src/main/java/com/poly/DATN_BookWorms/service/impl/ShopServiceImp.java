@@ -4,39 +4,54 @@ import com.poly.DATN_BookWorms.entities.Account;
 import com.poly.DATN_BookWorms.entities.Shoponlines;
 import com.poly.DATN_BookWorms.repo.ShoponlinesRepo;
 import com.poly.DATN_BookWorms.service.ShopService;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class ShopServiceImp  implements ShopService {
+public class ShopServiceImp implements ShopService {
 
-    @Autowired
-    ShoponlinesRepo shoponlinesRepo;
-    @Override
-    public Shoponlines findUserId(String userId) {
-        return shoponlinesRepo.findByUserId(userId);
-    }
+	private static final Logger logger = LogManager.getLogger();
 
-    @Override
-    public void save(Shoponlines shoponlines) {
-        shoponlinesRepo.save(shoponlines);
-    }
+	@Autowired
+	ShoponlinesRepo shoponlinesRepo;
 
-    @Override
-    public void createShopDefaultWithUser(Account user) {
-        Shoponlines shopDefault  = new Shoponlines();
+	@Override
+	public Shoponlines findUserId(String userId) {
+		logger.info("find shoponelines by userid :{}", userId);
+		return shoponlinesRepo.findByUserId(userId);
+	}
 
-        shopDefault.setAccount(user);
-        shopDefault.setShopname("Shop Of "+user.getUsername());
-        shopDefault.setDescription("IBook is always a reliable choice for book lovers");
-        shopDefault.setIsactive(true);
-        shoponlinesRepo.save(shopDefault);
-        System.out.println(shopDefault.toString());
-    }
+	@Override
+	public void save(Shoponlines shoponlines) {
+		logger.info("save shoponelines by shoponlines :{}", shoponlines.toString());
+		shoponlinesRepo.save(shoponlines);
+	}
 
-    @Override
-    public Shoponlines findById(Integer shopId) {
-        return shoponlinesRepo.findById(shopId).get();
-    }
+	@Override
+	public void createShopDefaultWithUser(Account user) {
+		logger.info("create shop dèalut with user :{}", user.toString());
+		Shoponlines shopDefault = new Shoponlines();
+		logger.info("shopdeafault :{}", shopDefault.toString());
+		try {
+			shopDefault.setAccount(user);
+			shopDefault.setShopname("Shop Of " + user.getUsername());
+			shopDefault.setDescription("IBook is always a reliable choice for book lovers");
+			shopDefault.setIsactive(true);
+			shoponlinesRepo.save(shopDefault);
+			logger.info("create shopdeafault  is sucesssfully with shopDefault:{}", shopDefault.toString());
+		} catch (Exception e) {
+			logger.error("create shopdeafault  is failed with shopDefault : {} and exception : {}",
+					shopDefault.toString(), e);
+		}
+	}
+
+	@Override
+	public Shoponlines findById(Integer shopId) {
+		logger.info("find shoplines  with shopid : {}", shopId);
+		return shoponlinesRepo.findById(shopId).get();
+	}
 
 }

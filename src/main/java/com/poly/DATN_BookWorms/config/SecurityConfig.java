@@ -102,7 +102,7 @@ public class SecurityConfig {
 
 
     
-//		http.csrf().disable();
+		http.cors().disable().csrf().disable();
 		return http.build();
 	}
 	

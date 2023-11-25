@@ -3,19 +3,23 @@ var tong = 0;
 var json = [];
 
 function choose(e) {
+	console.log("kjskjd")
 	check()
 	var a = document.getElementById(e);
 	var b = a.parentElement.parentElement;
 	var c = b.children[2];
 	var d = c.getElementsByClassName('form-check-input');
 	var e = c.getElementsByClassName('total_pro');
+	console.log("lkkk"+ a.checked)
 	if (a.checked) {
+		
 		for (var i = 0; i < d.length; i++) {
 			if (d[i].checked) {
 				continue;
 			} else {
 				d[i].checked = true;
 				purchase.push(d[i].getAttribute('id'));
+				console.log("pur: "+ purchase);
 			}
 		}
 	} else {
@@ -682,7 +686,7 @@ $scope.getAllshop();
 })
 
 
-var shoponline = [];
+
 var deal = [];
 var books = [];
 var salevoucher = [];
@@ -724,7 +728,7 @@ $(document).ready(function () {
 
 function voucherSelected(shopid) {
 	var vou = $('#voucher' + shopid).children("option:selected").val();
-	console.log(vou)
+	console.log("vou"+ vou)
 	$.get("http://localhost:8080/rest/discount/" + vou, function (data, status) {
 		console.log(data)
 		if (!data || data.value === null) {
@@ -746,13 +750,13 @@ function voucherSelected(shopid) {
 
 function selectShop(item) {
 	$.get("http://localhost:8080/rest/shoponline/" + item, function (data, status) {
-
+		var shoponline = [];
 		var y = shoponline.find(i => i.shopid == data.shopid);
 		if (y) {
 		}
 		else {
-			shoponline.push(data);
-			console.log("datashop " + shoponline.length)
+			shoponline.push("kk"+data);
+			console.log("datashopl " + localStorage.getItem('shoponline'));
 			localStorage.setItem('shoponline', JSON.stringify(shoponline));
 			voucherSelected(data.shopid);
 		}
@@ -763,6 +767,7 @@ function findBook(item) {
 	$.get("http://localhost:8080/rest/books/" + item.bookid, function (data, status) {
 		books.push(data);
 		localStorage.setItem('books', JSON.stringify(books));
+		console.log("databook " + books.length)
 		selectShop(data.shoponlines.shopid);
 	})
 }
@@ -794,7 +799,7 @@ function deals() {
 	purchase.forEach(item => {
 		findCart(item);
 		localStorage.setItem('deal', JSON.stringify(deal));
-		location.href = "/order";
+		//location.href = "/order";
 
 	})
 }
@@ -813,27 +818,30 @@ function loadWin() {
 	var c = JSON.parse(localStorage.getItem('shoponline'));
 	var d = JSON.parse(localStorage.getItem('sales'));
 	var totalPriceAll = 0;
-	c.forEach(m => {
-		var priceItem = 0;
-
-		b.forEach(i => {
-			if (i.books.shopid == m.shopid) {
-				priceItem += (i.books.price * i.quantity);
-			}
-		})
-		if (d.length > 0) {
-			d.forEach(j => {
-				if (j.sales.shopid == m.shopid) {
-					priceItem -= (priceItem * j.sales.discountpercentage);
+	if(c !=null){ 
+		c.forEach(m => {
+			var priceItem = 0;
+	
+			b.forEach(i => {
+				if (i.books.shopid == m.shopid) {
+					priceItem += (i.books.price * i.quantity);
 				}
 			})
-		}
-		document.getElementById('priceItem' + m.shopid).innerText = formatNumber(priceItem, ".", ",");;
-		totalPriceAll += priceItem;
-		console.log("priceAll " + totalPriceAll)
-
-	})
+			if ( d != null) {
+				d.forEach(j => {
+					if (j.sales.shopid == m.shopid) {
+						priceItem -= (priceItem * j.sales.discountpercentage);
+					}
+				})
+			}
+			document.getElementById('priceItem' + m.shopid).innerText = formatNumber(priceItem, ".", ",");;
+			totalPriceAll += priceItem;
+			console.log("priceAll " + totalPriceAll)
+	
+		})
+	}
 	document.getElementById('totalPriceAll').innerText = formatNumber(totalPriceAll, ".", ",");
+	console.log("ll")
 	calculatorPrice();
 }
 
@@ -848,7 +856,6 @@ function calculatorPrice() {
 	var f = Number(a) + Number(b) - Number(c) - Number(d);
 	e.innerText = formatNumber(f, ".", ",");
 }
-
 
 
 
@@ -867,6 +874,15 @@ app.controller("order_ctrl", function ($scope, $http, $timeout) {
 		$scope.shopItem = JSON.parse(localStorage.getItem('shoponline'));
 		$scope.salesItem = JSON.parse(localStorage.getItem('sales'));
 		$scope.totalQuantity = $scope.bookItem.length;
+
+		console.log("shop 1"+ $scope.bookItem)
+		console.log("shop 1"+ $scope.dealItem )
+		console.log("shopa"+ $scope.shopItem);
+		
+	localStorage.removeItem('books');
+	localStorage.removeItem('deal');
+	localStorage.removeItem('shoponline');
+	localStorage.removeItem('sales');
 	}
 
 	$scope.loadDeal();

@@ -10,6 +10,8 @@ import com.poly.DATN_BookWorms.utils.SessionService;
 
 import jakarta.servlet.http.HttpServletRequest;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -29,41 +31,43 @@ import com.poly.DATN_BookWorms.service.SaleService;
 @RequestMapping("/cart")
 public class CartController {
 
-    @Autowired
-    CartService cartService;
+	private static final Logger logger = LogManager.getLogger();
 
-    @Autowired
-    SaleService saleService;
+	@Autowired
+	CartService cartService;
 
+	@Autowired
+	SaleService saleService;
 
+	@RequestMapping
+	public String cartView(Model model, HttpServletRequest request) {
+		try {
+			List<Cart> cartuser_list = cartService.findByUser();
+			model.addAttribute("cartuserList", cartuser_list);
+			List<Shoponlines> list_cart_shop = cartService.list_cart_shop();
+			model.addAttribute("cartshoplist", list_cart_shop);
+			List<Sales> sale_shopid_intendFor = saleService.saleOfShopIntendFor("D");
+			model.addAttribute("saleShopIntendFor", sale_shopid_intendFor);
+			String username = request.getRemoteUser();
+			model.addAttribute("requestusername", username);
+			logger.info("get Cart page");
+		} catch (Exception e) {
+			logger.info("Error during cart controller with error :{}", e);
+		}
+		return "Client/cart_client/cart_user";
+	}
 
-    @RequestMapping
-    public String cartView(Model model,HttpServletRequest request) {
-        List<Cart> cartuser_list = cartService.findByUser();
-        model.addAttribute("cartuserList", cartuser_list);
-        List<Shoponlines> list_cart_shop = cartService.list_cart_shop();
-        model.addAttribute("cartshoplist", list_cart_shop);
-        List<Sales> sale_shopid_intendFor = saleService.saleOfShopIntendFor("D");
-        model.addAttribute("saleShopIntendFor", sale_shopid_intendFor);
-        String username = request.getRemoteUser();
-        model.addAttribute("requestusername", username);
-        return "Client/cart_client/cart_user";
-    }
+	@RequestMapping("/delete/{cartid}")
+	public String deletecart(@PathVariable("cartid") Long cartid) {
+		cartService.delete(cartid);
+		return "redirect:/cart";
+	}
 
-    @RequestMapping("/delete/{cartid}")
-    public String deletecart(@PathVariable("cartid") Long cartid) { 
-    	System.out.println("xmm");
-    	cartService.delete(cartid);
-    	return "redirect:/cart";
-    }
-  
-	
 //	@RequestMapping("/shopOnline")
 //	public String cartLinkShop(@RequestParam("shopId") Integer shopId) { 
 //		
 //		return "Client/Product_page/product_shop_list";
 //	}
-
 
 //	@RequestMapping("/product")
 //	public String cartLinkProduct() { 
