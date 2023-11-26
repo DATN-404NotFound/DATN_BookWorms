@@ -50,26 +50,39 @@ public class    AccountController {
             accountService.save(accountDTO);
 
         }
-        customUserDetailService.loadUserByUsername(performance.getName());
+        try {
+            Thread.sleep(5000);
+            customUserDetailService.loadUserByUsername(performance.getName());
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
         return "redirect:/Ibook/index";
     }
     
     @RequestMapping("/login-facebook/success")
     public String loginWithFaceBook(@AuthenticationPrincipal OAuth2User performance, Model model) {
+        System.out.println(performance.toString());
         if (performance == null) {
             return "redirect:/login";
         }
 
         if (accountService.findByUsename(performance.getName()) == null) {
             AccountDTO accountDTO = new AccountDTO();
-            accountDTO.setEmail(performance.getAttribute("email"));
-            accountDTO.setUsername(performance.getName());
+            accountDTO.setEmail("");
+            accountDTO.setUsername(performance.getAttribute("id"));
             accountDTO.setFullname(performance.getAttribute("name"));
             accountDTO.setPassword(String.valueOf(RandomStringUtils.randomAlphabetic(8)));
             accountService.save(accountDTO);
 
         }
-        customUserDetailService.loadUserByUsername(performance.getName());
+        try {
+            Thread.sleep(5000);
+            customUserDetailService.loadUserByUsername(performance.getAttribute("id"));
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
         return "redirect:/Ibook/index";
     }
     

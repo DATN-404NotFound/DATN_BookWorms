@@ -49,14 +49,9 @@ public class CustomUserDetailService implements UserDetailsService {
             //Lưu account in session
             sessionService.set("user", account);
             //login in
-            try {
-                Thread.sleep(5000);
-                return new org.springframework.security.core.userdetails.User(account.getUsername(), account.getPassword(),
-                        roles.stream().map((role) -> new SimpleGrantedAuthority(role.getRoleid()))
-                                .collect(Collectors.toList()));
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
+            return new org.springframework.security.core.userdetails.User(account.getUsername(), account.getPassword(),
+                    roles.stream().map((role) -> new SimpleGrantedAuthority(role.getRoleid()))
+                            .collect(Collectors.toList()));
         } else
             throw new UsernameNotFoundException("Invalid username or password");
     }
