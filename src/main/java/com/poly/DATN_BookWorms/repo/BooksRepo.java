@@ -14,11 +14,7 @@ import com.poly.DATN_BookWorms.response.BookResponse;
 
 public interface BooksRepo extends JpaRepository<Books, Integer>{
 	
-//	@Query("SELECT DISTINCT b FROM Books p WHERE p.category.categoryid=?1")
-//	List<Books> findByCategoryId(String cid);
-//
-//	@Query("SELECT DISTINCT o FROM Product o WHERE o.name LIKE ?1")
-//	List<Books> findProductByName(String id);
+
 	@Query("SELECT new com.poly.DATN_BookWorms.response.BookResponse(bo.bookid, bo.bookname, ib.name, bo.price, SO.shopname) " +
 	        "FROM Books bo " +
 	        "INNER JOIN Imagebooks ib ON bo.bookid = ib.bookid " +
@@ -31,4 +27,10 @@ public interface BooksRepo extends JpaRepository<Books, Integer>{
     		+ "JOIN Books b2 ON tb2.bookid = b2.bookid "
     		+ "WHERE b1.bookid = ?1")
     List<Books> findRelatedBooks(@Param("bookId") Integer bookId);
+    
+    @Query("SELECT b FROM Books b GROUP BY b ORDER BY SUM(b.quantitysold) DESC limit 5")
+	List<Books> findTop5Seller();
+	
+	@Query("SELECT b FROM Books b GROUP BY b ORDER BY SUM(b.quantitysold) ASC limit 5")
+	List<Books> findTop5Inventory();
 }

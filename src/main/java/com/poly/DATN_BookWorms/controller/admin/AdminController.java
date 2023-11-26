@@ -9,6 +9,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.poly.DATN_BookWorms.entities.Bookings;
+import com.poly.DATN_BookWorms.entities.Books;
+import com.poly.DATN_BookWorms.entities.Detailbookings;
+import com.poly.DATN_BookWorms.repo.BooksRepo;
+import com.poly.DATN_BookWorms.repo.DetailbookingsRepo;
+import com.poly.DATN_BookWorms.response.DetailBookingResponse;
 import com.poly.DATN_BookWorms.service.BookingService;
 
 @Controller
@@ -16,6 +21,8 @@ import com.poly.DATN_BookWorms.service.BookingService;
 public class AdminController {
 	@Autowired
 	BookingService bookingService;
+	@Autowired
+	BooksRepo booksRepo;
 	
 	public void display(Model model) {
 		long countUnpaid = bookingService.countUnpaid();
@@ -101,5 +108,15 @@ public class AdminController {
 		model.addAttribute("item", item);
 		display(model);
 		return "admin/refund";
+	}
+	
+	@GetMapping("/findtop5")
+	public String findTop5ByOrderSoldDesc(Model model) {
+		List<Books> item = booksRepo.findTop5Seller();
+		model.addAttribute("item", item);
+		
+		List<Books> item1 = booksRepo.findTop5Inventory();
+		model.addAttribute("item1", item1);
+		return "admin/findtop5";
 	}
 }
