@@ -83,6 +83,16 @@ app.controller("revenueFinanceController", function ($scope, $routeParams, $rout
             console.log("Error", error)
         });
     }
+    $scope.getAnalysisFinance = function () {
+        $scope.analysisFinance=[];
+        let url = `${host}getAnalysisFinance`;
+        $http.get(url).then(resp => {
+            $scope.analysisFinance = resp.data;
+            console.log("analysisFinance:", $scope.analysisFinance)
+        }).catch(error => {
+            console.log("Error", error)
+        });
+    }
     $scope.getListFinance = function () {
         $scope.listPayment=[];
         let url = `${host}getListFinance`;
@@ -107,15 +117,19 @@ app.controller("revenueFinanceController", function ($scope, $routeParams, $rout
             transformRequest: angular.identity
         };
         $http.post(url, formData, {headers: headers}).then(resp => {
-
+            $scope.getRevenueFinance();
+            $scope.getAnalysisFinance();
+            $scope.getListFinance();
             console.log("Result: ", "success!!!!!!")
             $window.alert("Send request payment success!!!");
+
         }).catch(error => {
             console.log("Error", error)
             $window.alert("Send request payment false!!!");
         });
     }
     $scope.getRevenueFinance();
+    $scope.getAnalysisFinance();
     $scope.getListFinance();
 });
 //sales Analysis
