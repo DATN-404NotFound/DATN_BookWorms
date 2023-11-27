@@ -13,6 +13,8 @@ public interface DiscountCodeService {
 	
 	public List<Discountcodes> findDisountForSys(String userid);
 	
+	public List<Discountcodes> findDisountOfShopWithUser(String userid, int shopid);
+	
 	//public List<Shoponlines> list_cart_shop();
 	
 	public Discountcodes findById(Integer discountid);
@@ -22,5 +24,7 @@ public interface DiscountCodeService {
 	public void delete(Integer discount);
 	
 	public Discountcodes update(Discountcodes discountid);
+	
+	
 
 }

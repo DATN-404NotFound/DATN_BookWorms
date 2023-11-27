@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import com.poly.DATN_BookWorms.service.AccountService;
+import com.poly.DATN_BookWorms.utils.SessionService;
 
 import java.util.Optional;
 
@@ -16,6 +17,23 @@ import java.util.Optional;
 public class AccountRestController {
 	@Autowired
 	AccountService accountService;
+	
+	
+	@Autowired
+	SessionService sessionService;
+	
+	 @PostMapping("/otp")
+	  public String confirmOTP(@RequestParam String otp) { 
+		  int OTP = sessionService.get("OTP");
+		  System.out.println("otp alf "+ otp);
+		  if(OTP == Integer.parseInt(otp)) { 
+			  return "OK";
+		  }
+		  else { 
+			  return "NOT";
+		  }
+      
+   }
 	
 //	@GetMapping("/accounts")
 //	public List<Account> getAccounts(@RequestParam("admin") Optional<Boolean> admin){

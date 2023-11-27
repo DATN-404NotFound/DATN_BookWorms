@@ -23,6 +23,8 @@ public class MailServiceImp implements MailService{
 	private static final Logger logger = LogManager.getLogger();
 	
 	private List<MailInformation> listMails = new ArrayList<>();
+	
+	@Autowired
 	JavaMailSender sender;
 	
 	@Override
@@ -32,7 +34,7 @@ public class MailServiceImp implements MailService{
 		MimeMessage message = sender.createMimeMessage();
 		try {
 			MimeMessageHelper messageHelper = new MimeMessageHelper(message, true, "utf-8");
-			messageHelper.setFrom(mail.getFrom());
+			messageHelper.setFrom(mail.getTo());
 			messageHelper.setTo(mail.getTo());
 			messageHelper.setSubject(mail.getSubject());
 			messageHelper.setText(mail.getBody(), true);
@@ -69,7 +71,9 @@ public class MailServiceImp implements MailService{
 	@Override
 	public void send(String to, String subject, String body) throws MessagingException {
 		logger.info("send mail with : to : {} and subject : {} and body : {}",to.toString(), subject.toString(), body.toString());
-		this.send(new MailInformation(to, subject, body));
+		MailInformation mailin = new MailInformation(to, subject, body);
+		System.out.println("in mail" + mailin.toString());
+		send(mailin);
 		
 	}
 

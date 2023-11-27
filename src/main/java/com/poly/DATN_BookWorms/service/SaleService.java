@@ -21,4 +21,6 @@ public interface SaleService {
 
 	List<Sales> saleOfShopIntendFor(String intendFor);
 	
+	List<Sales> saleByShopAndByIntendFor(int shopId,String intendFor);
+	
 }

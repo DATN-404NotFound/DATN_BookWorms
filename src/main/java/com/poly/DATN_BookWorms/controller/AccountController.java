@@ -13,11 +13,19 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.poly.DATN_BookWorms.dto.AccountDTO;
 import com.poly.DATN_BookWorms.entities.Account;
 import com.poly.DATN_BookWorms.service.AccountService;
 import com.poly.DATN_BookWorms.service.CustomUserDetailService;
+import com.poly.DATN_BookWorms.service.MailService;
+import com.poly.DATN_BookWorms.utils.CRC32_SHA256;
+import com.poly.DATN_BookWorms.utils.OTP_privateKey;
+import com.poly.DATN_BookWorms.utils.SessionService;
+
+import jakarta.mail.MessagingException;
+import jakarta.servlet.http.HttpServletRequest;
 
 @Controller
 @RequestMapping("/account")
@@ -28,6 +36,21 @@ public class    AccountController {
 
     @Autowired
     CustomUserDetailService customUserDetailService;
+    
+    @Autowired
+    HttpServletRequest req;
+    
+    @Autowired
+    CRC32_SHA256 crc32_SHA256;
+    
+    @Autowired
+    MailService mailService;
+    
+    @Autowired
+    OTP_privateKey otp_privateKey;
+    
+    @Autowired
+    SessionService sessionService;
 
 
     @RequestMapping("/login")
@@ -95,4 +118,52 @@ public class    AccountController {
         accountService.save(accountDTO);
         return "redirect:login";
     }
+
+
+      @GetMapping("/forgotPassword")
+    public String forgotPassword(Model model) {
+        return "Client/Account_page/ForgotPassword";
+    }
+
+    
+      @PostMapping("/forgotPasswordAction")
+    public String forgotPassword(@RequestParam("username") String username,Model model) {
+    	  System.out.println("lỗi khi gửi mail: ");
+    	  String userid = crc32_SHA256.getCodeCRC32C(username);
+    	  Account account = accountService.findByUserId(userid);
+    	  if(account == null) { 
+    		   return "Client/Account_page/ForgotPassword";
+    	  }
+    	  else { 
+    		  System.out.println("lỗi khi gửi mail: ");
+    		  try {
+    			  int OTP = otp_privateKey.OTP();
+				mailService.send(account.getEmail(),"Xác nhận danh tính người sử dụng IBook", "Đây là mã xác nhận của bạn. Vui lòng không cung cấp cho bất kì ai : "+ OTP);
+				sessionService.set("OTP", OTP);
+				System.out.println("gui thành coong");
+			} catch (MessagingException e) {
+				// TODO Auto-generated catch block
+				System.out.println("lỗi khi gửi mail: "+e);
+			}
+    		  
+    		  return "Client/Account_page/ConfirmCode";
+    	  }
+    	  
+    	
+    	  }
+      
+      @GetMapping("/newpass")
+      public String newPass() { 
+    	  return "Client/Account_page/newPassword"; 
+      }
+      
+      
+      @GetMapping("/otpcon")
+      public String otpcon() { 
+    	  return "Client/Account_page/ConfirmCode"; 
+      }
+     
+     
+      
+      
 }

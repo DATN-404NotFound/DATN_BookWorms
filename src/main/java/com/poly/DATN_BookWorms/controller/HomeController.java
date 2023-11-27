@@ -123,7 +123,7 @@ public class HomeController {
 
     @GetMapping("/about")
     public String getBout(Model model) { 
-    	
+ 	
     	 return "Client/header_footer_index/about";
     }
 }

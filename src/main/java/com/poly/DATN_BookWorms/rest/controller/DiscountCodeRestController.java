@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -30,8 +32,26 @@ public class DiscountCodeRestController {
 	@Autowired
 	CRC32_SHA256 crc32_SHA256;
 	
+	@PostMapping("")
+	public Discountcodes getDiscountCodeBySaleid(@RequestBody Discountcodes discountcodes) { 
+		String userid = crc32_SHA256.getCodeCRC32C(request.getRemoteUser());
+		System.out.println("in d : "+ discountcodes.toString());
+		System.out.println("in : "+   discountCodeService.findSalesId(discountcodes.saleid, userid));
+		Discountcodes dis = discountCodeService.findSalesId(discountcodes.saleid, userid);
+		if(dis != null) { 
+			return dis;
+		}
+		else { 
+			discountcodes.userid = userid;
+			return discountCodeService.create(discountcodes);
+		
+		}
+		
+	}
+	
+	
 	@GetMapping("/{saleid}")
-	public Discountcodes getDiscountCodeBySaleid(@PathVariable("saleid") String saleid) { 
+	public Discountcodes createDisscount(@PathVariable("saleid") String saleid) { 
 		String userid = crc32_SHA256.getCodeCRC32C(request.getRemoteUser());
 		System.out.println("in : "+   discountCodeService.findSalesId(saleid, userid));
 		return discountCodeService.findSalesId(saleid, userid);

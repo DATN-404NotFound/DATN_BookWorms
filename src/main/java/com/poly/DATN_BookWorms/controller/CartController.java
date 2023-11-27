@@ -22,9 +22,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.poly.DATN_BookWorms.entities.Cart;
+import com.poly.DATN_BookWorms.entities.Discountcodes;
 import com.poly.DATN_BookWorms.entities.Sales;
 import com.poly.DATN_BookWorms.entities.Shoponlines;
 import com.poly.DATN_BookWorms.service.CartService;
+import com.poly.DATN_BookWorms.service.DiscountCodeService;
 import com.poly.DATN_BookWorms.service.SaleService;
 
 @Controller
@@ -38,6 +40,16 @@ public class CartController {
 
 	@Autowired
 	SaleService saleService;
+	
+	@Autowired
+	DiscountCodeService discountCodeService;
+	
+	@Autowired
+	HttpServletRequest req;
+	
+	@Autowired
+	CRC32_SHA256 crc32_SHA256;
+	
 
 	@RequestMapping
 	public String cartView(Model model, HttpServletRequest request) {
@@ -46,10 +58,12 @@ public class CartController {
 			model.addAttribute("cartuserList", cartuser_list);
 			List<Shoponlines> list_cart_shop = cartService.list_cart_shop();
 			model.addAttribute("cartshoplist", list_cart_shop);
-			List<Sales> sale_shopid_intendFor = saleService.saleOfShopIntendFor("D");
-			model.addAttribute("saleShopIntendFor", sale_shopid_intendFor);
+			
 			String username = request.getRemoteUser();
 			model.addAttribute("requestusername", username);
+			  List<Discountcodes> findDisountForSys = discountCodeService.findDisountForSys(crc32_SHA256.getCodeCRC32C(req.getRemoteUser()));
+	           System.out.println("in dis1 "+ findDisountForSys);
+			model.addAttribute("saleShopIntendFor", findDisountForSys);
 			logger.info("get Cart page");
 		} catch (Exception e) {
 			logger.info("Error during cart controller with error :{}", e);

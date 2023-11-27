@@ -402,7 +402,6 @@ app.controller("cart_ctrl", function ($scope, $http, $rootScope) {
 	
 	$scope.filtershop = function(s){ 
 		$scope.searchfilter = localStorage.getItem("searchfilter")
-		console.log("mmss ",localStorage.getItem("filtershop") )
 		if($scope.searchfilter == null){ 
 			return (JSON.stringify(angular.lowercase(s.shopname)).indexOf($scope.searchfilter ) == -1);
 		}
@@ -510,13 +509,10 @@ app.controller("cart_ctrl", function ($scope, $http, $rootScope) {
 			$scope.booksCate = resp.data;
 		})
 	}
-
 $scope.quantityPro = 1;
 
 	// HomePage
-	$scope.buyNow = function(id){ 
-		$scope.cart.add(id);
-		
+	$scope.buyNow = function(id){ 	
 		$http.get("/rest/books/"+id).then(resp =>{
 			var book = []; 
 			 book.push(resp.data);
@@ -534,7 +530,6 @@ $scope.quantityPro = 1;
 			var sale = [];
 			localStorage.setItem('deal', JSON.stringify(deal));
 			localStorage.setItem('sales', JSON.stringify(sale));
-		
 			location.href = "/order";
 		})
 
@@ -642,12 +637,13 @@ $scope.quantityPro = 1;
 		location.href = "/product/detail/" + bookid;
 	}
 
-	//Shop Page 
+
+///////////////////////// Shop Page 
 	$scope.ListBookOfShop = []
 	$scope.toShopDetail = function (shopid) {
 		$http.get("http://localhost:8080/rest/books/shop?shopid=" + shopid).then(resp => {
 			localStorage.setItem('productShop', JSON.stringify(resp.data));
-			location.href = "/shop/" + shopid
+			//location.href = "/shop/" + shopid
 		})
 	}
 
@@ -658,17 +654,43 @@ $scope.getAllshop= function(){
 			
 		})
 }
-$scope.getAllshop();
 
-
-
+$scope.addDiscount  = function(couoponcode){ 
+	console.log("couoponcode" + couoponcode);
+	try {
+		$scope.discountAdd = {
+			discountcodeid: "",
+			saleid: couoponcode,
+			userid: "",
+			startdiscount: new Date(),
+			enddiscount: "2023-12-31",
+			isdelete: false,
+			minprice : "",
+			status : "",
+	
+		}
+		var dis = angular.copy($scope.discountAdd)
+		$http.post(`/rest/discount`, dis).then(resp => {
+			console.log("addd success 677 : " + resp.data);
+			
+	
+		})
+		console.log("id : "+document.getElementById('accep'+couoponcode).innerText);
+		document.getElementById('accep'+couoponcode).innerText= "Đã nhận";
+		document.getElementById('accep'+couoponcode).disabled
+	} catch (error) {
+		console.log("error1 : "+ error)
+		
+	}
+}
 
 	$(document).ready(function () {
-		console.log("In sl " + localStorage.getItem("productShop"));
 		$scope.ListBookOfShop = JSON.parse(localStorage.getItem('productShop'));
 	});
 
-	// Cart Page
+	$scope.getAllshop();
+
+///////////////////////// Cart Page
 	$scope.cartsvoucher = {
 		voucherAll: [],
 		changevoucher(couoponcode) {
@@ -686,7 +708,7 @@ $scope.getAllshop();
 })
 
 
-
+var shoponline = [];
 var deal = [];
 var books = [];
 var salevoucher = [];
@@ -699,10 +721,10 @@ $(document).ready(function () {
 
 		var a = $('#voucherOther').children("option:selected").val();
 		$.get("http://localhost:8080/rest/discount/" + a, function (data, status) {
-			console.log(data)
+			console.log("totalSales"+ data)
 			var b = document.getElementById('totalPriceAll').innerText;
-			var reply = b.replace(',', '');
-			var c = Number(reply) * data.sales.discountpercentage;
+			var reply = b.replaceAll(',', '');
+			var c = Number(reply) * Number(data.sales.discountpercentage);
 			document.getElementById('totalSales').innerText = formatNumber(c, ".", ",");
 			vouchero = data;
 			calculatorPrice();
@@ -731,7 +753,7 @@ function voucherSelected(shopid) {
 	console.log("vou"+ vou)
 	$.get("http://localhost:8080/rest/discount/" + vou, function (data, status) {
 		console.log(data)
-		if (!data || data.value === null) {
+		if (!data || data.value === null || vou == undefined) {
 			console.log("nullrooif")
 			localStorage.setItem('sales', JSON.stringify(salevoucher));
 		}
@@ -750,14 +772,14 @@ function voucherSelected(shopid) {
 
 function selectShop(item) {
 	$.get("http://localhost:8080/rest/shoponline/" + item, function (data, status) {
-		var shoponline = [];
+
 		var y = shoponline.find(i => i.shopid == data.shopid);
 		if (y) {
 		}
 		else {
-			shoponline.push("kk"+data);
-			console.log("datashopl " + localStorage.getItem('shoponline'));
+			shoponline.push(data);
 			localStorage.setItem('shoponline', JSON.stringify(shoponline));
+			console.log("localshopall " + localStorage.getItem('shoponline'));
 			voucherSelected(data.shopid);
 		}
 	});
@@ -799,13 +821,14 @@ function deals() {
 	purchase.forEach(item => {
 		findCart(item);
 		localStorage.setItem('deal', JSON.stringify(deal));
-		//location.href = "/order";
+		location.href = "/order";
 
 	})
 }
 
 
 $(document).ready(function () {
+	console.log("shop "+ JSON.stringify(localStorage.getItem('shoponline')))
 	loadWin();
 	$('#pa').hide()
 });
@@ -816,10 +839,12 @@ function loadWin() {
 	var a = JSON.parse(localStorage.getItem('books'));
 	var b = JSON.parse(localStorage.getItem('deal'));
 	var c = JSON.parse(localStorage.getItem('shoponline'));
+	
 	var d = JSON.parse(localStorage.getItem('sales'));
 	var totalPriceAll = 0;
 	if(c !=null){ 
 		c.forEach(m => {
+			console.log("819 "+ JSON.stringify(m))
 			var priceItem = 0;
 	
 			b.forEach(i => {
@@ -827,16 +852,17 @@ function loadWin() {
 					priceItem += (i.books.price * i.quantity);
 				}
 			})
-			if ( d != null) {
+			if ( d.length >0) {
 				d.forEach(j => {
 					if (j.sales.shopid == m.shopid) {
 						priceItem -= (priceItem * j.sales.discountpercentage);
 					}
 				})
 			}
+			console.log("priceAll " + m.shopid)
 			document.getElementById('priceItem' + m.shopid).innerText = formatNumber(priceItem, ".", ",");;
 			totalPriceAll += priceItem;
-			console.log("priceAll " + totalPriceAll)
+			
 	
 		})
 	}
@@ -848,10 +874,11 @@ function loadWin() {
 
 
 function calculatorPrice() {
-	var a = document.getElementById('totalPriceAll').innerText.replace(',', '');
-	var b = document.getElementById('shippingPrice').innerText.replace(',', '');
-	var c = document.getElementById('totalSales').innerText.replace(',', '');
-	var d = document.getElementById('totalFreeShip').innerText.replace(',', '');
+	var a = document.getElementById('totalPriceAll').innerText.replaceAll(',', '');
+	var b = document.getElementById('shippingPrice').innerText.replaceAll(',', '');
+	var c = document.getElementById('totalSales').innerText.replaceAll(',', '');
+	var d = document.getElementById('totalFreeShip').innerText.replaceAll(',', '').replaceAll('-','');
+	console.log('salesprice '+ d)
 	var e = document.getElementById('totalFinal');
 	var f = Number(a) + Number(b) - Number(c) - Number(d);
 	e.innerText = formatNumber(f, ".", ",");
@@ -879,10 +906,6 @@ app.controller("order_ctrl", function ($scope, $http, $timeout) {
 		console.log("shop 1"+ $scope.dealItem )
 		console.log("shopa"+ $scope.shopItem);
 		
-	localStorage.removeItem('books');
-	localStorage.removeItem('deal');
-	localStorage.removeItem('shoponline');
-	localStorage.removeItem('sales');
 	}
 
 	$scope.loadDeal();

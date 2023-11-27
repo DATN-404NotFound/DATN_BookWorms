@@ -2,17 +2,24 @@ package com.poly.DATN_BookWorms.controller;
 
 import com.poly.DATN_BookWorms.entities.Books;
 import com.poly.DATN_BookWorms.entities.Categories;
+import com.poly.DATN_BookWorms.entities.Discountcodes;
 import com.poly.DATN_BookWorms.entities.Evaluates;
 import com.poly.DATN_BookWorms.entities.Publishingcompanies;
+import com.poly.DATN_BookWorms.entities.Sales;
 import com.poly.DATN_BookWorms.entities.Shoponlines;
 import com.poly.DATN_BookWorms.entities.Typebooks;
 import com.poly.DATN_BookWorms.entities.Writtingmasters;
 import com.poly.DATN_BookWorms.response.BookResponse;
 import com.poly.DATN_BookWorms.service.BookService;
+import com.poly.DATN_BookWorms.service.DiscountCodeService;
 import com.poly.DATN_BookWorms.service.EvaluatesService;
+import com.poly.DATN_BookWorms.service.SaleService;
 import com.poly.DATN_BookWorms.service.ShopOnlinesService;
 import com.poly.DATN_BookWorms.service.TypeBookService;
 import com.poly.DATN_BookWorms.service.WriterService;
+import com.poly.DATN_BookWorms.utils.CRC32_SHA256;
+
+import jakarta.servlet.http.HttpServletRequest;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -48,7 +55,18 @@ public class ShopController {
     BookService bookService;
     @Autowired
     EvaluatesService evaluatesService;
+    
+    @Autowired
+    SaleService saleService;
+    
+    @Autowired
+    DiscountCodeService discountCodeService;
 
+    @Autowired
+    HttpServletRequest req;
+    
+    @Autowired
+    CRC32_SHA256 crc32_SHA256;
    
     
     @GetMapping("/{id}")
@@ -56,6 +74,8 @@ public class ShopController {
                           @RequestParam(defaultValue = "0") int page,
                           @RequestParam(defaultValue = "10") int size) {
        try {
+    	   
+    	   String userid = crc32_SHA256.getCodeCRC32C(req.getRemoteUser());
     	   Pageable pageable = PageRequest.of(page, size);
            Shoponlines list = shopOnlinesService.findById(id);
            Integer total = evaluatesService.sumDbidByEvaluateId(id);
@@ -73,6 +93,12 @@ public class ShopController {
            model.addAttribute("listCateogories", listCateogories);     
            List<Publishingcompanies> plcm = bookService.getPCWithShop(id);
            model.addAttribute("plcm", plcm);
+           List<Sales> listSaleOfshop = saleService.saleByShopAndByIntendFor(id, "D");
+           model.addAttribute("listSaleOfshop", listSaleOfshop);
+           System.out.println("in dis "+ listSaleOfshop);
+           List<Discountcodes> dis = discountCodeService.findDisountOfShopWithUser(userid, id);
+           System.out.println("in dis1 "+ dis);
+           model.addAttribute("dis", dis);
            logger.info("get shop Page");
 	} catch (Exception e) {
 		logger.info("Error during shop controller with error :{}",e);

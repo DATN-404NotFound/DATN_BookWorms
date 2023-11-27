@@ -55,4 +55,10 @@ public class SaleServiceImp implements SaleService{
 		return saleRepo.sales_of_shop_for_intendfor(intendFor);
 	}
 
+	@Override
+	public List<Sales> saleByShopAndByIntendFor(int shopId, String intendFor) {
+		// TODO Auto-generated method stub
+		return  saleRepo.getSaleByShopAndByIntendfor(shopId, intendFor);
+	}
+
 }
