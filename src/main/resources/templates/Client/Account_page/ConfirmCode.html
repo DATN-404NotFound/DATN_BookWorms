@@ -20,8 +20,7 @@
 <body>
     <div class="box">
         <h3>Nhập mã xác nhận</h3>
-     
-        <h3 th:text="${message}"></h3>
+        <h5 id="message" style="color: red; background-color: rgb(168, 146, 154);"></h5>
         <div class="container">
             <form action="">
                 <div id="inputs" class="inputs">
@@ -34,6 +33,7 @@
                 </div>
             </form>
         </div>
+        <h5 id="count" style="font-size: 14px;"></h5>
         <p>Mã được gửi về địa chỉ email mà bạn đăng ký tài khoản!!</p>
     </div>
     <script th:src="@{/Client/Js/cart/otp.js}"></script>

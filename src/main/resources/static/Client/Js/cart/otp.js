@@ -21,7 +21,7 @@ inputs.addEventListener("input", function (e) {
     } 
 }); 
 
-
+var count = 3;
 function confirmOtp(otp) {
 	console.log("otp : "+ otp);
 	$.ajax({
@@ -34,8 +34,13 @@ function confirmOtp(otp) {
             if(resultData =="OK"){
                location.href = "http://localhost:8080/account/newpass"
             }
-            else{ 
-                location.href = "http://localhost:8080/account/ConfirmCode"
+            else{
+                count = count-1; 
+                if(count == 0){ 
+                    location.href = "http://localhost:8080/account/forgotPassword";
+                }
+                document.getElementById("message").innerText="Mã xác thực không hợp lệ ! "
+                document.getElementById("count").innerText="Số lần nhập : "+ count;
             }
 		},
 	});
@@ -47,9 +52,9 @@ inputs.addEventListener("keyup", function (e) {
   
     if (key == "backspace" || key == "delete") { 
         otp = otp.length-1;
-        
+        console.log("kjkk ")
         target.value = ""; 
-        if (isNaN(a)) { 
+        if (isNaN(otp)) { 
             otp='';
         } 
         const prev = target.previousElementSibling; 

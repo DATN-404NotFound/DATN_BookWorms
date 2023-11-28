@@ -22,6 +22,7 @@ import com.poly.DATN_BookWorms.service.AccountService;
 import com.poly.DATN_BookWorms.service.CustomUserDetailService;
 import com.poly.DATN_BookWorms.service.MailService;
 import com.poly.DATN_BookWorms.utils.CRC32_SHA256;
+import com.poly.DATN_BookWorms.utils.MailBody;
 import com.poly.DATN_BookWorms.utils.OTP_privateKey;
 import com.poly.DATN_BookWorms.utils.SessionService;
 
@@ -55,12 +56,15 @@ public class    AccountController {
     
     @Autowired
     SessionService sessionService;
+    
+    @Autowired
+    MailBody mailBody;
 
 
     @RequestMapping("/login")
     public String loginForm() {
-    	sessionService.remove("acc");
-    	sessionService.remove("OTP");
+//    	sessionService.remove("acc");
+//    	sessionService.remove("OTP");
         return "Client/Account_page/Login";
     }
 
@@ -143,7 +147,9 @@ public class    AccountController {
     	  else { 
     		  try {
     			  int OTP = otp_privateKey.OTP();
-				mailService.send(account.getEmail(),"Xác nhận danh tính người sử dụng IBook", "Đây là mã xác nhận của bạn. Vui lòng không cung cấp cho bất kì ai : "+ OTP);
+    			  String subject ="XÁC NHẬN DANH TÍNH NGƯỜI SỬ DỤNG IBOOK";
+    			  String body = mailBody.mailBody(account.getFullname(), OTP);
+				mailService.send(account.getEmail(),subject, body);
 				sessionService.set("OTP", OTP);
 				System.out.println("gui thành coong");
 				sessionService.set("acc", account);
