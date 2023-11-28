@@ -32,10 +32,10 @@ function confirmOtp(otp) {
 			console.log(resultData);
 			console.log("ok");
             if(resultData =="OK"){
-               // location.href = "http://localhost:8080/account/newpass"
+               location.href = "http://localhost:8080/account/newpass"
             }
             else{ 
-                //location.href = "http://localhost:8080/account/ConfirmCode"
+                location.href = "http://localhost:8080/account/ConfirmCode"
             }
 		},
 	});

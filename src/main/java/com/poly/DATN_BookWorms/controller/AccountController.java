@@ -5,6 +5,7 @@ import javax.validation.Valid;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -33,6 +34,9 @@ public class    AccountController {
 
     @Autowired
     AccountService accountService;
+    
+    @Autowired
+    PasswordEncoder passwordEncoder;
 
     @Autowired
     CustomUserDetailService customUserDetailService;
@@ -55,6 +59,8 @@ public class    AccountController {
 
     @RequestMapping("/login")
     public String loginForm() {
+    	sessionService.remove("acc");
+    	sessionService.remove("OTP");
         return "Client/Account_page/Login";
     }
 
@@ -135,12 +141,12 @@ public class    AccountController {
     		   return "Client/Account_page/ForgotPassword";
     	  }
     	  else { 
-    		  System.out.println("lỗi khi gửi mail: ");
     		  try {
     			  int OTP = otp_privateKey.OTP();
 				mailService.send(account.getEmail(),"Xác nhận danh tính người sử dụng IBook", "Đây là mã xác nhận của bạn. Vui lòng không cung cấp cho bất kì ai : "+ OTP);
 				sessionService.set("OTP", OTP);
 				System.out.println("gui thành coong");
+				sessionService.set("acc", account);
 			} catch (MessagingException e) {
 				// TODO Auto-generated catch block
 				System.out.println("lỗi khi gửi mail: "+e);
@@ -161,9 +167,5 @@ public class    AccountController {
       @GetMapping("/otpcon")
       public String otpcon() { 
     	  return "Client/Account_page/ConfirmCode"; 
-      }
-     
-     
-      
-      
+      }  
 }

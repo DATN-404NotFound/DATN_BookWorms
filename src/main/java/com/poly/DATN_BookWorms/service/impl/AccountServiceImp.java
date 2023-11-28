@@ -82,7 +82,7 @@ public class AccountServiceImp implements AccountService {
 
 	@Override
 	public Account create(Account account) {
-		return null;
+		return accountRepo.save(account);
 	}
 
 	@Override
