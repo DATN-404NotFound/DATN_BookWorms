@@ -43,13 +43,10 @@ public class Shoponlines implements Serializable {
 
     private String phonenumber;
 
-    private String logo;
 
     @Column(name = "total")
     private Double total;
 
-    @Column(name = "banner", length = 50)
-    private String banner;
 
     @Column(name = "description", length = 2555)
     private String description;
@@ -94,11 +91,7 @@ public class Shoponlines implements Serializable {
         sb.append("|");
         sb.append(phonenumber);
         sb.append("|");
-        sb.append(logo);
-        sb.append("|");
         sb.append(total);
-        sb.append("|");
-        sb.append(banner);
         sb.append("|");
         sb.append(description);
         sb.append("|");
@@ -134,13 +127,6 @@ public class Shoponlines implements Serializable {
 		this.phonenumber = phonenumber;
 	}
 
-	public String getLogo() {
-		return logo;
-	}
-
-	public void setLogo(String logo) {
-		this.logo = logo;
-	}
 
 	public Double getTotal() {
 		return total;
@@ -150,13 +136,6 @@ public class Shoponlines implements Serializable {
 		this.total = total;
 	}
 
-	public String getBanner() {
-		return banner;
-	}
-
-	public void setBanner(String banner) {
-		this.banner = banner;
-	}
 
 	public String getDescription() {
 		return description;

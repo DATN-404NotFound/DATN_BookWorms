@@ -55,7 +55,7 @@ public class Discountcodes implements Serializable {
 
     public Boolean    isdelete ;
 
-    public Double     minprice ;
+
 
     @Column(name="status", length=50)
     public String     status ;
@@ -85,8 +85,6 @@ public class Discountcodes implements Serializable {
         sb.append(enddiscount);
         sb.append("|");
         sb.append(isdelete);
-        sb.append("|");
-        sb.append(minprice);
         sb.append("|");
         sb.append(status);
         return sb.toString(); 

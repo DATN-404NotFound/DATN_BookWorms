@@ -127,7 +127,7 @@ public class BookingServiceImp implements BookingService{
 			logger.info("Create bookings, detailbookings, payments is successfully");
 			return booking;
 		} catch (Exception e) {
-			logger.info("Create bookings, detailbookings, payments is failed");
+			logger.error("Create bookings, detailbookings, payments is failed with error : {}", e);
 			return null;
 			// TODO: handle exception
 		}

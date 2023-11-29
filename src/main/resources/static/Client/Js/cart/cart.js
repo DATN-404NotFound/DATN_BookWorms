@@ -3,23 +3,19 @@ var tong = 0;
 var json = [];
 
 function choose(e) {
-	console.log("kjskjd")
 	check()
 	var a = document.getElementById(e);
 	var b = a.parentElement.parentElement;
 	var c = b.children[2];
 	var d = c.getElementsByClassName('form-check-input');
 	var e = c.getElementsByClassName('total_pro');
-	console.log("lkkk"+ a.checked)
 	if (a.checked) {
-		
 		for (var i = 0; i < d.length; i++) {
 			if (d[i].checked) {
 				continue;
 			} else {
 				d[i].checked = true;
 				purchase.push(d[i].getAttribute('id'));
-				console.log("pur: "+ purchase);
 			}
 		}
 	} else {
@@ -75,7 +71,6 @@ function selectOne(e) {
 	check2(e);
 	check();
 	checkAll();
-	console.log(purchase)
 }
 
 
@@ -85,7 +80,6 @@ function Active(cartid, action) {
 		json = data;
 		json.quantity = e;
 		var shop = json.books.shopid;
-		console.log("ship = " + shop)
 		switch (action) {
 			case 'PUT': {
 				updateCart(cartid, json);
@@ -106,11 +100,8 @@ function updateCart(id, json) {
 		type: "PUT",
 		data: JSON.stringify(json),
 		contentType: "application/json; charset=utf-8",
-		 dataType: 'jsonp',
 		success: function (resultData) {
-			console.log(resultData);
 			$("#cart" + id).children().eq(5).text(formatNumber(resultData.books.price * resultData.quantity, ".", ","));
-			console.log("ok");
 			checkAll();
 		},
 	});
@@ -124,7 +115,6 @@ function deleteCart(id, shop) {
 		url: "http://localhost:8080/rest/cart/" + id,
 		type: "DELETE",
 		success: function (resultData) {
-			console.log(resultData)
 		},
 	});
 	$("#cart" + id).remove();
@@ -156,7 +146,6 @@ function checkAll() {
 		var strprice = document.getElementById('cartid' + purchase[i]).innerText;
 		var reply = strprice.replace(',', '');
 		this.tong += Number(reply);
-
 	}
 	document.getElementById("allPrice").innerText = formatNumber(this.tong, ".", ",");
 }
@@ -168,12 +157,10 @@ function check2(e) {
 	var chil = parent.children;
 	var a = 0;
 	for (var i = 0; i < chil.length; i++) {
-		console.log(chil.length);
 		if (chil[i].children[0].children[0].checked) {
 			a += 1;
 			var pa = parent.parentElement.parentElement;
 			var shops = pa.children[0].children[0];
-			console.log("i " + a + " - leng - " + chil.length)
 			if (chil.length == a) {
 				shops.checked = true;
 			}
@@ -214,23 +201,23 @@ let host = "http://localhost:8080/rest/cart"
 app.controller("cart_ctrl", function ($scope, $http, $rootScope) {
 
 
-	$scope.loadContent = function(bookid){ 
-		console.log("kjsdj")
-		$http.get("/Client/Js/content.json").then(resp =>{ 
-		
+	$scope.loadContent = function (bookid) {
+		$http.get("/Client/Js/content.json").then(resp => {
 			$scope.bookcontent = resp.data;
 			$scope.itembookcontent = $scope.bookcontent.find(item => item.bookid == bookid);
-			$('#content'+bookid).text($scope.itembookcontent.content)
+			$('#content' + bookid).text($scope.itembookcontent.content)
 		})
 	}
-	// Product list
-	
+
+
+
+	/////////////////// Product list
 	$scope.sp = [];
 	$scope.loadProduct = function () {
 		$http.get("http://localhost:8080/rest/books").then(resp => {
 			var am = localStorage.getItem('filter1');
 			$scope.sp = resp.data;
-			if (am !==null && am !="") {
+			if (am !== null && am != "") {
 				$scope.filterCate.push(am);
 				$scope.getList(1, "type", "listtype", $scope.filterCate)
 				localStorage.removeItem("filter1");
@@ -248,13 +235,12 @@ app.controller("cart_ctrl", function ($scope, $http, $rootScope) {
 			console.log("Error", error)
 		});;
 	}
-	
-		$scope.setShop = function (shopId) {
+
+	$scope.setShop = function (shopId) {
 		let url = `http://localhost:8080/rest/files/` + shopId;
 		$http.get(url).then(resp => {
 			var a = [];
 			a = (resp.data);
-			console.log("LLl", a[0].filename)
 			document.getElementById('shopimage' + shopId).src = "/Client/images/" + a[0].filename
 		}).catch(error => {
 			console.log("Error", error)
@@ -296,7 +282,6 @@ app.controller("cart_ctrl", function ($scope, $http, $rootScope) {
 			}
 			case 4: {
 				var a = name.getAttribute('id');
-				console.log("KKKKcx" + typeof (a))
 				if (name.checked) {
 
 					switch (a) {
@@ -372,8 +357,8 @@ app.controller("cart_ctrl", function ($scope, $http, $rootScope) {
 		else {
 			return ($scope.filterPC.indexOf(b.publishingcompanies.namepc) !== -1);
 		}
-
 	};
+
 
 	$(document).ready(function () {
 		$('#showtab').click(function () {
@@ -381,32 +366,31 @@ app.controller("cart_ctrl", function ($scope, $http, $rootScope) {
 		})
 	});
 
+
 	//header
-	$scope.mms = function(){
-		console.log("mmss ",localStorage.getItem("searchfilter") )
-		localStorage.setItem("searchfilter",$scope.searchfilter);
-		
+	$scope.mms = function () {
+		localStorage.setItem("searchfilter", $scope.searchfilter);
+
 	}
 
 
-	$scope.filterAll = function(b){ 
+	$scope.filterAll = function (b) {
 		$scope.searchfilter = localStorage.getItem("searchfilter")
-		console.log("mmss ",localStorage.getItem("searchfilter") )
-		if($scope.searchfilter == null){ 
-			return (JSON.stringify(angular.lowercase(b.bookname)).indexOf($scope.searchfilter ) == -1 || JSON.stringify(b.price).indexOf($scope.searchfilter ) == -1);
+		if ($scope.searchfilter == null) {
+			return (JSON.stringify(angular.lowercase(b.bookname)).indexOf($scope.searchfilter) == -1 || JSON.stringify(b.price).indexOf($scope.searchfilter) == -1);
 		}
-		else{
-			return (JSON.stringify(angular.lowercase(b.bookname)).indexOf($scope.searchfilter ) != -1 || JSON.stringify(b.price).indexOf($scope.searchfilter ) != -1);	
+		else {
+			return (JSON.stringify(angular.lowercase(b.bookname)).indexOf($scope.searchfilter) != -1 || JSON.stringify(b.price).indexOf($scope.searchfilter) != -1);
 		}
 	}
-	
-	$scope.filtershop = function(s){ 
+
+	$scope.filtershop = function (s) {
 		$scope.searchfilter = localStorage.getItem("searchfilter")
-		if($scope.searchfilter == null){ 
-			return (JSON.stringify(angular.lowercase(s.shopname)).indexOf($scope.searchfilter ) == -1);
+		if ($scope.searchfilter == null) {
+			return (JSON.stringify(angular.lowercase(s.shopname)).indexOf($scope.searchfilter) == -1);
 		}
-		else{
-			return (JSON.stringify(angular.lowercase(s.shopname)).indexOf($scope.searchfilter ) != -1);	
+		else {
+			return (JSON.stringify(angular.lowercase(s.shopname)).indexOf($scope.searchfilter) != -1);
 		}
 	}
 
@@ -434,7 +418,6 @@ app.controller("cart_ctrl", function ($scope, $http, $rootScope) {
 			return ($scope.filterValueRatting.indexOf(b.bookid) == -1);
 		}
 		else {
-			console.log("log " + $scope.filterValueRatting.length)
 			return ($scope.filterValueRatting.indexOf(b.bookid) !== -1);
 		}
 	};
@@ -449,7 +432,6 @@ app.controller("cart_ctrl", function ($scope, $http, $rootScope) {
 		else {
 			$scope.filterPrice.forEach(p => {
 				if ((b.price >= Number(p.substring(0, p.indexOf("-"))) && b.price <= Number(p.substring(p.indexOf("-") + 1, p.length)))) {
-					console.log("min " + p.substring(p.indexOf("-") + 1, p.length))
 					object = b
 				}
 			})
@@ -462,28 +444,21 @@ app.controller("cart_ctrl", function ($scope, $http, $rootScope) {
 		la.push(name.getAttribute('id'));
 		localStorage.setItem('filter1', la);
 	}
-	
-	
+
+
 	$scope.process = function (array, name) {
 		if (name.checked) {
-			console.log("chose name : " + name.getAttribute('id'));
 			array.push(name.getAttribute('id'));
 		}
 		else {
-			console.log("fal name : " + name);
 			var del = array.findIndex(i => i === name.getAttribute('id'));
 			array.splice(del, 1)
 		}
-		console.log("filter : " + array)
 	}
 
 
 	$scope.getList = function (mang, name, key, value) {
-		console.log("datatype " + typeof (value))
-
-		console.log("req : " + "http://localhost:8080/rest/books/" + name + "?" + key + "=" + value + "")
 		$http.get("http://localhost:8080/rest/books/" + name + "?" + key + "=" + value + "").then(resp => {
-
 			switch (mang) {
 				case 1: {
 					$scope.filterValueCate = resp.data;
@@ -509,22 +484,21 @@ app.controller("cart_ctrl", function ($scope, $http, $rootScope) {
 			$scope.booksCate = resp.data;
 		})
 	}
-$scope.quantityPro = 1;
+	$scope.quantityPro = 1;
 
 	// HomePage
-	$scope.buyNow = function(id){ 	
-		$http.get("/rest/books/"+id).then(resp =>{
-			var book = []; 
-			 book.push(resp.data);
-			console.log("book : ", book);	
-			localStorage.setItem('books',JSON.stringify(book));
+	$scope.buyNow = function (id) {
+		$http.get("/rest/books/" + id).then(resp => {
+			var book = [];
+			book.push(resp.data);
+			localStorage.setItem('books', JSON.stringify(book));
 			var shop = [];
-			 shop.push(book[0].shoponlines);
+			shop.push(book[0].shoponlines);
 			localStorage.setItem('shoponline', JSON.stringify(shop));
 			var deal = [
 				{
-					books : book[0],
-					quantity : $scope.quantityPro
+					books: book[0],
+					quantity: $scope.quantityPro
 				}
 			]
 			var sale = [];
@@ -535,8 +509,8 @@ $scope.quantityPro = 1;
 
 
 	}
-	
-	
+
+
 	$scope.edu = function (id, a, b) {
 		$http.get("/rest/books/cate/" + id).then(resp => {
 			$scope.a = a;
@@ -576,18 +550,16 @@ $scope.quantityPro = 1;
 	$scope.loadAll();
 
 	$scope.next = function (id, cate) {
-		console.log("next" + id)
 		$scope.b = id + 1;
 		$scope.edu(cate, 4, $scope.b)
 	}
 
 	$scope.prev = function (id, cate) {
-		console.log("next" + id)
 		$scope.b = id - 1;
 		$scope.edu(cate, 4, $scope.b)
 	}
 
-	$scope.setQuantityPro = function(id){ 
+	$scope.setQuantityPro = function (id) {
 		$scope.quantityPro = 1;
 		$scope.cart.add(id);
 	}
@@ -595,9 +567,7 @@ $scope.quantityPro = 1;
 	$scope.cart = {
 		items: [],
 		add(id) {
-			console.log("ennn" + id)
 			var item = this.items.find(item => item.books.bookid == id);
-
 			if (item) {
 				item.quantity += $scope.quantityPro;
 				var updatecart = `${host}`;
@@ -630,15 +600,13 @@ $scope.quantityPro = 1;
 			});
 		},
 	}
-
 	$scope.cart.load();
-
 	$scope.detailBook = function (bookid) {
 		location.href = "/product/detail/" + bookid;
 	}
 
 
-///////////////////////// Shop Page 
+	///////////////////////// Shop Page 
 	$scope.ListBookOfShop = []
 	$scope.toShopDetail = function (shopid) {
 		$http.get("http://localhost:8080/rest/books/shop?shopid=" + shopid).then(resp => {
@@ -647,42 +615,38 @@ $scope.quantityPro = 1;
 		})
 	}
 
-$scope.shopAll = [];
-$scope.getAllshop= function(){ 
-	$http.get("/rest/shoponline").then(resp => {
+	$scope.shopAll = [];
+	$scope.getAllshop = function () {
+		$http.get("/rest/shoponline").then(resp => {
 			$scope.shopAll = resp.data;
-			
-		})
-}
 
-$scope.addDiscount  = function(couoponcode){ 
-	console.log("couoponcode" + couoponcode);
-	try {
-		$scope.discountAdd = {
-			discountcodeid: "",
-			saleid: couoponcode,
-			userid: "",
-			startdiscount: new Date(),
-			enddiscount: "2023-12-31",
-			isdelete: false,
-			minprice : "",
-			status : "",
-	
-		}
-		var dis = angular.copy($scope.discountAdd)
-		$http.post(`/rest/discount`, dis).then(resp => {
-			console.log("addd success 677 : " + resp.data);
-			
-	
 		})
-		console.log("id : "+document.getElementById('accep'+couoponcode).innerText);
-		document.getElementById('accep'+couoponcode).innerText= "Đã nhận";
-		document.getElementById('accep'+couoponcode).disabled
-	} catch (error) {
-		console.log("error1 : "+ error)
-		
 	}
-}
+
+	$scope.addDiscount = function (couoponcode) {
+		try {
+			$scope.discountAdd = {
+				discountcodeid: "",
+				saleid: couoponcode,
+				userid: "",
+				startdiscount: new Date(),
+				enddiscount: "2023-12-31",
+				isdelete: false,
+				minprice: "",
+				status: "",
+
+			}
+			var dis = angular.copy($scope.discountAdd)
+			$http.post(`/rest/discount`, dis).then(resp => {
+			})
+			document.getElementById('accep' + couoponcode).innerText = "Đã nhận";
+			document.getElementById('accep' + couoponcode).disabled
+		} catch (error) {
+			console.log("error1 : " + error)
+
+		}
+	}
+
 
 	$(document).ready(function () {
 		$scope.ListBookOfShop = JSON.parse(localStorage.getItem('productShop'));
@@ -690,7 +654,7 @@ $scope.addDiscount  = function(couoponcode){
 
 	$scope.getAllshop();
 
-///////////////////////// Cart Page
+	///////////////////////// Cart Page
 	$scope.cartsvoucher = {
 		voucherAll: [],
 		changevoucher(couoponcode) {
@@ -718,10 +682,8 @@ var vouchero = {};
 
 $(document).ready(function () {
 	$('#voucherOther').change(function () {
-
 		var a = $('#voucherOther').children("option:selected").val();
 		$.get("http://localhost:8080/rest/discount/" + a, function (data, status) {
-			console.log("totalSales"+ data)
 			var b = document.getElementById('totalPriceAll').innerText;
 			var reply = b.replaceAll(',', '');
 			var c = Number(reply) * Number(data.sales.discountpercentage);
@@ -750,11 +712,8 @@ $(document).ready(function () {
 
 function voucherSelected(shopid) {
 	var vou = $('#voucher' + shopid).children("option:selected").val();
-	console.log("vou"+ vou)
 	$.get("http://localhost:8080/rest/discount/" + vou, function (data, status) {
-		console.log(data)
 		if (!data || data.value === null || vou == undefined) {
-			console.log("nullrooif")
 			localStorage.setItem('sales', JSON.stringify(salevoucher));
 		}
 		else {
@@ -764,7 +723,6 @@ function voucherSelected(shopid) {
 			else {
 				salevoucher.push(data);
 				localStorage.setItem('sales', JSON.stringify(salevoucher));
-				console.log("selas" + salevoucher)
 			}
 		}
 	});
@@ -772,14 +730,12 @@ function voucherSelected(shopid) {
 
 function selectShop(item) {
 	$.get("http://localhost:8080/rest/shoponline/" + item, function (data, status) {
-
 		var y = shoponline.find(i => i.shopid == data.shopid);
 		if (y) {
 		}
 		else {
 			shoponline.push(data);
 			localStorage.setItem('shoponline', JSON.stringify(shoponline));
-			console.log("localshopall " + localStorage.getItem('shoponline'));
 			voucherSelected(data.shopid);
 		}
 	});
@@ -789,7 +745,6 @@ function findBook(item) {
 	$.get("http://localhost:8080/rest/books/" + item.bookid, function (data, status) {
 		books.push(data);
 		localStorage.setItem('books', JSON.stringify(books));
-		console.log("databook " + books.length)
 		selectShop(data.shoponlines.shopid);
 	})
 }
@@ -817,7 +772,6 @@ function deals() {
 	salevoucher = [];
 	books = [];
 	deal = [];
-	console.log(purchase);
 	purchase.forEach(item => {
 		findCart(item);
 		localStorage.setItem('deal', JSON.stringify(deal));
@@ -828,7 +782,6 @@ function deals() {
 
 
 $(document).ready(function () {
-	console.log("shop "+ JSON.stringify(localStorage.getItem('shoponline')))
 	loadWin();
 	$('#pa').hide()
 });
@@ -839,35 +792,31 @@ function loadWin() {
 	var a = JSON.parse(localStorage.getItem('books'));
 	var b = JSON.parse(localStorage.getItem('deal'));
 	var c = JSON.parse(localStorage.getItem('shoponline'));
-	
 	var d = JSON.parse(localStorage.getItem('sales'));
 	var totalPriceAll = 0;
-	if(c !=null){ 
+	if (c != null) {
 		c.forEach(m => {
-			console.log("819 "+ JSON.stringify(m))
 			var priceItem = 0;
-	
+
 			b.forEach(i => {
 				if (i.books.shopid == m.shopid) {
 					priceItem += (i.books.price * i.quantity);
 				}
 			})
-			if ( d.length >0) {
+			if (d.length > 0) {
 				d.forEach(j => {
 					if (j.sales.shopid == m.shopid) {
 						priceItem -= (priceItem * j.sales.discountpercentage);
 					}
 				})
 			}
-			console.log("priceAll " + m.shopid)
 			document.getElementById('priceItem' + m.shopid).innerText = formatNumber(priceItem, ".", ",");;
 			totalPriceAll += priceItem;
-			
-	
+
+
 		})
 	}
 	document.getElementById('totalPriceAll').innerText = formatNumber(totalPriceAll, ".", ",");
-	console.log("ll")
 	calculatorPrice();
 }
 
@@ -877,8 +826,7 @@ function calculatorPrice() {
 	var a = document.getElementById('totalPriceAll').innerText.replaceAll(',', '');
 	var b = document.getElementById('shippingPrice').innerText.replaceAll(',', '');
 	var c = document.getElementById('totalSales').innerText.replaceAll(',', '');
-	var d = document.getElementById('totalFreeShip').innerText.replaceAll(',', '').replaceAll('-','');
-	console.log('salesprice '+ d)
+	var d = document.getElementById('totalFreeShip').innerText.replaceAll(',', '').replaceAll('-', '');
 	var e = document.getElementById('totalFinal');
 	var f = Number(a) + Number(b) - Number(c) - Number(d);
 	e.innerText = formatNumber(f, ".", ",");
@@ -888,7 +836,7 @@ function calculatorPrice() {
 
 app.controller("order_ctrl", function ($scope, $http, $timeout) {
 
-	// Deal Page
+/////////////// Deal Page
 	$scope.bookItem = [];
 	$scope.dealItem = [];
 	$scope.shopItem = [];
@@ -901,11 +849,6 @@ app.controller("order_ctrl", function ($scope, $http, $timeout) {
 		$scope.shopItem = JSON.parse(localStorage.getItem('shoponline'));
 		$scope.salesItem = JSON.parse(localStorage.getItem('sales'));
 		$scope.totalQuantity = $scope.bookItem.length;
-
-		console.log("shop 1"+ $scope.bookItem)
-		console.log("shop 1"+ $scope.dealItem )
-		console.log("shopa"+ $scope.shopItem);
-		
 	}
 
 	$scope.loadDeal();
@@ -926,6 +869,8 @@ app.controller("order_ctrl", function ($scope, $http, $timeout) {
 			})
 		})
 	}
+
+
 	$scope.paymentCart = function () {
 		var timeoutTimer = 0;
 		$scope.shopItem.forEach(i => {

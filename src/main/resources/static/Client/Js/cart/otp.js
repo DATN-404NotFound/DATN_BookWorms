@@ -8,7 +8,6 @@ inputs.addEventListener("input", function (e) {
         target.value = ""; 
         return; 
     } 
-  
     if (val != "") { 
         otp = otp+val;
         const next = target.nextElementSibling; 
@@ -29,8 +28,6 @@ function confirmOtp(otp) {
 		type: "POST",
 		data: otp,
 		success: function (resultData) {
-			console.log(resultData);
-			console.log("ok");
             if(resultData =="OK"){
                location.href = "http://localhost:8080/account/newpass"
             }
@@ -52,7 +49,6 @@ inputs.addEventListener("keyup", function (e) {
   
     if (key == "backspace" || key == "delete") { 
         otp = otp.length-1;
-        console.log("kjkk ")
         target.value = ""; 
         if (isNaN(otp)) { 
             otp='';

@@ -69,7 +69,7 @@ public class SalesAnalysisServiceImp implements SalesAnalysisService {
            logger.info("getMonthSales end successfully ...");
            return monthSales;
 	} catch (Exception e) {
-		 logger.info("Error during getMonthSales with error : {}",e);
+		 logger.error("Error during getMonthSales with error : {}",e);
          return 0;
 		// TODO: handle exception
 	}

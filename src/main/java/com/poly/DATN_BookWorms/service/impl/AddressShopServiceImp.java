@@ -33,7 +33,7 @@ public class AddressShopServiceImp implements AddressShopService {
 			addressShopRepo.save(addressShop);
 			logger.info("save AddressShop is successfully");
 		} catch (Exception e) {
-			logger.info("save AddressShop is failed");
+			logger.error("save AddressShop is failed with error : {}",e);
 		}
 	}
 
