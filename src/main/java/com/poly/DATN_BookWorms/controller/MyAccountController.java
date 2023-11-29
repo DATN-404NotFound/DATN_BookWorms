@@ -75,25 +75,30 @@ public class MyAccountController {
     public String changePassword(Model model, @PathVariable String username,@RequestParam String OldPassword,
                                  @RequestParam String NewPassword,
                                  @RequestParam String confirmNewPassword) {
+    	System.out.println("MMMMMMMMMMMMMMMMMMMMMMMMM");
         Account user = sessionService.get("user");
         System.out.println(passwordEncoder.matches(OldPassword, user.getPassword()));
         if (passwordEncoder.matches(OldPassword, user.getPassword())){
 //            if (!NewPassword.equals(confirmNewPassword) || confirmNewPassword!=null) {
 //                model.addAttribute("messageChangePassword", "New Password and Confirm Password do not match");
 //            model.addAttribute("messageChangePassword", "Error");
-            if(NewPassword.equals(confirmNewPassword) || confirmNewPassword!=null) {
+        	System.out.println("ll "+NewPassword +"lsd"+confirmNewPassword );
+            if(NewPassword.equals(confirmNewPassword) && confirmNewPassword!= "") {
                 user.setPassword(passwordEncoder.encode(NewPassword));
                 accountService.update(user);
                 model.addAttribute("notiChangePassword", "Password changed successfully");
                 System.out.println("update1");
-            }else if(!NewPassword.equals(confirmNewPassword) || confirmNewPassword==null){
-                model.addAttribute("notiChangePassword", "Old password is incorrect");
+                return "redirect:/account/logout";
+            }else{
+                model.addAttribute("notiChangePassword", "New password and ConfirmPassword not confirm");
+                return "forward:/myAccount/changePassword";
             }
-        }else if (!passwordEncoder.matches(OldPassword, user.getPassword())){
+        }else{
             model.addAttribute("notiChangePassword", "Old password is incorrect");
             System.out.println("update3");
+            return "forward:/myAccount/changePassword";
         }
-        return "forward:/myAccount/changePassword";
+       
     }
 
     @PostMapping("/updateMypersonal/{username}")
