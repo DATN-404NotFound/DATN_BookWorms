@@ -55,7 +55,6 @@ public class Shoponlines implements Serializable {
     @Column(name = "description", length = 2555)
     private String description;
 
-    public String     shopaddress ;
 
     public String     userid ;
 

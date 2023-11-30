@@ -97,7 +97,7 @@ public class MyAccountController {
     }
 
     @PostMapping("/updateMypersonal/{username}")
-    public String updateMypersonal(@PathVariable String username, @Valid @ModelAttribute("account") Account accountUpdate, BindingResult bindingResult,
+    public String updateMypersonal(@Valid @ModelAttribute("account") Account accountUpdate, BindingResult bindingResult,
                                    @RequestParam("fileImage") Optional<MultipartFile> multipartFile)  throws Exception{
         Account user = sessionService.get("user");
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
@@ -144,13 +144,13 @@ public class MyAccountController {
         return "redirect:/myAccount/myPersonal";
     }
 
-    @ModelAttribute("gender")
-    public Map<Boolean, String> getGender(){
-        Map<Boolean,String> map = new HashMap<>();
-        map.put(true,"Male");
-        map.put(false, "Female");
-        return map;
-    }
+//    @ModelAttribute("gender")
+//    public Map<Boolean, String> getGender(){
+//        Map<Boolean,String> map = new HashMap<>();
+//        map.put(true,"Male");
+//        map.put(false, "Female");
+//        return map;
+//    }
 
     @RequestMapping("/address")
     public String  address(Model model){
@@ -159,9 +159,43 @@ public class MyAccountController {
         model.addAttribute("account", account);
         List<Addressusers> ad = addressService.findByUserId(account.getUserid());
         model.addAttribute("ad", ad);
+        Addressusers addressusers = new Addressusers();
+    	model.addAttribute("adr", addressusers);
         return "Client/My_account/Address";
     }
 
+    
+    @PostMapping("/newAddress")
+    public String  newAddress(Model model,@ModelAttribute("adr") Addressusers addressSave,  @RequestParam String fullNameNewAddress,  @RequestParam String numberPhoneNewAddress,
+    							@RequestParam String province, @RequestParam String district, 
+    							@RequestParam String ward, @RequestParam String specificAddressNewAddress){
+    	Account user = sessionService.get("user");
+    	Addressusers addressusers = new Addressusers();
+    	model.addAttribute("adr", addressusers);
+    	if(user != null) {
+    		
+    		addressusers.setUserid(user.getUserid());
+    		addressusers.setFullname(fullNameNewAddress);
+    		addressusers.setPhonenumber(numberPhoneNewAddress);
+    		System.out.println(specificAddressNewAddress + ", " + ward + ", " + district + ", " + province);
+    		addressusers.setAddress(specificAddressNewAddress + ", " + ward + ", " + district + ", " + province);
+    		addressusers.setStatusaddress(addressSave.getStatusaddress());
+    		addressusers.setAddressuserid(crc.getCodeCRC32C(addressusers.toString()+ new Date()));
+    		addressService.create(addressusers);
+//    		System.out.println("adID: "+ addressService.generateNewAddressId());
+    	}
+    	return "redirect:/myAccount/address";
+    }
+    
+    @RequestMapping("/editAddress/{addressuserid}")
+    public String editAddress(@PathVariable String addressuserid) {
+    	System.out.println("aaaaaaaa" + addressuserid);
+    	if(addressuserid != null) {
+    		
+    	}
+    	return "redirect:/myAccount/address";
+    }
+    
     @RequestMapping("/changePassword")
     public String  changePassword(Model model){
         Account account = sessionService.get("user");
