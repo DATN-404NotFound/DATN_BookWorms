@@ -202,4 +202,32 @@ public class BookServiceImp implements BookService{
 			bookRepo.save(book);
 		}
 	}
+
+	@Override
+	public List<Integer> getBookWithTypeBook(List<Integer> listtype) {
+		// TODO Auto-generated method stub
+		logger.info("getBookWithTypeBook with listtype : {}",listtype);
+		return bookRepo.getListBookWithTypeBooks(listtype);
+	}
+
+	@Override
+	public List<Integer> getBookWithWriters(List<Integer> listwriter) {
+		// TODO Auto-generated method stub
+		logger.info("getBookWithWriters with listwriter : {}",listwriter);
+		return bookRepo.getListBookWithWriter(listwriter);
+	}
+
+	@Override
+	public List<Integer> getBookWithEvaluate(List<Integer> listeva) {
+		// TODO Auto-generated method stub
+		logger.info("getBookWithEvaluate with listeva : {}",listeva);
+		return bookRepo.getListBookWithEvaluer(listeva);
+	}
+
+	@Override
+	public List<Books> findByShopList(Integer shopid) {
+		// TODO Auto-generated method stub
+		logger.info("findByShopList with shopid : {}",shopid);
+		return bookRepo.findByShopid(shopid);
+	}
 }
