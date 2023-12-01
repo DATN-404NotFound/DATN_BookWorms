@@ -10,7 +10,8 @@ import com.poly.DATN_BookWorms.repo.HassalesRepo;
 import com.poly.DATN_BookWorms.service.ShopOnlinesService;
 import com.poly.DATN_BookWorms.utils.CRC32_SHA256;
 import com.poly.DATN_BookWorms.utils.SessionService;
-import org.slf4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -75,11 +76,13 @@ public class SaleServiceImp implements SaleService{
 		saleRepo.deleteById(id);;
 	}
 
+
 	@Override
-	public List<Sales> saleOfShopIntendFor(String intendFor){ 
+	public List<Sales> saleByShopAndByIntendFor(int shopId, String intendFor) {
 		logger.info("get list sales with intendFor : {}",intendFor);
 		return saleRepo.sales_of_shop_for_intendfor(intendFor);
 	}
+
 
 //	public void addVoucherWithDiscountCodeAndSale(String PromotionName, String Descriptions, BigDecimal DiscountPercentage, String Intendfor, String Tagetbuyer, Integer[] Bookid, String saleId, String userId, Date startDiscount, Date endDiscount,
 //                                                  Boolean isDelete, Double minPrice, String status,

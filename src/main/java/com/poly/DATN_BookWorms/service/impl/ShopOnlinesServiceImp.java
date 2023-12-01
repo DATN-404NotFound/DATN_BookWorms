@@ -19,6 +19,12 @@ public class ShopOnlinesServiceImp implements ShopOnlinesService {
 	
     @Autowired
     ShoponlinesRepo shoponlinesRepo;
+
+    @Override
+    public List<Shoponlines> getAllListShop() {
+        return shoponlinesRepo.findAll();
+    }
+
     @Override
     public Shoponlines findById(Integer id) {
         // Sử dụng repository để tìm một ShopOnline theo ID
