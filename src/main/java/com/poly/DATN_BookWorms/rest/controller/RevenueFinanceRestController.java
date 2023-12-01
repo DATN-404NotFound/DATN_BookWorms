@@ -87,8 +87,8 @@ public class RevenueFinanceRestController {
         // Lưu đối tượng người dùng vào cơ sở dữ liệu
         PaymentShop  paymentShop =  new PaymentShop();
         paymentShop.setCreateat(new Date());
-        paymentShop.setStatus(false);
-        paymentShop.setValuepayment(Double.parseDouble(paymentTotal));
+        paymentShop.setStatus(0);
+        paymentShop.setValuepayment(Long.parseLong(paymentTotal));
         paymentShop.setShoponlines(shoponlines);
         paymentShopService.save(paymentShop);
         // Trả về phản hồi thành công

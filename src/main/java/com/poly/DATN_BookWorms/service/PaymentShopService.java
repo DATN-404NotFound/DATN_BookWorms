@@ -12,6 +12,8 @@ public interface PaymentShopService {
     void save(PaymentShop paymentShop);
 
     List<PaymentShop> findByShopId(Integer shopId);
+    
+    List<PaymentShop> findAll();
 
     Float getMonthPaid(Integer shopId,Date startDate, Date endDate, boolean statusPayment);
 

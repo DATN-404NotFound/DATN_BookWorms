@@ -55,7 +55,7 @@ public class ax {
 	                .anyMatch(a -> a.getAuthority().equals("ADMIN"))) {
 	            return "redirect:/admin/index";
 	        } else {
-	            return "redirect:/product/a";
+	            return "redirect:/Ibook/index";
 	        }
 	    }
 }
