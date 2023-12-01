@@ -189,7 +189,6 @@ app.controller("revenueFinanceController", function ($scope, $routeParams, $rout
 //sales Analysis
 app.controller("salesController", function ($scope, $routeParams, $route, $http, $rootScope,$timeout) {
 
-
     let host = "http://localhost:8080/rest/salesAnalysis/";
     var currentDate = new Date();
     $scope.year = currentDate.getFullYear();
@@ -340,14 +339,14 @@ app.controller("salesController", function ($scope, $routeParams, $route, $http,
         console.log("data",$scope.mSales );
     }
     $scope.getCategoryRanking = function () {
-            $scope.categoryRanking = [];
-            let url = `${host}categoryRanking`;
-            $http.get(url).then(resp => {
-                $scope.categoryRanking = resp.data;
-                console.log("categoryRanking:", $scope.categoryRanking)
-            }).catch(error => {
-                console.log("Error", error)
-            });
+        $scope.categoryRanking = [];
+        let url = `${host}categoryRanking`;
+        $http.get(url).then(resp => {
+            $scope.categoryRanking = resp.data;
+            console.log("categoryRanking:", $scope.categoryRanking)
+        }).catch(error => {
+            console.log("Error", error)
+        });
 
     }
 
@@ -383,6 +382,7 @@ app.controller("salesController", function ($scope, $routeParams, $route, $http,
             console.log("Error", error)
         });
     }
+
     $scope.getSalesAnalysis();
     $scope.getCategoryRanking();
     $scope.getBookRankingToSales();
