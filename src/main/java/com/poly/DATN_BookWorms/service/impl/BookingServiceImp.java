@@ -173,47 +173,47 @@ public class BookingServiceImp implements BookingService{
 	}
 
 	
-	@Override
-	public List<Bookings> unpaid() {
-		// TODO Auto-generated method stub
-		return bookingRepo.unpaid();
-	}
-	
-	@Override
-	public List<Bookings> paid() {
-		// TODO Auto-generated method stub
-		return bookingRepo.paid();
-	}
-	
-	@Override
-	public List<Bookings> confirm() {
-		// TODO Auto-generated method stub
-		return bookingRepo.confirm();
-	}
-	
-	@Override
-	public List<Bookings> delivering() {
-		// TODO Auto-generated method stub
-		return bookingRepo.delivering();
-	}
-	
-	@Override
-	public List<Bookings> processed() {
-		// TODO Auto-generated method stub
-		return bookingRepo.processed();
-	}
-	
-	@Override
-	public List<Bookings> cancel() {
-		// TODO Auto-generated method stub
-		return bookingRepo.cancel();
-	}
-	
-	@Override
-	public List<Bookings> refund() {
-		// TODO Auto-generated method stub
-		return bookingRepo.refund();
-	}
+//	@Override
+//	public List<Bookings> unpaid() {
+//		// TODO Auto-generated method stub
+//		return bookingRepo.unpaid();
+//	}
+//
+//	@Override
+//	public List<Bookings> paid() {
+//		// TODO Auto-generated method stub
+//		return bookingRepo.paid();
+//	}
+//
+//	@Override
+//	public List<Bookings> confirm() {
+//		// TODO Auto-generated method stub
+//		return bookingRepo.confirm();
+//	}
+//
+//	@Override
+//	public List<Bookings> delivering() {
+//		// TODO Auto-generated method stub
+//		return bookingRepo.delivering();
+//	}
+//
+//	@Override
+//	public List<Bookings> processed() {
+//		// TODO Auto-generated method stub
+//		return bookingRepo.processed();
+//	}
+//
+//	@Override
+//	public List<Bookings> cancel() {
+//		// TODO Auto-generated method stub
+//		return bookingRepo.cancel();
+//	}
+//
+//	@Override
+//	public List<Bookings> refund() {
+//		// TODO Auto-generated method stub
+//		return bookingRepo.refund();
+//	}
 	public long countUnpaid() {
         return bookingRepo.countUnpaid();
     }
