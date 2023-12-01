@@ -14,7 +14,7 @@ import com.poly.DATN_BookWorms.entities.Shoponlines;
 import com.poly.DATN_BookWorms.response.BookResponse;
 import org.springframework.web.multipart.MultipartFile;
 
-
+@Service
 public interface BookService {
 
 	List<Books> findAll();
