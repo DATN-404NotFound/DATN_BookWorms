@@ -43,4 +43,10 @@ public interface BookService {
 	Page<Books> findBooksNew(Pageable pageable);
 
 	void updateIsActive(Long bookId, boolean newIsActive);
+	List<Books> findByShopList(Integer shopid);
+
+	List<Integer> getBookWithTypeBook(List<Integer> listtype);
+	List<Integer> getBookWithWriters(List<Integer> listwriter);
+	List<Integer> getBookWithEvaluate(List<Integer> listeva);
+
 }
