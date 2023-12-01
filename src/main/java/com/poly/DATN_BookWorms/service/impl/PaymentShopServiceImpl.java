@@ -1,6 +1,7 @@
 package com.poly.DATN_BookWorms.service.impl;
 
 import com.poly.DATN_BookWorms.entities.PaymentShop;
+import com.poly.DATN_BookWorms.entities.Paymentaccounts;
 import com.poly.DATN_BookWorms.repo.PaymentShopRepo;
 import com.poly.DATN_BookWorms.service.PaymentShopService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,11 +15,6 @@ public class PaymentShopServiceImpl implements PaymentShopService {
 
     @Autowired
     PaymentShopRepo paymentShopRepo;
-    @Override
-    public void save(PaymentShop paymentShop) {
-        paymentShopRepo.save(paymentShop);
-    }
-
     @Override
     public List<PaymentShop> findByShopId(Integer shopId) {
 
@@ -40,5 +36,10 @@ public class PaymentShopServiceImpl implements PaymentShopService {
             return paymentShopRepo.getTotal(shopId, statusPayment);
         }
         return Float.valueOf(0);
+    }
+
+    @Override
+    public void save(PaymentShop paymentShop) {
+         paymentShopRepo.save(paymentShop);
     }
 }

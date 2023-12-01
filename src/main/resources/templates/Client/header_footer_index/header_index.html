@@ -20,6 +20,33 @@
 
 <body>
 <div th:fragment="header">
+    <div class="modal fade" id="myModalSeller">
+        <div class="modal-dialog modal-lg" style="margin-top: 300px; height: 400px;">
+            <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title" id="descrptionTitle">Thông Báo</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body text-center">
+                    <p id="iconModel"></p>
+                    <div id="descrptionInfor"></div>
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <form action="">
+                        <button class="btn btn-danger" th:formaction="@{|/Ibook/seller|}"
+                                th:method="GET">Đóng</button>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
     <div class="header_index">
         <div class="row align-items-center" style="height:70px">
             <div class="col-sm-5 font-face">

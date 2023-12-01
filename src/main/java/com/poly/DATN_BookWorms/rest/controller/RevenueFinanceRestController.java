@@ -5,16 +5,19 @@ import com.poly.DATN_BookWorms.beans.CategoryRanking;
 import com.poly.DATN_BookWorms.beans.Sales;
 import com.poly.DATN_BookWorms.entities.Account;
 import com.poly.DATN_BookWorms.entities.PaymentShop;
+import com.poly.DATN_BookWorms.entities.Paymentaccounts;
 import com.poly.DATN_BookWorms.entities.Shoponlines;
+import com.poly.DATN_BookWorms.service.PaymentAccountService;
 import com.poly.DATN_BookWorms.service.PaymentShopService;
 import com.poly.DATN_BookWorms.service.ShopService;
+import com.poly.DATN_BookWorms.utils.CRC32_SHA256;
 import com.poly.DATN_BookWorms.utils.SessionService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import java.time.LocalDate;
 import java.time.YearMonth;
 import java.util.Date;
@@ -33,6 +36,11 @@ public class RevenueFinanceRestController {
 
     @Autowired
     PaymentShopService paymentShopService;
+
+    @Autowired
+    PaymentAccountService paymentAccountService;
+    @Autowired
+    CRC32_SHA256 crc32Sha256;
     @GetMapping("/getRevenue")
     public ResponseEntity<Shoponlines> getRevenue() {
         Account user = sessionService.get("user");
@@ -85,5 +93,27 @@ public class RevenueFinanceRestController {
         paymentShopService.save(paymentShop);
         // Trả về phản hồi thành công
         return ResponseEntity.ok(paymentShop);
+    }
+    @GetMapping("/getAccountBalance")
+    public ResponseEntity<Paymentaccounts> getAccountBalance() {
+        Account user = sessionService.get("user");
+        Shoponlines shoponlines = shopService.findUserId(user.getUserid());
+        Paymentaccounts accountBalance = new Paymentaccounts();
+        if (shoponlines.getPaycount() != null){
+           accountBalance = paymentAccountService.findById(shoponlines.getPaycount());
+        }
+        return ResponseEntity.ok(accountBalance);
+    }
+
+    @PostMapping(value = "/saveAccountBalance" , produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Paymentaccounts> saveAccountBalance(@RequestBody   @Valid Paymentaccounts paymentaccount) {
+        Account user = sessionService.get("user");
+        Shoponlines shoponlines = shopService.findUserId(user.getUserid());
+        String paymentAccountId = crc32Sha256.getCodeCRC32C(paymentaccount.getAccountnumber()+paymentaccount.getCccd()) ;
+        paymentaccount.setPaid(paymentAccountId);
+        paymentAccountService.save(paymentaccount);
+        shoponlines.setPaycount(paymentAccountId);
+        shopService.save(shoponlines);
+        return ResponseEntity.ok(paymentaccount);
     }
 }

@@ -29,22 +29,48 @@
             });
         </script>
         <div class="modal" id="myModal">
-            <div class="modal-dialog">
+
+            <div class="modal-dialog modal-lg" style="margin-top: 20px; height: 400px;">
                 <div class="modal-content">
+
+                    <!-- Modal Header -->
                     <div class="modal-header">
-                        <h4 class="modal-title" id="modalTitle">Nontification</h4>
+                        <h4 class="modal-title" id="descrptionTitle">Nontification</h4>
                         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                     </div>
-                    <div class="modal-body">
-                        <span> Welcome <span th:text="${user.getFullname()}"></span> , <span>Hope you have a great time
-                            shopping on IBook  </span>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
-                    </div>
-                </div>
 
+                    <!-- Modal body -->
+                    <div class="modal-body text-center">
+                        <p id="iconModel"></p>
+                        <div id="descrptionInfor"> Welcome <span th:text="${user.getFullname()}"></span> , <span>Hope you have a great time
+                            shopping on IBook</span></div>
+                    </div>
+
+                    <!-- Modal footer -->
+                    <div class="modal-footer">
+                        <form action="">
+                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Đóng</button>
+                        </form>
+                    </div>
+
+                </div>
             </div>
+<!--            <div class="modal-dialog">-->
+<!--                <div class="modal-content">-->
+<!--                    <div class="modal-header">-->
+<!--                        <h4 class="modal-title" id="modalTitle">Nontification</h4>-->
+<!--                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>-->
+<!--                    </div>-->
+<!--                    <div class="modal-body">-->
+<!--                        <span> Welcome <span th:text="${user.getFullname()}"></span> , <span>Hope you have a great time-->
+<!--                            shopping on IBook  </span>-->
+<!--                    </div>-->
+<!--                    <div class="modal-footer">-->
+<!--                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>-->
+<!--                    </div>-->
+<!--                </div>-->
+
+<!--            </div>-->
 
         </div>
         <br>

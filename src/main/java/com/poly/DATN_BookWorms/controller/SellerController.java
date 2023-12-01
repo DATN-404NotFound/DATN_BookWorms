@@ -63,4 +63,12 @@ public class SellerController {
     public String revenueFinance(Model model){
         return "SellerChannel/FinanceRevenue";
     }
+    @RequestMapping("/shop/finance/bankAccountBalance")
+    public String bankAccountBalance(Model model){
+        return "SellerChannel/BankAccountBalance";
+    }
+    @RequestMapping("/shop/finance/createBankAccount")
+    public String createBankAccount(Model model){
+        return "SellerChannel/CreateBankAccount";
+    }
 }
