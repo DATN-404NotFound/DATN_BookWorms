@@ -110,8 +110,5 @@ public class AddressShop implements Serializable {
 	}
 
 
-<<<<<<< HEAD
+
 }
-=======
-}
->>>>>>> zendyy/back_end

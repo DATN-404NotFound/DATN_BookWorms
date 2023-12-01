@@ -51,12 +51,7 @@ public class Shoponlines implements Serializable {
     @Column(name = "description", length = 2555)
     private String description;
 
-<<<<<<< HEAD
-
-    public String userid;
-=======
     private String     userid ;
->>>>>>> zendyy/back_end
 
     @Column(name = "paycount", length = 10)
     public String paycount;
@@ -66,7 +61,7 @@ public class Shoponlines implements Serializable {
 
 
     //--- ENTITY LINKS ( RELATIONSHIP )
-<<<<<<< HEAD
+
     @OneToMany(mappedBy = "shoponlines")
     @JsonIgnore
     public List<Books> listOfBooks;
@@ -82,19 +77,7 @@ public class Shoponlines implements Serializable {
     @OneToMany(mappedBy = "shoponlines")
     @JsonIgnore
     private List<PaymentShop> listOfPaymentShop;
-=======
-    @OneToMany(mappedBy="shoponlines")
-    @JsonIgnore
-    private List<Books> listOfBooks ; 
 
-    @OneToMany(mappedBy="shoponlines")
-    @JsonIgnore
-    private List<Files> listOfFiles ; 
->>>>>>> zendyy/back_end
-
-    @OneToMany(mappedBy="shoponlines")
-    @JsonIgnore
-    private List<PaymentShop> listOfPaymentShop;
     
     @ManyToOne
     @JoinColumn(name="Userid", referencedColumnName="Userid", insertable=false, updatable=false)
@@ -114,11 +97,10 @@ public class Shoponlines implements Serializable {
         sb.append("|");
         sb.append(description);
         sb.append("|");
-<<<<<<< HEAD
+
         sb.append(listOfAddressShop);
-=======
+
         sb.append(userid);
->>>>>>> zendyy/back_end
         sb.append("|");
         sb.append(paycount);
         sb.append("|");

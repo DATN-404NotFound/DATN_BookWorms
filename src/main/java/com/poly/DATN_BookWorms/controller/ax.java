@@ -1,11 +1,11 @@
 
 package com.poly.DATN_BookWorms.controller;
 
-<<<<<<< HEAD
 
-=======
+
+
 import org.springframework.security.core.Authentication;
->>>>>>> zendyy/back_end
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -44,13 +44,11 @@ public class ax {
 	public String g() {
 		return "Client/cart_client/deal";
 	}
-<<<<<<< HEAD
+
 	@GetMapping("/s")
 	public String s() {
 		return "Client/Product_page/product_list";
 	}
-=======
-	
 	@RequestMapping("/dashboard")
 	 public String dashboard(Model model, Authentication authentication) {
 	        if (authentication != null && authentication.getAuthorities().stream()
@@ -60,5 +58,4 @@ public class ax {
 	            return "redirect:/product/a";
 	        }
 	    }
->>>>>>> zendyy/back_end
 }

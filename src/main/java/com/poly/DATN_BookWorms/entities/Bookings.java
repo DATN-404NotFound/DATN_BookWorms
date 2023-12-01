@@ -44,12 +44,8 @@ public class Bookings {
 
     //--- ENTITY DATA FIELDS 
     @Temporal(TemporalType.DATE)
-<<<<<<< HEAD
     @Column(name="createat")
     public Date       createat ;
-=======
-    private Date       createat ;
->>>>>>> zendyy/back_end
 
     @Column(name="cost")
     public Double     cost ;
