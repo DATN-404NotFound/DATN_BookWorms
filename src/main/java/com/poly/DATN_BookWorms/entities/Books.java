@@ -75,7 +75,7 @@ public class Books implements Serializable {
     public Integer shopid;
 
 //    @Column(name= "ProductViews")
-    public Integer productviews;
+//    public Integer productviews;
 
 
 

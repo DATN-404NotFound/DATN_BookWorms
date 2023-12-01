@@ -3,6 +3,7 @@ package com.poly.DATN_BookWorms.service.impl;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.apache.logging.log4j.LogManager;
@@ -134,10 +135,9 @@ public class BookingServiceImp implements BookingService{
 	}
 
 	@Override
-	public Object findById(String id) {
+	public Optional<Bookings> findById(String id) {
 		// TODO Auto-generated method stub
-		logger.info("get booking by id have id : {}", id);
-		return bookingRepo.findById(id);
+		return  bookingRepo.findById(id);
 	}
 
 	@Override
@@ -158,11 +158,16 @@ public class BookingServiceImp implements BookingService{
 	}
 
 
-//	@Override
-//	public List<Bookings> findByUsername(String username) {
-//		// TODO Auto-generated method stub
-//		return bookingRepo.findByUsername(username);
-//	}
+	@Override
+	public List<Bookings> findAllByUserId(String userId) {
+		return bookingRepo.findByuserid(userId);
+	}
+	@Override
+	public List<Bookings> findByUserIdAndOrderStatusId(String userId, Integer orderStatusId) {
+		List<Bookings> allByUserId = findAllByUserId(userId);
 
-	
+		return allByUserId.stream()
+				.filter(booking -> booking.getOrderstatusid().equals(orderStatusId))
+				.collect(Collectors.toList());
+	}
 }

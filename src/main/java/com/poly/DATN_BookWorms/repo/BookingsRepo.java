@@ -42,4 +42,6 @@ public interface BookingsRepo extends JpaRepository<Bookings, String>{
 	@Query("Select b from Bookings b where b.orderstatusid = ?1")
 	List<Bookings> ListBookings_Status(String orderStatusId);
 
+
+	List<Bookings> findByuserid(String userId);
 }

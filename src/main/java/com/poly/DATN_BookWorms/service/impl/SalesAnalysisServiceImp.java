@@ -20,85 +20,63 @@ import java.util.List;
 
 @Service
 public class SalesAnalysisServiceImp implements SalesAnalysisService {
-	
-	private static final Logger logger = LogManager.getLogger();
-	
-    @Autowired
-    BookingsRepo bookingsRepo;
-    @Autowired
-    SessionService sessionService;
-    @Autowired
-    ShopService shopService;
-    @Autowired
-    BooksRepo booksRepo;
-    @Autowired
-    CategoriesRepo categoriesRepo;
+//    @Autowired
+//    BookingsRepo bookingsRepo;
+//    @Autowired
+//    SessionService sessionService;
+//    @Autowired
+//    ShopService shopService;
+//    @Autowired
+//    BooksRepo booksRepo;
+//    @Override
+//    public double getMonthSales(Date startDate, Date endDate) {
+//        List<Bookings> bookings = bookingsRepo.getIsSuccess(startDate, endDate);
+//        List<Detailbookings> detailbookings = new ArrayList<>();
+//        for (Bookings booking: bookings) {
+//               detailbookings.addAll(booking.getListOfDetailbookings());
+//        }
+//        Account user = sessionService.get("user");
+//        Shoponlines shoponlines = shopService.findUserId(user.getUserid());
+//
+//        List<Detailbookings> listDetailBookingSales = new ArrayList<>();
+//        for (Detailbookings detailbooking: detailbookings) {
+//            if (detailbooking.getBooks().getShopid().equals(shoponlines.getShopid())){
+//                listDetailBookingSales.add(detailbooking);
+//            }
+//        }
+//        //Tổng giá trị
+//        double monthSales = 0;
+//        for (Detailbookings listDetailbookings1: listDetailBookingSales) {
+//           monthSales+=(listDetailbookings1.getQuantity() * listDetailbookings1.getBooks().getPrice()) * 0.9;
+//        }
+//
+//        return monthSales;
+//    }
 
-    @Override
-    public double getMonthSales(Date startDate, Date endDate) {
-		logger.info("get getMonthSales start.....");
-		logger.info("get getMonthSales with input startDate : {} and endDate : {}", startDate, endDate);
-        List<Bookings> bookings = bookingsRepo.getIsSuccess(startDate, endDate);
-        if(bookings.size() ==0) { 
-        	logger.info("get list bookings is null");
-        	return 0;
-        }
-       try {
-    	   List<Detailbookings> detailbookings = new ArrayList<>();
-           for (Bookings booking : bookings) {
-           	logger.info("booking : {}", booking.toString());
-               detailbookings.addAll(booking.getListOfDetailbookings());
-           }
-           Account user = sessionService.get("user");
-           logger.info("Account : {}", user.toString());
-           Shoponlines shoponlines = shopService.findUserId(user.getUserid());
-           logger.info("shoponlines : {}", shoponlines.toString());
-           List<Detailbookings> listDetailBookingSales = new ArrayList<>();
-           for (Detailbookings detailbooking : detailbookings) {
-               if (detailbooking.getBooks().getShopid().equals(shoponlines.getShopid())) {
-               	 logger.info("detailbooking : {}", detailbooking.toString());
-                   listDetailBookingSales.add(detailbooking);
-               }
-           }
-           //Tổng giá trị
-           double monthSales = 0;
-           for (Detailbookings listDetailbookings1 : listDetailBookingSales) {
-               monthSales += (listDetailbookings1.getQuantity() * listDetailbookings1.getBooks().getPrice()) * 0.9;
-           }
-           logger.info("monthSales : {}", monthSales);
-           logger.info("getMonthSales end successfully ...");
-           return monthSales;
-	} catch (Exception e) {
-		 logger.error("Error during getMonthSales with error : {}",e);
-         return 0;
-		// TODO: handle exception
-	}
-    }
-
-    @Override
-    public int getMonthOrder(Date startDate, Date endDate) {
-        List<Bookings> bookings = bookingsRepo.getIsPaid(startDate, endDate);
-        List<Detailbookings> detailbookings = new ArrayList<>();
-        for (Bookings booking : bookings) {
-            detailbookings.addAll(booking.getListOfDetailbookings());
-        }
-        Account user = sessionService.get("user");
-        Shoponlines shoponlines = shopService.findUserId(user.getUserid());
-
-        List<Detailbookings> listDetailBookingSales = new ArrayList<>();
-        for (Detailbookings detailbooking : detailbookings) {
-            if (detailbooking.getBooks().getShopid().equals(shoponlines.getShopid())) {
-                listDetailBookingSales.add(detailbooking);
-            }
-        }
-        return listDetailBookingSales.size();
-    }
-
-    @Override
-    public int getProductView(Integer shopId) {
-    	  logger.info("getProductView with shopid : {}", shopId);
-        return booksRepo.getProductViews(shopId);
-    }
+//    @Override
+//    public int getMonthOrder(Date startDate, Date endDate) {
+//        List<Bookings> bookings = bookingsRepo.getIsPaid(startDate, endDate);
+//        List<Detailbookings> detailbookings = new ArrayList<>();
+//        for (Bookings booking: bookings) {
+//            detailbookings.addAll(booking.getListOfDetailbookings());
+//        }
+//        Account user = sessionService.get("user");
+//        Shoponlines shoponlines = shopService.findUserId(user.getUserid());
+//
+//        List<Detailbookings> listDetailBookingSales = new ArrayList<>();
+//        for (Detailbookings detailbooking: detailbookings) {
+//            if (detailbooking.getBooks().getShopid().equals(shoponlines.getShopid())){
+//                listDetailBookingSales.add(detailbooking);
+//            }
+//        }
+//        return listDetailBookingSales.size();
+//    }
+//
+//    @Override
+//    public int getProductView(Integer shopId) {
+//
+//        return booksRepo.getProductViews(shopId);
+//    }
 
     @Override
     public List<CategoryRanking> getCategoryRanking() {

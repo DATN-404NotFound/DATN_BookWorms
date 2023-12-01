@@ -16,4 +16,5 @@ public interface ShopOnlinesService {
 	List<Shoponlines> getAllListShop();
 	
     Shoponlines findById(Integer cid);
+    Shoponlines findShoponlinesByUserId(String userId);
 }

@@ -25,10 +25,8 @@ public class ShopOnlinesServiceImp implements ShopOnlinesService {
     	logger.info("findById with shopid : {}",id);
         return shoponlinesRepo.findById(id).orElse(null);
     }
-	@Override
-	public List<Shoponlines> getAllListShop() {
-		// TODO Auto-generated method stub
-		logger.info("getAllListShop to start");
-		return shoponlinesRepo.findAll();
-	}
+    @Override
+    public Shoponlines findShoponlinesByUserId(String userId) {
+        return shoponlinesRepo.findByUserId(userId);
+    }
 }

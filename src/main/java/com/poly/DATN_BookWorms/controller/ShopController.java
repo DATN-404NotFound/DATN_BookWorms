@@ -73,36 +73,23 @@ public class ShopController {
     public String profile(Model model, @PathVariable("id") Integer id,
                           @RequestParam(defaultValue = "0") int page,
                           @RequestParam(defaultValue = "10") int size) {
-       try {
-    	   
-    	   String userid = crc32_SHA256.getCodeCRC32C(req.getRemoteUser());
-    	   Pageable pageable = PageRequest.of(page, size);
-           Shoponlines list = shopOnlinesService.findById(id);
-           Integer total = evaluatesService.sumDbidByEvaluateId(id);
-           model.addAttribute("total", total);
-           model.addAttribute("profile", list);
-           Page<Books> bookPage = bookService.findByshopid(id,pageable);
-           model.addAttribute("books", bookPage.getContent());
-           model.addAttribute("currentPage", page);
-           model.addAttribute("totalPages", bookPage.getTotalPages());
-           List<Books> minquantity  = bookService.findTop5LowestQuantityBooksByShopId(id);      
-           model.addAttribute("minquantity", minquantity);
-           List<Writtingmasters> listWriter = writerService.getWrittingWithSHop(id);
-           model.addAttribute("listWriter", listWriter);      
-          List<Categories> listCateogories = typeBookService.getCategoriesWithShop(id);
-           model.addAttribute("listCateogories", listCateogories);     
-           List<Publishingcompanies> plcm = bookService.getPCWithShop(id);
-           model.addAttribute("plcm", plcm);
-           List<Sales> listSaleOfshop = saleService.saleByShopAndByIntendFor(id, "D");
-           model.addAttribute("listSaleOfshop", listSaleOfshop);
-           System.out.println("in dis "+ listSaleOfshop);
-           List<Discountcodes> dis = discountCodeService.findDisountOfShopWithUser(userid, id);
-           System.out.println("in dis1 "+ dis);
-           model.addAttribute("dis", dis);
-           logger.info("get shop Page");
-	} catch (Exception e) {
-		logger.info("Error during shop controller with error :{}",e);
-	}
+        Pageable pageable = PageRequest.of(page, size);
+        Shoponlines list = shopOnlinesService.findById(id);
+        Integer total = evaluatesService.sumDbidByEvaluateId(id);
+        model.addAttribute("total", total);
+        model.addAttribute("profile", list);
+        Page<Books> bookPage = bookService.findByshopid(id,pageable);
+        model.addAttribute("books", bookPage.getContent());
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalPages", bookPage.getTotalPages());
+        List<Books> minquantity  = bookService.findTop5LowestQuantityBooksByShopId(id);      
+        model.addAttribute("min quantity", minquantity);
+        List<Writtingmasters> listWriter = writerService.getWrittingWithSHop(id);
+        model.addAttribute("listWriter", listWriter);      
+       List<Categories> listCateogories = typeBookService.getCategoriesWithShop(id);
+        model.addAttribute("listCateogories", listCateogories);     
+        List<Publishingcompanies> plcm = bookService.getPCWithShop(id);
+        model.addAttribute("plcm", plcm);
         return "Client/Product_page/product_shop_list";
     }
 }
