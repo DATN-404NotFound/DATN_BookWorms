@@ -54,7 +54,7 @@ public class AdminPaymentRestController {
 				// Thực hiện các xử lý cần thiết, ví dụ: cập nhật CSDL
 				PaymentShop paymentShop = paymentShopRepo.findById(Long.parseLong(queryParams.get("paymentshopid")))
 						.orElseThrow(() -> new NotFoundException());
-				paymentShop.setStatus(1);
+				paymentShop.setStatus(true);
 				Shoponlines shopOnlines = paymentShopRepo.findShopId(paymentShop.getShoponlines().getShopid());
 
 				System.out.println("hi " + paymentShop.getShoponlines().getTotal());

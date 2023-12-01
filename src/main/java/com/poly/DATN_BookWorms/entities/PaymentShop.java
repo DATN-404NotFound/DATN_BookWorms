@@ -43,7 +43,7 @@ public class PaymentShop implements Serializable {
 	@Temporal(TemporalType.DATE)
     private Date       createat ;
 	
-	private int status;
+	private boolean status;
 	
 	private long valuepayment;
 	

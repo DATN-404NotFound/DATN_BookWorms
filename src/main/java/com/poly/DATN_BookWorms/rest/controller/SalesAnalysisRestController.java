@@ -82,7 +82,7 @@ public class SalesAnalysisRestController {
     public ResponseEntity<List<CategoryRanking>> getCategoryRanking() {
 
         List<CategoryRanking> listCategoryRanking = salesAnalysisService.getCategoryRanking();
-//        System.out.println(listCategoryRanking.toString());
+        System.out.println(listCategoryRanking.toString());
         return ResponseEntity.ok(listCategoryRanking);
     }
 

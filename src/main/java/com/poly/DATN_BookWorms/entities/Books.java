@@ -117,7 +117,8 @@ public class Books implements Serializable {
     @OneToMany(mappedBy = "books")
     @JsonIgnore
     public List<Hassales> listOfHassales;
-    private Integer productviews;
+
+    public Integer productviews;
 
 
     //--- toString specific method
