@@ -40,7 +40,7 @@ public class Detailbookings implements Serializable {
     public String     dbid ;
 
     //--- ENTITY DATA FIELDS 
-    public Integer    bookid ;
+    public Long    bookid ;
 
     public String     bookingid ;
 
@@ -88,11 +88,11 @@ public class Detailbookings implements Serializable {
 		this.dbid = dbid;
 	}
 
-	public Integer getBookid() {
+	public Long getBookid() {
 		return bookid;
 	}
 
-	public void setBookid(Integer bookid) {
+	public void setBookid(Long bookid) {
 		this.bookid = bookid;
 	}
 

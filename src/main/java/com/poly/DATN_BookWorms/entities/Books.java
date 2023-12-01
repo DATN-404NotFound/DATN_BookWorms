@@ -372,7 +372,7 @@ public class Books implements Serializable {
 
 
 	public Integer getProductviews() {
-		return getProductviews();
+		return this.productviews;
 	}
 
 
