@@ -77,15 +77,15 @@ public class SaleServiceImp implements SaleService{
 	}
 
 	@Override
-	public List<Sales> saleOfShopIntendFor(String intendFor) {
-		return null;
+	public List<Sales> saleOfShopIntendFor(String intendFor){
+		logger.info("get list sales with intendFor : {}",intendFor);
+		return saleRepo.sales_of_shop_for_intendfor(intendFor);
 	}
-
 
 	@Override
 	public List<Sales> saleByShopAndByIntendFor(int shopId, String intendFor) {
-		logger.info("get list sales with intendFor : {}",intendFor);
-		return saleRepo.sales_of_shop_for_intendfor(intendFor);
+		// TODO Auto-generated method stub
+		return  saleRepo.getSaleByShopAndByIntendfor(shopId, intendFor);
 	}
 
 
