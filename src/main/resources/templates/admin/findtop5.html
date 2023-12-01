@@ -8,7 +8,7 @@
 <meta name="description" content="">
 <meta name="author" content="">
 <link rel="icon" href="favicon.ico">
-<title>Tiny Dashboard - A Bootstrap Dashboard Template</title>
+<title>Admin</title>
 <!-- Simple bar CSS -->
 <link rel="stylesheet" href="SellerChannel/css/simplebar.css">
 <!-- Fonts CSS -->
@@ -112,34 +112,21 @@
 						</a>
 							<ul class="collapse list-unstyled pl-4 w-100" id="ui-elements">
 								<li class="nav-item"><a class="nav-link pl-3"
-									href="/DashboadSales.html"><span class="ml-1 item-text">Sales</span>
+									th:href="@{/admin/index}"><span class="ml-1 item-text">By User</span>
 								</a></li>
 								<li class="nav-item"><a class="nav-link pl-3"
-									href="/TranportChannel.html"><span class="ml-1 item-text">Tranport</span></a>
-								</li>
-								<li class="nav-item"><a class="nav-link pl-3"
-									href="/CreateProduct.html"><span class="ml-1 item-text">Create
-											Product</span></a></li>
-								<li class="nav-item"><a class="nav-link pl-3"
-									href="/Voucher.html"><span class="ml-1 item-text">Voucher</span></a>
-								</li>
-								<li class="nav-item"><a class="nav-link pl-3"
-									href="/CreateVoucher.html"><span class="ml-1 item-text">Create
-											Voucher</span></a></li>
-								<li class="nav-item"><a class="nav-link pl-3"
-									href="/ShopRewiew.html"><span class="ml-1 item-text">Rewiews</span></a>
-								</li>
+									th:href="@{/admin/findtop5}"><span class="ml-1 item-text">Find Top 5</span>
+								</a></li>
 							</ul></li>
 						<li class="nav-item dropdown"><a href="#forms"
 							data-toggle="collapse" aria-expanded="false"
 							class="dropdown-toggle nav-link"> <i
 								class="fe fe-credit-card fe-16"></i> <span
-								class="ml-3 item-text">Shipping</span>
+								class="ml-3 item-text">Payment</span>
 						</a>
 							<ul class="collapse list-unstyled pl-4 w-100" id="forms">
 								<li class="nav-item"><a class="nav-link pl-3"
-									href="./BulkDelivery.html"><span class="ml-1 item-text">Bulk
-											Delivery</span></a></li>
+									th:href="@{/api/payment/callpayment}"><span class="ml-1 item-text">Call Payment</span></a></li>
 							</ul></li>
 
 						<li class="nav-item"><a href="/DashboadSales.html"

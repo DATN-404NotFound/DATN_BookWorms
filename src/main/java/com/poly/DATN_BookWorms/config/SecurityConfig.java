@@ -31,12 +31,10 @@ public class SecurityConfig {
 				.requestMatchers("/account/**", "/Admin/Css/**", "/Admin/Image/**", "/Admin/Js/**")
 
 				.permitAll().requestMatchers("/Client/**", "/product/**").permitAll().requestMatchers("/rest/**")
-				.permitAll().requestMatchers("static/Client/**").permitAll().requestMatchers("").hasAuthority("ADMIN")
+				.permitAll().requestMatchers("static/Client/**").permitAll().requestMatchers("admin/**", "api/payment/**").hasAuthority("ADMIN")
 				.requestMatchers("/seller/**").hasAuthority("SELLER").anyRequest().authenticated())
 
-				.formLogin(form -> form.loginPage("/account/login").loginProcessingUrl("/account/login")
-
-						.defaultSuccessUrl("/product/a", false).permitAll())
+				.formLogin(form -> form.loginPage("/account/login").defaultSuccessUrl("/product/dashboard").permitAll())
 
 				.logout((form) -> form.logoutUrl("/account/logout").logoutSuccessUrl("/account/logoutSuccess")
 

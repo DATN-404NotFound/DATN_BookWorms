@@ -18,20 +18,22 @@ import com.poly.DATN_BookWorms.service.AccountService;
 @Controller
 @RequestMapping("/account")
 public class AccountController {
-	
+
 	@Autowired
 	AccountService accountService;
-	
+
 	@GetMapping("/login")
 	public String loginForm() {
 		return "Client/Account_page/Login";
 	}
 
 	@PostMapping("/login")
-public String loginForms() {
+	public String loginForms() {
 		System.out.println("kjdsfkdjhskf");
+		
 		return "Client/Account_page/Login";
 	}
+
 	@GetMapping("/registration")
 	public String registrationForm(Model model) {
 		AccountDTO user = new AccountDTO();
@@ -40,8 +42,9 @@ public String loginForms() {
 	}
 
 	@PostMapping("/registration")
-	public String registration(@Valid @ModelAttribute("user") AccountDTO accountDTO, BindingResult result, Model model) {
-		Account  existingUser = accountService.findByUsename(accountDTO.getUsername());
+	public String registration(@Valid @ModelAttribute("user") AccountDTO accountDTO, BindingResult result,
+			Model model) {
+		Account existingUser = accountService.findByUsename(accountDTO.getUsername());
 
 		if (existingUser != null)
 			result.rejectValue("Username", null, "User already registered !!!");
@@ -56,7 +59,7 @@ public String loginForms() {
 	}
 
 	@RequestMapping("/faild")
-	public String a(){ 
+	public String a() {
 		return "Client/Account_page/Register";
 	}
 }
