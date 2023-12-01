@@ -28,7 +28,7 @@ public interface BooksRepo extends JpaRepository<Books, Integer>{
     		+ "WHERE b1.bookid = ?1")
     List<Books> findRelatedBooks(@Param("bookId") Integer bookId);
     
-    @Query("SELECT b FROM Books b GROUP BY b ORDER BY SUM(b.quantitysold) DESC limit 5")
+    @Query("SELECT b FROM Books b GROUP BY b ORDER BY b.quantitysold DESC limit 5")
 	List<Books> findTop5Seller();
 	
 	@Query("SELECT b FROM Books b GROUP BY b ORDER BY SUM(b.quantitysold) ASC limit 5")

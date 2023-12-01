@@ -13,9 +13,9 @@ import com.poly.DATN_BookWorms.entities.Books;
 import com.poly.DATN_BookWorms.repo.BooksRepo;
 import com.poly.DATN_BookWorms.service.BookService;
 import com.poly.DATN_BookWorms.service.DetailBookingService;
-
-@RestController
 @CrossOrigin("*")
+@RestController
+
 @RequestMapping("/rest/admin")
 public class AdminRestController {
 

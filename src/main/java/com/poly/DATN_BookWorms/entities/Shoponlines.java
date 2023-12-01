@@ -6,6 +6,8 @@ package com.poly.DATN_BookWorms.entities;
 import java.io.Serializable;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -56,8 +58,6 @@ public class Shoponlines implements Serializable {
     @Column(name="Description", length=2555)
     private String     description ;
 
-    private String     shopaddress ;
-
     private String     userid ;
 
     @Column(name="Paycount", length=10)
@@ -68,11 +68,17 @@ public class Shoponlines implements Serializable {
 
     //--- ENTITY LINKS ( RELATIONSHIP )
     @OneToMany(mappedBy="shoponlines")
+    @JsonIgnore
     private List<Books> listOfBooks ; 
 
     @OneToMany(mappedBy="shoponlines")
+    @JsonIgnore
     private List<Files> listOfFiles ; 
 
+    @OneToMany(mappedBy="shoponlines")
+    @JsonIgnore
+    private List<PaymentShop> listOfPaymentShop;
+    
     @ManyToOne
     @JoinColumn(name="Userid", referencedColumnName="Userid", insertable=false, updatable=false)
     private Account    account ; 
@@ -94,8 +100,6 @@ public class Shoponlines implements Serializable {
         sb.append(banner);
         sb.append("|");
         sb.append(description);
-        sb.append("|");
-        sb.append(shopaddress);
         sb.append("|");
         sb.append(userid);
         sb.append("|");

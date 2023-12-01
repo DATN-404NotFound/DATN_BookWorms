@@ -10,6 +10,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -76,23 +77,22 @@ public class Books implements Serializable {
 
 
     //--- ENTITY LINKS ( RELATIONSHIP )
-    @OneToMany(mappedBy="books")
-    @JsonIgnore
+    @OneToMany(mappedBy="books", fetch = FetchType.EAGER)
     private List<Cart> listOfCart ; 
 
     @ManyToOne
     @JoinColumn(name="Shopid", referencedColumnName="ShopId", insertable=false, updatable=false)
     private Shoponlines shoponlines ; 
 
-    @OneToMany(mappedBy="books")
+    @OneToMany(mappedBy="books" , fetch = FetchType.EAGER)
     @JsonIgnore
     private List<Imagebooks> listOfImagebooks ; 
 
-    @OneToMany(mappedBy="books")
+    @OneToMany(mappedBy="books" , fetch = FetchType.EAGER)
     @JsonIgnore
     private List<Detailbookings> listOfDetailbookings ; 
 
-    @OneToMany(mappedBy="books")
+    @OneToMany(mappedBy="books" , fetch = FetchType.EAGER)
     @JsonIgnore
     private List<Typebooks> listOfTypebooks ; 
 
