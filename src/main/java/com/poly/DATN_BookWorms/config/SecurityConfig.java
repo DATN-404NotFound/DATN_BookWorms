@@ -47,6 +47,15 @@ public class SecurityConfig {
 		};
 	}
 	@Bean
+	public AuthenticationSuccessHandler successHandler() {
+		return new AuthenticationSuccessHandler() {
+			@Override
+			public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
+				redirectStrategy().sendRedirect(request, response, "/Ibook/index");
+			}
+		};
+	}
+	@Bean
 	public SecurityFilterChain web(HttpSecurity http) throws Exception {
 		http.authorizeHttpRequests((request) -> request
 				.requestMatchers("/account/**", "/signin/**", "/signup/**", "/product/**", "/Admin/**","/Ibook/index","/Ibook/header")
@@ -59,6 +68,7 @@ public class SecurityConfig {
 				.anyRequest().authenticated());
 		http.formLogin(form -> form.loginPage("/account/login")
 				.loginProcessingUrl("/account/login")
+				.successHandler(successHandler())
 				.permitAll());
 
 		http.oauth2Login(customize -> customize.loginPage("/account/login")
