@@ -6,6 +6,7 @@ import com.poly.DATN_BookWorms.service.AddressService;
 import com.poly.DATN_BookWorms.service.BookingService;
 import com.poly.DATN_BookWorms.service.DetailBookingService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.MediaType;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -55,6 +56,7 @@ public class MyAccountController {
     AccountService accountService;
 
     @Autowired
+    @Qualifier("detailBookingServiceImp")
     DetailBookingService detailBookingService;
 
     @Autowired
