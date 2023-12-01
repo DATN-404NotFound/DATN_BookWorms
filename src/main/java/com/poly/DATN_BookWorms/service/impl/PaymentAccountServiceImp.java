@@ -33,4 +33,14 @@ public class PaymentAccountServiceImp implements PaymentAccountService {
 		return paymentaccountsRepo.findWithUser(userid);
 	}
 
+	@Override
+	public Paymentaccounts findById(String paycount) {
+		return paymentaccountsRepo.findById(paycount).get();
+	}
+
+	@Override
+	public void save(Paymentaccounts paymentaccount) {
+		paymentaccountsRepo.save(paymentaccount);
+	}
+
 }

@@ -64,9 +64,127 @@ app.config(function ($routeProvider) {
             templateUrl: '/Ibook/seller/shop/finance/revenue',
             controller: 'revenueFinanceController'
         })
+        .when('/finance/accountBalance',{
+            templateUrl: '/Ibook/seller/shop/finance/bankAccountBalance',
+            controller: 'bankAccountController'
+        })
+        .when('/finance/createBankAccount',{
+            templateUrl: '/Ibook/seller/shop/finance/createBankAccount',
+            controller: 'createBankAccountController'
+        })
         .otherwise({
             redirectTo: '/seller'
         });
+});
+app.controller("createBankAccountController", function ($scope, $routeParams, $route, $http, $rootScope,$timeout,$window) {
+    let host = "http://localhost:8080/rest/revenueFinance/";
+    $scope.accountBalance={};
+    $scope.getAccountShop = function () {
+        $scope.account = [];
+        $http.get(`http://localhost:8080/rest/shop/account`).then(resp => {
+            $scope.account = resp.data;
+        }).catch(error => {
+            console.log("Error", error)
+        });
+    }
+
+    $scope.saveAccountBalance = function () {
+        $scope.accountBalance.userid = $scope.account.userid;
+        let url = `${host}saveAccountBalance`;
+        const headers = {
+            'Content-Type': "application/json",
+            transformRequest: angular.identity
+        };
+        $http.post(url, JSON.stringify($scope.accountBalance), {headers: headers}).then(resp => {
+            console.log("Save Account  success!!!")
+            $scope.getBankAccountBalance();
+            $window.alert("Save Account  success!!!");
+        }).catch(error => {
+            console.log("Save Account false!!!")
+            $window.alert("Save Account false!!!");
+        });
+    }
+    $scope.getAccountShop();
+})
+//Bank account balance
+app.controller("bankAccountController", function ($scope, $routeParams, $route, $http, $rootScope,$timeout) {
+    let host = "http://localhost:8080/rest/revenueFinance/";
+    $scope.getBankAccountBalance = function () {
+        $scope.accountBalance=[];
+        let url = `${host}getAccountBalance`;
+        $http.get(url).then(resp => {
+            $scope.accountBalance = resp.data;
+            console.log("accountBalance:", $scope.accountBalance)
+        }).catch(error => {
+            console.log("Error", error)
+        });
+    }
+
+
+    $scope.getBankAccountBalance();
+})
+//revenue
+app.controller("revenueFinanceController", function ($scope, $routeParams, $route, $http, $rootScope,$timeout) {
+    let host = "http://localhost:8080/rest/revenueFinance/";
+    $scope.paymentTotal=[];
+    $scope.getRevenueFinance = function () {
+        $scope.shopPayment=[];
+        let url = `${host}getRevenue`;
+        $http.get(url).then(resp => {
+            $scope.shopPayment = resp.data;
+            console.log("shopPayment:", $scope.shopPayment)
+        }).catch(error => {
+            console.log("Error", error)
+        });
+    }
+    $scope.getAnalysisFinance = function () {
+        $scope.analysisFinance=[];
+        let url = `${host}getAnalysisFinance`;
+        $http.get(url).then(resp => {
+            $scope.analysisFinance = resp.data;
+            console.log("analysisFinance:", $scope.analysisFinance)
+        }).catch(error => {
+            console.log("Error", error)
+        });
+    }
+    $scope.getListFinance = function () {
+        $scope.listPayment=[];
+        let url = `${host}getListFinance`;
+        $http.get(url).then(resp => {
+            $scope.listPayment = resp.data;
+            console.log("listPayment:", $scope.listPayment)
+        }).catch(error => {
+            console.log("Error", error)
+        });
+    }
+
+    $scope.sendRequestPayment = function () {
+        let url = `${host}sendRequestPayment`;
+        var currentDate = new Date();
+        let formData;
+        formData = new FormData();
+
+        formData.append('paymentTotal', $scope.paymentTotal);
+        formData.append("reportProgress", true);
+        const headers = {
+            'Content-Type': undefined,
+            transformRequest: angular.identity
+        };
+        $http.post(url, formData, {headers: headers}).then(resp => {
+            $scope.getRevenueFinance();
+            $scope.getAnalysisFinance();
+            $scope.getListFinance();
+            console.log("Result: ", "success!!!!!!")
+            $window.alert("Send request payment success!!!");
+
+        }).catch(error => {
+            console.log("Error", error)
+            $window.alert("Send request payment false!!!");
+        });
+    }
+    $scope.getRevenueFinance();
+    $scope.getAnalysisFinance();
+    $scope.getListFinance();
 });
 //sales Analysis
 app.controller("salesController", function ($scope, $routeParams, $route, $http, $rootScope,$timeout) {

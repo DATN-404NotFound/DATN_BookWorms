@@ -60,6 +60,7 @@ public class Shoponlines implements Serializable {
     public Boolean isactive;
 
 
+
     //--- ENTITY LINKS ( RELATIONSHIP )
     @OneToMany(mappedBy = "shoponlines")
     @JsonIgnore

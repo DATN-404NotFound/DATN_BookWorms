@@ -8,6 +8,9 @@ public interface PaymentAccountService {
 	
 	public List<Paymentaccounts> findAll();
 	public List<Paymentaccounts> findWithUser(String userid);
-	
 
+
+    Paymentaccounts findById(String paycount);
+
+    void save(Paymentaccounts paymentaccount);
 }
