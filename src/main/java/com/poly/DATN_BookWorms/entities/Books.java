@@ -80,23 +80,40 @@ public class Books implements Serializable {
 
 
     //--- ENTITY LINKS ( RELATIONSHIP )
+<<<<<<< HEAD
     @OneToMany(mappedBy = "books")
     @JsonIgnore
     public List<Cart> listOfCart;
+=======
+    @OneToMany(mappedBy="books", fetch = FetchType.EAGER)
+    private List<Cart> listOfCart ; 
+>>>>>>> zendyy/back_end
 
     @ManyToOne
     @JoinColumn(name = "Shopid", referencedColumnName = "ShopId", insertable = false, updatable = false)
     public Shoponlines shoponlines;
 
+<<<<<<< HEAD
     @OneToMany(mappedBy = "books")
+=======
+    @OneToMany(mappedBy="books" , fetch = FetchType.EAGER)
+>>>>>>> zendyy/back_end
     @JsonIgnore
     public List<Imagebooks> listOfImagebooks;
 
+<<<<<<< HEAD
     @OneToMany(mappedBy = "books")
+=======
+    @OneToMany(mappedBy="books" , fetch = FetchType.EAGER)
+>>>>>>> zendyy/back_end
     @JsonIgnore
     public List<Detailbookings> listOfDetailbookings;
 
+<<<<<<< HEAD
     @OneToMany(mappedBy = "books")
+=======
+    @OneToMany(mappedBy="books" , fetch = FetchType.EAGER)
+>>>>>>> zendyy/back_end
     @JsonIgnore
     public List<Typebooks> listOfTypebooks;
 

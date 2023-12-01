@@ -31,6 +31,7 @@ import jakarta.servlet.http.HttpServletRequest;
 
 @Controller
 @RequestMapping("/account")
+<<<<<<< HEAD
 public class    AccountController {
 
     @Autowired
@@ -59,6 +60,36 @@ public class    AccountController {
     
     @Autowired
     MailBody mailBody;
+=======
+public class AccountController {
+
+	@Autowired
+	AccountService accountService;
+
+	@GetMapping("/login")
+	public String loginForm() {
+		return "Client/Account_page/Login";
+	}
+
+	@PostMapping("/login")
+	public String loginForms() {
+		System.out.println("kjdsfkdjhskf");
+		
+		return "Client/Account_page/Login";
+	}
+
+	@GetMapping("/registration")
+	public String registrationForm(Model model) {
+		AccountDTO user = new AccountDTO();
+		model.addAttribute("user", user);
+		return "Client/Account_page/Register";
+	}
+
+	@PostMapping("/registration")
+	public String registration(@Valid @ModelAttribute("user") AccountDTO accountDTO, BindingResult result,
+			Model model) {
+		Account existingUser = accountService.findByUsename(accountDTO.getUsername());
+>>>>>>> zendyy/back_end
 
 
     @RequestMapping("/login")
@@ -74,6 +105,7 @@ public class    AccountController {
             return "redirect:/login";
         }
 
+<<<<<<< HEAD
         if (accountService.findByUsename(performance.getName()) == null) {
             AccountDTO accountDTO = new AccountDTO();
             accountDTO.setEmail(performance.getAttribute("email"));
@@ -187,4 +219,10 @@ public class    AccountController {
       public String otpcon() { 
     	  return "Client/Account_page/ConfirmCode"; 
       }  
+=======
+	@RequestMapping("/faild")
+	public String a() {
+		return "Client/Account_page/Register";
+	}
+>>>>>>> zendyy/back_end
 }

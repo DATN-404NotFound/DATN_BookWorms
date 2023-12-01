@@ -13,9 +13,43 @@ public interface BookingService {
 
 	Optional<Bookings> findById(String id);
 
+<<<<<<< HEAD
 	public List<Bookings> findByUserId(String userId);
 	public List<Bookings> findAll();
 	public List<Bookings> findByStatusId(String orderStatusId);
+=======
+	List<Bookings> findByUsername(String username);
+	
+	List<Bookings> findAll();
+
+	long countUnpaid();
+	
+	long countPaid();
+
+	long countConfirm();
+
+	long countDelivering();
+
+	long countProcessed();
+
+	long countCancel();
+
+	long countRefund();
+
+	List<Bookings> unpaid();
+
+	List<Bookings> paid();
+
+	List<Bookings> confirm();
+
+	List<Bookings> delivering();
+
+	List<Bookings> processed();
+
+	List<Bookings> cancel();
+
+	List<Bookings> refund();
+>>>>>>> zendyy/back_end
 
 
 

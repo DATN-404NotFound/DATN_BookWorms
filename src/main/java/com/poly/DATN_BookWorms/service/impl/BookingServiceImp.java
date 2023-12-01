@@ -152,6 +152,7 @@ public class BookingServiceImp implements BookingService{
 	}
 
 	@Override
+<<<<<<< HEAD
 	public List<Bookings> findByStatusId(String orderStatusId) {
 		logger.info("get booking by orderStatusId have orderStatusId : {}", orderStatusId);
 		return bookingRepo.ListBookings_Status(orderStatusId);
@@ -170,4 +171,79 @@ public class BookingServiceImp implements BookingService{
 				.filter(booking -> booking.getOrderstatusid().equals(orderStatusId))
 				.collect(Collectors.toList());
 	}
+=======
+	public List<Bookings> findAll() {
+		// TODO Auto-generated method stub
+		return bookingRepo.findAll();
+	}
+	
+	@Override
+	public List<Bookings> unpaid() {
+		// TODO Auto-generated method stub
+		return bookingRepo.unpaid();
+	}
+	
+	@Override
+	public List<Bookings> paid() {
+		// TODO Auto-generated method stub
+		return bookingRepo.paid();
+	}
+	
+	@Override
+	public List<Bookings> confirm() {
+		// TODO Auto-generated method stub
+		return bookingRepo.confirm();
+	}
+	
+	@Override
+	public List<Bookings> delivering() {
+		// TODO Auto-generated method stub
+		return bookingRepo.delivering();
+	}
+	
+	@Override
+	public List<Bookings> processed() {
+		// TODO Auto-generated method stub
+		return bookingRepo.processed();
+	}
+	
+	@Override
+	public List<Bookings> cancel() {
+		// TODO Auto-generated method stub
+		return bookingRepo.cancel();
+	}
+	
+	@Override
+	public List<Bookings> refund() {
+		// TODO Auto-generated method stub
+		return bookingRepo.refund();
+	}
+	public long countUnpaid() {
+        return bookingRepo.countUnpaid();
+    }
+	
+	public long countPaid() {
+        return bookingRepo.countPaid();
+    }
+	
+	public long countConfirm() {
+        return bookingRepo.countConfirm();
+    }
+	
+	public long countDelivering() {
+        return bookingRepo.countDelivering();
+    }
+	
+	public long countProcessed() {
+        return bookingRepo.countProcessed();
+    }
+	
+	public long countCancel() {
+        return bookingRepo.countCancel();
+    }
+	
+	public long countRefund() {
+        return bookingRepo.countRefund();
+    }
+>>>>>>> zendyy/back_end
 }

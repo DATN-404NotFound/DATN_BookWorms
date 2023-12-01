@@ -35,6 +35,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 @RequestMapping("/product")
 public class ProductController {
+<<<<<<< HEAD
 	
 	private static final Logger logger = LogManager.getLogger();
 	
@@ -135,6 +136,56 @@ public class ProductController {
 		model.addAttribute("books", b);
 		model.addAttribute("userid", crc.getCodeCRC32C(request.getRemoteUser()));
 		// System.out.println("ll"+ item.getListOfImagebooks().get(0).getName());
+=======
+
+	@Autowired
+	BookService bookService;
+	@Autowired
+	CategoryService categoryService;
+	@Autowired
+	PublishingCompanyService publishingCompanyService;
+	@Autowired
+	WriterMasterService writerMasterService;
+
+	@GetMapping("/product/list")
+	public String listBooks(Model model, @RequestParam(defaultValue = "0") int page,
+			@RequestParam(defaultValue = "8") int size, @RequestParam(defaultValue = "asc") String priceSort) {
+
+		Sort priceDirection;
+		if ("asc".equalsIgnoreCase(priceSort)) {
+			priceDirection = Sort.by(Sort.Direction.DESC, "price");
+
+		} else {
+			priceDirection = Sort.by(Sort.Direction.ASC, "price");
+		}
+
+		Sort sort = priceDirection;
+
+		Pageable pageable = PageRequest.of(page, size, sort);
+		List<Categories> categories = categoryService.findAll();
+		List<Publishingcompanies> publishingcompanies = publishingCompanyService.findAll();
+		List<Writtingmasters> writtingmasters = writerMasterService.findAll();
+		Page<BookResponse> bookPage = bookService.findAllBook(pageable);
+
+		model.addAttribute("books", bookPage.getContent());
+		model.addAttribute("currentPage", page);
+		model.addAttribute("totalPages", bookPage.getTotalPages());
+		model.addAttribute("categories", categories);
+		model.addAttribute("publishingcompanies", publishingcompanies);
+		model.addAttribute("writtingmasters", writtingmasters);
+		return "Client/Product_page/product_list";
+	}
+
+	@GetMapping("/product/detail/{bookid}")
+	public String detail(@PathVariable("bookid") int id, Model model) {
+		Books item = bookService.findById(id);
+
+		model.addAttribute("item", item);
+		
+		List<Books> itemCate = bookService.findRelatedBooks(id);
+		
+		model.addAttribute("itemcate", itemCate);
+>>>>>>> zendyy/back_end
 		return "Client/Product_page/detail_product";
 	}
 	

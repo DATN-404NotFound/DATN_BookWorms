@@ -383,6 +383,7 @@ app.controller("salesController", function ($scope, $routeParams, $route, $http,
             console.log("Error", error)
         });
     }
+    $scope.getSalesAnalysis();
     $scope.getCategoryRanking();
     $scope.getBookRankingToSales();
     $scope.getBookRankingToNumber();

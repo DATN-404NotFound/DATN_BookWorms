@@ -1,11 +1,15 @@
 package com.poly.DATN_BookWorms.config;
 
+<<<<<<< HEAD
 import jakarta.servlet.Filter;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
+=======
+import org.springframework.beans.factory.annotation.Autowired;
+>>>>>>> zendyy/back_end
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -17,15 +21,21 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.DefaultRedirectStrategy;
 import org.springframework.security.web.RedirectStrategy;
 import org.springframework.security.web.SecurityFilterChain;
+<<<<<<< HEAD
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
 
 import java.io.IOException;
 import java.util.List;
+=======
+
+import com.poly.DATN_BookWorms.service.AccountService;
+>>>>>>> zendyy/back_end
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
+<<<<<<< HEAD
 	@Bean
 	public PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
@@ -97,4 +107,36 @@ public class SecurityConfig {
 	}
 	
 
+=======
+
+	@Autowired
+	AccountService accountservice;
+//	Phân quyền sử dụng
+
+	@Bean
+	public SecurityFilterChain web(HttpSecurity http) throws Exception {
+
+		http.authorizeHttpRequests((request) -> request
+				.requestMatchers("/account/**", "/Admin/Css/**", "/Admin/Image/**", "/Admin/Js/**")
+
+				.permitAll().requestMatchers("/Client/**", "/product/**").permitAll().requestMatchers("/rest/**")
+				.permitAll().requestMatchers("static/Client/**").permitAll().requestMatchers("admin/**", "api/payment/**").hasAuthority("ADMIN")
+				.requestMatchers("/seller/**").hasAuthority("SELLER").anyRequest().authenticated())
+
+				.formLogin(form -> form.loginPage("/account/login").defaultSuccessUrl("/product/dashboard").permitAll())
+
+				.logout((form) -> form.logoutUrl("/account/logout").logoutSuccessUrl("/account/logoutSuccess")
+
+						.permitAll());
+		http.cors().and().csrf().disable();
+
+		return http.build();
+	}
+
+	@Bean
+	public PasswordEncoder passwordEncoder() {
+		return new BCryptPasswordEncoder();
+	}
+
+>>>>>>> zendyy/back_end
 }

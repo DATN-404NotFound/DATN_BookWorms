@@ -40,6 +40,7 @@ public interface BookService {
 	List<Books> findByshopidv2(Integer shopid);
 	List<Books> findTop5LowestQuantityBooksByShopId(Integer shopId);
 	
+<<<<<<< HEAD
 	Page<Books> findBooksNew(Pageable pageable);
 
 	void updateIsActive(Long bookId, boolean newIsActive);
@@ -49,4 +50,8 @@ public interface BookService {
 	List<Integer> getBookWithWriters(List<Integer> listwriter);
 	List<Integer> getBookWithEvaluate(List<Integer> listeva);
 
+=======
+	List<Books> findRelatedBooks(Integer bookid);
+	
+>>>>>>> zendyy/back_end
 }
