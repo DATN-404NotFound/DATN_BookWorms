@@ -17,18 +17,33 @@ public class DetailBookingServieImp implements DetailBookingService{
 
 	@Autowired
 	BooksRepo booksRepo;
-	
+
 	@Override
-	public List<Books> findTop5Seller() {
-		// TODO Auto-generated method stub
-		return booksRepo.findTop5Seller();
+	public List<Detailbookings> findByAll() {
+		return null;
 	}
 
 	@Override
-	public List<Books> findTop5Inventory() {
-		// TODO Auto-generated method stub
-		return booksRepo.findTop5Inventory();
+	public Detailbookings dtb(String id) {
+		return null;
 	}
+
+	@Override
+	public List<Detailbookings> findByBookingId(String bookingId) {
+		return null;
+	}
+
+//	@Override
+//	public List<Books> findTop5Seller() {
+//		// TODO Auto-generated method stub
+//		return booksRepo.findTop5Seller();
+//	}
+//
+//	@Override
+//	public List<Books> findTop5Inventory() {
+//		// TODO Auto-generated method stub
+//		return booksRepo.findTop5Inventory();
+//	}
 
 	
 }

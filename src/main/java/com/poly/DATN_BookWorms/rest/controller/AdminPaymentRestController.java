@@ -43,33 +43,33 @@ public class AdminPaymentRestController {
 	@Autowired
 	ShoponlinesRepo shopOnlinesRepo;
 
-	@GetMapping("/payment-callback")
-	public void paymentCallback(@RequestParam Map<String, String> queryParams, HttpServletResponse response)
-			throws IOException, NumberFormatException, NotFoundException {
-		String vnp_ResponseCode = queryParams.get("vnp_ResponseCode");
-		String paymentShopId = queryParams.get("paymentshopid");
-		if (paymentShopId != null && !paymentShopId.equals("")) {
-			if ("00".equals(vnp_ResponseCode)) {
-				// Giao dịch thành công
-				// Thực hiện các xử lý cần thiết, ví dụ: cập nhật CSDL
-				PaymentShop paymentShop = paymentShopRepo.findById(Integer.parseInt(queryParams.get("paymentshopid")))
-						.orElseThrow(() -> new NotFoundException());
-				paymentShop.setStatus(1);
-				Shoponlines shopOnlines = paymentShopRepo.findShopId(paymentShop.getShoponlines().getShopid());
-
-				System.out.println("hi " + paymentShop.getShoponlines().getTotal());
-				shopOnlines.setTotal(shopOnlines.getTotal() - paymentShop.getValuepayment());
-				shopOnlinesRepo.save(shopOnlines);
-				paymentShopRepo.save(paymentShop);
-				response.sendRedirect("http://localhost:8080/api/payment/callpayment");
-			} else {
-				// Giao dịch thất bại
-				// Thực hiện các xử lý cần thiết, ví dụ: không cập nhật CSDL\
-				response.sendRedirect("http://localhost:4200/payment-failed");
-
-			}
-		}
-	}
+//	@GetMapping("/payment-callback")
+//	public void paymentCallback(@RequestParam Map<String, String> queryParams, HttpServletResponse response)
+//			throws IOException, NumberFormatException, NotFoundException {
+//		String vnp_ResponseCode = queryParams.get("vnp_ResponseCode");
+//		String paymentShopId = queryParams.get("paymentshopid");
+//		if (paymentShopId != null && !paymentShopId.equals("")) {
+//			if ("00".equals(vnp_ResponseCode)) {
+//				// Giao dịch thành công
+//				// Thực hiện các xử lý cần thiết, ví dụ: cập nhật CSDL
+//				PaymentShop paymentShop = paymentShopRepo.findById(Integer.parseInt(queryParams.get("paymentshopid")))
+//						.orElseThrow(() -> new NotFoundException());
+//				paymentShop.setStatus(1);
+//				Shoponlines shopOnlines = paymentShopRepo.findShopId(paymentShop.getShoponlines().getShopid());
+//
+//				System.out.println("hi " + paymentShop.getShoponlines().getTotal());
+//				shopOnlines.setTotal(shopOnlines.getTotal() - paymentShop.getValuepayment());
+//				shopOnlinesRepo.save(shopOnlines);
+//				paymentShopRepo.save(paymentShop);
+//				response.sendRedirect("http://localhost:8080/api/payment/callpayment");
+//			} else {
+//				// Giao dịch thất bại
+//				// Thực hiện các xử lý cần thiết, ví dụ: không cập nhật CSDL\
+//				response.sendRedirect("http://localhost:4200/payment-failed");
+//
+//			}
+//		}
+//	}
 
 	@GetMapping("/create_payment/{paymentshopid}&{valuepayment}")
 	public RedirectView createPayment(@PathVariable("paymentshopid") long paymentshopid,

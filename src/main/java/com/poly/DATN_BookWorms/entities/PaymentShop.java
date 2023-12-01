@@ -1,11 +1,6 @@
 package com.poly.DATN_BookWorms.entities;
 
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.poly.DATN_BookWorms.entities.Shoponlines;
-import jakarta.persistence.*;
-
-
 import java.util.Date;
 
 import jakarta.persistence.Column;
@@ -24,8 +19,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
-import java.util.Date;
-import java.util.List;
 
 /**
  * JPA entity class for "Shoponlines"
@@ -57,5 +50,11 @@ public class PaymentShop implements Serializable {
 	@ManyToOne
     @JoinColumn(name="Shopid", referencedColumnName="ShopId", insertable=false, updatable=false)
     private Shoponlines shoponlines ;
+
+    public void setStatus(boolean b) {
+    }
+
+	public void setValuepayment(double v) {
+	}
 }
 

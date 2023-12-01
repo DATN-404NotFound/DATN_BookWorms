@@ -19,12 +19,12 @@ public class PaymentController {
 	@Autowired
 	PaymentShopService paymentShopService;
 
-	@GetMapping("/callpayment")
-	public String callPayment(Model model) {
-
-		List<PaymentShop> item = paymentShopService.findAll();
-		System.out.println("hi" + item);
-		model.addAttribute("item", item);
-		return "admin/payment";
-	}
+//	@GetMapping("/callpayment")
+//	public String callPayment(Model model) {
+//
+//		List<PaymentShop> item = paymentShopService.findAll();
+//		System.out.println("hi" + item);
+//		model.addAttribute("item", item);
+//		return "admin/payment";
+//	}
 }
