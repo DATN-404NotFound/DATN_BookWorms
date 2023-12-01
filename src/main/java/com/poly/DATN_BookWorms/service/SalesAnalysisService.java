@@ -6,9 +6,9 @@ import java.util.Date;
 
 @Service
 public interface SalesAnalysisService {
-    double getMonthSales(Date startDate, Date endDate);
-
-    int getMonthOrder(Date startDate, Date endDate);
-
-    int getProductView(Integer shopId);
+//    double getMonthSales(Date startDate, Date endDate);
+//
+//    int getMonthOrder(Date startDate, Date endDate);
+//
+//    int getProductView(Integer shopId);
 }

@@ -31,7 +31,7 @@ public class SellerController {
     }
     @RequestMapping("/orderManagement/sales")
     public String salesOrderManagement(Model model){
-        return "SellerChannel/Voucher";
+        return "SellerChannel/Sales";
     }
     @RequestMapping("/shop/shopProfile")
     public String shopProfile(Model model){

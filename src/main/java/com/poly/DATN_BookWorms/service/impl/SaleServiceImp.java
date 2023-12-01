@@ -8,6 +8,7 @@ import com.poly.DATN_BookWorms.entities.*;
 import com.poly.DATN_BookWorms.repo.DiscountcodesRepo;
 import com.poly.DATN_BookWorms.repo.HassalesRepo;
 import com.poly.DATN_BookWorms.service.ShopOnlinesService;
+import com.poly.DATN_BookWorms.utils.CRC32_SHA256;
 import com.poly.DATN_BookWorms.utils.SessionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,6 +28,8 @@ public class SaleServiceImp implements SaleService{
 	@Autowired
 	SessionService session;
 	@Autowired
+	CRC32_SHA256 crc32Sha256;
+	@Autowired
 	ShopOnlinesService shopOnlinesService;
 	@Override
 	public List<Sales> findAll() {
@@ -40,17 +43,18 @@ public class SaleServiceImp implements SaleService{
 	}
 
 	@Override
-	public Sales create(String Couoponcode, String Promotionname, Date Createat, String Descriptions, BigDecimal Discountpercentage, String Statuses, String Intendfor) {
+	public Sales create( String promotionname, Date createat, String descriptions, BigDecimal discountpercentage, String statuses, String intendfor) {
 		Account account = session.get("user");
 	Shoponlines shoponlines = shopOnlinesService.findShoponlinesByUserId(account.getUserid());
 		Sales sales = new Sales();
-		sales.setCouoponcode(Couoponcode);
-		sales.setPromotionname(Promotionname);
-		sales.setCreateat(Createat);
-		sales.setDescriptions(Descriptions);
-		sales.setDiscountpercentage(Discountpercentage);
-		sales.setStatuses(Statuses);
-		sales.setIntendfor(Intendfor);
+		String authorityId = crc32Sha256.getCodeCRC32C(promotionname + statuses);
+		sales.setCouoponcode(authorityId);
+		sales.setPromotionname(promotionname);
+		sales.setCreateat(createat);
+		sales.setDescriptions(descriptions);
+		sales.setDiscountpercentage(discountpercentage);
+		sales.setStatuses(statuses);
+		sales.setIntendfor(intendfor);
 		sales.setShopid(shoponlines.getShopid());
 		return saleRepo.save(sales);
 	}

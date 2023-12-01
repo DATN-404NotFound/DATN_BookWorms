@@ -12,6 +12,7 @@ import com.poly.DATN_BookWorms.entities.Books;
 import com.poly.DATN_BookWorms.entities.Publishingcompanies;
 import com.poly.DATN_BookWorms.entities.Shoponlines;
 import com.poly.DATN_BookWorms.response.BookResponse;
+import org.springframework.web.multipart.MultipartFile;
 
 
 public interface BookService {
@@ -23,7 +24,9 @@ public interface BookService {
 	
 	List<Publishingcompanies> getPCWithShop(Integer shopid);
 
-	Books create(Books book);
+	Books creates(String bookname, String language, String size, Double weight, Integer totalpage,
+				  Integer publishingyear, Double price, Integer quantity,
+				  Integer publishingcompanyid, Boolean isactive, MultipartFile[] images, Integer category);
 
 	Books update(Books book);
 
@@ -34,7 +37,10 @@ public interface BookService {
 	Books findTopBookByQuantitySold();
 	Page<Books> getBooksByCategoryID(Integer categories, Pageable pageable);
 	Page<Books> findByshopid(Integer shopid, Pageable pageable);
+	List<Books> findByshopidv2(Integer shopid);
 	List<Books> findTop5LowestQuantityBooksByShopId(Integer shopId);
 	
 	Page<Books> findBooksNew(Pageable pageable);
+
+	void updateIsActive(Long bookId, boolean newIsActive);
 }

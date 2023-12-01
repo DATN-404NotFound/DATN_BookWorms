@@ -57,7 +57,7 @@ public List<Publishingcompanies> getPCWithShop(Integer shopid);
     @Query("SELECT b FROM Books b  ORDER BY b.publishingyear DESC ")
     Page<Books> findBooksNew(Pageable pageable);
 
-    @Query("SELECT SUM(b.productviews) FROM Books b  WHERE b.shoponlines.shopid =?1 ")
-    int getProductViews(Integer shopId);
+//    @Query("SELECT SUM(b.productviews) FROM Books b  WHERE b.shoponlines.shopid =?1 ")
+//    int getProductViews(Integer shopId);
 }
 

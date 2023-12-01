@@ -436,9 +436,55 @@ app.service('BookService', function($http) {
 });
                     //Add
 //Tranport
+app.controller('transportController', function($scope, $routeParams, $route, $http, $rootScope) {
+    $scope.pageSize = 5; // Number of items per page
+    $scope.currentPage = 1; // Current page
+    $scope.totalPages = 1
+    $scope.findByOrderStatusId = function(orderstatusid) {
+        $scope.bookings = [];
+        if (orderstatusid === 0) {
+            $http.get('/rest/tranportChannel/all')
+                .then(function(response) {
+                    $scope.bookings = response.data;
+                    $scope.totalPages = Math.ceil($scope.bookings.length / $scope.pageSize);
+                    $scope.setPage(1); // Set initial page
+                });
+        } else {
+            $http.get('/rest/tranportChannel/' + orderstatusid)
+                .then(function(response) {
+                    $scope.bookings = response.data;
+                    $scope.totalPages = Math.ceil($scope.bookings.length / $scope.pageSize);
+                    $scope.setPage(1); // Set initial page
+                });
+        }
+    };
+    $scope.findByOrderStatusId();
+    $scope.setPage = function (page) {
+        console.log('Current Page:', $scope.currentPage);
+        console.log('Total Pages:', $scope.totalPages);
+        if (page < 1 || page > $scope.totalPages) {
+            return;
+        }
+        $scope.currentPage = page;
+        var startIndex = (page - 1) * $scope.pageSize;
+        var endIndex = startIndex + $scope.pageSize;
+        $scope.paginatedBooks = $scope.bookings.slice(startIndex, endIndex);
+        console.log('setPage called with page:', page);
+        // ... (rest of the code)
+
+        console.log('currentPage:', $scope.currentPage);
+        console.log('paginatedBooks:', $scope.paginatedBooks);
+    };
+    $scope.getPages = function () {
+        return new Array($scope.totalPages).fill().map((_, index) => index + 1);
+    };
+
+});
+
+
     //Voucher
     //Create Voucher
-app.controller('createVoucherController', function($scope, $routeParams, $route, $http, $rootScope) {
+app.controller('createVoucherController', function($scope, $http) {
     $scope.pageSize = 5; // Number of items per page
     $scope.currentPage = 1; // Current page
     $scope.totalPages = 1
@@ -485,6 +531,19 @@ app.controller('createVoucherController', function($scope, $routeParams, $route,
 
         $scope.isButtonDisabled = $scope.selectedOption === 'Books';
     };
+    $scope.createSale = function() {
+        // Gửi dữ liệu form đến API
+        $http.post('http://localhost:8080/rest/sale/create', $scope.sale)
+            .then(function(response) {
+
+                alert(response.data.message);
+            })
+            .catch(function(error) {
+
+                console.error('Error:', error);
+                alert('An error occurred while processing the request.');
+            });
+    };
 
 });
 
@@ -521,6 +580,87 @@ app.controller('reviewController', function($scope, $routeParams, $route, $http,
     $scope.initInfoProduct();
 });
 
+//////////////sales
+app.controller('salesOrderManagementController', function($scope, $http) {
+    $scope.pageSize = 5; // Number of items per page
+    $scope.currentPage = 1; // Current page
+    $scope.totalPages = 1
+    $scope.initInfoProduct = function () {
+        $scope.books = [];
+        $http.get('/rest/books/ab')
+            .then(function(response) {
+                $scope.books = response.data;
+                $scope.totalPages = Math.ceil($scope.books.length / $scope.pageSize);
+                $scope.setPage(1); // Set initial page
+                console.log('Evaluates:', $scope.books);
+            })
+            .catch(function(error) {
+                console.error('Error fetching data:', error);
+            });
 
+    }
+    $scope.initInfoProduct();
+    $scope.setPage = function (page) {
+        console.log('Current Page:', $scope.currentPage);
+        console.log('Total Pages:', $scope.totalPages);
+        if (page < 1 || page > $scope.totalPages) {
+            return;
+        }
+        $scope.currentPage = page;
+        var startIndex = (page - 1) * $scope.pageSize;
+        var endIndex = startIndex + $scope.pageSize;
+        $scope.paginatedBooks = $scope.books.slice(startIndex, endIndex);
+        console.log('setPage called with page:', page);
+        // ... (rest of the code)
+
+        console.log('currentPage:', $scope.currentPage);
+        console.log('paginatedBooks:', $scope.paginatedBooks);
+    };
+
+    $scope.getPages = function () {
+        return new Array($scope.totalPages).fill().map((_, index) => index + 1);
+    };
+    $scope.setImage = function (bookId) {
+        let url = `http://localhost:8080/rest/imagebook/` + bookId;
+        $http.get(url).then(resp => {
+            var a = [];
+            a = (resp.data);
+            console.log("fff"+JSON.stringify(resp.data));
+            document.getElementById('img' + bookId).src = "/Client/images/" + a[0].name
+        }).catch(error => {
+            console.log("Error", error)
+        });
+    }
+    $scope.books = [
+        { isactive: true },
+        { isactive: false },
+        // Add more book objects as needed
+    ];
+    $scope.updateIsActive = function(book) {
+
+        $http.put('/rest/books/updateIsActive/' + book.bookid, { isactive: book.isactive })
+            .then(function(response) {
+                console.log('Cập nhật thành công.');
+            })
+            .catch(function(error) {
+                console.error('Lỗi khi cập nhật: ', error);
+                // Nếu có lỗi, bạn có thể khám phá các cách xử lý lỗi phù hợp với ứng dụng của bạn
+            });
+    };
+    $scope.removeBook = function(book) {
+        var bookId = book.bookid;
+
+        $http.delete('/rest/books/delete/' + bookId)
+            .then(function(response) {
+                var index = $scope.paginatedBooks.indexOf(book);
+                if (index !== -1) {
+                    $scope.paginatedBooks.splice(index, 1);
+                }
+            })
+            .catch(function(error) {
+                console.error('Error deleting book:', error);
+            });
+    };
+});
 
 

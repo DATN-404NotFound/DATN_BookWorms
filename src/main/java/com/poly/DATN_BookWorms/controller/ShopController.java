@@ -57,7 +57,7 @@ public class ShopController {
         model.addAttribute("currentPage", page);
         model.addAttribute("totalPages", bookPage.getTotalPages());
         List<Books> minquantity  = bookService.findTop5LowestQuantityBooksByShopId(id);      
-        model.addAttribute("minquantity", minquantity);
+        model.addAttribute("min quantity", minquantity);
         List<Writtingmasters> listWriter = writerService.getWrittingWithSHop(id);
         model.addAttribute("listWriter", listWriter);      
        List<Categories> listCateogories = typeBookService.getCategoriesWithShop(id);

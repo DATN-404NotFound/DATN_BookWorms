@@ -1,6 +1,7 @@
 package com.poly.DATN_BookWorms.service.impl;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -86,9 +87,9 @@ public class BookingServiceImp implements BookingService{
 	}
 
 	@Override
-	public Object findById(String id) {
+	public Optional<Bookings> findById(String id) {
 		// TODO Auto-generated method stub
-		return bookingRepo.findById(id);
+		return  bookingRepo.findById(id);
 	}
 
 	@Override
@@ -107,11 +108,16 @@ public class BookingServiceImp implements BookingService{
 	}
 
 
-//	@Override
-//	public List<Bookings> findByUsername(String username) {
-//		// TODO Auto-generated method stub
-//		return bookingRepo.findByUsername(username);
-//	}
+	@Override
+	public List<Bookings> findAllByUserId(String userId) {
+		return bookingRepo.findByuserid(userId);
+	}
+	@Override
+	public List<Bookings> findByUserIdAndOrderStatusId(String userId, Integer orderStatusId) {
+		List<Bookings> allByUserId = findAllByUserId(userId);
 
-	
+		return allByUserId.stream()
+				.filter(booking -> booking.getOrderstatusid().equals(orderStatusId))
+				.collect(Collectors.toList());
+	}
 }
