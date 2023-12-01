@@ -217,12 +217,18 @@ a:hover{
     margin-left: calc(50% - 375px);
     margin-top: 37px;
 }
-.btnFinish-newAddress{
+.btnFinish-newAddress, .btnFinish-editAddress{
     background-color: #F25019;
     color: white;
     width: 145px;
     height: 46.25px;
-    margin-left: calc(100% - 320px);
+    margin-left: calc(100% - 485px);
+}
+.btnDelete-editAddress{
+    width: 145px;
+    color: white;
+    height: 46.25px;
+    margin-left: 20px;
 }
 .btnCancel-newAddress{
     background-color: #D9D9D9;
@@ -233,12 +239,12 @@ a:hover{
 #formNewAddress{
     padding: 0 30px 0 30px;
 }
-#fullName-newAddress, #phone-newAddress, #specificAddress-newAddress, #formNewAddress div select{
+#fullName-newAddress, #numberPhone-newAddress, #province-newAddress, #district-newAddress, #ward-newAddress, #specificAddress-newAddress{
     height: 50px;
     font-size: 15px !important;
     padding-left: 30px !important;
 }
-#fullName-newAddress:focus, #phone-newAddress:focus, #specificAddress-newAddress:focus, #formNewAddress div select:focus{
+#fullName-newAddress:focus, #numberPhone-newAddress:focus, #province-newAddress:focus, #district-newAddress:focus, #ward-newAddress:focus, #specificAddress-newAddress:focus{
     height: 50px;
     font-size: 15px !important;
     box-shadow: none !important;
