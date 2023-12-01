@@ -32,8 +32,7 @@ public interface BookingsRepo extends JpaRepository<Bookings, String>{
 
 //	@Query("SELECT o FROM Bookings o WHERE o.account.username = ?1")
 //	List<Bookings> findByUsername(String username);
-	
-<<<<<<< HEAD
+
 
 	@Query("Select b from Bookings b where b.account.userid like ?1")
 	List<Bookings> findBookingByUser(String userid);
@@ -46,7 +45,7 @@ public interface BookingsRepo extends JpaRepository<Bookings, String>{
 
 
 	List<Bookings> findByuserid(String userId);
-=======
+
 	@Query("SELECT COUNT(b) FROM Bookings b WHERE b.orderstatuses.orderstatusid = 1")
     long countUnpaid();
 	
@@ -88,5 +87,4 @@ public interface BookingsRepo extends JpaRepository<Bookings, String>{
 	
 	@Query("SELECT b FROM Bookings b WHERE b.orderstatuses.orderstatusid = 7")
 	List<Bookings> refund();
->>>>>>> zendyy/back_end
 }

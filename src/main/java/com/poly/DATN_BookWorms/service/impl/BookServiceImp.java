@@ -139,7 +139,6 @@ public class BookServiceImp implements BookService{
 	}
 
 	@Override
-<<<<<<< HEAD
 	public Books findTopBookByQuantitySold() {
 		return bookRepo.findFirstByOrderByQuantitysoldDesc();
 	}
@@ -231,12 +230,4 @@ public class BookServiceImp implements BookService{
 		logger.info("findByShopList with shopid : {}",shopid);
 		return bookRepo.findByShopid(shopid);
 	}
-=======
-	public List<Books> findRelatedBooks(Integer bookid) {
-		// TODO Auto-generated method stub
-		return bookRepo.findRelatedBooks(bookid);
-	}
-
-	
->>>>>>> zendyy/back_end
 }

@@ -1,6 +1,6 @@
 package com.poly.DATN_BookWorms.repo;
 
-<<<<<<< HEAD
+
 import com.poly.DATN_BookWorms.entities.PaymentShop;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -16,15 +16,5 @@ public interface PaymentShopRepo extends JpaRepository<PaymentShop, Integer> {
     Float getMonthPaid(@Param("shopId") Integer shopId, @Param("startDate") Date startDate, @Param("endDate") Date endDate, @Param("status") boolean status);
     @Query("SELECT  SUM(o.valuepayment) FROM PaymentShop  o WHERE o.shoponlines.shopid = ?1 and o.status =?2")
     Float getTotal(Integer shopId, boolean statusPayment);
-=======
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
 
-import com.poly.DATN_BookWorms.entities.PaymentShop;
-import com.poly.DATN_BookWorms.entities.Shoponlines;
-
-public interface PaymentShopRepo extends JpaRepository<PaymentShop, Integer>{
-	@Query("Select DISTINCT ps.shoponlines from PaymentShop ps where ps.shoponlines.shopid = ?1")
-	Shoponlines findShopId(int id);
->>>>>>> zendyy/back_end
 }

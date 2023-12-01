@@ -152,7 +152,7 @@ public class BookingServiceImp implements BookingService{
 	}
 
 	@Override
-<<<<<<< HEAD
+
 	public List<Bookings> findByStatusId(String orderStatusId) {
 		logger.info("get booking by orderStatusId have orderStatusId : {}", orderStatusId);
 		return bookingRepo.ListBookings_Status(orderStatusId);
@@ -171,11 +171,7 @@ public class BookingServiceImp implements BookingService{
 				.filter(booking -> booking.getOrderstatusid().equals(orderStatusId))
 				.collect(Collectors.toList());
 	}
-=======
-	public List<Bookings> findAll() {
-		// TODO Auto-generated method stub
-		return bookingRepo.findAll();
-	}
+
 	
 	@Override
 	public List<Bookings> unpaid() {
@@ -245,5 +241,4 @@ public class BookingServiceImp implements BookingService{
 	public long countRefund() {
         return bookingRepo.countRefund();
     }
->>>>>>> zendyy/back_end
 }
