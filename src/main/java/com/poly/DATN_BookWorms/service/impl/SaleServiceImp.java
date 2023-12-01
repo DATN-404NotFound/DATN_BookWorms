@@ -76,6 +76,11 @@ public class SaleServiceImp implements SaleService{
 		saleRepo.deleteById(id);;
 	}
 
+	@Override
+	public List<Sales> saleOfShopIntendFor(String intendFor) {
+		return null;
+	}
+
 
 	@Override
 	public List<Sales> saleByShopAndByIntendFor(int shopId, String intendFor) {
