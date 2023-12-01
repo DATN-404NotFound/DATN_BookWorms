@@ -7,6 +7,8 @@ import com.poly.DATN_BookWorms.entities.Books;
 import com.poly.DATN_BookWorms.entities.Detailbookings;
 import com.poly.DATN_BookWorms.repo.BooksRepo;
 import jakarta.transaction.Transactional;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

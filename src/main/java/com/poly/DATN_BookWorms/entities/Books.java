@@ -112,6 +112,7 @@ public class Books implements Serializable {
     @OneToMany(mappedBy = "books")
     @JsonIgnore
     public List<Hassales> listOfHassales;
+    private Integer productviews;
 
 
     //--- toString specific method
@@ -371,7 +372,7 @@ public class Books implements Serializable {
 
 
 	public Integer getProductviews() {
-		return productviews;
+		return getProductviews();
 	}
 
 
