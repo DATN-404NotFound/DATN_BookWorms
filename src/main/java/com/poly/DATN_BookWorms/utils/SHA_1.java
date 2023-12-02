@@ -21,6 +21,5 @@ public class SHA_1 {
 			e.printStackTrace();
 			return null;
 		}
-
 	}
 }
