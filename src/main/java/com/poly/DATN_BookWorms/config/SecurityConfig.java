@@ -83,7 +83,7 @@ public class SecurityConfig {
 				.logoutSuccessUrl("/account/login")
 				.permitAll());
 
-		http.cors().and().csrf().disable();
+		http.cors().disable().csrf().disable();
 		return http.build();
 	}
 	//	Phân quyền sử dụng

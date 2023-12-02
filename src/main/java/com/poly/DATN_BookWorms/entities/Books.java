@@ -82,6 +82,7 @@ public class Books implements Serializable {
     //--- ENTITY LINKS ( RELATIONSHIP )
 
     @OneToMany(mappedBy="books", fetch = FetchType.EAGER)
+    @JsonIgnore
     private List<Cart> listOfCart ; 
 
 
