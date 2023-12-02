@@ -123,7 +123,7 @@ public class MyAccountController {
                     MultipartFile file = multipartFile.get();
                     String fileName = StringUtils.cleanPath(Objects.requireNonNull(file.getOriginalFilename()));
                     System.out.println("1");
-                    String uploadDir = "V:/FPT/DuAnTotNghiep/Source/DATN_BookWorms/src/main/resources/static/Client/images";
+                    String uploadDir = "./src/main/resources/static/Client/images";
                     Path uploadPath = Paths.get(uploadDir);
                     if (!Files.exists(uploadPath)) {
                         Files.createDirectories(uploadPath);
@@ -182,7 +182,6 @@ public class MyAccountController {
     		addressusers.setStatusaddress(addressSave.getStatusaddress());
     		addressusers.setAddressuserid(crc.getCodeCRC32C(addressusers.toString()+ new Date()));
     		addressService.create(addressusers);
-//    		System.out.println("adID: "+ addressService.generateNewAddressId());
     	}
     	return "redirect:/myAccount/address";
     }
