@@ -1,6 +1,4 @@
-const app = angular.module("address_app", []);
-
-
+const app = angular.module("my_app", []);
 
 app.controller("address_ctrl", function ($scope, $http) {
 

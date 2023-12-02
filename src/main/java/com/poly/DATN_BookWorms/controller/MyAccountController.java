@@ -125,26 +125,29 @@ public class MyAccountController {
                 if (accountUpdate.getAge()!=null) {
                     user.setAge(accountUpdate.getAge());
                 }
-                System.out.println(multipartFile);
-                }if (!multipartFile.isEmpty()) {
-                    MultipartFile file = multipartFile.get();
-                    String fileName = StringUtils.cleanPath(Objects.requireNonNull(file.getOriginalFilename()));
-                    System.out.println("1");
-                    String uploadDir = "V:/FPT/DuAnTotNghiep/Source/DATN_BookWorms/src/main/resources/static/Client/images";
-                    Path uploadPath = Paths.get(uploadDir);
-                    if (!Files.exists(uploadPath)) {
-                        Files.createDirectories(uploadPath);
-                    }
-                    try {
-                        InputStream inputStream = file.getInputStream();
-                        Path filePath = uploadPath.resolve(fileName);
-                        Files.copy(inputStream, filePath, StandardCopyOption.REPLACE_EXISTING);
-                        //save change profile
-                        user.setImage(fileName);
-                    } catch (IOException e) {
-                        throw new IOException("Could not  save uploaded file: " + fileName);
-                    }
+                System.out.println("file" +multipartFile);
+            }if (!multipartFile.isEmpty()) {
+                MultipartFile file = multipartFile.get();
+            
+                String fileName = StringUtils.cleanPath(Objects.requireNonNull(file.getOriginalFilename()));
+                System.out.println("1"+ fileName);
+                String uploadDir = "./src/main/resources/static/Client/images";
+                Path uploadPath = Paths.get(uploadDir);
+                if (!Files.exists(uploadPath)) {
+                    Files.createDirectories(uploadPath);
                 }
+                try {
+                    InputStream inputStream = file.getInputStream();
+                    Path filePath = uploadPath.resolve(fileName);
+                    if (!fileName.isEmpty()) {
+                        Files.copy(inputStream, filePath, StandardCopyOption.REPLACE_EXISTING);
+                        // Save the new profile image only if it is different
+                        user.setImage(fileName);
+                    }
+                } catch (IOException e) {
+                    throw new IOException("Could not  save uploaded file: " + fileName);
+                }
+            }
                 accountService.update(user);
 
         }

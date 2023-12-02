@@ -3,7 +3,7 @@ var password = document.getElementById("password")
 
 
 function validatePassword() {
-  if(password.value != confirm_password.value) {
+  if (password.value != confirm_password.value || password.value == "" || confirm_password.value== "") {
     confirm_password.setCustomValidity("Passwords Don't Match");
     return false;
   } else {
@@ -26,39 +26,43 @@ function disableSubmitButton() {
 }
 
 function validateSignupForm() {
-    if(validatePassword() == true){ 
-        console.log("true"+ password.value);
-       try {
-        $.ajax({  
-            url: "http://localhost:8080/rest/account/newpass",
-            type: "POST",
-            data: password.value,
-            success: function (resultData) {
-                console.log(resultData);
-                console.log("ok");
-                if(!resultData || resultData.value === null){
-                    $('#mess').show()
-                }
-                else{ 
-                    console.log(JSON.stringify(resultData));
-                    $('#myModal').show();
-                    $('#iconModel').html('<i  style="font-size: 50px;color: green;" class="bi bi-check-circle"></i> ')
-                    $('#descrptionInfor').text("Cập nhật thành công!")
-                }
-            },
-        });
-       } catch (error) {
-        console.log("lỗi : "+ error)
-        $('#mess').show();
-        
-       }
+  if (validatePassword() == true) {
+    console.log("true" + password.value);
+    try {
+      $.ajax({
+        url: "http://localhost:8080/rest/account/newpass",
+        type: "POST",
+        data: password.value,
+        success: function (resultData) {
+          console.log(resultData);
+          console.log("ok");
+          if (!resultData || resultData.value === null) {
+            console.log("40")
+          }
+          else {
+            console.log("41")
+            console.log(JSON.stringify(resultData));
+           
+            $('#iconModel').html('<i  style="font-size: 50px;color: green;" class="bi bi-check-circle"></i> ')
+            $('#descrptionInfor').text("Cập nhật thành công!")
+          }
+        },
+      });
+    } catch (error) {
+      $('#mess').show();
+      $('#modela').hide()
+      console.log("lỗi : " + error)
+
     }
-    else{ 
-        console.log("false");
-    }
+  }
+  else {
+    $('#mess').show();
+    $('#modela').hide()
+    console.log("false");
+  }
 }
 
 $(document).ready(function () {
-	$('#mess').hide();
-    $('#myModal').hide()
+  $('#mess').hide();
+  
 });
