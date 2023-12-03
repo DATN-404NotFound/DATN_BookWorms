@@ -55,7 +55,7 @@ public class    AccountController {
 
     @RequestMapping("/login")
     public String loginForm() {
-        return "Client/Account_page/Login";
+        return "/Client/Account_page/Login";
     }
 
     @RequestMapping("/login-google/success")

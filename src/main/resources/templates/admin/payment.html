@@ -452,12 +452,12 @@
 												<tr th:each="item : ${item}">
 													<td th:text="${item.paymentshopid}"></td>
 													<th scope="col" th:text="${item.createat}"></th>
-													<td style="width: 200px" th:if="${item.status} == 1" class="text-danger">Đã thanh toán</td>
-													<td th:if="${item.status} == 0">Chưa thanh toán</td>
+													<td style="width: 200px" th:if="${item.status  == true}" class="text-danger">Đã thanh toán</td>
+													<td th:if="${item.status  == false}">Chưa thanh toán</td>
 													<td th:text="${item.valuepayment}"></td>
 													<td th:text="${item.shoponlines.shopid}"></td>
-													<td><a class="btn btn-danger" style="color: white" th:if="${item.status == 1}">Payment</a>
-													<a class="btn btn-success" th:if="${item.status == 0}" th:href="@{/api/payment/create_payment/} +${item.paymentshopid} + '&' + ${item.valuepayment}">Payment</a>
+													<td><a class="btn btn-danger" style="color: white" th:if="${item.status == true}">Payment</a>
+													<a class="btn btn-success" th:if="${item.status == false}" th:href="@{/api/payment/create_payment/} +${item.paymentshopid} + '&' + ${item.valuepayment}">Payment</a>
 													</td>
 													
 												</tr>
