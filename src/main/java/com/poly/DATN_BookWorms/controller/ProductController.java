@@ -3,6 +3,7 @@ package com.poly.DATN_BookWorms.controller;
 import com.poly.DATN_BookWorms.entities.*;
 import com.poly.DATN_BookWorms.service.BookService;
 import com.poly.DATN_BookWorms.service.CategoryService;
+import com.poly.DATN_BookWorms.service.EvaluatesService;
 import com.poly.DATN_BookWorms.service.PublishingCompanyService;
 import com.poly.DATN_BookWorms.service.TypeBookService;
 import com.poly.DATN_BookWorms.service.WriterMasterService;
@@ -15,7 +16,6 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.logging.LogManager;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -28,13 +28,15 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 @Controller
 @RequestMapping("/product")
 public class ProductController {
 	
-	private static final LogManager logger = LogManager.getLogManager();
-
+	private static final Logger logger = LogManager.getLogger();
+	
 	@Autowired
 	TypeBookService typeBookService;
 
@@ -43,6 +45,10 @@ public class ProductController {
 
 	@Autowired
 	BookService bookService;
+	
+	@Autowired
+	EvaluatesService evaluateService;
+	
 	@Autowired
 	CategoryService categoryService;
 	@Autowired
@@ -55,10 +61,9 @@ public class ProductController {
 
 	@Autowired
 	HttpServletRequest request;
-
+	
 	@Autowired
 	HttpServletResponse resp;
-
 
 
 	@GetMapping("/list")
@@ -107,16 +112,19 @@ public class ProductController {
 		list.add(1);
 		list.add(2);
 		list.add(3);
-
+		
 		// System.out.println("lkjlskjlajf");
 		Books item = bookService.findById(id);
+		item.setProductviews(item.getProductviews()+1);
+		bookService.update(item);
 		System.out.println("lkjlskjlajssf" + id);
 		List<Books> b = bookService.getBooksByCategoryID(item.getListOfTypebooks().get(0).categories.categoryid);
-
+		List<Evaluates> eva_list = evaluateService.getEvaByBookid(id);
 //		List<String> images = imagebookService.findByBookId(id);
 //		System.out.print(images);
 //		model.addAttribute("images", images);
 		model.addAttribute("item", item);
+		model.addAttribute("eva", eva_list);
 		model.addAttribute("books", b);
 		model.addAttribute("userid", crc.getCodeCRC32C(request.getRemoteUser()));
 		// System.out.println("ll"+ item.getListOfImagebooks().get(0).getName());

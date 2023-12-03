@@ -198,7 +198,7 @@ function check() {
 const app = angular.module("my_app", []);
 
 let host = "http://localhost:8080/rest/cart"
-app.controller("cart_ctrl", function ($scope, $http, $rootScope) {
+app.controller("cart_ctrl", function ($scope, $http, $timeout) {
 
 
 	$scope.loadContent = function (bookid) {
@@ -375,11 +375,15 @@ app.controller("cart_ctrl", function ($scope, $http, $rootScope) {
 
 
 	$scope.filterAll = function (b) {
-		$scope.searchfilter = localStorage.getItem("searchfilter")
+		
+		$scope.searchfilter = localStorage.getItem("searchfilter");
+	
 		if ($scope.searchfilter == null) {
+			
 			return (JSON.stringify(angular.lowercase(b.bookname)).indexOf($scope.searchfilter) == -1 || JSON.stringify(b.price).indexOf($scope.searchfilter) == -1);
 		}
 		else {
+	
 			return (JSON.stringify(angular.lowercase(b.bookname)).indexOf($scope.searchfilter) != -1 || JSON.stringify(b.price).indexOf($scope.searchfilter) != -1);
 		}
 	}
@@ -712,9 +716,11 @@ $(document).ready(function () {
 
 function voucherSelected(shopid) {
 	var vou = $('#voucher' + shopid).children("option:selected").val();
+try {
 	$.get("http://localhost:8080/rest/discount/" + vou, function (data, status) {
 		if (!data || data.value === null || vou == undefined) {
 			localStorage.setItem('sales', JSON.stringify(salevoucher));
+			console.log("vouchernull : ")
 		}
 		else {
 			var v = salevoucher.find(i => i.saleid == vou);
@@ -723,9 +729,14 @@ function voucherSelected(shopid) {
 			else {
 				salevoucher.push(data);
 				localStorage.setItem('sales', JSON.stringify(salevoucher));
+				console.log("voucher : "+ salevoucher.length)
 			}
 		}
 	});
+} catch (error) {
+	console.log('error : '+ error)
+	
+}
 }
 
 function selectShop(item) {
@@ -745,6 +756,7 @@ function findBook(item) {
 	$.get("http://localhost:8080/rest/books/" + item.bookid, function (data, status) {
 		books.push(data);
 		localStorage.setItem('books', JSON.stringify(books));
+		console.log(" 755: "+ books.length)
 		selectShop(data.shoponlines.shopid);
 	})
 }
@@ -753,18 +765,19 @@ function findCart(item) {
 	$.get("http://localhost:8080/rest/cart/" + item, function (data, status) {
 		deal.push(data);
 		localStorage.setItem('deal', JSON.stringify(deal));
+		console.log(" 763 : "+ deal.length)
 		findBook(data);
 	})
 }
 
 
-function findPaymentAccount() {
-	$.get("http://localhost:8080/rest/paymentaccount/user", function (data, status) {
-		deal.push(data);
-		localStorage.setItem('deal', JSON.stringify(deal));
-		findBook(data);
-	})
-}
+// function findPaymentAccount() {
+// 	$.get("http://localhost:8080/rest/paymentaccount/user", function (data, status) {
+// 		deal.push(data);
+// 		localStorage.setItem('deal', JSON.stringify(deal));
+// 		findBook(data);
+// 	})
+// }
 
 
 function deals() {
@@ -775,11 +788,19 @@ function deals() {
 	purchase.forEach(item => {
 		findCart(item);
 		localStorage.setItem('deal', JSON.stringify(deal));
-		location.href = "/order";
+	
+		
 
 	})
+	setTimeout(greeting, 100);
 }
 
+
+function greeting(){
+	location.href = "/order"
+  }
+  
+  
 
 $(document).ready(function () {
 	loadWin();
@@ -793,6 +814,10 @@ function loadWin() {
 	var b = JSON.parse(localStorage.getItem('deal'));
 	var c = JSON.parse(localStorage.getItem('shoponline'));
 	var d = JSON.parse(localStorage.getItem('sales'));
+	console.log("books L "+ a);
+	console.log("books d "+ b);
+	console.log("books s "+ c);
+	console.log("books sa "+ d);
 	var totalPriceAll = 0;
 	if (c != null) {
 		c.forEach(m => {
@@ -844,6 +869,7 @@ app.controller("order_ctrl", function ($scope, $http, $timeout) {
 	$scope.totalQuantity = 0;
 
 	$scope.loadDeal = function () {
+
 		$scope.bookItem = JSON.parse(localStorage.getItem('books'));
 		$scope.dealItem = JSON.parse(localStorage.getItem('deal'));
 		$scope.shopItem = JSON.parse(localStorage.getItem('shoponline'));
@@ -870,8 +896,13 @@ app.controller("order_ctrl", function ($scope, $http, $timeout) {
 		})
 	}
 
+	$scope.clearLocal = function(){ 
+		localStorage.clear();
+
+	}
 
 	$scope.paymentCart = function () {
+	
 		var timeoutTimer = 0;
 		$scope.shopItem.forEach(i => {
 			var a = document.getElementById('priceItem' + i.shopid).innerText;
@@ -917,22 +948,24 @@ app.controller("order_ctrl", function ($scope, $http, $timeout) {
 			}
 			var booking = angular.copy($scope.bookings);
 			console.log("ind " + JSON.stringify($scope.bookings))
+		
 			$http.post(`/rest/bookings`, booking).then(resp => {
+				
 				$scope.deleteDeal();
 				$http.delete("http://localhost:8080/rest/discount/" + vouchero.discountcodeid).then(resp => {
 				})
-				$('#myModal').show();
-				$('#iconModel').html('<i  style="font-size: 50px;color: green;" class="bi bi-check-circle"></i> ')
-				$('#descrptionInfor').text("Đặt hàng thành công!")
+				console.log("949")
+				$('#dhmodal').show();
+				$('#iconModels').html('<i  style="font-size: 50px;color: green;" class="bi bi-check-circle"></i> ')
+			
+			 	$('#descrptionInfors').text("Đặt hàng thành công!")
 			}).catch(error => {
-				$('#myModal').show();
-				$('#iconModel').html('<i  style="font-size: 50px;color: red;" class="bi bi-x-circle"></i> ')
-				$('#descrptionInfor').text("Đặt hàng thất bại! Vui lòng thử lại")
+				console.log("954")
+				$('#dhmodal').show();
+				$('#iconModels').html('<i  style="font-size: 50px;color: red;" class="bi bi-x-circle"></i> ')
+				$('#descrptionInfors').text("Đặt hàng thất bại! Vui lòng thử lại")
 				console.log(error)
 			})
 		});
 	}
 });
-
-
-
