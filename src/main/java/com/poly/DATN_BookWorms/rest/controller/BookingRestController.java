@@ -51,4 +51,16 @@ public class BookingRestController {
 		return bookingService.findByUserId(crc.getCodeCRC32C(httpServletRequest.getRemoteUser()));
 	}
 
+	@GetMapping("/{bookingId}")
+	public Bookings getBookingId(@PathVariable String bookingId ) {
+		System.out.println(bookingId);
+		return bookingService.byBookingUserId(bookingId);
+	}
+	
+	@PostMapping("/update")
+	public Bookings updateStatusBooking(@RequestBody Bookings json){ 
+		json.setOrderstatusid(6);
+		return bookingService.update(json);
+	}
+
 }

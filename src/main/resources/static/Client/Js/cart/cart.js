@@ -969,3 +969,48 @@ app.controller("order_ctrl", function ($scope, $http, $timeout) {
 		});
 	}
 });
+
+
+app.controller("address_ctrl", function ($scope, $http) {
+
+    $scope.callModel = function(addressid){
+        $http.get("/rest/address/"+ addressid).then(resp=>{ 
+            console.log("resp = "+ JSON.stringify(resp.data));
+            $scope.add = resp.data;
+
+        })
+    }
+
+    $scope.updateAdd = function(){ 
+        var ad = angular.copy($scope.add);
+        $http.post("/rest/address", ad).then(resp =>{ 
+            location.href="/myAccount/address";
+        })
+    }
+
+    $scope.deleteAdd = function(addressid){ 
+        console.log(addressid)
+        $http.delete("/rest/address/"+ addressid).then(resp =>{ 
+            console.log("lsklf")           
+            location.href="/myAccount/address";
+        })
+    
+    }
+
+	$scope.callModel = function(bookingId){
+        console.log(bookingId)
+        $http.get("/rest/bookings/"+ bookingId).then(resp=>{ 
+            console.log(bookingId)
+            console.log("resp = "+ JSON.stringify(resp.data));
+            $scope.add = resp.data;
+
+        })
+    }
+
+    $scope.updateBooking = function(){ 
+        var ad = angular.copy($scope.add);
+        $http.post("/rest/bookings/update", ad).then(resp =>{ 
+            location.href="/myAccount/orderMyAccount";
+        })
+    }
+});

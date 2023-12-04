@@ -241,4 +241,17 @@ public class BookingServiceImp implements BookingService{
 	public long countRefund() {
         return bookingRepo.countRefund();
     }
+
+	@Override
+	public Bookings update(Bookings bookingId) {
+		// TODO Auto-generated method stub
+		return bookingRepo.save(bookingId);
+	}
+
+	@Override
+	public Bookings byBookingUserId(String bookingUserId) {
+		// TODO Auto-generated method stub
+		return bookingRepo.findById(bookingUserId).get();
+	}
+
 }

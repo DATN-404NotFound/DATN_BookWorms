@@ -49,4 +49,8 @@ public interface BookingService {
 	List<Bookings> findAllByUserId(String userId);
 
 	List<Bookings> findByUserIdAndOrderStatusId(String userId, Integer orderStatusId);
+
+	public Bookings update(Bookings bookingId);
+
+	public Bookings byBookingUserId(String bookingUserId);
 }
