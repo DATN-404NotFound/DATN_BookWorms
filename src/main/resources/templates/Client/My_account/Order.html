@@ -81,11 +81,11 @@
                 </div>
             </div>
             <div id="tabPendingPayment" class="tab-pane fade">
-                <div class="img-notOrder"
+                <!-- <div class="img-notOrder"
                     th:if="${booking == null or booking.size() == 0 or booking[0].orderstatuses.statusname != 'Chưa thanh toán'}">
                     <img th:src="@{|/Client/images/not-order.png|}" alt="">
                     <p class="mt-4">Không có đơn hàng</p>
-                </div>
+                </div> -->
                 <div class="order" th:each="b : ${booking}" th:if="${b.orderstatuses.statusname} == 'Chưa thanh toán'">
                     <div class="cardHeader">
                         <span>
@@ -125,11 +125,11 @@
                 </div>
             </div>
             <div id="tabPendingConfirmation" class="tab-pane fade">
-                <div class="img-notOrder"
+                <!-- <div class="img-notOrder"
                     th:if="${booking == null or booking.size() == 0 or booking[0].orderstatuses.statusname != 'Chờ xác nhận'}">
                     <img th:src="@{|/Client/images/not-order.png|}" alt="">
                     <p class="mt-4">Không có đơn hàng</p>
-                </div>
+                </div> -->
                 <div class="order" th:each="b : ${booking}" th:if="${b.orderstatuses.statusname} == 'Chờ xác nhận'">
                     <div class="cardHeader">
                         <span>
@@ -214,11 +214,11 @@
                 </div>
             </div>
             <div id="tabSuccess" class="tab-pane fade">
-                <div class="img-notOrder"
+                <!-- <div class="img-notOrder"
                     th:if="${booking == null or booking.size() == 0 or booking[0].orderstatuses.statusname != 'Hoàn thành'}">
                     <img th:src="@{|/Client/images/not-order.png|}" alt="">
                     <p class="mt-4">Không có đơn hàng</p>
-                </div>
+                </div> -->
                 <div class="order" th:each="b : ${booking}" th:if="${b.orderstatuses.statusname} == 'Hoàn thành'">
                     <div class="cardHeader">
                         <span>
@@ -261,11 +261,11 @@
                 <!-- <div th:if="${booking != null and booking.size() > 0}">
                     <div th:text="${#lists.exists(booking, #statusCheck.contains('Đơn Huỷ'))}"></div>
                 </div> -->
-                <div class="img-notOrder"
+                <!-- <div class="img-notOrder"
                     th:if="${booking == null or booking.size() == 0 or booking[0].orderstatuses.statusname != 'Đơn Huỷ'}">
                     <img th:src="@{|/Client/images/not-order.png|}" alt="">
                     <p class="mt-4">Không có đơn hàng</p>
-                </div>
+                </div> -->
 
                 <div class="order" th:each="b : ${booking}" th:if="${b.orderstatuses.statusname} == 'Đơn Huỷ'">
                     <div class="cardHeader">
@@ -306,11 +306,11 @@
                 </div>
             </div>
             <div id="tabReturnRefund" class="tab-pane fade">
-                <div class="img-notOrder"
+                <!-- <div class="img-notOrder"
                     th:if="${booking == null or booking[0].orderstatuses.statusname != 'Trả hang/ hoàn tiền'}">
                     <img th:src="@{|/Client/images/not-order.png|}" alt="">
                     <p class="mt-4">Không có đơn hàng</p>
-                </div>
+                </div> -->
                 <div class="order" th:each="b : ${booking}"
                     th:if="${b.orderstatuses.statusname} == 'Trả hang/ hoàn tiền'">
                     <div class="cardHeader">

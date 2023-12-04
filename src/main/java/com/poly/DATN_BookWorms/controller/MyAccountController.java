@@ -188,14 +188,6 @@ public class MyAccountController {
     	return "redirect:/myAccount/address";
     }
     
-    @RequestMapping("/editAddress/{addressuserid}")
-    public String editAddress(@PathVariable String addressuserid) {
-    	System.out.println("aaaaaaaa" + addressuserid);
-    	if(addressuserid != null) {
-    		
-    	}
-    	return "redirect:/myAccount/address";
-    }
     
     @RequestMapping("/changePassword")
     public String  changePassword(Model model){
