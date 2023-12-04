@@ -18,6 +18,7 @@
   <link rel="stylesheet" href="SellerChannel/css/feather.css">
   <!-- Date Range Picker CSS -->
   <link rel="stylesheet" href="SellerChannel/css/daterangepicker.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
   <!-- App CSS -->
   <link rel="stylesheet" href="SellerChannel/css/app-light.css" id="lightTheme" disabled>
   <link rel="stylesheet" href="SellerChannel/css/app-dark.css" id="darkTheme">
@@ -54,28 +55,29 @@
                     <form>
                       <div class="form-row">
                         <div class="form-group col-md-4">
-                          <label for="inputEmail4">Name of discount program </label>
-                          <input type="text" class="form-control" placeholder="Name of discount program " id="Promotionname" ng-model="sales.Promotionname" required>
+                          <label for="promotionname">Name of discount program </label>
+                          <input type="text" class="form-control" placeholder="Name of discount program" id="promotionname" ng-change="checkFormSubmit()" ng-value="createvoucher.promotionname" ng-model="createvoucher.promotionname" required>
                         </div>
-                        <div class="form-group col-md-4">
-                          <label for="inputState">Code usage time</label>
-                          <input type="date" id="Createat" ng-model="sales.Createat" required class="form-control datetimes" />
 
-                        </div>
+<!--                        <div class="form-group col-md-4">-->
+<!--                          <label for="inputState">Target buyer</label>-->
+<!--                          <select id="inputState5" class="form-control" ng-model="sales.Intendfor" ng-change="updateButtonStatus()">-->
+<!--                            <option value="Delivery">Delivery</option>-->
+<!--                            <option value="Books">Books</option>-->
+<!--                          </select>-->
+<!--                        </div>-->
                         <div class="form-group col-md-4">
-                          <label for="inputState">Target buyer</label>
-                          <select id="inputState5" class="form-control" ng-model="sales.Intendfor" ng-change="updateButtonStatus()">
-                            <option value="Delivery">Delivery</option>
-                            <option value="Books">Books</option>
-                          </select>
+                          <label for="intendfor">Intend for</label>
+                          <input class="form-control" type="text" id="intendfor" ng-change="checkFormSubmit()" ng-value="createvoucher.intendfor" ng-model="createvoucher.intendfor" required/>
+
                         </div>
 
 
                       </div>
                       <div class="form-row">
                         <div class="form-group col-md-3">
-                          <label for="inputAddress">Discount type</label>
-                          <input type="number" id="Discountpercentage" ng-model="sales.Discountpercentage" step="0.01" required class="form-control" placeholder="If you choose %, you dont write number > 100">
+                          <label for="discountpercentage">Discount Percentage</label>
+                          <input type="number" id="discountpercentage" ng-change="checkFormSubmit()" ng-value="createvoucher.discountpercentage" ng-model="createvoucher.discountpercentage" required step="0.01" class="form-control" placeholder="If you choose %, you dont write number > 100">
                         </div>
                         <div class="form-group col-md-1 mt-4">
                           <select id="inputState5" class="form-control mt-1">
@@ -83,7 +85,7 @@
                             <option>VND</option>
                             <option>%</option>
 
-                          </select>                
+                          </select>
                         </div>
                       
                       
@@ -150,7 +152,7 @@
                                           </nav>
                                         </table>
                                       </div>
-                                      
+
                                     </div>
                                   </div> <!-- Bordered table -->
                                 </form>
@@ -163,11 +165,11 @@
                           </div>
                         </div>
                       </div> <!-- large modal -->
-                         
-                        </div>      
+
+                        </div>
                         <div class="form-group col-md-2">
-                          <label for="inputState">Statuses</label>
-                          <input type="text" id="Statuses" ng-model="sales.Statuses" required class="form-control">
+                          <label for="statuses">Statuses</label>
+                          <input type="text" id="statuses" ng-change="checkFormSubmit()" ng-value="createvoucher.statuses" ng-model="createvoucher.statuses" required class="form-control">
                          
                         </div>    
 
@@ -176,13 +178,13 @@
                     
                       <div class="form-row">
                         <div class="form-group col-md-12">
-                          <label for="inputCity">Descriptions</label>
-                          <textarea type="text" id="Descriptions" ng-model="sales.Descriptions" required class="form-control"  rows="4"></textarea>
+                          <label for="descriptions">Descriptions</label>
+                          <textarea id="descriptions" ng-change="checkFormSubmit()" ng-value="createvoucher.descriptions" ng-model="createvoucher.descriptions" required class="form-control"  rows="4"></textarea>
                         </div>
                     
                       </div>
-                   
-                      <button type="submit" ng-click="createSales()" class="btn btn-primary">Create voucher</button>
+
+                      <button ng-click="createSales()"  type="submit" class="btn btn-primary" id="submitCreateVoucher" disabled>Create voucher</button>
                     </form>
                   </div> <!-- /. card-body -->
                 </div> <!-- /. card -->

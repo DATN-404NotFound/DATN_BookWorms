@@ -1,6 +1,6 @@
 package com.poly.DATN_BookWorms.service.impl;
 
-import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -43,18 +43,18 @@ public class SaleServiceImp implements SaleService{
 	}
 
 	@Override
-	public Sales create( String promotionname, Date createat, String descriptions, BigDecimal discountpercentage, String statuses, String intendfor) {
+	public Sales create(Sales sales) {
 		Account account = session.get("user");
+		LocalDate currentDate = LocalDate.now();
 	Shoponlines shoponlines = shopOnlinesService.findShoponlinesByUserId(account.getUserid());
-		Sales sales = new Sales();
-		String authorityId = crc32Sha256.getCodeCRC32C(promotionname + statuses);
+		String authorityId = crc32Sha256.getCodeCRC32C(sales.getPromotionname() + sales.getStatuses());
 		sales.setCouoponcode(authorityId);
-		sales.setPromotionname(promotionname);
-		sales.setCreateat(createat);
-		sales.setDescriptions(descriptions);
-		sales.setDiscountpercentage(discountpercentage);
-		sales.setStatuses(statuses);
-		sales.setIntendfor(intendfor);
+		sales.setPromotionname(sales.getPromotionname());
+		sales.setCreateat(new Date());
+		sales.setDescriptions(sales.getDescriptions());
+		sales.setDiscountpercentage(sales.getDiscountpercentage());
+		sales.setStatuses(sales.getStatuses());
+		sales.setIntendfor(sales.getIntendfor());
 		sales.setShopid(shoponlines.getShopid());
 		return saleRepo.save(sales);
 	}

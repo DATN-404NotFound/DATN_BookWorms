@@ -7,6 +7,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -36,22 +37,13 @@ public class SaleRestController {
 		return saleService.saleOfShopIntendFor(intendfor);
 	}
 
-	@PostMapping("/create")
-	public ResponseEntity<String> createSales(
-			@RequestParam String promotionname,
-			@RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date createat,
-			@RequestParam String descriptions,
-			@RequestParam BigDecimal discountpercentage,
-			@RequestParam String statuses,
-			@RequestParam String intendfor) {
+	@PostMapping(value = "/create", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Sales> createSales(@RequestBody Sales sales) {
 
 //		Sales createdSale = saleService.create(promotionname, createat, descriptions, discountpercentage, statuses, intendfor);
-Sales createdSale = saleService.create(promotionname, createat, descriptions, discountpercentage, statuses, intendfor);
-		if (createdSale != null) {
-			return ResponseEntity.ok("Sale created successfully. Coupon code: " + createdSale.getCouoponcode());
-		} else {
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to create sale.");
-		}
+		Sales createdSale = saleService.create(sales);
+		return ResponseEntity.ok(createdSale);
 	}
+
 
 }

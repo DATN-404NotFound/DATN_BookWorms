@@ -69,6 +69,8 @@ public class Books implements Serializable {
     public Integer publishingcompanyid;
 
     public Boolean isactive;
+    public Boolean isdelete;
+
 
     public Integer quantitysold;
 

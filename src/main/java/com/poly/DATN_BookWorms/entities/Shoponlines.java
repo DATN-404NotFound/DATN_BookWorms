@@ -44,18 +44,15 @@ public class Shoponlines implements Serializable {
 
     private String phonenumber;
 
-    private String logo;
+
 
     @Column(name = "total")
     private Double total;
 
-    @Column(name = "banner", length = 50)
-    private String banner;
-
     @Column(name = "description", length = 2555)
     private String description;
 
-    public String     shopaddress ;
+
 
     public String     userid ;
 
@@ -92,11 +89,8 @@ public class Shoponlines implements Serializable {
         sb.append("|");
         sb.append(phonenumber);
         sb.append("|");
-        sb.append(logo);
-        sb.append("|");
+
         sb.append(total);
-        sb.append("|");
-        sb.append(banner);
         sb.append("|");
         sb.append(description);
         sb.append("|");

@@ -1,21 +1,29 @@
 package com.poly.DATN_BookWorms.rest.controller;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
+import java.util.Optional;
 
-import com.poly.DATN_BookWorms.entities.Account;
-import com.poly.DATN_BookWorms.entities.Categories;
-import com.poly.DATN_BookWorms.entities.Publishingcompanies;
+import com.poly.DATN_BookWorms.entities.*;
 import com.poly.DATN_BookWorms.service.CategoryService;
 import com.poly.DATN_BookWorms.service.PublishingCompanyService;
+import com.poly.DATN_BookWorms.service.TypeBookService;
 import com.poly.DATN_BookWorms.utils.SessionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
-import com.poly.DATN_BookWorms.entities.Books;
 import com.poly.DATN_BookWorms.service.BookService;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -31,6 +39,8 @@ public class BookRestController {
 	PublishingCompanyService publishingCompanyService;
 	@Autowired
 	SessionService service;
+	@Autowired
+	TypeBookService typeBookService;
 	@GetMapping
 	public List<Books> getAll() {
 		return bookService.findAll();
@@ -86,39 +96,58 @@ public List<Categories> getAllCategoryNames() {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 	}
-	@PostMapping("/create")
-	public ResponseEntity<String> createBook(@RequestParam("bookname") String bookname,
-											 @RequestParam("category") Integer category,
-											 @RequestParam("language") String language,
-											 @RequestParam("size") String size,
-											 @RequestParam("weight") Double weight,
-											 @RequestParam("totalpage") Integer totalpage,
-											 @RequestParam("publishingyear") Integer publishingyear,
-											 @RequestParam("price") Double price,
-											 @RequestParam("quantity") Integer quantity,
-											 @RequestParam("publishingcompanyid") Integer publishingcompanyid,
-											 @RequestParam("isactive") Boolean isactive,
-											 @RequestPart("images") MultipartFile[] images) {
-		try {
-			if (category == null || images == null || images.length == 0) {
-				return ResponseEntity.badRequest().body("Invalid category or empty images.");
-			}
-			Books book = bookService.creates(bookname, language, size, weight, totalpage, publishingyear,
-					price, quantity, publishingcompanyid, isactive, images, category);
-			if (book != null && book.getBookid() != null) {
-				return ResponseEntity.status(HttpStatus.CREATED).body("Book created successfully. Book ID: " + book.getBookid());
-			} else {
-				return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error creating book.");
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error creating book.");
-		}
+	@PostMapping(value = "/create", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Books> createBooks(@RequestBody Books books) {
+		Books createBook = bookService.creates(books);
+		return ResponseEntity.ok(createBook);
 	}
+	@PostMapping(value = "/createtypebooks", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Typebooks> createTypebooks(@RequestParam("books") Books books,@RequestParam("Categories") Categories categories ) {
+		Typebooks createTypeBook = typeBookService.create(books, categories);
+		return ResponseEntity.ok(createTypeBook);
+
+	}
+	@PostMapping(value = "/saveimagebook", consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	public void saveProfileChange(@RequestParam(value = "fileImage") Optional<MultipartFile> multipartFile, @RequestParam("shopId") String shopId) throws Exception {
+//		if (multipartFile.isEmpty()) {
+//			Shoponlines shoponlines = shopService.findById(Integer.parseInt(shopId));
+//			shopService.save(shoponlines);
+//		} else {
+//			MultipartFile file = multipartFile.get();
+//			String fileName = StringUtils.cleanPath(Objects.requireNonNull(file.getOriginalFilename()));
+//			String uploadDir = "D:/DATN/DATN_BookWorms/src/main/resources/static/SellerChannel/images/";
+//			Path uploadPath = Paths.get(uploadDir);
+//			if (!java.nio.file.Files.exists(uploadPath)) {
+//				java.nio.file.Files.createDirectories(uploadPath);
+//			}
+//			try {
+//				InputStream inputStream = file.getInputStream();
+//				Path filePath = uploadPath.resolve(fileName);
+//				Files.copy(inputStream, filePath, StandardCopyOption.REPLACE_EXISTING);
+//				//save change profile
+//				Shoponlines shoponlines = shopService.findById(Integer.parseInt(shopId));
+////                shoponlines.setLogo(fileName);
+//				shopService.save(shoponlines);
+//			} catch (IOException e) {
+//				throw new IOException("Could not  save uploaded file: " + fileName);
+//			}
+//		}
+
+
+	}
+
+
+
 	@PutMapping("/updateIsActive/{bookId}")
 	public ResponseEntity<Void> updateIsActive(@PathVariable Long bookId, @RequestBody Map<String, Boolean> requestBody) {
 		boolean newIsActive = requestBody.get("isactive");
 		bookService.updateIsActive(bookId, newIsActive);
+		return ResponseEntity.ok().build();
+	}
+	@PutMapping("/delete/{bookId}")
+	public ResponseEntity<Void> deleteBooks(@PathVariable Long bookId, @RequestBody Map<String, Boolean> requestBody) {
+		boolean newIsActive = requestBody.get("isactive");
+		bookService.deleteBook(bookId, newIsActive);
 		return ResponseEntity.ok().build();
 	}
 }

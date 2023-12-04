@@ -2,15 +2,13 @@ package com.poly.DATN_BookWorms.service;
 
 import java.util.List;
 
+import com.poly.DATN_BookWorms.entities.*;
 import com.poly.DATN_BookWorms.repo.BooksRepo;
 import com.poly.DATN_BookWorms.response.BookResponse;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import com.poly.DATN_BookWorms.entities.Books;
-import com.poly.DATN_BookWorms.entities.Publishingcompanies;
-import com.poly.DATN_BookWorms.entities.Shoponlines;
 import com.poly.DATN_BookWorms.response.BookResponse;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -24,9 +22,11 @@ public interface BookService {
 	
 	List<Publishingcompanies> getPCWithShop(Integer shopid);
 
-	Books creates(String bookname, String language, String size, Double weight, Integer totalpage,
-				  Integer publishingyear, Double price, Integer quantity,
-				  Integer publishingcompanyid, Boolean isactive, MultipartFile[] images, Integer category);
+
+
+
+
+	Books creates(Books books);
 
 	Books update(Books book);
 
@@ -43,4 +43,6 @@ public interface BookService {
 	Page<Books> findBooksNew(Pageable pageable);
 
 	void updateIsActive(Long bookId, boolean newIsActive);
+
+	void deleteBook(Long bookId, boolean newIsActive);
 }

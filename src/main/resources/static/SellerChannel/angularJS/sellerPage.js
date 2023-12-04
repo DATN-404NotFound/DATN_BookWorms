@@ -484,66 +484,42 @@ app.controller('transportController', function($scope, $routeParams, $route, $ht
 
     //Voucher
     //Create Voucher
-app.controller('createVoucherController', function($scope, $http) {
-    $scope.pageSize = 5; // Number of items per page
-    $scope.currentPage = 1; // Current page
-    $scope.totalPages = 1
-    $scope.initInfoProduct = function () {
-        $scope.books = [];
-        $http.get('/rest/books')
-            .then(function(response) {
-                $scope.books = response.data;
-                $scope.totalPages = Math.ceil($scope.books.length / $scope.pageSize);
-                $scope.setPage(1); // Set initial page
-                console.log('Evaluates:', $scope.books);
-            })
-            .catch(function(error) {
-                console.error('Error fetching data:', error);
-            });
+app.controller('createVoucherController', function($scope, $http, $window) {
+    $scope.createvoucher ={};
+    $scope.createSales = function () {
+        const headers = {
+            'Content-Type': "application/json",
+            transformRequest: angular.identity
+        };
+        $http.post('/rest/sale/create', JSON.stringify($scope.createvoucher), {headers: headers})
+            .then(function (response) {
+                // Handle success
+                $window.alert("Tạo voucher thành công")
 
-    }
-    $scope.initInfoProduct();
-    $scope.setPage = function (page) {
-        console.log('Current Page:', $scope.currentPage);
-        console.log('Total Pages:', $scope.totalPages);
-        if (page < 1 || page > $scope.totalPages) {
-            return;
+                // Optionally, you can redirect to another page or show a success message
+            })
+            .catch(function (error) {
+                // Handle error
+                console.error(error);
+                // Optionally, you can display an error message to the user
+            });
+    };
+    $scope.isFormValid = function () {
+        var check = true;
+        if (!$scope.createvoucher.promotionname.length>0 || !$scope.createvoucher.intendfor.length>0 || !$scope.createvoucher.discountpercentage>0 || !$scope.createvoucher.statuses.length>0 || !$scope.createvoucher.descriptions.length>0){
+           check = false;
         }
-        $scope.currentPage = page;
-        var startIndex = (page - 1) * $scope.pageSize;
-        var endIndex = startIndex + $scope.pageSize;
-        $scope.paginatedBooks = $scope.books.slice(startIndex, endIndex);
-        console.log('setPage called with page:', page);
-        // ... (rest of the code)
-
-        console.log('currentPage:', $scope.currentPage);
-        console.log('paginatedBooks:', $scope.paginatedBooks);
+        return check ;
     };
+    $scope.checkFormSubmit = function () {
+        var check = $scope.isFormValid()
+        if (check==true){
+            document.getElementById('submitCreateVoucher').disabled = false;
 
-    $scope.getPages = function () {
-        return new Array($scope.totalPages).fill().map((_, index) => index + 1);
-    };
-    // Disable button
-    $scope.selectedOption = '';//Default value
-    $scope.isButtonDisabled = true;
+        }
+        console.log(check);
+    }
 
-    $scope.updateButtonStatus = function () {
-
-        $scope.isButtonDisabled = $scope.selectedOption === 'Books';
-    };
-    $scope.createSale = function() {
-        // Gửi dữ liệu form đến API
-        $http.post('http://localhost:8080/rest/sale/create', $scope.sale)
-            .then(function(response) {
-
-                alert(response.data.message);
-            })
-            .catch(function(error) {
-
-                console.error('Error:', error);
-                alert('An error occurred while processing the request.');
-            });
-    };
 
 });
 
@@ -620,6 +596,8 @@ app.controller('salesOrderManagementController', function($scope, $http) {
     $scope.getPages = function () {
         return new Array($scope.totalPages).fill().map((_, index) => index + 1);
     };
+
+
     $scope.setImage = function (bookId) {
         let url = `http://localhost:8080/rest/imagebook/` + bookId;
         $http.get(url).then(resp => {
@@ -647,20 +625,19 @@ app.controller('salesOrderManagementController', function($scope, $http) {
                 // Nếu có lỗi, bạn có thể khám phá các cách xử lý lỗi phù hợp với ứng dụng của bạn
             });
     };
-    $scope.removeBook = function(book) {
-        var bookId = book.bookid;
+    $scope.deleteIsChoose = function(book) {
 
-        $http.delete('/rest/books/delete/' + bookId)
+        $http.put('/rest/books/delete/' + book.bookid, { isactive: book.isactive })
             .then(function(response) {
-                var index = $scope.paginatedBooks.indexOf(book);
-                if (index !== -1) {
-                    $scope.paginatedBooks.splice(index, 1);
-                }
+                console.log('Cập nhật thành công.');
+                $scope.initInfoProduct();
             })
             .catch(function(error) {
-                console.error('Error deleting book:', error);
+                console.error('Lỗi khi cập nhật: ', error);
+                // Nếu có lỗi, bạn có thể khám phá các cách xử lý lỗi phù hợp với ứng dụng của bạn
             });
     };
+
 });
 
 
