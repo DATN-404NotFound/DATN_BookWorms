@@ -7,7 +7,24 @@ $(document).ready(function () {
     });
 });
 
-// function changeTab(tabName) {
-//     // Thay đổi URL của tab dựa trên tên tab và chuyển điều hướng đến controller
-//     window.location.href = "/orderMyAccount/tabs?tab=" + tabName;
-// }
+const app = angular.module("ordedr_app", []);
+
+app.controller("order_ctrl", function ($scope, $http) {
+
+    $scope.callModel = function(bookingId){
+        console.log(bookingId)
+        $http.get("/rest/bookings/"+ bookingId).then(resp=>{ 
+            console.log(bookingId)
+            console.log("resp = "+ JSON.stringify(resp.data));
+            $scope.add = resp.data;
+
+        })
+    }
+
+    $scope.updateBooking = function(){ 
+        var ad = angular.copy($scope.add);
+        $http.post("/rest/bookings/update", ad).then(resp =>{ 
+            location.href="/myAccount/orderMyAccount";
+        })
+    }
+});

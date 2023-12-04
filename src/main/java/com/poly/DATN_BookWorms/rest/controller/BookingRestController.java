@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.poly.DATN_BookWorms.entities.Account;
+import com.poly.DATN_BookWorms.entities.Addressusers;
 import com.poly.DATN_BookWorms.entities.Bookings;
 import com.poly.DATN_BookWorms.service.AccountService;
 import com.poly.DATN_BookWorms.service.BookingService;
@@ -50,5 +51,18 @@ public class BookingRestController {
 
 		return bookingService.findByUserId(crc.getCodeCRC32C(httpServletRequest.getRemoteUser()));
 	}
+	
+	@GetMapping("/{bookingId}")
+	public Bookings getBookingId(@PathVariable String bookingId ) {
+		System.out.println(bookingId);
+		return bookingService.byBookingUserId(bookingId);
+	}
+	
+	@PostMapping("/update")
+	public Bookings updateStatusBooking(@RequestBody Bookings json){ 
+		json.setOrderstatusid(6);
+		return bookingService.update(json);
+	}
+	
 
 }

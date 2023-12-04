@@ -106,6 +106,18 @@ public class BookingServiceImp implements BookingService{
 		return bookingRepo.ListBookings_Status(orderStatusId);
 	}
 
+	@Override
+	public Bookings update(Bookings bookingId) {
+		// TODO Auto-generated method stub
+		return bookingRepo.save(bookingId);
+	}
+
+	@Override
+	public Bookings byBookingUserId(String bookingUserId) {
+		// TODO Auto-generated method stub
+		return bookingRepo.findById(bookingUserId).get();
+	}
+
 
 //	@Override
 //	public List<Bookings> findByUsername(String username) {

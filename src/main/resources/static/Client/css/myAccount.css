@@ -53,7 +53,7 @@ a:hover{
 .menuMyAccount{
     margin-bottom: 30px;
 }
-.aMyAccount, .aPurchaseorder, .aNofication{
+.aMyAccount, .aPurchaseorder, .aVoucher,  .aNofication{
     font-size: 16px;
     font-weight: 600;
 }
@@ -644,24 +644,25 @@ a:hover{
 }
 .tabledetailInfo tr:nth-child(1){
     color: #808080;
-    font-size: 16.25px;
-    font-weight: 500;
+    font-size: 15px;
 }
 .tabledetailInfo tr:nth-child(2){
     color: #808080;
-    font-size: 16.25px;
-    font-weight: 500;
+    font-size: 15px;
 }
 .tabledetailInfo tr:nth-child(3){
     color: #808080;
-    font-size: 16.25px;
-    font-weight: 500;
+    font-size: 15px;
 }
 .tabledetailInfo tr:nth-child(4){
-    font-size: 16.25px;
-    font-weight: 500;
+    color: #808080;
+    font-size: 15px;
 }
 .tabledetailInfo tr:nth-child(5){
+    color: #808080;
+    font-size: 15px;
+}
+.tabledetailInfo tr:nth-child(6){
     color: #F25019;
     font-size: 22px;
     font-weight: 700;
@@ -700,7 +701,7 @@ a:hover{
 
 /* rate product */
 
-.boxRateProduct{
+.boxRateProduct, .boxCanceled{
     width: 907.5px;
     margin-left: calc(50% - 453.75px);
     margin-top: 37px;

@@ -20,13 +20,13 @@
     <div th:fragment="maccount" ng-app="address_app" ng-controller="address_ctrl">
         <p class="mt-4 ms-4" id="titleAddressSetting">Address Setting</p>
         <div class="addressDetail">
-            <div class="row address1" th:each="adu : ${ad}" >
+            <div class="row address1" th:each="a : ${ad}" >
                 <div class="col-9">
-                    <p class="NamePhone"><span th:text="${adu.fullname}"></span> | <span th:text="${adu.phonenumber}"></span></p>
-                    <p class="pAddressDetail" th:text="${adu.address}"></p>
+                    <p class="NamePhone"><span th:text="${a.fullname}"></span> | <span th:text="${a.phonenumber}"></span></p>
+                    <p class="pAddressDetail" th:text="${a.address}"></p>
                 </div>
                 <div class="col-3">
-                    <a class="float-end btnEditAddress" data-bs-toggle="modal" th:attr="ng-click=@{|callModel('${adu.addressuserid}')|}" data-bs-target="#exampleModal1"><i class="bi bi-pencil"></i></a><br>
+                    <a class="float-end btnEditAddress" data-bs-toggle="modal" th:attr="ng-click=@{|callModel('${a.addressuserid}')|}" data-bs-target="#exampleModal1"><i class="bi bi-pencil"></i></a><br>
                     <div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                         <div class="modal-dialog" >
                             <div class="modal-content boxNewAddress">
@@ -78,7 +78,7 @@
                             </div>
                         </div>
                     </div>
-                    <button th:if="${adu.statusaddress == 'Không'}" class="btn float-end me-3 mt-3 btnSetToDefault">Set to default</button>
+                    <button th:if="${a.statusaddress == 'Không'}" class="btn float-end me-3 mt-3 btnSetToDefault">Set to default</button>
                 </div>
             </div>
         </div>

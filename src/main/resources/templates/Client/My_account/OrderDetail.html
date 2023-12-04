@@ -18,25 +18,25 @@
                     <div class="icon-orderIsConfirm">
                         <i class="bi bi-journal-check"></i>
                     </div>
-                    <p>Order is confirm</p>
+                    <p>Chờ xác nhận</p>
                 </div>
                 <div class="orderIsShipping">
                     <div class="icon-orderIsShipping">
                         <i class="bi bi-truck"></i>
                     </div>
-                    <p>Order is shipping</p>
+                    <p>Đang vận chuyển</p>
                 </div>
                 <div class="orderHasBeanDelivered">
                     <div class="icon-orderHasBeanDelivered">
                         <i class="bi bi-download"></i>
                     </div>
-                    <p>Order has been delivered</p>
+                    <p>Hoàn thành</p>
                 </div>
             </div>
         </div>
         <div class="boxOrderDetail-bottom">
             <div th:each="d : ${db}">
-                <div class="boxHeader">
+                <!-- <div class="boxHeader">
                     <span>
                         <img id="logoAccountOrderDetail"
                             th:src="@{|/Client/images/${d.books.shoponlines.listOfFiles.get(0).filename}|}" alt="">
@@ -46,7 +46,7 @@
                     <button class="btn btnReport-orderDetail">Report</button>
                     <p id="pStatus-orderDetail">Status: <span id="spanStatus-orderDetail" th:text="${d.bookings.orderstatuses.statusname}"></span>
                     </p>
-                </div>
+                </div> -->
                 <div class="boxBody">
                     <div class="product-orderDetail">
                         <img class="imgBook-orderDetail"
@@ -61,23 +61,27 @@
                 <div class="detailInfo-left">
                     <table class="tabledetailInfo">
                         <tr>
-                            <td>Total product:</td>
+                            <td>Tổng tiền sản phẩm:</td>
                             <td th:text="${db.get(0).bookings.cost}"></td>
                         </tr>
                         <tr>
-                            <td>Shipping:</td>
+                            <td>Phí vận chuyển:</td>
                             <td>15.00</td>
                         </tr>
                         <tr>
-                            <td>Voucher:</td>
+                            <td>Voucher từ Book Worm:</td>
                             <td>-30.00</td>
                         </tr>
                         <tr>
-                            <td>Payment:</td>
+                            <td>Voucher từ Shop:</td>
+                            <td>-30.00</td>
+                        </tr>
+                        <tr>
+                            <td>Hình thức thanh toán:</td>
                             <td>COD</td>
                         </tr>
                         <tr>
-                            <td>Total:</td>
+                            <td>Thành tiền:</td>
                             <td>295.00</td>
                         </tr>
                     </table>
