@@ -36,16 +36,13 @@ public class SecurityConfig {
 	@Bean
 	public SecurityFilterChain web(HttpSecurity http) throws Exception {
 		http.authorizeHttpRequests((request) -> request
-				.requestMatchers("/account/**", "/Admin/Css/**", "/Admin/Image/**", "/Admin/Js/**")
-
-				.permitAll().requestMatchers("/Client/**", "/product/**").permitAll().requestMatchers("/rest/**")
-				.permitAll().requestMatchers("static/Client/**").permitAll().requestMatchers("admin/**", "api/payment/**").hasAuthority("ADMIN")
+				.requestMatchers("/account/**", "/Admin/Css/**", "/Admin/Image/**", "/Admin/Js/**","/IBook/index")
+				.permitAll().requestMatchers("/Client/**", "/product/**").permitAll().requestMatchers("/rest/**").permitAll().requestMatchers("static/Client/**").permitAll().requestMatchers("admin/**", "api/payment/**").hasAuthority("ADMIN")
 				.requestMatchers("/seller/**").hasAuthority("SELLER").anyRequest().authenticated())
 
 				.formLogin(form -> form.loginPage("/account/login").defaultSuccessUrl("/IBook/index").permitAll())
 
 				.logout((form) -> form.logoutUrl("/account/logout").logoutSuccessUrl("/account/logoutSuccess")
-
 						.permitAll());
 
 		http.oauth2Login(customize -> customize.loginPage("/account/login")
