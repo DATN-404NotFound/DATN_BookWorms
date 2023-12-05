@@ -375,7 +375,14 @@ app.controller("addressSettingController", function ($scope, $routeParams, $rout
 //************************************************************************Tung dev seller (Dep trai vai lone)
 
     //Create Product
-app.controller('createProductController', function($scope, BookService, $http) {
+app.controller('createProductController', function($scope, BookService, $http, $window) {
+    let host = "http://localhost:8080/rest/books/";
+    $scope.categoryToBook= '';
+    $scope.listCategoryToBook = [];
+    $scope.book={};
+    $scope.company={};
+    $scope.imageBook=[];
+
     // Lấy tên các danh mục
     BookService.getCategories().then(function(response) {
         $scope.categories = response.data;
@@ -389,39 +396,92 @@ app.controller('createProductController', function($scope, BookService, $http) {
     }, function(error) {
         console.error('Lỗi khi lấy tên nhà xuất bản:', error);
     });
+   $scope.getToListCategoryAddBook = function (category) {
+        $scope.categoryToBook = '';
+       for(let i = 0; i< $scope.listCategoryToBook.length;i++){
+           if ($scope.listCategoryToBook[i].categoryid  == category.categoryid){
+               $scope.listCategoryToBook.splice(i, 1);
 
-    $scope.createBook = function () {
-        var formData = new FormData();
-        formData.append('bookname', $scope.bookname);
-        formData.append('language', $scope.language);
-        formData.append('size', $scope.size);
-        formData.append('weight', $scope.weight);
-        formData.append('totalpage', $scope.totalpage);
-        formData.append('publishingyear', $scope.publishingyear);
-        formData.append('price', $scope.price);
-        formData.append('quantity', $scope.quantity);
-        formData.append('statues', $scope.statues);
-        formData.append('publishingcompanyid', $scope.publishingcompanyid);
-        formData.append('isactive', $scope.isactive);
-        formData.append('category', $scope.category);
+               //display category to book
+               for(let i = 0; i< $scope.listCategoryToBook.length;i++){
+                   $scope.categoryToBook += $scope.listCategoryToBook[i].name + ',';
+               }
+               return
+           }
+       }
+        $scope.listCategoryToBook.push(category);
+       for(let i = 0; i< $scope.listCategoryToBook.length;i++){
+           $scope.categoryToBook += $scope.listCategoryToBook[i].name + ',';
+       }
+   }
+    $scope.uploadImage = function(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $scope.$apply(function() {
+                    $scope.imagePreview = e.target.result;
+                   $scope.imageBook.push($scope.imagePreview);
 
-        angular.forEach($scope.images, function (image) {
-            formData.append('images', image);
-            console.log($scope.images)
-        });
-
-        $http.post('/rest/books/create', formData, {
-            transformRequest: angular.identity,
-            headers: {'Content-Type': undefined}
-        }).then(function (response) {
-            console.log(response.data);
-            alert('Book created successfully!');
-            // Redirect or perform any other actions after successful creation
-        }, function (error) {
-            console.error(error);
-            alert('Error creating book. Please try again.');
-        });
+                });
+            };
+            reader.readAsDataURL(input.files[0]);
+        }
     };
+
+   $scope.createBook = function () {
+       let url = `${host}createBook`;
+       const headers = {
+           'Content-Type': "application/json",
+           transformRequest: angular.identity
+       };
+
+       $http.post(url, JSON.stringify($scope.book), {headers: headers}).then(resp => {
+           console.log("Save book success")
+       }).catch(error => {
+           console.log("Save book false")
+       });
+
+       $http.get("http://localhost:8080/rest/books/getNewBook").then(resp => {
+           $scope.book = resp.data;
+           console.log("bookNew",$scope.book)
+       }).catch(error => {
+           console.log("Save book false")
+       });
+   }
+
+   $scope.saveBook = function (){
+       console.log("company",$scope.company);
+       console.log("book",$scope.book);
+       console.log("categories",$scope.listCategoryToBook);
+       console.log("image",$scope.imageBook);
+
+       $scope.createBook();
+
+       // let formData;
+       // formData = new FormData();
+       // if ($scope.imageBook != null) {
+       //     formData.append('fileImage', $scope.imageBook);
+       // }
+       // formData.append('book', $scope.book)
+       // formData.append('company', $scope.company)
+       // formData.append('categories', $scope.listCategoryToBook)
+       // formData.append("reportProgress", true);
+       // const headers = {
+       //     'Content-Type': undefined,
+       //     transformRequest: angular.identity
+       // };
+       // let url = `${host}saveBook`;
+       // $http.post(url, formData, {headers: headers}).then(resp => {
+       //
+       //     console.log("Save book success!!!")
+       //     $window.alert("Save book success!!!");
+       // }).catch(error => {
+       //     console.log("Save book false", error)
+       //     $window.alert("Save book false!!!");
+       // });
+   }
+
+
 });
 app.service('BookService', function($http) {
     // Dịch vụ để lấy tên các danh mục

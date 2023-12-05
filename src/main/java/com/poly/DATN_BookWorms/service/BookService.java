@@ -3,14 +3,9 @@ package com.poly.DATN_BookWorms.service;
 import java.util.List;
 
 import com.poly.DATN_BookWorms.entities.*;
-import com.poly.DATN_BookWorms.repo.BooksRepo;
 import com.poly.DATN_BookWorms.response.BookResponse;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.stereotype.Service;
-
-import com.poly.DATN_BookWorms.response.BookResponse;
-import org.springframework.web.multipart.MultipartFile;
 
 
 public interface BookService {
@@ -45,4 +40,8 @@ public interface BookService {
 	void updateIsActive(Long bookId, boolean newIsActive);
 
 	void deleteBook(Long bookId, boolean newIsActive);
+
+	 Books save(Books book);
+
+	Books getNewBook();
 }

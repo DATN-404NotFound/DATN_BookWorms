@@ -190,4 +190,16 @@ public class BookServiceImp implements BookService{
 		}
 	}
 
+	@Override
+	public Books save(Books book) {
+		 bookRepo.save(book);
+		return book;
+	}
+
+	@Override
+	public Books getNewBook() {
+		return bookRepo.getNewBook();
+	}
+
+
 }

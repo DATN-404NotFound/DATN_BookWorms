@@ -52,7 +52,7 @@ public class Shoponlines implements Serializable {
     @Column(name = "description", length = 2555)
     private String description;
 
-
+    private String logo;
 
     public String     userid ;
 

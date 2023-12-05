@@ -30,6 +30,8 @@ public class AddressShop implements Serializable {
 
     private String phonenumber;
 
+    private Boolean isdelete;
+
     @ManyToOne
     @JoinColumn(name = "Shopid", referencedColumnName="ShopId")
     private Shoponlines shoponlines ;
