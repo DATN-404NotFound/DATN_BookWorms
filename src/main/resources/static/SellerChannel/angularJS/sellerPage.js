@@ -168,7 +168,7 @@ app.controller("bankAccountController", function ($scope, $routeParams, $route, 
     $scope.getBankAccountBalance();
 })
 //revenue
-app.controller("revenueFinanceController", function ($scope, $routeParams, $route, $http, $rootScope,$timeout) {
+app.controller("revenueFinanceController", function ($scope, $routeParams, $route, $http, $rootScope,$timeout, $window) {
     let host = "http://localhost:8080/rest/revenueFinance/";
     $scope.paymentTotal=[];
     $scope.getRevenueFinance = function () {

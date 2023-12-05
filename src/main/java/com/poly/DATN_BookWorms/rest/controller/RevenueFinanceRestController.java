@@ -90,6 +90,7 @@ public class RevenueFinanceRestController {
         paymentShop.setStatus(false);
         paymentShop.setValuepayment(Long.parseLong(paymentTotal));
         paymentShop.setShoponlines(shoponlines);
+        paymentShop.setIsdelete(false);
         paymentShopService.save(paymentShop);
         // Trả về phản hồi thành công
         return ResponseEntity.ok(paymentShop);

@@ -32,20 +32,19 @@ import java.io.Serializable;
 @Entity
 @Table(name = "Paymentshop")
 public class PaymentShop implements Serializable {
-
-
-
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "paymentshopid", nullable = false)
 	private Long paymentshopid;
 	
 	@Temporal(TemporalType.DATE)
-    private Date       createat ;
+    private Date createat ;
 	
 	private boolean status;
 	
 	private long valuepayment;
+
+	private Boolean isdelete;
 	
 	@ManyToOne
     @JoinColumn(name="Shopid", referencedColumnName="ShopId", insertable=false, updatable=false)
