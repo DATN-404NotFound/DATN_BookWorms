@@ -181,6 +181,16 @@ app.controller("revenueFinanceController", function ($scope, $routeParams, $rout
             console.log("Error", error)
         });
     }
+    $scope.getBankAccountBalance = function () {
+        $scope.accountBalance=[];
+        let url = `${host}getAccountBalance`;
+        $http.get(url).then(resp => {
+            $scope.accountBalance = resp.data;
+            console.log("accountBalance:", $scope.accountBalance)
+        }).catch(error => {
+            console.log("Error", error)
+        });
+    }
     $scope.getAnalysisFinance = function () {
         $scope.analysisFinance=[];
         let url = `${host}getAnalysisFinance`;
@@ -229,6 +239,7 @@ app.controller("revenueFinanceController", function ($scope, $routeParams, $rout
     $scope.getRevenueFinance();
     $scope.getAnalysisFinance();
     $scope.getListFinance();
+    $scope.getBankAccountBalance();
 });
 //sales Analysis
 app.controller("salesController", function ($scope, $routeParams, $route, $http, $rootScope,$timeout) {
