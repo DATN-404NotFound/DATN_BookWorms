@@ -53,7 +53,7 @@ public class Paymentaccounts implements Serializable {
 
     public String     accountname ;
 
-    public boolean    isdelete;
+    public Boolean    isdelete;
 
 
     //--- ENTITY LINKS ( RELATIONSHIP )
