@@ -52,7 +52,7 @@ public class Payments  {
 
     private String     addressuserid ;
 
-	private boolean  isdelete;
+	private Boolean  isdelete;
 
 
     //--- ENTITY LINKS ( RELATIONSHIP )
