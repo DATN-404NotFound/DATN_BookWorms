@@ -76,6 +76,50 @@ app.config(function ($routeProvider) {
             redirectTo: '/seller'
         });
 });
+//Home Page
+app.controller("indexController", function ($scope, $routeParams, $route, $http, $rootScope,$timeout,$window) {
+    let host = "http://localhost:8080/rest/salesAnalysis/";
+    var currentDate = new Date();
+    $scope.year = currentDate.getFullYear();
+    $scope.salesAnalysis = [];
+    $scope.salesAnalysisNow = [];
+    $scope.getSalesAnalysis = function () {
+        $scope.salesAnalysis = [];
+        $scope.salesAnalysisNow = [];
+        let url = `${host}getSalesAnalysis`;
+        var currentMonth = currentDate.getMonth() + 1;
+        let formData;
+        formData = new FormData();
+        formData.append('year', $scope.year);
+        formData.append("reportProgress", true);
+        const headers = {
+            'Content-Type': undefined,
+            transformRequest: angular.identity
+        };
+        $http.post(url, formData, {headers: headers}).then(resp => {
+            $scope.salesAnalysis = resp.data;
+            $scope.salesAnalysisNow.push(resp.data[currentMonth]-1);
+            $scope.salesAnalysisNow.push(resp.data[currentMonth - 2]);
+            console.log("data", $scope.salesAnalysis)
+            console.log("data", $scope.salesAnalysisNow)
+        }).catch(error => {
+            console.log("Error", error)
+        });
+
+
+
+    }
+    $scope.growthIncreases = function (firtsMonth, secondMonth) {
+        var growth = 0;
+
+        if (Number(secondMonth) != 0) {
+            growth = (Number(firtsMonth) / Number(secondMonth)) * 100;
+        }
+        return growth;
+    }
+    $scope.getSalesAnalysis();
+})
+//Create Bank Account
 app.controller("createBankAccountController", function ($scope, $routeParams, $route, $http, $rootScope,$timeout,$window) {
     let host = "http://localhost:8080/rest/revenueFinance/";
     $scope.accountBalance={};

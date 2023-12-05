@@ -53,6 +53,8 @@ public class Paymentaccounts implements Serializable {
 
     public String     accountname ;
 
+    public boolean    isdelete;
+
 
     //--- ENTITY LINKS ( RELATIONSHIP )
     @OneToMany(mappedBy="paymentaccounts")
