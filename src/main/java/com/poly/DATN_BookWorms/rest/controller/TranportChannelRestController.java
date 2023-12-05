@@ -29,6 +29,9 @@ public class TranportChannelRestController {
         Account account = service.get("user");
         return bookingService.findAllByUserId(account.getUserid());
     }
-
+    @PutMapping("/{bookingId}/updateOrderStatus")
+    public void updateOrderStatus(@PathVariable String bookingId) {
+        bookingService.updateOrderStatus(bookingId);
+    }
 
 }

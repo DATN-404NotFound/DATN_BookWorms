@@ -47,11 +47,10 @@ public class Shoponlines implements Serializable {
     @Column(name = "total")
     private Double total;
 
-
     @Column(name = "description", length = 2555)
     private String description;
 
-    private String     userid ;
+    private String logo;
 
     @Column(name = "paycount", length = 10)
     public String paycount;

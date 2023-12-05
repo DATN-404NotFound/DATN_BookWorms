@@ -19,7 +19,10 @@ public interface SaleService {
 
 
 
-	Sales create(String promotionname, Date createat, String descriptions, BigDecimal discountpercentage, String statuses, String intendfor);
+
+
+
+	Sales create(Sales sales);
 
 	Sales update(Sales sale);
 
@@ -29,4 +32,9 @@ public interface SaleService {
 	
 	List<Sales> saleByShopAndByIntendFor(int shopId,String intendFor);
 	
+
+
+
+
+	List<Sales> findAllByShopid(String intendfor, Integer shopid);
 }

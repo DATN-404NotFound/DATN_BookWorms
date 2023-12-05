@@ -44,38 +44,38 @@ public class Books implements Serializable {
     //--- ENTITY DATA FIELDS 
     public String bookname;
 
-    @Column(name = "language", length = 20)
     public String language;
 
-    @Column(name = "size", length = 20)
+
     public String size;
 
-    @Column(name = "weight")
+
     public Double weight;
 
     public Integer totalpage;
 
     public Integer publishingyear;
 
-    @Column(name = "price")
+
     public Double price;
 
-    @Column(name = "quantity")
+
     public Integer quantity;
 
-    @Column(name = "statues", length = 20)
     public String statues;
 
     public Integer publishingcompanyid;
 
     public Boolean isactive;
+    public Boolean isdelete;
+
 
     public Integer quantitysold;
 
     public Integer shopid;
 
-//    @Column(name= "ProductViews")
-//    public Integer productviews;
+
+    public Integer productviews;
 
 
 
@@ -111,7 +111,6 @@ public class Books implements Serializable {
     public List<Writers> listOfWriters;
 
     @ManyToOne
-
     @JoinColumn(name = "Publishingcompanyid", referencedColumnName = "PCId", insertable = false, updatable = false)
     public Publishingcompanies publishingcompanies;
 
@@ -119,7 +118,7 @@ public class Books implements Serializable {
     @JsonIgnore
     public List<Hassales> listOfHassales;
 
-    public Integer productviews;
+
 
 
     //--- toString specific method
@@ -155,7 +154,6 @@ public class Books implements Serializable {
         sb.append(shopid);
         return sb.toString();
     }
-
 
 
 

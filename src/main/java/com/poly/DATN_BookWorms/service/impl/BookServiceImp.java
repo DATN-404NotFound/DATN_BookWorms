@@ -1,8 +1,6 @@
 package com.poly.DATN_BookWorms.service.impl;
 
-import java.io.IOException;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -10,7 +8,6 @@ import com.poly.DATN_BookWorms.entities.*;
 import com.poly.DATN_BookWorms.repo.ImagebooksRepo;
 import com.poly.DATN_BookWorms.repo.TypebooksRepo;
 import com.poly.DATN_BookWorms.response.BookResponse;
-import com.poly.DATN_BookWorms.utils.FileUploadUtil;
 import com.poly.DATN_BookWorms.utils.SessionService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -21,8 +18,6 @@ import org.springframework.stereotype.Service;
 
 import com.poly.DATN_BookWorms.repo.BooksRepo;
 import com.poly.DATN_BookWorms.service.BookService;
-import org.springframework.util.StringUtils;
-import org.springframework.web.multipart.MultipartFile;
 
 @Service
 public class BookServiceImp implements BookService{
@@ -65,49 +60,44 @@ public class BookServiceImp implements BookService{
 //	}
 
 	@Override
-	public Books creates(String bookname, String language, String size, Double weight, Integer totalpage,
-						 Integer publishingyear, Double price, Integer quantity,
-						 Integer publishingcompanyid, Boolean isactive, MultipartFile[] images, Integer category) {
+	public Books creates(Books books) {
 		Account user = sessionService.get("user");
-			Books book = new Books();
-			book.setBookname(bookname);
-			book.setLanguage(language);
-			book.setSize(size);
-			book.setWeight(weight);
-			book.setTotalpage(totalpage);
-			book.setPublishingyear(publishingyear);
-			book.setPrice(price);
-			book.setQuantity(quantity);
-			book.setStatues("Còn hàng");
-			book.setPublishingcompanyid(publishingcompanyid);
-			book.setIsactive(isactive);
-			book.setQuantitysold(0);
-			book.setShopid(user.getListOfShoponlines().get(0).getShopid());
-		bookRepo.save(book);
+			books.setBookname(books.getBookname());
+			books.setLanguage(books.getLanguage());
+			books.setSize(books.getSize());
+			books.setWeight(books.getWeight());
+			books.setTotalpage(books.getTotalpage());
+			books.setPublishingyear(books.getPublishingyear());
+			books.setPrice(books.getPrice());
+			books.setQuantity(books.getQuantity());
+			books.setStatues("Còn hàng");
+			books.setPublishingcompanyid(books.getPublishingcompanyid());
+			books.setIsactive(books.getIsactive());
+			books.setQuantitysold(0);
+			books.setShopid(user.getListOfShoponlines().get(0).getShopid());
+		return bookRepo.save(books);
 
 
-		System.out.println(book);
-		Typebooks typebooks = new Typebooks();
-		typebooks.setBookid(book.getBookid().intValue());
-		typebooksRepo.save(typebooks);
-		for (MultipartFile image : images) {
-			try {
-				String fileName = StringUtils.cleanPath(Objects.requireNonNull(image.getOriginalFilename()));
-				String uploadDir = "D:/Work/DATN_BookWorms/src/main/resources/static/Client/images";
-				FileUploadUtil.saveFile(uploadDir, fileName, image);
-				Imagebooks imagebooks = new Imagebooks();
-				imagebooks.setBookid(book.getBookid().intValue());
-				imagebooks.setName(fileName);
-				imagebooks.setTypefile("image");
 
-				imagebooksRepo.save(imagebooks);
-			} catch (IOException e) {
-				System.out.println("not save image");
-				e.printStackTrace();
-			}
-		}
 
-		return book;
+//		typebooksRepo.save(typebooks);
+//		for (MultipartFile image : imagess) {
+//			try {
+//				String fileName = StringUtils.cleanPath(Objects.requireNonNull(image.getOriginalFilename()));
+//				String uploadDir = "D:/Work/DATN_BookWorms/src/main/resources/static/Client/images";
+//				FileUploadUtil.saveFile(uploadDir, fileName, image);
+//				imagebooks.setBookid(books.getBookid().intValue());
+//				imagebooks.setName(fileName);
+//				imagebooks.setTypefile("image");
+//
+//				imagebooksRepo.save(imagebooks);
+//			} catch (IOException e) {
+//				System.out.println("not save image");
+//				e.printStackTrace();
+//			}
+//		}
+//
+//		return books;
 
 
 
@@ -148,9 +138,12 @@ public class BookServiceImp implements BookService{
 		logger.info("findBookByshopid with shopid : {} and pageable : {}", shopid,pageable);
 		return bookRepo.findByshopid(shopid, pageable);
 	}
-	@Override
 	public List<Books> findByshopidv2(Integer shopid) {
-		return bookRepo.findByShopid(shopid);
+		List<Books> allBooks = bookRepo.findByShopid(shopid);
+		List<Books> activeBooks = allBooks.stream()
+				.filter(book -> Boolean.FALSE.equals(book.getIsdelete()))
+				.collect(Collectors.toList());
+		return activeBooks;
 	}
 
 	@Override
@@ -230,4 +223,26 @@ public class BookServiceImp implements BookService{
 		logger.info("findByShopList with shopid : {}",shopid);
 		return bookRepo.findByShopid(shopid);
 	}
+	@Override
+	public void deleteBook(Long bookId, boolean newIsActive) {
+		Optional<Books> optionalBook = bookRepo.findById(bookId);
+		if (optionalBook.isPresent()) {
+			Books book = optionalBook.get();
+			book.setIsdelete(newIsActive);
+			bookRepo.save(book);
+		}
+	}
+
+	@Override
+	public Books save(Books book) {
+		 bookRepo.save(book);
+		return book;
+	}
+
+	@Override
+	public Books getNewBook() {
+		return bookRepo.getNewBook();
+	}
+
+
 }

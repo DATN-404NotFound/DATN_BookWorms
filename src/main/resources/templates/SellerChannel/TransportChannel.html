@@ -56,28 +56,28 @@
                 <div class="card-body">
                   <ul class="nav nav-pills nav-fill mb-3">
                     <li class="nav-item">
-                      <a class="nav-link active" ng-click="findByOrderStatusId(0)" ng-init="findByOrderStatusId(0)" data-toggle="pill">All</a>
+                      <a class="nav-link active" ng-click="showButton = false; findByOrderStatusId(0)" ng-init="findByOrderStatusId(0)" data-toggle="pill">All</a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link" ng-click="findByOrderStatusId(1)" data-toggle="pill" >Unpaid</a>
+                      <a class="nav-link" ng-click="showButton = false; findByOrderStatusId(1)" data-toggle="pill" >Unpaid</a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link" ng-click="findByOrderStatusId(2)" data-toggle="pill">Paid</a>
+                      <a class="nav-link" ng-click="showButton = false; findByOrderStatusId(2)" data-toggle="pill">Paid</a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link" ng-click="findByOrderStatusId(3)" data-toggle="pill">Wait for confirmation</a>
+                      <a class="nav-link" ng-click="tabSelected(3); showButton = true; findByOrderStatusId(3)" data-toggle="pill">Wait for confirmation</a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link" ng-click="findByOrderStatusId(4)" data-toggle="pill">Shipping</a>
+                      <a class="nav-link" ng-click="showButton = false; findByOrderStatusId(4)" data-toggle="pill">Shipping</a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link" ng-click="findByOrderStatusId(5)" data-toggle="pill">Complete</a>
+                      <a class="nav-link" ng-click="showButton = false; findByOrderStatusId(5)" data-toggle="pill">Complete</a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link" ng-click="findByOrderStatusId(6)" data-toggle="pill">Delivery failed</a>
+                      <a class="nav-link" ng-click="showButton = false; findByOrderStatusId(6)" data-toggle="pill">Delivery failed</a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link" ng-click="findByOrderStatusId(7)" data-toggle="pill">Return/Refund</a>
+                      <a class="nav-link" ng-click="showButton = false; findByOrderStatusId(7)" data-toggle="pill">Return/Refund</a>
                     </li>
                   </ul>
                   <div class="tab-content mb-1" id="pills-tabContent">
@@ -136,6 +136,12 @@
                           <div class="row my-4">
                             <!-- Small table -->
                             <div class="col-md-12">
+                              <div class="form-group mt-4">
+                                <button type="button" class="btn mb-2 btn-warning" ng-click="confirmSelectedBookings()" ng-disabled="!hasCheckedCheckbox()" ng-show="showButton" >Confirm</button>
+
+
+                              </div>
+
                               <div class="card shadow">
                                 <div class="card-body">
                                   <!-- table -->
@@ -151,10 +157,10 @@
                                     </thead>
                                     <tbody>
                                       <tr ng-repeat="booking in bookings">
-                                        <td>
+                                        <td ng-show="waitForConfirmationTabSelected">
                                           <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input">
-                                            <label class="custom-control-label"></label>
+                                            <input type="checkbox" class="custom-control-input" id="c{{$index + 1}}" ng-model="checkboxes[$index]">
+                                            <label class="custom-control-label" for="c{{$index + 1}}"></label>
                                           </div>
                                         </td>
 

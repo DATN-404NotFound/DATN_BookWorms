@@ -63,6 +63,8 @@ public interface BooksRepo extends JpaRepository<Books, Long> {
 
     @Query("SELECT b FROM Books b  ORDER BY b.publishingyear DESC ")
     Page<Books> findBooksNew(Pageable pageable);
+    @Query("SELECT b FROM Books b ORDER BY b.bookid DESC LIMIT 1")
+    Books getNewBook();
 
     @Query("Select b.bookid from Books b where b.bookid in (Select t.bookid from Typebooks t where t.categories.categoryid in ?1)")
     List<Integer> getListBookWithTypeBooks(List<Integer> listTypeBook);

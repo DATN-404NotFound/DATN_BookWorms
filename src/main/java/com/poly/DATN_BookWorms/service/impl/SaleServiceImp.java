@@ -1,8 +1,9 @@
 package com.poly.DATN_BookWorms.service.impl;
 
-import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import com.poly.DATN_BookWorms.entities.*;
 import com.poly.DATN_BookWorms.repo.DiscountcodesRepo;
@@ -48,18 +49,18 @@ public class SaleServiceImp implements SaleService{
 	}
 
 	@Override
-	public Sales create( String promotionname, Date createat, String descriptions, BigDecimal discountpercentage, String statuses, String intendfor) {
+	public Sales create(Sales sales) {
 		Account account = session.get("user");
+		LocalDate currentDate = LocalDate.now();
 	Shoponlines shoponlines = shopOnlinesService.findShoponlinesByUserId(account.getUserid());
-		Sales sales = new Sales();
-		String authorityId = crc32Sha256.getCodeCRC32C(promotionname + statuses);
+		String authorityId = crc32Sha256.getCodeCRC32C(sales.getPromotionname() + sales.getStatuses());
 		sales.setCouoponcode(authorityId);
-		sales.setPromotionname(promotionname);
-		sales.setCreateat(createat);
-		sales.setDescriptions(descriptions);
-		sales.setDiscountpercentage(discountpercentage);
-		sales.setStatuses(statuses);
-		sales.setIntendfor(intendfor);
+		sales.setPromotionname(sales.getPromotionname());
+		sales.setCreateat(new Date());
+		sales.setDescriptions(sales.getDescriptions());
+		sales.setDiscountpercentage(sales.getDiscountpercentage());
+		sales.setStatuses(sales.getStatuses());
+		sales.setIntendfor(sales.getIntendfor());
 		sales.setShopid(shoponlines.getShopid());
 		return saleRepo.save(sales);
 	}
@@ -89,50 +90,13 @@ public class SaleServiceImp implements SaleService{
 	}
 
 
-//	public void addVoucherWithDiscountCodeAndSale(String PromotionName, String Descriptions, BigDecimal DiscountPercentage, String Intendfor, String Tagetbuyer, Integer[] Bookid, String saleId, String userId, Date startDiscount, Date endDiscount,
-//                                                  Boolean isDelete, Double minPrice, String status,
-//                                                  Date startTime, Date endTime) {
-//		Account account = session.get("user");
-//		Shoponlines shoponlines = shopOnlinesService.findShoponlinesByUserId(account.getUserid());
-//		// Create a new discount code
-//		Sales sales = new Sales();
-////		sales.setCouoponcode();
-//		sales.setPromotionname(PromotionName);
-//		sales.setCreateat(new Date(System.currentTimeMillis()));
-//		sales.setDescriptions(Descriptions);
-//		sales.setDiscountpercentage(DiscountPercentage);
-//		sales.setStatuses("PH");
-//		sales.setIntendfor(Intendfor);
-//		sales.setShopid(shoponlines.getShopid());
-//
-//		if (Tagetbuyer == "Books"){
-//			Hassales sale = new Hassales();
-//			for (Integer bookId : Bookid) {
-//				sale.setBookid(bookId);
-//				sale.setSaleid(saleId);
-//				sale.setStarttime(startTime);
-//				sale.setEndtime(endTime);
-//				hassalesRepo.save(sale);
-//			}
-//		}
-//		else {
-//			Discountcodes discountCode = new Discountcodes();
-//			discountCode.setSaleid(saleId);
-//			discountCode.setUserid(userId);
-//			discountCode.setStartdiscount(startDiscount);
-//			discountCode.setEnddiscount(endDiscount);
-//			discountCode.setIsdelete(isDelete);
-//			discountCode.setMinprice(minPrice);
-//			discountCode.setStatus(status);
-//			discountcodesRepo.save(discountCode);
-//		}
-//		// Create a new sale
-//
-//
-//		// Save the discount code and sale
-//
-//
-//	}
+    public List<Sales> findAllByShopid(String intendfor, Integer shopid) {
+		List<Sales> allSales = saleRepo.findAllByshopid(shopid);
+        List<Sales> filteredSales = allSales.stream()
+                .filter(sale -> sale.getIntendfor().equals(intendfor))
+                .collect(Collectors.toList());
 
+        return filteredSales;
+    }
 
 }
