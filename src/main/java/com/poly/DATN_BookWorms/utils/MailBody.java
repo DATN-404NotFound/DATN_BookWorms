@@ -1,6 +1,10 @@
 package com.poly.DATN_BookWorms.utils;
 
+import java.text.SimpleDateFormat;
+
 import org.springframework.stereotype.Service;
+
+import com.poly.DATN_BookWorms.entities.Bookings;
 
 @Service
 public class MailBody {
@@ -71,5 +75,86 @@ public class MailBody {
 				+ "\r\n"
 				+ "</html>";
 		return body;
+	}
+	
+	
+	public String mailHuyDon (String personrecive,String personCancle, Bookings bookings, String status) { 
+		String mailhuy = "<!DOCTYPE html>\r\n"
+				+ "<html lang=\"en\">\r\n"
+				+ "\r\n"
+				+ "<head>\r\n"
+				+ "    <meta charset=\"UTF-8\" />\r\n"
+				+ "    <meta name=\"viewport\" content=\"width=device-width,  \r\n"
+				+ "                         initial-scale=1.0\" />\r\n"
+				+ "    <meta http-equiv=\"X-UA-Compatible\" content=\"ie=edge\" />\r\n"
+				+ "    <title>Create new Password</title>\r\n"
+				+ "    <link href=\"https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css\" rel=\"stylesheet\">\r\n"
+				+ "    <script src=\"https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js\"></script>\r\n"
+				+ "    <script src=\"https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js\"></script>\r\n"
+				+ "    <script src=\"https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js\"></script>\r\n"
+				+ "    <link rel=\"stylesheet\" href=\"https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css\">\r\n"
+				+ "</head>\r\n"
+				+ "\r\n"
+				+ "<body>\r\n"
+				+ "    <div style=\" width:100%;\">\r\n"
+				+ "\r\n"
+				+ "        <p>Kính gửi : <b>"+personrecive+"</b> .</p>\r\n"
+				+ "        <br>\r\n"
+				+ "        <div class=\"mt-4 p-5\" style=\"border: 1px solid rgb(187, 187, 186); width: 95%; margin: auto;\">\r\n"
+				+ "            <p style=\"font-size: 20px;\">Thông báo :<span><strong> HUỶ ĐƠN HÀNG</strong></span></p>\r\n"
+				+ "            <p>Cảm ơn bạn rất nhiều vì đã sử dụng dịch vụ IBook</p>\r\n"
+				+ "            <p>Chúng tôi nhận được thông tin yêu cầu huỷ đơn hàng từ "+personCancle+"</p>\r\n"
+				+ "            <p>Sau khi xem xét và xử lý yêu cầu. Đơn hàng được yêu cầu huỷ đã  : <b>"+status+"</b></p>\r\n"
+				+ "            <p>Thông tin đơn hàng tổng quát :</p>\r\n"
+				+ " <pre style=\"font-size: 13px;  box-shadow: 1px 2px 4px 4px rgba(0,0,0,.25); width: 400px;\">\r\n"
+				+ "\r\n"
+				+ "    Mã đơn hàng             :      <b>"+bookings.bookingid+"</b>\r\n"
+				+ "    Thời gian đặt hàng      :      <b>"+new SimpleDateFormat("dd-MM-yyyy").format(bookings.getCreateat())+"</b>\r\n"
+				+ "    Tổng tiền đơn hàng      :      <b>"+bookings.getCost()+"</b>\r\n"
+				+ "    Số lượng sản phẩm       :      <b>"+bookings.getListOfDetailbookings().size()+"</b>\r\n"
+				+ " </pre>\r\n"
+				+ " <p>Bạn vui lòng truy cập vào website của chúng tôi để xem thông tin chi tiết. </p>\r\n"
+				+ "            <br>\r\n"
+				+ "            <hr>\r\n"
+				+ "  <b>Trường hợp bên người mua đã thanh toán hoá đơn thì sẽ được hoàn tiền trong vòng 48h !!</b>\r\n"
+				+ "            <br>\r\n"
+				+ "            <br>\r\n"
+				+ "            <p>Nếu có thắc mắc xin vui lòng liên hệ lại với chúng tôi qua thông tin đã được kèm bên dưới để được hỗ trợ.</p>"
+				+ "            <br>\r\n"
+				+ "            <p>Xin chân thành cảm ơn.</p>\r\n"
+				+ "        </div>\r\n"
+				+ "\r\n"
+				+ "        <hr>\r\n"
+				+ " \r\n"
+				+ "        <h3>IBook Welcome</h3>\r\n"
+				+ "        <div style=\"color:#171818 ; \">\r\n"
+				+ "            <b>\r\n"
+				+ "                Thông tin về công ty\r\n"
+				+ "            </b>\r\n"
+				+ "            <p>\r\n"
+				+ "                Công ty TNHH 404 Not Found <br>\r\n"
+				+ "                - Địa chỉ đăng ký kinh doanh: Tòa T, Công viên phần mềm Quang Trung, Tô Kí- Quận 12 TP Hồ Chí Minh - Việt\r\n"
+				+ "                Nam.\r\n"
+				+ "                <br>\r\n"
+				+ "                - Giấy chứng nhận Đăng ký Kinh doanh số 123456789 do Sở Kế hoạch và Đầu tư Thành phố Hồ Chí Minh cấp ngày\r\n"
+				+ "                01/01/2023\r\n"
+				+ "                <br>\r\n"
+				+ "                *   Quý khách có nhu cầu liên lạc, trao đổi hoặc đóng góp ý kiến, vui lòng tham khảo các thông tin sau:\r\n"
+				+ "                <br>\r\n"
+				+ "                - Liên lạc qua điện thoại: 1900 0001 <br>\r\n"
+				+ "                - Liên lạc qua email: Truy cập hotro.ibook.vn <br>\r\n"
+				+ "                - Fanpage của Ibook: http://facebook.com/IBook.vn <br>\r\n"
+				+ "                - Đối tác có nhu cầu hợp tác quảng cáo hoặc kinh doanh: marketing@IBook.vn <br>\r\n"
+				+ "    <br>\r\n"
+				+ "                - Văn phòng chính: Tòa T, Công viên phần mềm Quang Trung, Tô Kí- Quận 12 TP Hồ Chí Minh - Việt Nam. <br>\r\n"
+				+ "                - Văn phòng: Tòa T, Công viên phần mềm Quang Trung, Tô Kí- Quận 12 TP Hồ Chí Minh - Việt Nam. <br>\r\n"
+				+ "            </p>\r\n"
+				+ "        </div>\r\n"
+				+ "    </div>\r\n"
+				+ "</body>\r\n"
+				+ "\r\n"
+				+ "</html>";
+		
+		return mailhuy;
 	}
 }

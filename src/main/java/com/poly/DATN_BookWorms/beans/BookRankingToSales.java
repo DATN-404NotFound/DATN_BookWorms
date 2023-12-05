@@ -11,4 +11,26 @@ import lombok.NoArgsConstructor;
 public class BookRankingToSales {
     private Books book;
     private double sale;
+	public Books getBook() {
+		return book;
+	}
+	public void setBook(Books book) {
+		this.book = book;
+	}
+	public double getSale() {
+		return sale;
+	}
+	public void setSale(double sale) {
+		this.sale = sale;
+	}
+	public BookRankingToSales(Books book, double sale) {
+		this.book = book;
+		this.sale = sale;
+	}
+	public BookRankingToSales() {
+	}
+	
+	
+    
+    
 }

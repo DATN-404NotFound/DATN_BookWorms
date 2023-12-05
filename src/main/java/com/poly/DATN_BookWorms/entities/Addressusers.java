@@ -79,6 +79,70 @@ public class Addressusers implements Serializable {
         sb.append("|");
         sb.append(statusaddress);
         return sb.toString(); 
-    } 
+    }
+
+	public String getAddressuserid() {
+		return addressuserid;
+	}
+
+	public void setAddressuserid(String addressuserid) {
+		this.addressuserid = addressuserid;
+	}
+
+	public String getUserid() {
+		return userid;
+	}
+
+	public void setUserid(String userid) {
+		this.userid = userid;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public String getFullname() {
+		return fullname;
+	}
+
+	public void setFullname(String fullname) {
+		this.fullname = fullname;
+	}
+
+	public String getPhonenumber() {
+		return phonenumber;
+	}
+
+	public void setPhonenumber(String phonenumber) {
+		this.phonenumber = phonenumber;
+	}
+
+	public String getStatusaddress() {
+		return statusaddress;
+	}
+
+	public void setStatusaddress(String statusaddress) {
+		this.statusaddress = statusaddress;
+	}
+
+	public Account getAccount() {
+		return account;
+	}
+
+	public void setAccount(Account account) {
+		this.account = account;
+	}
+
+	public List<Payments> getListOfPayments() {
+		return listOfPayments;
+	}
+
+	public void setListOfPayments(List<Payments> listOfPayments) {
+		this.listOfPayments = listOfPayments;
+	} 
 
 }

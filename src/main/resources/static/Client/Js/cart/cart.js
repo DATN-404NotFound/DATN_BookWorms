@@ -78,19 +78,39 @@ function Active(cartid, action) {
 	var e = document.getElementById("quantity" + cartid).value;
 	$.get("http://localhost:8080/rest/cart/" + cartid, function (data, status) {
 		json = data;
-		json.quantity = e;
-		var shop = json.books.shopid;
-		switch (action) {
-			case 'PUT': {
-				updateCart(cartid, json);
-				break;
-			}
-			case 'DELETE': {
-				deleteCart(cartid, shop);
-				break;
-			}
-		}
-	});
+		
+				json.quantity = e;
+				var shop = json.books.shopid;
+				switch (action) {
+					case 'PUT': {
+						$.get("/rest/books/" + json.bookid, function(resp, status) {
+							var bookQuant = resp;
+							console.log("87 : "+ json.quantity)
+							console.log("88 : "+ bookQuant.quantity)
+						
+							if ( bookQuant.quantity < json.quantity) {
+								document.getElementById('messageCart'+cartid).innerText = "Số lượng trong kho không đủ!!"
+								console.log("89 : "+ bookQuant.quantity)
+							}
+							else {
+								document.getElementById('messageCart'+cartid).innerText = "";
+								console.log("90 : "+ bookQuant.quantity)
+								updateCart(cartid, json);
+						
+							}
+						});
+						break;
+					}
+					case 'DELETE': {
+						deleteCart(cartid, shop);
+						break;
+					}
+				}
+			
+		});
+
+
+
 }
 
 
@@ -375,15 +395,15 @@ app.controller("cart_ctrl", function ($scope, $http, $timeout) {
 
 
 	$scope.filterAll = function (b) {
-		
+
 		$scope.searchfilter = localStorage.getItem("searchfilter");
-	
+
 		if ($scope.searchfilter == null) {
-			
+
 			return (JSON.stringify(angular.lowercase(b.bookname)).indexOf($scope.searchfilter) == -1 || JSON.stringify(b.price).indexOf($scope.searchfilter) == -1);
 		}
 		else {
-	
+
 			return (JSON.stringify(angular.lowercase(b.bookname)).indexOf($scope.searchfilter) != -1 || JSON.stringify(b.price).indexOf($scope.searchfilter) != -1);
 		}
 	}
@@ -571,31 +591,47 @@ app.controller("cart_ctrl", function ($scope, $http, $timeout) {
 	$scope.cart = {
 		items: [],
 		add(id) {
-			var item = this.items.find(item => item.books.bookid == id);
-			if (item) {
-				item.quantity += $scope.quantityPro;
-				var updatecart = `${host}`;
-				var cartupdate = angular.copy(item);
-				$http.put(updatecart, cartupdate).then(resp => {
-					$scope.cart.load();
-				})
-
-			} else {
-				$http.get(`/rest/books/` + id).then(resp => {
-					var s = resp.data;
-					$scope.cartss = {
-						cartid: "",
-						userid: "",
-						bookid: s.bookid,
-						quantity: $scope.quantityPro
+			$http.get("/rest/books/" + id).then(resp => {
+				var bookQuan = resp.data;
+				var item = this.items.find(item => item.books.bookid == id);
+				if (item) {
+					item.quantity += $scope.quantityPro;
+					if ( bookQuan.quantity < item.quantity) {
+						$scope.messageBook = "Số lượng sách trong kho không đủ"
 					}
-					var addc = angular.copy($scope.cartss)
-					$http.post(`/rest/cart`, addc).then(resp => {
-						this.items.push(resp.data);
-						$scope.cart.load();
-					})
-				})
-			}
+					else {
+						$scope.messageBook = "";
+						var updatecart = `${host}`;
+						var cartupdate = angular.copy(item);
+						$http.put(updatecart, cartupdate).then(resp => {
+							$scope.cart.load();
+						})
+					}
+
+				} else {
+					if (bookQuan.quantity < $scope.quantityPro) {
+						$scope.messageBook = "Số lượng sách trong kho không đủ"
+					}
+					else {
+						$scope.messageBook = "";
+						$http.get(`/rest/books/` + id).then(resp => {
+							var s = resp.data;
+							$scope.cartss = {
+								cartid: "",
+								userid: "",
+								bookid: s.bookid,
+								quantity: $scope.quantityPro
+							}
+							var addc = angular.copy($scope.cartss)
+							$http.post(`/rest/cart`, addc).then(resp => {
+								this.items.push(resp.data);
+								$scope.cart.load();
+							})
+						})
+					}
+				}
+			});
+
 		},
 		load() {
 			var url = `${host}/user`
@@ -716,27 +752,27 @@ $(document).ready(function () {
 
 function voucherSelected(shopid) {
 	var vou = $('#voucher' + shopid).children("option:selected").val();
-try {
-	$.get("http://localhost:8080/rest/discount/" + vou, function (data, status) {
-		if (!data || data.value === null || vou == undefined) {
-			localStorage.setItem('sales', JSON.stringify(salevoucher));
-			console.log("vouchernull : ")
-		}
-		else {
-			var v = salevoucher.find(i => i.saleid == vou);
-			if (v) {
+	try {
+		$.get("http://localhost:8080/rest/discount/" + vou, function (data, status) {
+			if (!data || data.value === null || vou == undefined) {
+				localStorage.setItem('sales', JSON.stringify(salevoucher));
+				console.log("vouchernull : ")
 			}
 			else {
-				salevoucher.push(data);
-				localStorage.setItem('sales', JSON.stringify(salevoucher));
-				console.log("voucher : "+ salevoucher.length)
+				var v = salevoucher.find(i => i.saleid == vou);
+				if (v) {
+				}
+				else {
+					salevoucher.push(data);
+					localStorage.setItem('sales', JSON.stringify(salevoucher));
+					console.log("voucher : " + salevoucher.length)
+				}
 			}
-		}
-	});
-} catch (error) {
-	console.log('error : '+ error)
-	
-}
+		});
+	} catch (error) {
+		console.log('error : ' + error)
+
+	}
 }
 
 function selectShop(item) {
@@ -756,7 +792,7 @@ function findBook(item) {
 	$.get("http://localhost:8080/rest/books/" + item.bookid, function (data, status) {
 		books.push(data);
 		localStorage.setItem('books', JSON.stringify(books));
-		console.log(" 755: "+ books.length)
+		console.log(" 755: " + books.length)
 		selectShop(data.shoponlines.shopid);
 	})
 }
@@ -765,7 +801,7 @@ function findCart(item) {
 	$.get("http://localhost:8080/rest/cart/" + item, function (data, status) {
 		deal.push(data);
 		localStorage.setItem('deal', JSON.stringify(deal));
-		console.log(" 763 : "+ deal.length)
+		console.log(" 763 : " + deal.length)
 		findBook(data);
 	})
 }
@@ -788,19 +824,19 @@ function deals() {
 	purchase.forEach(item => {
 		findCart(item);
 		localStorage.setItem('deal', JSON.stringify(deal));
-	
-		
+
+
 
 	})
 	setTimeout(greeting, 100);
 }
 
 
-function greeting(){
+function greeting() {
 	location.href = "/order"
-  }
-  
-  
+}
+
+
 
 $(document).ready(function () {
 	loadWin();
@@ -814,10 +850,10 @@ function loadWin() {
 	var b = JSON.parse(localStorage.getItem('deal'));
 	var c = JSON.parse(localStorage.getItem('shoponline'));
 	var d = JSON.parse(localStorage.getItem('sales'));
-	console.log("books L "+ a);
-	console.log("books d "+ b);
-	console.log("books s "+ c);
-	console.log("books sa "+ d);
+	console.log("books L " + a);
+	console.log("books d " + b);
+	console.log("books s " + c);
+	console.log("books sa " + d);
 	var totalPriceAll = 0;
 	if (c != null) {
 		c.forEach(m => {
@@ -861,7 +897,7 @@ function calculatorPrice() {
 
 app.controller("order_ctrl", function ($scope, $http, $timeout) {
 
-/////////////// Deal Page
+	/////////////// Deal Page
 	$scope.bookItem = [];
 	$scope.dealItem = [];
 	$scope.shopItem = [];
@@ -896,13 +932,13 @@ app.controller("order_ctrl", function ($scope, $http, $timeout) {
 		})
 	}
 
-	$scope.clearLocal = function(){ 
+	$scope.clearLocal = function () {
 		localStorage.clear();
 
 	}
 
 	$scope.paymentCart = function () {
-	
+
 		var timeoutTimer = 0;
 		$scope.shopItem.forEach(i => {
 			var a = document.getElementById('priceItem' + i.shopid).innerText;
@@ -948,17 +984,17 @@ app.controller("order_ctrl", function ($scope, $http, $timeout) {
 			}
 			var booking = angular.copy($scope.bookings);
 			console.log("ind " + JSON.stringify($scope.bookings))
-		
+
 			$http.post(`/rest/bookings`, booking).then(resp => {
-				
+
 				$scope.deleteDeal();
 				$http.delete("http://localhost:8080/rest/discount/" + vouchero.discountcodeid).then(resp => {
 				})
 				console.log("949")
 				$('#dhmodal').show();
 				$('#iconModels').html('<i  style="font-size: 50px;color: green;" class="bi bi-check-circle"></i> ')
-			
-			 	$('#descrptionInfors').text("Đặt hàng thành công!")
+
+				$('#descrptionInfors').text("Đặt hàng thành công!")
 			}).catch(error => {
 				console.log("954")
 				$('#dhmodal').show();
@@ -973,44 +1009,44 @@ app.controller("order_ctrl", function ($scope, $http, $timeout) {
 
 app.controller("address_ctrl", function ($scope, $http) {
 
-    $scope.callModel = function(addressid){
-        $http.get("/rest/address/"+ addressid).then(resp=>{ 
-            console.log("resp = "+ JSON.stringify(resp.data));
-            $scope.add = resp.data;
+	$scope.callModel = function (addressid) {
+		$http.get("/rest/address/" + addressid).then(resp => {
+			console.log("resp = " + JSON.stringify(resp.data));
+			$scope.add = resp.data;
 
-        })
-    }
+		})
+	}
 
-    $scope.updateAdd = function(){ 
-        var ad = angular.copy($scope.add);
-        $http.post("/rest/address", ad).then(resp =>{ 
-            location.href="/myAccount/address";
-        })
-    }
+	$scope.updateAdd = function () {
+		var ad = angular.copy($scope.add);
+		$http.post("/rest/address", ad).then(resp => {
+			location.href = "/myAccount/address";
+		})
+	}
 
-    $scope.deleteAdd = function(addressid){ 
-        console.log(addressid)
-        $http.delete("/rest/address/"+ addressid).then(resp =>{ 
-            console.log("lsklf")           
-            location.href="/myAccount/address";
-        })
-    
-    }
+	$scope.deleteAdd = function (addressid) {
+		console.log(addressid)
+		$http.delete("/rest/address/" + addressid).then(resp => {
+			console.log("lsklf")
+			location.href = "/myAccount/address";
+		})
 
-	$scope.callModel = function(bookingId){
-        console.log(bookingId)
-        $http.get("/rest/bookings/"+ bookingId).then(resp=>{ 
-            console.log(bookingId)
-            console.log("resp = "+ JSON.stringify(resp.data));
-            $scope.add = resp.data;
+	}
 
-        })
-    }
+	$scope.callModel = function (bookingId) {
+		console.log(bookingId)
+		$http.get("/rest/bookings/" + bookingId).then(resp => {
+			console.log(bookingId)
+			console.log("resp = " + JSON.stringify(resp.data));
+			$scope.add = resp.data;
 
-    $scope.updateBooking = function(){ 
-        var ad = angular.copy($scope.add);
-        $http.post("/rest/bookings/update", ad).then(resp =>{ 
-            location.href="/myAccount/orderMyAccount";
-        })
-    }
+		})
+	}
+
+	$scope.updateBooking = function () {
+		var ad = angular.copy($scope.add);
+		$http.post("/rest/bookings/update", ad).then(resp => {
+			//location.href = "/myAccount/orderMyAccount";
+		})
+	}
 });

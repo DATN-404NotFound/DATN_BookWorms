@@ -62,4 +62,36 @@ public class Typebooks implements Serializable {
 		return sb.toString();
 	}
 
+	public Integer getTypebookid() {
+		return typebookid;
+	}
+
+	public void setTypebookid(Integer typebookid) {
+		this.typebookid = typebookid;
+	}
+
+	public Integer getBookid() {
+		return bookid;
+	}
+
+	public void setBookid(Integer bookid) {
+		this.bookid = bookid;
+	}
+
+	public Books getBooks() {
+		return books;
+	}
+
+	public void setBooks(Books books) {
+		this.books = books;
+	}
+
+	public Categories getCategories() {
+		return categories;
+	}
+
+	public void setCategories(Categories categories) {
+		this.categories = categories;
+	}
+
 }

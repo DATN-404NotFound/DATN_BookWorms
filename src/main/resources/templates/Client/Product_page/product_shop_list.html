@@ -124,7 +124,7 @@
                             <div th:each="sale : ${listSaleOfshop}" class="col-sm-4 pt-4 m-2"
                                 style=" height: 100px;font-size: 25px; color:#5f5f5f ;text-align: center; box-shadow: 0 2px 4px 1px rgba(0,0,0,.25);">                              
                                 <div th:if!="${dis.isEmpty()}" th:each="di: ${dis}">                                
-                                    <div th:if="${di.saleid.equals(1)}">
+                                    <div th:if="${di.saleid.equals(sale.couoponcode)}">
                                         <b th:text="${sale.promotionname}"></b>
                                         <button th:id="accep+${sale.couoponcode}"
                                             th:attr="ng-click=@{|addDiscount('${sale.couoponcode}')|}"

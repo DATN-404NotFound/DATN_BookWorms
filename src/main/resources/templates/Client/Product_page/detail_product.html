@@ -41,22 +41,22 @@
                                 </div>
                                 <div class="btn btn-warning" th:text="${item.statues}"></div> <b style="font-size: 20px;" class="mx-3"><span th:text="${item.productviews}"></span> <span>lượt xem</span></b>
                                 <form action="" class="form-checked">
-                                    <input type="radio" th:checked = "${item.isActive} == 1 " name ="isActive" > Đang bán
-                                    <input type="radio" th:checked = "${item.isActive} == 0 " name ="isActive" > Tạm ngưng
+                                    <input type="radio" th:checked = "${item.isactive == true}  " name ="isActive" > Đang bán
+                                    <input type="radio" th:checked = "${item.isactive  == false}  " name ="isActive" > Tạm ngưng
                                 </form>
                                 <p class="product-description"></p>
                                 <h2 class="price">Current price: <span
                                         th:text="${#numbers.formatDecimal(item.price, 0, 'POINT', 0, 'COMMA')} +'₫'"></span>
                                 </h2>
 
-                                <input type="number" ng-model="quantityPro" id="quantity" value="1" name="quantity" min="1" max="5">
+                                <input type="number" ng-model="quantityPro" id="quantity" value="1" name="quantity" min="1"> <label for="">{{messageBook}}</label>
                                 <hr class="my-4">
                                 <div class="action">
 
-                                    <button th:disabled="${item.isActive} == 0" th:attr="ng-click=@{|cart.add(${item.bookid})|}" onclick="as()"
+                                    <button th:disabled="${item.isactive  == false} OR ${item.statues == 'Hết hàng'} " th:attr="ng-click=@{|cart.add(${item.bookid})|}" onclick="as()"
                                         class="button_all_orange">Add to cart</button>
 
-                                    <button th:disabled="${item.isActive} == 0" th:attr="ng-click=@{|buyNow(${item.bookid})|}" class="button_all_none">Buy now</button>
+                                    <button th:disabled="${item.isactive  == false} OR ${item.statues == 'Hết hàng'} " th:attr="ng-click=@{|buyNow(${item.bookid})|}" class="button_all_none">Buy now</button>
 
                                 </div>
                                 <hr class="my-5">

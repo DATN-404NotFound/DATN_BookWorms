@@ -36,9 +36,10 @@ public class SecurityConfig {
 	@Bean
 	public SecurityFilterChain web(HttpSecurity http) throws Exception {
 		http.authorizeHttpRequests((request) -> request
-				.requestMatchers("/account/**", "/Admin/Css/**", "/Admin/Image/**", "/Admin/Js/**")
-
-				.permitAll().requestMatchers("/Client/**", "/product/**").permitAll().requestMatchers("/rest/**")
+				.requestMatchers("/account/**", "/Admin/Css/**", "/Admin/Image/**", "/Admin/Js/**").permitAll()
+				.requestMatchers("/shop/**").permitAll()
+				.requestMatchers("/Ibook/index","/Ibook/about","/Ibook/shop").permitAll()
+				.requestMatchers("/Client/**", "/product/**").permitAll().requestMatchers("/rest/**")
 				.permitAll().requestMatchers("static/Client/**").permitAll().requestMatchers("admin/**", "api/payment/**").hasAuthority("ADMIN")
 				.requestMatchers("/seller/**").hasAuthority("SELLER").anyRequest().authenticated())
 

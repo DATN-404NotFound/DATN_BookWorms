@@ -90,6 +90,94 @@ public class Sales implements Serializable {
         sb.append("|");
         sb.append(shopid);
         return sb.toString(); 
-    } 
+    }
+
+	public String getCouoponcode() {
+		return couoponcode;
+	}
+
+	public void setCouoponcode(String couoponcode) {
+		this.couoponcode = couoponcode;
+	}
+
+	public String getPromotionname() {
+		return promotionname;
+	}
+
+	public void setPromotionname(String promotionname) {
+		this.promotionname = promotionname;
+	}
+
+	public Date getCreateat() {
+		return createat;
+	}
+
+	public void setCreateat(Date createat) {
+		this.createat = createat;
+	}
+
+	public Date getEnddiscount() {
+		return enddiscount;
+	}
+
+	public void setEnddiscount(Date enddiscount) {
+		this.enddiscount = enddiscount;
+	}
+
+	public String getDescriptions() {
+		return descriptions;
+	}
+
+	public void setDescriptions(String descriptions) {
+		this.descriptions = descriptions;
+	}
+
+	public BigDecimal getDiscountpercentage() {
+		return discountpercentage;
+	}
+
+	public void setDiscountpercentage(BigDecimal discountpercentage) {
+		this.discountpercentage = discountpercentage;
+	}
+
+	public String getStatuses() {
+		return statuses;
+	}
+
+	public void setStatuses(String statuses) {
+		this.statuses = statuses;
+	}
+
+	public String getIntendfor() {
+		return intendfor;
+	}
+
+	public void setIntendfor(String intendfor) {
+		this.intendfor = intendfor;
+	}
+
+	public Integer getShopid() {
+		return shopid;
+	}
+
+	public void setShopid(Integer shopid) {
+		this.shopid = shopid;
+	}
+
+	public Double getMinprice() {
+		return minprice;
+	}
+
+	public void setMinprice(Double minprice) {
+		this.minprice = minprice;
+	}
+
+	public List<Discountcodes> getListOfDiscountcodes() {
+		return listOfDiscountcodes;
+	}
+
+	public void setListOfDiscountcodes(List<Discountcodes> listOfDiscountcodes) {
+		this.listOfDiscountcodes = listOfDiscountcodes;
+	} 
 
 }

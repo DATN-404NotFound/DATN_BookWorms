@@ -80,7 +80,6 @@ public class HomeController {
         if (user !=null){
             model.addAttribute("image", user.getImage());
             model.addAttribute("name", user.getFullname());
-
             Roles roles = roleService.findSellerByRoleId("SELLER");
         }
         return "Client/header_footer_index/header_index";

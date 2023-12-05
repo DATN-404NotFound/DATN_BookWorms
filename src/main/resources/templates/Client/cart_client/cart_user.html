@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" th:replace="~{/Client/index::dynamic(~{::main})}">
 <body>
-     <main ng-controller="cart_ctrl">
+     <main  ng-controller="cart_ctrl">
         <div style="width: 85%; margin: auto; margin-top: 100px;" id="user1">
             <div class="mx-5" >
                 <h4>Your Cart</h4>
@@ -45,7 +45,8 @@
                                 <td ><a th:href="@{|/product/detail/${b.books.bookid}|}" th:text="${b.books.bookname}"></a></td>
                                 <td th:text ="${#numbers.formatDecimal(b.books.price,0,'COMMA',2,'POINT')}"></td>
                                 <td>
-                                    <input type="number"  th:id="quantity+${b.cartid}"  th:attr="onclick=@{|Active(${b.cartid},'PUT')|}" class="form-control" style="width: 100px;" min="1" step="1" th:value="${b.quantity}" >
+                                    <input type="number"   th:id="quantity+${b.cartid}"  th:attr="onclick=@{|Active(${b.cartid},'PUT')|}" class="form-control" style="width: 100px;" min="1" step="1" th:value="${b.quantity}" >
+                                   <label for="" th:id="messageCart+${b.cartid}"></label>
                                 </td>
                                 <!-- th:attr="ng-click=@{|changequantity(${b.quantity},${b.cartid})|}" -->  
                                 <td class="total_pro"  th:id="cartid+${b.cartid}" th:text ="${#numbers.formatDecimal(b.books.price * b.quantity,0,'COMMA',2,'POINT')}"></td>
@@ -53,6 +54,7 @@
                             </tr>
                         </tbody>
                     </table>
+                 
                     <hr style="clear: both; border: 1px solid black;">
                 <div class="float-start m-3">
                     <input type="text" width="300px" class="form-control" placeholder="Tìm kiếm mã giảm" name="" id="">
