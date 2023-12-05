@@ -98,15 +98,8 @@ app.controller("indexController", function ($scope, $routeParams, $route, $http,
         };
         $http.post(url, formData, {headers: headers}).then(resp => {
             $scope.salesAnalysis = resp.data;
-<<<<<<< HEAD
-
-            $scope.salesAnalysisNow.push(resp.data[currentMonth - 1]);
+            $scope.salesAnalysisNow.push(resp.data[currentMonth-1]);
             $scope.salesAnalysisNow.push(resp.data[currentMonth - 2]);
-
-=======
-            $scope.salesAnalysisNow.push(resp.data[currentMonth]-1);
-            $scope.salesAnalysisNow.push(resp.data[currentMonth - 2]);
->>>>>>> main
             console.log("data", $scope.salesAnalysis)
             console.log("data", $scope.salesAnalysisNow)
         }).catch(error => {
@@ -260,8 +253,8 @@ app.controller("salesController", function ($scope, $routeParams, $route, $http,
         };
         $http.post(url, formData, {headers: headers}).then(resp => {
             $scope.salesAnalysis = resp.data;
-            $scope.salesAnalysisNow.push(resp.data[currentMonth]);
-            $scope.salesAnalysisNow.push(resp.data[currentMonth - 1]);
+            $scope.salesAnalysisNow.push(resp.data[currentMonth-1]);
+            $scope.salesAnalysisNow.push(resp.data[currentMonth - 2 ]);
             $timeout(function () {
                 $scope.initDataChart(resp.data);
             }, 500);
@@ -287,7 +280,7 @@ app.controller("salesController", function ($scope, $routeParams, $route, $http,
         $scope.cRate = [];
         $scope.pViews = [];
         $scope.sOrder = [];
-        for (let i = 1; i < salesAnalysis.length; i++) {
+        for (let i = 0; i < salesAnalysis.length; i++) {
             $scope.mSales.push(salesAnalysis[i].monthlySales)
             $scope.order.push($scope.salesAnalysis[i].orders)
             $scope.cRate.push($scope.salesAnalysis[i].conversionRate)
