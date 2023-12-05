@@ -3,6 +3,7 @@ package com.poly.DATN_BookWorms.service.impl;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.apache.logging.log4j.LogManager;
@@ -134,10 +135,9 @@ public class BookingServiceImp implements BookingService{
 	}
 
 	@Override
-	public Object findById(String id) {
+	public Optional<Bookings> findById(String id) {
 		// TODO Auto-generated method stub
-		logger.info("get booking by id have id : {}", id);
-		return bookingRepo.findById(id);
+		return  bookingRepo.findById(id);
 	}
 
 	@Override
@@ -152,17 +152,106 @@ public class BookingServiceImp implements BookingService{
 	}
 
 	@Override
+
 	public List<Bookings> findByStatusId(String orderStatusId) {
 		logger.info("get booking by orderStatusId have orderStatusId : {}", orderStatusId);
 		return bookingRepo.ListBookings_Status(orderStatusId);
 	}
 
 
-//	@Override
-//	public List<Bookings> findByUsername(String username) {
-//		// TODO Auto-generated method stub
-//		return bookingRepo.findByUsername(username);
-//	}
+	@Override
+	public List<Bookings> findAllByUserId(String userId) {
+		return bookingRepo.findByuserid(userId);
+	}
+	@Override
+	public List<Bookings> findByUserIdAndOrderStatusId(String userId, Integer orderStatusId) {
+		List<Bookings> allByUserId = findAllByUserId(userId);
+
+		return allByUserId.stream()
+				.filter(booking -> booking.getOrderstatusid().equals(orderStatusId))
+				.collect(Collectors.toList());
+	}
 
 	
+	@Override
+	public List<Bookings> unpaid() {
+		// TODO Auto-generated method stub
+		return bookingRepo.unpaid();
+	}
+
+	@Override
+	public List<Bookings> paid() {
+		// TODO Auto-generated method stub
+		return bookingRepo.paid();
+	}
+
+	@Override
+	public List<Bookings> confirm() {
+		// TODO Auto-generated method stub
+		return bookingRepo.confirm();
+	}
+
+	@Override
+	public List<Bookings> delivering() {
+		// TODO Auto-generated method stub
+		return bookingRepo.delivering();
+	}
+
+	@Override
+	public List<Bookings> processed() {
+		// TODO Auto-generated method stub
+		return bookingRepo.processed();
+	}
+
+	@Override
+	public List<Bookings> cancel() {
+		// TODO Auto-generated method stub
+		return bookingRepo.cancel();
+	}
+
+	@Override
+	public List<Bookings> refund() {
+		// TODO Auto-generated method stub
+		return bookingRepo.refund();
+	}
+	public long countUnpaid() {
+        return bookingRepo.countUnpaid();
+    }
+	
+	public long countPaid() {
+        return bookingRepo.countPaid();
+    }
+	
+	public long countConfirm() {
+        return bookingRepo.countConfirm();
+    }
+	
+	public long countDelivering() {
+        return bookingRepo.countDelivering();
+    }
+	
+	public long countProcessed() {
+        return bookingRepo.countProcessed();
+    }
+	
+	public long countCancel() {
+        return bookingRepo.countCancel();
+    }
+	
+	public long countRefund() {
+        return bookingRepo.countRefund();
+    }
+
+	@Override
+	public Bookings update(Bookings bookingId) {
+		// TODO Auto-generated method stub
+		return bookingRepo.save(bookingId);
+	}
+
+	@Override
+	public Bookings byBookingUserId(String bookingUserId) {
+		// TODO Auto-generated method stub
+		return bookingRepo.findById(bookingUserId).get();
+	}
+
 }

@@ -5,7 +5,6 @@
     margin-top: 6%;
 }
 .frameMyAccount-left{
-    background-color: #F6F6F6;
     width: 281px;
     height: 600px;
     float: left;
@@ -54,7 +53,7 @@ a:hover{
 .menuMyAccount{
     margin-bottom: 30px;
 }
-.aMyAccount, .aPurchaseorder, .aNofication{
+.aMyAccount, .aPurchaseorder, .aVoucher,  .aNofication{
     font-size: 16px;
     font-weight: 600;
 }
@@ -217,12 +216,18 @@ a:hover{
     margin-left: calc(50% - 375px);
     margin-top: 37px;
 }
-.btnFinish-newAddress{
+.btnFinish-newAddress, .btnFinish-editAddress{
     background-color: #F25019;
     color: white;
     width: 145px;
     height: 46.25px;
-    margin-left: calc(100% - 320px);
+    margin-left: calc(100% - 485px);
+}
+.btnDelete-editAddress{
+    width: 145px;
+    color: white;
+    height: 46.25px;
+    margin-left: 20px;
 }
 .btnCancel-newAddress{
     background-color: #D9D9D9;
@@ -233,12 +238,12 @@ a:hover{
 #formNewAddress{
     padding: 0 30px 0 30px;
 }
-#fullName-newAddress, #phone-newAddress, #specificAddress-newAddress, #formNewAddress div select{
+#fullName-newAddress, #numberPhone-newAddress, #province-newAddress, #district-newAddress, #ward-newAddress, #specificAddress-newAddress{
     height: 50px;
     font-size: 15px !important;
     padding-left: 30px !important;
 }
-#fullName-newAddress:focus, #phone-newAddress:focus, #specificAddress-newAddress:focus, #formNewAddress div select:focus{
+#fullName-newAddress:focus, #numberPhone-newAddress:focus, #province-newAddress:focus, #district-newAddress:focus, #ward-newAddress:focus, #specificAddress-newAddress:focus{
     height: 50px;
     font-size: 15px !important;
     box-shadow: none !important;
@@ -287,7 +292,12 @@ a:hover{
     color: white;
 }
 /* order */
-
+.img-notOrder{
+    width: 15%;
+    font-size: 18px;
+    text-align: center;
+    margin: 120px 0 150px 42.5%;
+}
 .orderTab{
     width: 989px;
     margin: 10px 0 0 24px;
@@ -406,7 +416,16 @@ a:hover{
     float: right;
     margin: 22px 20px 0 0px;
 }
-
+.btnCancelled{
+    font-size: 20px;
+    border: #FF6B00;
+    background-color: #D9D9D9;
+    width: 145px;
+    height: 46.25px;
+    border-radius: 5px;
+    float: right;
+    margin: 22px 20px 0 0px;
+}
 /* order detail */
 
 .boxOrderDetail-top{
@@ -625,24 +644,25 @@ a:hover{
 }
 .tabledetailInfo tr:nth-child(1){
     color: #808080;
-    font-size: 16.25px;
-    font-weight: 500;
+    font-size: 15px;
 }
 .tabledetailInfo tr:nth-child(2){
     color: #808080;
-    font-size: 16.25px;
-    font-weight: 500;
+    font-size: 15px;
 }
 .tabledetailInfo tr:nth-child(3){
     color: #808080;
-    font-size: 16.25px;
-    font-weight: 500;
+    font-size: 15px;
 }
 .tabledetailInfo tr:nth-child(4){
-    font-size: 16.25px;
-    font-weight: 500;
+    color: #808080;
+    font-size: 15px;
 }
 .tabledetailInfo tr:nth-child(5){
+    color: #808080;
+    font-size: 15px;
+}
+.tabledetailInfo tr:nth-child(6){
     color: #F25019;
     font-size: 22px;
     font-weight: 700;
@@ -681,7 +701,7 @@ a:hover{
 
 /* rate product */
 
-.boxRateProduct{
+.boxRateProduct, .boxCanceled{
     width: 907.5px;
     margin-left: calc(50% - 453.75px);
     margin-top: 37px;

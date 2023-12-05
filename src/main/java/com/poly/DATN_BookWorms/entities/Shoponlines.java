@@ -51,8 +51,7 @@ public class Shoponlines implements Serializable {
     @Column(name = "description", length = 2555)
     private String description;
 
-
-    public String userid;
+    private String     userid ;
 
     @Column(name = "paycount", length = 10)
     public String paycount;
@@ -60,7 +59,9 @@ public class Shoponlines implements Serializable {
     public Boolean isactive;
 
 
+
     //--- ENTITY LINKS ( RELATIONSHIP )
+
     @OneToMany(mappedBy = "shoponlines")
     @JsonIgnore
     public List<Books> listOfBooks;
@@ -77,6 +78,7 @@ public class Shoponlines implements Serializable {
     @JsonIgnore
     private List<PaymentShop> listOfPaymentShop;
 
+    
     @ManyToOne
     @JoinColumn(name="Userid", referencedColumnName="Userid", insertable=false, updatable=false)
     public Account    account ; 
@@ -95,7 +97,10 @@ public class Shoponlines implements Serializable {
         sb.append("|");
         sb.append(description);
         sb.append("|");
+
         sb.append(listOfAddressShop);
+
+        sb.append(userid);
         sb.append("|");
         sb.append(paycount);
         sb.append("|");

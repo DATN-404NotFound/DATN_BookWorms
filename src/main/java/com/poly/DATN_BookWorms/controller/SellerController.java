@@ -31,7 +31,7 @@ public class SellerController {
     }
     @RequestMapping("/orderManagement/sales")
     public String salesOrderManagement(Model model){
-        return "SellerChannel/Voucher";
+        return "SellerChannel/Sales";
     }
     @RequestMapping("/shop/shopProfile")
     public String shopProfile(Model model){
@@ -62,5 +62,33 @@ public class SellerController {
     @RequestMapping("/shop/finance/revenue")
     public String revenueFinance(Model model){
         return "SellerChannel/FinanceRevenue";
+    }
+    @RequestMapping("/shop/TranportChannel/CreateProduct")
+    public String createProduct(Model model){
+        return "SellerChannel/CreateProduct";
+    }
+    @RequestMapping("/shop/TranportChannel/Transport")
+    public String Tranport(Model model){
+        return "SellerChannel/TransportChannel";
+    }
+    @RequestMapping("/shop/TranportChannel/Voucher")
+    public String Voucher(Model model){
+        return "SellerChannel/Voucher";
+    }
+    @RequestMapping("/shop/TranportChannel/CreateVoucher")
+    public String createVoucher(Model model){
+        return "SellerChannel/CreateVoucher";
+    }
+    @RequestMapping("/shop/TranportChannel/ShopRewiew")
+    public String rewiews(Model model){
+        return "SellerChannel/ShopRewiew";
+    }
+    @RequestMapping("/shop/finance/bankAccountBalance")
+    public String bankAccountBalance(Model model){
+        return "SellerChannel/BankAccountBalance";
+    }
+    @RequestMapping("/shop/finance/createBankAccount")
+    public String createBankAccount(Model model){
+        return "SellerChannel/CreateBankAccount";
     }
 }

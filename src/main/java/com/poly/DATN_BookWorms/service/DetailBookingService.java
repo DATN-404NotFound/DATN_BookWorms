@@ -12,4 +12,5 @@ public interface DetailBookingService {
     Detailbookings  dtb(String id);
 
     List<Detailbookings> findByBookingId(String bookingId);
+
 }

@@ -6,6 +6,7 @@ import com.poly.DATN_BookWorms.service.AddressService;
 import com.poly.DATN_BookWorms.service.BookingService;
 import com.poly.DATN_BookWorms.service.DetailBookingService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.MediaType;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -55,6 +56,7 @@ public class MyAccountController {
     AccountService accountService;
 
     @Autowired
+    @Qualifier("detailBookingServiceImp")
     DetailBookingService detailBookingService;
 
     @Autowired
@@ -102,7 +104,7 @@ public class MyAccountController {
     }
 
     @PostMapping("/updateMypersonal/{username}")
-    public String updateMypersonal(@PathVariable String username, @Valid @ModelAttribute("account") Account accountUpdate, BindingResult bindingResult,
+    public String updateMypersonal(@Valid @ModelAttribute("account") Account accountUpdate, BindingResult bindingResult,
                                    @RequestParam("fileImage") Optional<MultipartFile> multipartFile)  throws Exception{
         Account user = sessionService.get("user");
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
@@ -123,39 +125,42 @@ public class MyAccountController {
                 if (accountUpdate.getAge()!=null) {
                     user.setAge(accountUpdate.getAge());
                 }
-                System.out.println(multipartFile);
-                }if (!multipartFile.isEmpty()) {
-                    MultipartFile file = multipartFile.get();
-                    String fileName = StringUtils.cleanPath(Objects.requireNonNull(file.getOriginalFilename()));
-                    System.out.println("1");
-                    String uploadDir = "V:/FPT/DuAnTotNghiep/Source/DATN_BookWorms/src/main/resources/static/Client/images";
-                    Path uploadPath = Paths.get(uploadDir);
-                    if (!Files.exists(uploadPath)) {
-                        Files.createDirectories(uploadPath);
-                    }
-                    try {
-                        InputStream inputStream = file.getInputStream();
-                        Path filePath = uploadPath.resolve(fileName);
-                        Files.copy(inputStream, filePath, StandardCopyOption.REPLACE_EXISTING);
-                        //save change profile
-                        user.setImage(fileName);
-                    } catch (IOException e) {
-                        throw new IOException("Could not  save uploaded file: " + fileName);
-                    }
+                System.out.println("file" +multipartFile);
+            }if (!multipartFile.isEmpty()) {
+                MultipartFile file = multipartFile.get();
+            
+                String fileName = StringUtils.cleanPath(Objects.requireNonNull(file.getOriginalFilename()));
+                System.out.println("1"+ fileName);
+                String uploadDir = "./src/main/resources/static/Client/images";
+                Path uploadPath = Paths.get(uploadDir);
+                if (!Files.exists(uploadPath)) {
+                    Files.createDirectories(uploadPath);
                 }
+                try {
+                    InputStream inputStream = file.getInputStream();
+                    Path filePath = uploadPath.resolve(fileName);
+                    if (!fileName.isEmpty()) {
+                        Files.copy(inputStream, filePath, StandardCopyOption.REPLACE_EXISTING);
+                        // Save the new profile image only if it is different
+                        user.setImage(fileName);
+                    }
+                } catch (IOException e) {
+                    throw new IOException("Could not  save uploaded file: " + fileName);
+                }
+            }
                 accountService.update(user);
 
         }
         return "redirect:/myAccount/myPersonal";
     }
 
-    @ModelAttribute("gender")
-    public Map<Boolean, String> getGender(){
-        Map<Boolean,String> map = new HashMap<>();
-        map.put(true,"Male");
-        map.put(false, "Female");
-        return map;
-    }
+//    @ModelAttribute("gender")
+//    public Map<Boolean, String> getGender(){
+//        Map<Boolean,String> map = new HashMap<>();
+//        map.put(true,"Male");
+//        map.put(false, "Female");
+//        return map;
+//    }
 
     @RequestMapping("/address")
     public String  address(Model model){
@@ -164,9 +169,43 @@ public class MyAccountController {
         model.addAttribute("account", account);
         List<Addressusers> ad = addressService.findByUserId(account.getUserid());
         model.addAttribute("ad", ad);
+        Addressusers addressusers = new Addressusers();
+    	model.addAttribute("adr", addressusers);
         return "Client/My_account/Address";
     }
 
+    
+    @PostMapping("/newAddress")
+    public String  newAddress(Model model,@ModelAttribute("adr") Addressusers addressSave,  @RequestParam String fullNameNewAddress,  @RequestParam String numberPhoneNewAddress,
+    							@RequestParam String province, @RequestParam String district, 
+    							@RequestParam String ward, @RequestParam String specificAddressNewAddress){
+    	Account user = sessionService.get("user");
+    	Addressusers addressusers = new Addressusers();
+    	model.addAttribute("adr", addressusers);
+    	if(user != null) {
+    		
+    		addressusers.setUserid(user.getUserid());
+    		addressusers.setFullname(fullNameNewAddress);
+    		addressusers.setPhonenumber(numberPhoneNewAddress);
+    		System.out.println(specificAddressNewAddress + ", " + ward + ", " + district + ", " + province);
+    		addressusers.setAddress(specificAddressNewAddress + ", " + ward + ", " + district + ", " + province);
+    		addressusers.setStatusaddress(addressSave.getStatusaddress());
+    		addressusers.setAddressuserid(crc.getCodeCRC32C(addressusers.toString()+ new Date()));
+    		addressService.create(addressusers);
+//    		System.out.println("adID: "+ addressService.generateNewAddressId());
+    	}
+    	return "redirect:/myAccount/address";
+    }
+    
+    @RequestMapping("/editAddress/{addressuserid}")
+    public String editAddress(@PathVariable String addressuserid) {
+    	System.out.println("aaaaaaaa" + addressuserid);
+    	if(addressuserid != null) {
+    		
+    	}
+    	return "redirect:/myAccount/address";
+    }
+    
     @RequestMapping("/changePassword")
     public String  changePassword(Model model){
         Account account = sessionService.get("user");

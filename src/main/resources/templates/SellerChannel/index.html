@@ -7,13 +7,12 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <link rel="icon" href="favicon.ico">
-    <title>Tiny Dashboard - A Bootstrap Dashboard Template</title>
+    <title th:text="${title}">Tiny Dashboard - A Bootstrap Dashboard Template</title>
     <!-- Simple bar CSS -->
     <link rel="stylesheet" th:href="@{/SellerChannel/css/simplebar.css}">
     <!-- Fonts CSS -->
-    <link
-            href="https://fonts.googleapis.com/css2?family=Overpass:ital,wght@0,100;0,200;0,300;0,400;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,600;1,700;1,800;1,900&display=swap"
-            rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Overpass:ital,wght@0,100;0,200;0,300;0,400;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,600;1,700;1,800;1,900&display=swap"
+          rel="stylesheet">
     <!-- Icons CSS -->
     <link rel="stylesheet" th:href="@{/SellerChannel/css/feather.css}">
     <link rel="stylesheet" th:href="@{/SellerChannel/css/select2.css}">
@@ -27,9 +26,19 @@
     <!-- App CSS -->
     <link rel="stylesheet" th:href="@{/SellerChannel/css/app-light.css}" id="lightTheme">
     <link rel="stylesheet" th:href="@{/SellerChannel/css/app-dark.css}" id="darkTheme" disabled>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.3/angular.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-route/1.8.3/angular-route.min.js"></script>
-    <script th:src="@{/SellerChannel/angularJS/sellerPage.js}"></script>
+</head>
+
+
+
+<!-- Your content goes here -->
+
+<!-- AngularJS -->
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.3/angular.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-route/1.8.3/angular-route.min.js"></script>
+<script th:src="@{/SellerChannel/angularJS/sellerPage.js}"></script>
+
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 
 <body class="vertical  light  " >
@@ -108,20 +117,20 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link pl-3" href="/TranportChannel.html"><span class="ml-1 item-text">Tranport</span></a>
+                            <a class="nav-link pl-3" href="#!/shop/TranportChannel/Transport"><span class="ml-1 item-text">Tranport</span></a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link pl-3" href="/CreateProduct.html"><span class="ml-1 item-text">Create Product</span></a>
+                            <a class="nav-link pl-3" href="#!/shop/TranportChannel/CreateProduct"><span class="ml-1 item-text">Create Product</span></a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link pl-3" href="/Voucher.html"><span
+                            <a class="nav-link pl-3" href="#!/shop/TranportChannel/Voucher"><span
                                     class="ml-1 item-text">Voucher</span></a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link pl-3" href="/CreateVoucher.html"><span class="ml-1 item-text">Create Voucher</span></a>
+                            <a class="nav-link pl-3" href="#!/shop/TranportChannel/CreateVoucher"><span class="ml-1 item-text">Create Voucher</span></a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link pl-3" href="/ShopRewiew.html"><span
+                            <a class="nav-link pl-3" href="#!/shop/TranportChannel/ShopRewiew"><span
                                     class="ml-1 item-text">Rewiews</span></a>
                         </li>
                     </ul>
@@ -207,7 +216,7 @@
                     </a>
                     <ul class="collapse list-unstyled pl-4 w-100" id="auth">
                         <a class="nav-link pl-3" href="#!/finance/revenue"><span class="ml-1">Revenue</span></a>
-                        <a class="nav-link pl-3" href="./auth-login-half.html"><span class="ml-1">IBook Account Balance</span></a>
+                        <a class="nav-link pl-3" href="#!/finance/accountBalance"><span class="ml-1">IBook Account Balance</span></a>
 
                     </ul>
                 </li>
@@ -233,38 +242,38 @@
 </header>
 
 
-<script src="/SellerChannel/js/jquery.min.js"></script>
-<script src="/SellerChannel/js/popper.min.js"></script>
-<script src="/SellerChannel/js/moment.min.js"></script>
-<script src="/SellerChannel/js/bootstrap.min.js"></script>
-<script src="/SellerChannel/js/simplebar.min.js"></script>
-<script src="/SellerChannel/js/daterangepicker.js"></script>
-<script src="/SellerChannel/js/jquery.stickOnScroll.js"></script>
-<script src="/SellerChannel/js/tinycolor-min.js"></script>
-<script src=""></script>
-<script src="/SellerChannel/js/d3.min.js"></script>
-<script src="/SellerChannel/js/topojson.min.js"></script>
-<script src="/SellerChannel/js/datamaps.all.min.js"></script>
-<script src="/SellerChannel/js/datamaps-zoomto.js"></script>
-<script src="/SellerChannel/js/datamaps.custom.js"></script>
-<script src="/SellerChannel/js/Chart.min.js"></script>
-<script>
-    /* defind global options */
-    Chart.defaults.global.defaultFontFamily = base.defaultFontFamily;
-    Chart.defaults.global.defaultFontColor = colors.mutedColor;
+<script th:src="@{/SellerChannel/js/jquery.min.js}"></script>
+<script th:src="@{/SellerChannel/js/popper.min.js}"></script>
+<script th:src="@{/SellerChannel/js/moment.min.js}"></script>
+<script th:src="@{/SellerChannel/js/bootstrap.min.js}"></script>
+<script th:src="@{/SellerChannel/js/simplebar.min.js}"></script>
+<script th:src="@{/SellerChannel/js/daterangepicker.js}"></script>
+<script th:src="@{/SellerChannel/js/jquery.stickOnScroll.js}"></script>
+<script th:src="@{/SellerChannel/js/tinycolor-min.js}"></script>
+
+<script th:src="@{/SellerChannel/js/d3.min.js}"></script>
+<script th:src="@{/SellerChannel/js/topojson.min.js}"></script>
+<script th:src="@{/SellerChannel/js/datamaps.all.min.js}"></script>
+<script th:src="@{/SellerChannel/js/datamaps-zoomto.js}"></script>
+<script th:src="@{/SellerChannel/js/datamaps.custom.js}"></script>
+<script th:src="@{/SellerChannel/js/Chart.min.js}"></script>
+<script th:inline="javascript">
+    /* define global options */
+    Chart.defaults.global.defaultFontFamily = /*[[@{/path/to/your/font-family}]]*/ 'base.defaultFontFamily';
+    Chart.defaults.global.defaultFontColor = /*[[@{/path/to/your/font-color}]]*/ 'colors.mutedColor';
 </script>
-<script src="/SellerChannel/js/gauge.min.js"></script>
-<script src="/SellerChannel/js/jquery.sparkline.min.js"></script>
-<script src="/SellerChannel/js/apexcharts.min.js"></script>
-<script src="/SellerChannel/js/apexcharts.custom.js"></script>
-<script src="/SellerChannel/js/jquery.mask.min.js"></script>
-<script src="/SellerChannel/js/select2.min.js"></script>
-<script src="/SellerChannel/js/jquery.steps.min.js"></script>
-<script src="/SellerChannel/js/jquery.validate.min.js"></script>
-<script src="/SellerChannel/js/jquery.timepicker.js"></script>
-<script src="/SellerChannel/js/dropzone.min.js"></script>
-<script src="/SellerChannel/js/uppy.min.js"></script>
-<script src="/SellerChannel/js/quill.min.js"></script>
+<script th:src="@{/SellerChannel/js/gauge.min.js}"></script>
+<script th:src="@{/SellerChannel/js/jquery.sparkline.min.js}"></script>
+<script th:src="@{/SellerChannel/js/apexcharts.min.js}"></script>
+<script th:src="@{/SellerChannel/js/apexcharts.custom.js}"></script>
+<script th:src="@{/SellerChannel/js/jquery.mask.min.js}"></script>
+<script th:src="@{/SellerChannel/js/select2.min.js}"></script>
+<script th:src="@{/SellerChannel/js/jquery.steps.min.js}"></script>
+<script th:src="@{/SellerChannel/js/jquery.validate.min.js}"></script>
+<script th:src="@{/SellerChannel/js/jquery.timepicker.js}"></script>
+<script th:src="@{/SellerChannel/js/dropzone.min.js}"></script>
+<script th:src="@{/SellerChannel/js/uppy.min.js}"></script>
+<script th:src="@{/SellerChannel/js/quill.min.js}"></script>
 <script>
     $('.select2').select2(
         {
@@ -473,5 +482,6 @@
     gtag('config', 'UA-56159088-1');
 </script>
 </body>
+
 
 </html>

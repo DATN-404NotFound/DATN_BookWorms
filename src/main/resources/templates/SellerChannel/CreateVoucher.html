@@ -35,12 +35,12 @@
 
                 <nav aria-label="breadcrumb">
                   <ol class="breadcrumb mt-3" style="background-color: transparent;">
-                    <li class="breadcrumb-item"><a href="#">Home</a></li>
-                    <li class="breadcrumb-item"><a href="#">Library</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Data</li>
+                    <li class="breadcrumb-item"><a href="#">Tranport Channel</a></li>
+
+                    <li class="breadcrumb-item active" aria-current="page">Create Voucher</li>
                   </ol>
                 </nav>
-                <h3>Create voucher</h3>
+                <h3>Create Voucher</h3>
               </div>
             </div>
             <div class="card-deck">
@@ -55,28 +55,27 @@
                       <div class="form-row">
                         <div class="form-group col-md-4">
                           <label for="inputEmail4">Name of discount program </label>
-                          <input type="email" class="form-control" placeholder="Name of discount program ">
+                          <input type="text" class="form-control" placeholder="Name of discount program " id="Promotionname" ng-model="sales.Promotionname" required>
                         </div>
                         <div class="form-group col-md-4">
                           <label for="inputState">Code usage time</label>
-                          <input type="text" name="datetimes" class="form-control datetimes" />
+                          <input type="date" id="Createat" ng-model="sales.Createat" required class="form-control datetimes" />
 
                         </div>
                         <div class="form-group col-md-4">
                           <label for="inputState">Target buyer</label>
-                          <select id="inputState5" class="form-control">
-                            <option selected>Choose...</option>
-                            <option>New bie</option>
-                            <option>Customers have never shopped at the Shop.</option>
-
+                          <select id="inputState5" class="form-control" ng-model="sales.Intendfor" ng-change="updateButtonStatus()">
+                            <option value="Delivery">Delivery</option>
+                            <option value="Books">Books</option>
                           </select>
-                         
                         </div>
+
+
                       </div>
                       <div class="form-row">
                         <div class="form-group col-md-3">
                           <label for="inputAddress">Discount type</label>
-                          <input type="number" class="form-control" id="inputAddress5" placeholder="If you choose %, you dont write number > 100" min="1">   
+                          <input type="number" id="Discountpercentage" ng-model="sales.Discountpercentage" step="0.01" required class="form-control" placeholder="If you choose %, you dont write number > 100">
                         </div>
                         <div class="form-group col-md-1 mt-4">
                           <select id="inputState5" class="form-control mt-1">
@@ -87,19 +86,15 @@
                           </select>                
                         </div>
                       
-                        <div class="form-group col-md-3">
-                          <label for="inputAddress">Code type</label>
-                          <input type="text" class="form-control" id="inputAddress5" placeholder="Example: English">
-                         
-                        </div>   
-                        <div class="form-group col-md-1 mt-1">
-                          <button type="button" class="btn btn-primary mt-4" data-toggle="modal" data-target=".bd-example-modal-xl">Edit type now!</button>                  
+                      
+                        <div class="form-group col-md-2 mt-1">
+                          <button type="button" class="btn btn-primary mt-4" data-toggle="modal" data-target=".bd-example-modal-xl">Edit Taget buyer now!</button>
                       <div class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
                         <div class="modal-dialog modal-xl" role="document">
                           <div class="modal-content">
                             <div class="modal-content">
                               <div class="modal-header">
-                                <h5 class="modal-title" id="varyModalLabel">Choose type</h5>
+                                <h5 class="modal-title" id="varyModalLabel">Choose books</h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                   <span aria-hidden="true">&times;</span>
                                 </button>
@@ -109,93 +104,48 @@
                                   <div class="form-group">
                                     <div class="card shadow">
                                       <div class="card-body">
-                                        <h5 class="card-title">Bordered table</h5>
-                                        <p class="card-text">Add .table-bordered for borders on all sides of the table and cells.</p>
+                                        <h5 class="card-title">Choose books add voucher</h5>
+                                        <p class="card-text">You choose Active if you want add voucher to book</p>
                                         <table class="table table-bordered table-hover mb-0">
                                           <thead>
                                             <tr>
                                               <th>ID</th>
                                               <th>Name</th>
-                                              <th>Company</th>
-                                              <th>Address</th>
-                                              <th>Date</th>
-                                              <th>Activate</th>
+                                              <th>Language</th>
+                                              <th>Active?</th>
+
+
                                             </tr>
                                           </thead>
                                           <tbody>
-                                            <tr>
-                                              <td>3224</td>
-                                              <td>Keith Baird</td>
-                                              <td>Enim Limited</td>
-                                              <td>901-6206 Cras Av.</td>
-                                              <td>Apr 24, 2019</td>
+                                            <tr ng-repeat="book in paginatedBooks">
+                                              <td>{{ book.bookid }}</td>
+                                              <td>{{ book.bookname }}</td>
+                                              <td>{{ book.language }}</td>
                                               <td>
                                                 <div class="custom-control custom-switch">
-                                                  <input type="checkbox" class="custom-control-input" id="c1" checked>
-                                                  <label class="custom-control-label" for="c1"></label>
+                                                  <input type="checkbox" class="custom-control-input" id="c{{$index + 1}}">
+                                                  <label class="custom-control-label" for="c{{$index + 1}}"></label>
                                                 </div>
                                               </td>
                                             </tr>
-                                            <tr>
-                                              <td>3218</td>
-                                              <td>Graham Price</td>
-                                              <td>Nunc Lectus Incorporated</td>
-                                              <td>Ap #705-5389 Id St.</td>
-                                              <td>May 23, 2020</td>
-                                              <td>
-                                                <div class="custom-control custom-switch">
-                                                  <input type="checkbox" class="custom-control-input" id="c2">
-                                                  <label class="custom-control-label" for="c2"></label>
-                                                </div>
-                                              </td>
-                                            </tr>
-                                            <tr>
-                                              <td>2651</td>
-                                              <td>Reuben Orr</td>
-                                              <td>Nisi Aenean Eget Limited</td>
-                                              <td>7425 Malesuada Rd.</td>
-                                              <td>Nov 4, 2019</td>
-                                              <td>
-                                                <div class="custom-control custom-switch">
-                                                  <input type="checkbox" class="custom-control-input" id="c3" checked>
-                                                  <label class="custom-control-label" for="c3"></label>
-                                                </div>
-                                              </td>
-                                            </tr>
-                                            <tr>
-                                              <td>2636</td>
-                                              <td>Akeem Holder</td>
-                                              <td>Pellentesque Associates</td>
-                                              <td>896 Sodales St.</td>
-                                              <td>Mar 27, 2020</td>
-                                              <td>
-                                                <div class="custom-control custom-switch">
-                                                  <input type="checkbox" class="custom-control-input" id="c4">
-                                                  <label class="custom-control-label" for="c4"></label>
-                                                </div>
-                                              </td>
-                                            </tr>
-                                            <tr>
-                                              <td>2757</td>
-                                              <td>Beau Barrera</td>
-                                              <td>Augue Incorporated</td>
-                                              <td>4583 Id St.</td>
-                                              <td>Jan 13, 2020</td>
-                                              <td>
-                                                <div class="custom-control custom-switch">
-                                                  <input type="checkbox" class="custom-control-input" id="c5">
-                                                  <label class="custom-control-label" for="c5"></label>
-                                                </div>
-                                              </td>
-                                            </tr>
+
+
+
+
                                           </tbody>
+
                                           <nav aria-label="Page navigation example">
                                             <ul class="pagination">
-                                              <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-                                              <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                              <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                              <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                              <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                                              <li class="page-item" ng-class="{disabled: currentPage === 1}">
+                                                <a class="page-link" ng-click="setPage(currentPage - 1)">Previous</a>
+                                              </li>
+                                              <li class="page-item" ng-repeat="page in getPages()" ng-class="{active: currentPage === page}">
+                                                <a class="page-link" ng-click="setPage(page)">{{ page }}</a>
+                                              </li>
+                                              <li class="page-item" ng-class="{disabled: currentPage === totalPages}">
+                                                <a class="page-link" ng-click="setPage(currentPage + 1)">Next</a>
+                                              </li>
                                             </ul>
                                           </nav>
                                         </table>
@@ -216,26 +166,23 @@
                          
                         </div>      
                         <div class="form-group col-md-2">
-                          <label for="inputState">Minimum order value</label>
-                          <input type="number" class="form-control" id="inputAddress5">
+                          <label for="inputState">Statuses</label>
+                          <input type="text" id="Statuses" ng-model="sales.Statuses" required class="form-control">
                          
                         </div>    
-                        <div class="form-group col-md-2">
-                          <label for="inputState">Maximun order value</label>
-                          <input type="number" class="form-control" id="inputAddress5">
-                        </div>         
+
                       </div>
                       
                     
                       <div class="form-row">
                         <div class="form-group col-md-12">
-                          <label for="inputCity">Price</label>
-                          <textarea class="form-control" id="example-textarea" rows="4"></textarea>
+                          <label for="inputCity">Descriptions</label>
+                          <textarea type="text" id="Descriptions" ng-model="sales.Descriptions" required class="form-control"  rows="4"></textarea>
                         </div>
                     
                       </div>
                    
-                      <button type="submit" class="btn btn-primary">Create voucher</button>
+                      <button type="submit" ng-click="createSales()" class="btn btn-primary">Create voucher</button>
                     </form>
                   </div> <!-- /. card-body -->
                 </div> <!-- /. card -->

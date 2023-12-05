@@ -77,7 +77,7 @@ public class Account implements Serializable {
     public List<Paymentaccounts> listOfPaymentaccounts ;
 
     @JsonIgnore
-    @OneToMany(mappedBy="account")
+    @OneToMany(mappedBy="account", fetch = FetchType.EAGER)
     private List<Shoponlines> listOfShoponlines ;
 
     @JsonIgnore

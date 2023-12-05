@@ -12,24 +12,24 @@ app.config(function ($routeProvider) {
             templateUrl: '/Ibook/seller/orderManagement/sales',
             controller: 'salesOrderManagementController'
         })
-        .when('/orderManagement/transport', {
-            templateUrl: '/Ibook/seller/orderManagement/transport',
+        .when('/shop/TranportChannel/Transport', {
+            templateUrl: '/Ibook/seller/shop/TranportChannel/Transport',
             controller: 'transportController'
         })
-        .when('/orderManagement/createProduct', {
-            templateUrl: 'templates/SellerChannel/CreateProduct.html',
+        .when('/shop/TranportChannel/CreateProduct', {
+            templateUrl: '/Ibook/seller/shop/TranportChannel/CreateProduct',
             controller: 'createProductController'
         })
-        .when('/orderManagement/voucher', {
-            templateUrl: 'templates/SellerChannel/Voucher.html',
+        .when('/shop/TranportChannel/Voucher', {
+            templateUrl: '/Ibook/seller/shop/TranportChannel/Voucher',
             controller: 'voucherController'
         })
-        .when('/orderManagement/createVoucher', {
-            templateUrl: 'templates/SellerChannel/CreateVoucher.html',
+        .when('/shop/TranportChannel/CreateVoucher', {
+            templateUrl: '/Ibook/seller/shop/TranportChannel/CreateVoucher',
             controller: 'createVoucherController'
         })
-        .when('/orderManagement/reviews', {
-            templateUrl: 'templates/SellerChannel/ShopReview.html',
+        .when('/shop/TranportChannel/ShopRewiew', {
+            templateUrl: '/Ibook/seller/shop/TranportChannel/ShopRewiew',
             controller: 'reviewController'
         })
         .when('/shipping/bulkDelivery', {
@@ -64,13 +64,130 @@ app.config(function ($routeProvider) {
             templateUrl: '/Ibook/seller/shop/finance/revenue',
             controller: 'revenueFinanceController'
         })
+        .when('/finance/accountBalance',{
+            templateUrl: '/Ibook/seller/shop/finance/bankAccountBalance',
+            controller: 'bankAccountController'
+        })
+        .when('/finance/createBankAccount',{
+            templateUrl: '/Ibook/seller/shop/finance/createBankAccount',
+            controller: 'createBankAccountController'
+        })
         .otherwise({
             redirectTo: '/seller'
         });
 });
+app.controller("createBankAccountController", function ($scope, $routeParams, $route, $http, $rootScope,$timeout,$window) {
+    let host = "http://localhost:8080/rest/revenueFinance/";
+    $scope.accountBalance={};
+    $scope.getAccountShop = function () {
+        $scope.account = [];
+        $http.get(`http://localhost:8080/rest/shop/account`).then(resp => {
+            $scope.account = resp.data;
+        }).catch(error => {
+            console.log("Error", error)
+        });
+    }
+
+    $scope.saveAccountBalance = function () {
+        $scope.accountBalance.userid = $scope.account.userid;
+        let url = `${host}saveAccountBalance`;
+        const headers = {
+            'Content-Type': "application/json",
+            transformRequest: angular.identity
+        };
+        $http.post(url, JSON.stringify($scope.accountBalance), {headers: headers}).then(resp => {
+            console.log("Save Account  success!!!")
+            $scope.getBankAccountBalance();
+            $window.alert("Save Account  success!!!");
+        }).catch(error => {
+            console.log("Save Account false!!!")
+            $window.alert("Save Account false!!!");
+        });
+    }
+    $scope.getAccountShop();
+})
+//Bank account balance
+app.controller("bankAccountController", function ($scope, $routeParams, $route, $http, $rootScope,$timeout) {
+    let host = "http://localhost:8080/rest/revenueFinance/";
+    $scope.getBankAccountBalance = function () {
+        $scope.accountBalance=[];
+        let url = `${host}getAccountBalance`;
+        $http.get(url).then(resp => {
+            $scope.accountBalance = resp.data;
+            console.log("accountBalance:", $scope.accountBalance)
+        }).catch(error => {
+            console.log("Error", error)
+        });
+    }
+
+
+    $scope.getBankAccountBalance();
+})
+//revenue
+app.controller("revenueFinanceController", function ($scope, $routeParams, $route, $http, $rootScope,$timeout) {
+    let host = "http://localhost:8080/rest/revenueFinance/";
+    $scope.paymentTotal=[];
+    $scope.getRevenueFinance = function () {
+        $scope.shopPayment=[];
+        let url = `${host}getRevenue`;
+        $http.get(url).then(resp => {
+            $scope.shopPayment = resp.data;
+            console.log("shopPayment:", $scope.shopPayment)
+        }).catch(error => {
+            console.log("Error", error)
+        });
+    }
+    $scope.getAnalysisFinance = function () {
+        $scope.analysisFinance=[];
+        let url = `${host}getAnalysisFinance`;
+        $http.get(url).then(resp => {
+            $scope.analysisFinance = resp.data;
+            console.log("analysisFinance:", $scope.analysisFinance)
+        }).catch(error => {
+            console.log("Error", error)
+        });
+    }
+    $scope.getListFinance = function () {
+        $scope.listPayment=[];
+        let url = `${host}getListFinance`;
+        $http.get(url).then(resp => {
+            $scope.listPayment = resp.data;
+            console.log("listPayment:", $scope.listPayment)
+        }).catch(error => {
+            console.log("Error", error)
+        });
+    }
+
+    $scope.sendRequestPayment = function () {
+        let url = `${host}sendRequestPayment`;
+        var currentDate = new Date();
+        let formData;
+        formData = new FormData();
+
+        formData.append('paymentTotal', $scope.paymentTotal);
+        formData.append("reportProgress", true);
+        const headers = {
+            'Content-Type': undefined,
+            transformRequest: angular.identity
+        };
+        $http.post(url, formData, {headers: headers}).then(resp => {
+            $scope.getRevenueFinance();
+            $scope.getAnalysisFinance();
+            $scope.getListFinance();
+            console.log("Result: ", "success!!!!!!")
+            $window.alert("Send request payment success!!!");
+
+        }).catch(error => {
+            console.log("Error", error)
+            $window.alert("Send request payment false!!!");
+        });
+    }
+    $scope.getRevenueFinance();
+    $scope.getAnalysisFinance();
+    $scope.getListFinance();
+});
 //sales Analysis
 app.controller("salesController", function ($scope, $routeParams, $route, $http, $rootScope,$timeout) {
-
 
     let host = "http://localhost:8080/rest/salesAnalysis/";
     var currentDate = new Date();
@@ -222,14 +339,14 @@ app.controller("salesController", function ($scope, $routeParams, $route, $http,
         console.log("data",$scope.mSales );
     }
     $scope.getCategoryRanking = function () {
-            $scope.categoryRanking = [];
-            let url = `${host}categoryRanking`;
-            $http.get(url).then(resp => {
-                $scope.categoryRanking = resp.data;
-                console.log("categoryRanking:", $scope.categoryRanking)
-            }).catch(error => {
-                console.log("Error", error)
-            });
+        $scope.categoryRanking = [];
+        let url = `${host}categoryRanking`;
+        $http.get(url).then(resp => {
+            $scope.categoryRanking = resp.data;
+            console.log("categoryRanking:", $scope.categoryRanking)
+        }).catch(error => {
+            console.log("Error", error)
+        });
 
     }
 
@@ -265,6 +382,8 @@ app.controller("salesController", function ($scope, $routeParams, $route, $http,
             console.log("Error", error)
         });
     }
+
+    $scope.getSalesAnalysis();
     $scope.getCategoryRanking();
     $scope.getBookRankingToSales();
     $scope.getBookRankingToNumber();
@@ -434,6 +553,296 @@ app.controller("addressSettingController", function ($scope, $routeParams, $rout
         });
     }
     $scope.getAddressShop();
+});
+//************************************************************************Tung dev seller (Dep trai vai lone)
+
+    //Create Product
+app.controller('createProductController', function($scope, BookService, $http) {
+    // Lấy tên các danh mục
+    BookService.getCategories().then(function(response) {
+        $scope.categories = response.data;
+    }, function(error) {
+        console.error('Lỗi khi lấy tên danh mục:', error);
+    });
+
+    // Lấy tên các nhà xuất bản
+    BookService.getPublishingCompanies().then(function(response) {
+        $scope.publishingCompanies = response.data;
+    }, function(error) {
+        console.error('Lỗi khi lấy tên nhà xuất bản:', error);
+    });
+
+    $scope.createBook = function () {
+        var formData = new FormData();
+        formData.append('bookname', $scope.bookname);
+        formData.append('language', $scope.language);
+        formData.append('size', $scope.size);
+        formData.append('weight', $scope.weight);
+        formData.append('totalpage', $scope.totalpage);
+        formData.append('publishingyear', $scope.publishingyear);
+        formData.append('price', $scope.price);
+        formData.append('quantity', $scope.quantity);
+        formData.append('statues', $scope.statues);
+        formData.append('publishingcompanyid', $scope.publishingcompanyid);
+        formData.append('isactive', $scope.isactive);
+        formData.append('category', $scope.category);
+
+        angular.forEach($scope.images, function (image) {
+            formData.append('images', image);
+            console.log($scope.images)
+        });
+
+        $http.post('/rest/books/create', formData, {
+            transformRequest: angular.identity,
+            headers: {'Content-Type': undefined}
+        }).then(function (response) {
+            console.log(response.data);
+            alert('Book created successfully!');
+            // Redirect or perform any other actions after successful creation
+        }, function (error) {
+            console.error(error);
+            alert('Error creating book. Please try again.');
+        });
+    };
+});
+app.service('BookService', function($http) {
+    // Dịch vụ để lấy tên các danh mục
+    this.getCategories = function() {
+        return $http.get('/rest/books/names');
+    };
+
+    // Dịch vụ để lấy tên các nhà xuất bản
+    this.getPublishingCompanies = function() {
+        return $http.get('/rest/books/publishingcompany');
+    };
+});
+                    //Add
+//Tranport
+app.controller('transportController', function($scope, $routeParams, $route, $http, $rootScope) {
+    $scope.pageSize = 5; // Number of items per page
+    $scope.currentPage = 1; // Current page
+    $scope.totalPages = 1
+    $scope.findByOrderStatusId = function(orderstatusid) {
+        $scope.bookings = [];
+        if (orderstatusid === 0) {
+            $http.get('/rest/tranportChannel/all')
+                .then(function(response) {
+                    $scope.bookings = response.data;
+                    $scope.totalPages = Math.ceil($scope.bookings.length / $scope.pageSize);
+                    $scope.setPage(1); // Set initial page
+                });
+        } else {
+            $http.get('/rest/tranportChannel/' + orderstatusid)
+                .then(function(response) {
+                    $scope.bookings = response.data;
+                    $scope.totalPages = Math.ceil($scope.bookings.length / $scope.pageSize);
+                    $scope.setPage(1); // Set initial page
+                });
+        }
+    };
+    $scope.findByOrderStatusId();
+    $scope.setPage = function (page) {
+        console.log('Current Page:', $scope.currentPage);
+        console.log('Total Pages:', $scope.totalPages);
+        if (page < 1 || page > $scope.totalPages) {
+            return;
+        }
+        $scope.currentPage = page;
+        var startIndex = (page - 1) * $scope.pageSize;
+        var endIndex = startIndex + $scope.pageSize;
+        $scope.paginatedBooks = $scope.bookings.slice(startIndex, endIndex);
+        console.log('setPage called with page:', page);
+        // ... (rest of the code)
+
+        console.log('currentPage:', $scope.currentPage);
+        console.log('paginatedBooks:', $scope.paginatedBooks);
+    };
+    $scope.getPages = function () {
+        return new Array($scope.totalPages).fill().map((_, index) => index + 1);
+    };
+
+});
+
+
+    //Voucher
+    //Create Voucher
+app.controller('createVoucherController', function($scope, $http) {
+    $scope.pageSize = 5; // Number of items per page
+    $scope.currentPage = 1; // Current page
+    $scope.totalPages = 1
+    $scope.initInfoProduct = function () {
+        $scope.books = [];
+        $http.get('/rest/books')
+            .then(function(response) {
+                $scope.books = response.data;
+                $scope.totalPages = Math.ceil($scope.books.length / $scope.pageSize);
+                $scope.setPage(1); // Set initial page
+                console.log('Evaluates:', $scope.books);
+            })
+            .catch(function(error) {
+                console.error('Error fetching data:', error);
+            });
+
+    }
+    $scope.initInfoProduct();
+    $scope.setPage = function (page) {
+        console.log('Current Page:', $scope.currentPage);
+        console.log('Total Pages:', $scope.totalPages);
+        if (page < 1 || page > $scope.totalPages) {
+            return;
+        }
+        $scope.currentPage = page;
+        var startIndex = (page - 1) * $scope.pageSize;
+        var endIndex = startIndex + $scope.pageSize;
+        $scope.paginatedBooks = $scope.books.slice(startIndex, endIndex);
+        console.log('setPage called with page:', page);
+        // ... (rest of the code)
+
+        console.log('currentPage:', $scope.currentPage);
+        console.log('paginatedBooks:', $scope.paginatedBooks);
+    };
+
+    $scope.getPages = function () {
+        return new Array($scope.totalPages).fill().map((_, index) => index + 1);
+    };
+    // Disable button
+    $scope.selectedOption = '';//Default value
+    $scope.isButtonDisabled = true;
+
+    $scope.updateButtonStatus = function () {
+
+        $scope.isButtonDisabled = $scope.selectedOption === 'Books';
+    };
+    $scope.createSale = function() {
+        // Gửi dữ liệu form đến API
+        $http.post('http://localhost:8080/rest/sale/create', $scope.sale)
+            .then(function(response) {
+
+                alert(response.data.message);
+            })
+            .catch(function(error) {
+
+                console.error('Error:', error);
+                alert('An error occurred while processing the request.');
+            });
+    };
+
+});
+
+
+    //Review
+app.controller('reviewController', function($scope, $routeParams, $route, $http, $rootScope) {
+    $scope.evaluates = [];
+    $scope.filteredReviews = [];
+
+    $scope.filterReviews = function(selectedStar) {
+        if (selectedStar === 'All') {
+            // Nếu chọn "All", hiển thị tất cả đánh giá
+            $scope.filteredReviews = $scope.evaluates;
+        } else {
+            // Nếu chọn một số sao cụ thể, lọc đánh giá theo rating
+            $scope.filteredReviews = $scope.evaluates.filter(function(review) {
+                return review.rating == selectedStar;
+            });
+        }
+    };
+    $scope.initInfoProduct = function () {
+        console.log("alo alo");
+        $http.get('/api/evaluates')
+            .then(function(response) {
+                $scope.evaluates = response.data;
+                $scope.filterReviews('All'); // Hiển thị tất cả đánh giá khi trang được load
+                console.log('Evaluates:', $scope.evaluates);
+            })
+            .catch(function(error) {
+                console.error('Error fetching data:', error);
+            });
+    };
+
+    $scope.initInfoProduct();
+});
+
+//////////////sales
+app.controller('salesOrderManagementController', function($scope, $http) {
+    $scope.pageSize = 5; // Number of items per page
+    $scope.currentPage = 1; // Current page
+    $scope.totalPages = 1
+    $scope.initInfoProduct = function () {
+        $scope.books = [];
+        $http.get('/rest/books/ab')
+            .then(function(response) {
+                $scope.books = response.data;
+                $scope.totalPages = Math.ceil($scope.books.length / $scope.pageSize);
+                $scope.setPage(1); // Set initial page
+                console.log('Evaluates:', $scope.books);
+            })
+            .catch(function(error) {
+                console.error('Error fetching data:', error);
+            });
+
+    }
+    $scope.initInfoProduct();
+    $scope.setPage = function (page) {
+        console.log('Current Page:', $scope.currentPage);
+        console.log('Total Pages:', $scope.totalPages);
+        if (page < 1 || page > $scope.totalPages) {
+            return;
+        }
+        $scope.currentPage = page;
+        var startIndex = (page - 1) * $scope.pageSize;
+        var endIndex = startIndex + $scope.pageSize;
+        $scope.paginatedBooks = $scope.books.slice(startIndex, endIndex);
+        console.log('setPage called with page:', page);
+        // ... (rest of the code)
+
+        console.log('currentPage:', $scope.currentPage);
+        console.log('paginatedBooks:', $scope.paginatedBooks);
+    };
+
+    $scope.getPages = function () {
+        return new Array($scope.totalPages).fill().map((_, index) => index + 1);
+    };
+    $scope.setImage = function (bookId) {
+        let url = `http://localhost:8080/rest/imagebook/` + bookId;
+        $http.get(url).then(resp => {
+            var a = [];
+            a = (resp.data);
+            console.log("fff"+JSON.stringify(resp.data));
+            document.getElementById('img' + bookId).src = "/Client/images/" + a[0].name
+        }).catch(error => {
+            console.log("Error", error)
+        });
+    }
+    $scope.books = [
+        { isactive: true },
+        { isactive: false },
+        // Add more book objects as needed
+    ];
+    $scope.updateIsActive = function(book) {
+
+        $http.put('/rest/books/updateIsActive/' + book.bookid, { isactive: book.isactive })
+            .then(function(response) {
+                console.log('Cập nhật thành công.');
+            })
+            .catch(function(error) {
+                console.error('Lỗi khi cập nhật: ', error);
+                // Nếu có lỗi, bạn có thể khám phá các cách xử lý lỗi phù hợp với ứng dụng của bạn
+            });
+    };
+    $scope.removeBook = function(book) {
+        var bookId = book.bookid;
+
+        $http.delete('/rest/books/delete/' + bookId)
+            .then(function(response) {
+                var index = $scope.paginatedBooks.indexOf(book);
+                if (index !== -1) {
+                    $scope.paginatedBooks.splice(index, 1);
+                }
+            })
+            .catch(function(error) {
+                console.error('Error deleting book:', error);
+            });
+    };
 });
 
 

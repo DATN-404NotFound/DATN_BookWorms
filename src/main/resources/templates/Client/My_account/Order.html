@@ -5,503 +5,407 @@
     <div th:fragment="maccount">
         <ul class="nav nav-tabs orderTab">
             <li class="nav-item">
-                <a class="nav-link active" id="tab1" data-bs-toggle="tab" href="#tabAll">All</a>
+                <a class="nav-link active" id="tab1" data-bs-toggle="tab" href="#tabAll">Tất cả</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" id="tab2" data-bs-toggle="tab" href="/#tabPendingPayment"  onclick="changeTab('1')">Pending payment</a>
+                <a class="nav-link" id="tab2" data-bs-toggle="tab" href="/#tabPendingPayment"
+                    onclick="changeTab('1')">Chờ thanh toán</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" id="tab3" data-bs-toggle="tab" href="#tabPendingConfirmation" onclick="changeTab('2')">Pending confirmation</a>
+                <a class="nav-link" id="tab3" data-bs-toggle="tab" href="#tabPendingConfirmation"
+                    onclick="changeTab('2')">Chờ xác nhận</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" id="tab4" data-bs-toggle="tab" href="#tabTransprot" onclick="changeTab('2')">Transport</a>
+                <a class="nav-link" id="tab4" data-bs-toggle="tab" href="#tabTransprot"
+                    onclick="changeTab('2')">Đang vận chuyển</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" id="tab5" data-bs-toggle="tab" href="#tabSuccess" onclick="changeTab('2')">Success</a>
+                <a class="nav-link" id="tab5" data-bs-toggle="tab" href="#tabSuccess"
+                    onclick="changeTab('2')">Hoàn thành</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" id="tab6" data-bs-toggle="tab" href="#tabOrderCancelled" onclick="changeTab('2')">Cancelled</a>
+                <a class="nav-link" id="tab6" data-bs-toggle="tab" href="#tabOrderCancelled"
+                    onclick="changeTab('2')">Đơn hủy</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" id="tab7" data-bs-toggle="tab" href="#tabReturnRefund" onclick="changeTab('2')">Return/Refund</a>
+                <a class="nav-link" id="tab7" data-bs-toggle="tab" href="#tabReturnRefund"
+                    onclick="changeTab('2')">Hoàn trả</a>
             </li>
         </ul>
 
         <div class=" tab-content">
             <div id="tabAll" class="tab-pane fade show active">
+                <div class="img-notOrder" th:if="${#lists.isEmpty(booking)}">
+                    <img th:src="@{|/Client/images/not-order.png|}" alt="">
+                    <p class="mt-4">Không có đơn hàng</p>
+                </div>
                 <div class="order" th:each="b : ${booking}">
                     <div class="cardHeader">
                         <span>
-                            <img id="logoAccountOrder" th:src="@{|/Client/images/${b.listOfDetailbookings.get(0).books.shoponlines.listOfFiles.get(0).filename}|}"  alt="">
-                            <p class="ms-2 mt-3 nameAccountOrder" th:text="${b.listOfDetailbookings.get(0).books.shoponlines.shopname}">tungle1204</p>
+                            <img id="logoAccountOrder"
+                                th:src="@{|/Client/images/${b.listOfDetailbookings.get(0).books.shoponlines.listOfFiles.get(0).filename}|}"
+                                alt="">
+                            <p class="ms-2 mt-3 nameAccountOrder"
+                                th:text="${b.listOfDetailbookings.get(0).books.shoponlines.shopname}"></p>
                         </span>
                         <button class="btn btnChat">Chat</button>
-                        <button class="btn btnReport">Report</button>
-                        <p id="pStatus">Status: <span  th:text="${b.orderstatuses.statusname}"></span></p>
+                        <button class="btn btnReport">Báo cáo</button>
+                        <p id="pStatus">Trạng thái: <span th:text="${b.orderstatuses.statusname}"></span></p>
                     </div>
                     <div class="cardBody">
-                        <img class="imgBook" th:src="@{|/Client/images/${b.listOfDetailbookings.get(0).books.listOfImagebooks.get(0).name}|}" alt="">
-                        <p class="nameBook"> <span th:text="${b.listOfDetailbookings.get(0).books.bookname}"></span><br> 
+                        <img class="imgBook"
+                            th:src="@{|/Client/images/${b.listOfDetailbookings.get(0).books.listOfImagebooks.get(0).name}|}"
+                            alt="">
+                        <p class="nameBook"> <span th:text="${b.listOfDetailbookings.get(0).books.bookname}"></span><br>
                             x<span th:text="${b.listOfDetailbookings.get(0).quantity}"></span></p>
-                        <p class="price-order" th:text="${b.listOfDetailbookings.get(0).books.price*b.listOfDetailbookings.get(0).quantity}"></p>
+                        <p class="price-order"
+                            th:text="${b.listOfDetailbookings.get(0).books.price*b.listOfDetailbookings.get(0).quantity}">
+                        </p>
                     </div>
                     <div class="cardFooter">
-                        <p class="total">Total: <span th:text="${b.cost}"></span></p>
-                        <!-- <button class="btn btnRating">Rating</button> -->
-                        <button type="button" class="btn btnRating" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                            Rating
+                        <p class="total">Thành tiền: <span th:text="${b.cost}"></span></p>
+                        <button class="btn btnCancelled" th:if="${b.orderstatuses.statusname} == 'Chờ xác nhận'"
+                            type="button" data-bs-toggle="modal" data-bs-target="#exampleModal1"
+                            th:attr="ng-click=@{|callModel('${b.bookingid}')|}">Hủy đơn</button>
+
+                        <button th:if="${b.orderstatuses.statusname} == 'Hoàn thành'" type="button"
+                            class="btn btnRating" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                            Đánh giá
                         </button>
-                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-                            aria-hidden="true">
-                            <div class="modal-dialog">
-                                <div class="modal-content boxRateProduct">
-                                    <div class="modal-header" style="border: none;">
-                                        <h3 class="modal-title" id="exampleModalLabel">Report prodduct</h3>
-                                    </div>
-                                    <div class="modal-body">
-                                        <div class="rateProduct mb-5">
-                                            <img class="imgProductRate"
-                                                src="../../../static/Client/images/but-ky-nguoi-di-san.jpg" alt="">
-                                            <p class="nameProductRate">Bút Ký Người Đi Săn</p> <br> <br>
-                                            <button class="btn btnChooseImageRate">Choose image</button>
-                                            <p class="star-rate"><i class="bi bi-star"></i><i class="bi bi-star"></i><i
-                                                    class="bi bi-star"></i><i class="bi bi-star"></i><i class="bi bi-star"></i>
-                                            </p>
-                                            <textarea name="" id="" cols="80" rows="5"
-                                                placeholder="Share everything you like product !"></textarea>
-                                        </div>
-                                        <div class="rateProduct">
-                                            <img class="imgProductRate"
-                                                src="../../../static/Client/images/but-ky-nguoi-di-san.jpg" alt="">
-                                            <p class="nameProductRate">Bút Ký Người Đi Săn</p> <br> <br>
-                                            <button class="btn btnChooseImageRate">Choose image</button>
-                                            <p class="star-rate"><i class="bi bi-star"></i><i class="bi bi-star"></i><i
-                                                    class="bi bi-star"></i><i class="bi bi-star"></i><i class="bi bi-star"></i>
-                                            </p>
-                                            <textarea name="" id="" cols="80" rows="5"
-                                                placeholder="Share everything you like product !"></textarea>
-                                        </div>
-                                    </div>
-                                    <div class="modal-footer" style="border: none;">
-                                        <button type="button" class="btn btnFinish-rateProduct">Finish</button>
-                                        <button type="button" class="btn btnCancel-rateProduct"
-                                            data-bs-dismiss="modal">Cancel</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+
                         <form action="">
-                            <button class="btn btnDetail-order" th:formaction="@{|/myAccount/orderDetailMyAccount/${b.bookingid}|}">Detail</button>
+                            <button class="btn btnDetail-order"
+                                th:formaction="@{|/myAccount/orderDetailMyAccount/${b.bookingid}|}">Chi tiết</button>
                         </form>
                     </div>
                 </div>
-                
             </div>
             <div id="tabPendingPayment" class="tab-pane fade">
+                <!-- <div class="img-notOrder"
+                    th:if="${booking == null or booking.size() == 0 or booking[0].orderstatuses.statusname != 'Chưa thanh toán'}">
+                    <img th:src="@{|/Client/images/not-order.png|}" alt="">
+                    <p class="mt-4">Không có đơn hàng</p>
+                </div> -->
                 <div class="order" th:each="b : ${booking}" th:if="${b.orderstatuses.statusname} == 'Chưa thanh toán'">
                     <div class="cardHeader">
                         <span>
-                            <img id="logoAccountOrder" th:src="@{|/Client/images/${b.listOfDetailbookings.get(0).books.shoponlines.listOfFiles.get(0).filename}|}"  alt="">
-                            <p class="ms-2 mt-3 nameAccountOrder" th:text="${b.listOfDetailbookings.get(0).books.shoponlines.shopname}">tungle1204</p>
+                            <img id="logoAccountOrder"
+                                th:src="@{|/Client/images/${b.listOfDetailbookings.get(0).books.shoponlines.listOfFiles.get(0).filename}|}"
+                                alt="">
+                            <p class="ms-2 mt-3 nameAccountOrder"
+                                th:text="${b.listOfDetailbookings.get(0).books.shoponlines.shopname}"></p>
                         </span>
                         <button class="btn btnChat">Chat</button>
-                        <button class="btn btnReport">Report</button>
-                        <p id="pStatus">Status: <span  th:text="${b.orderstatuses.statusname}"></span></p>
+                        <button class="btn btnReport">Báo cáo</button>
+                        <p id="pStatus">Trạng thái: <span th:text="${b.orderstatuses.statusname}"></span></p>
                     </div>
                     <div class="cardBody">
-                        <img class="imgBook" th:src="@{|/Client/images/${b.listOfDetailbookings.get(0).books.listOfImagebooks.get(0).name}|}" alt="">
-                        <p class="nameBook"> <span th:text="${b.listOfDetailbookings.get(0).books.bookname}"></span><br> 
+                        <img class="imgBook"
+                            th:src="@{|/Client/images/${b.listOfDetailbookings.get(0).books.listOfImagebooks.get(0).name}|}"
+                            alt="">
+                        <p class="nameBook"> <span th:text="${b.listOfDetailbookings.get(0).books.bookname}"></span><br>
                             x<span th:text="${b.listOfDetailbookings.get(0).quantity}"></span></p>
-                        <p class="price-order" th:text="${b.listOfDetailbookings.get(0).books.price*b.listOfDetailbookings.get(0).quantity}"></p>
+                        <p class="price-order"
+                            th:text="${b.listOfDetailbookings.get(0).books.price*b.listOfDetailbookings.get(0).quantity}">
+                        </p>
                     </div>
                     <div class="cardFooter">
-                        <p class="total">Total: <span th:text="${b.cost}"></span></p>
+                        <p class="total">Thành tiền: <span th:text="${b.cost}"></span></p>
                         <!-- <button class="btn btnRating">Rating</button> -->
-                        <button type="button" class="btn btnRating" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                            Rating
+                        <button th:if="${b.orderstatuses.statusname} == 'Hoàn thành'" type="button"
+                            class="btn btnRating" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                            Đánh giá
                         </button>
-                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-                            aria-hidden="true">
-                            <div class="modal-dialog">
-                                <div class="modal-content boxRateProduct">
-                                    <div class="modal-header" style="border: none;">
-                                        <h3 class="modal-title" id="exampleModalLabel">Report prodduct</h3>
-                                    </div>
-                                    <div class="modal-body">
-                                        <div class="rateProduct mb-5">
-                                            <img class="imgProductRate"
-                                                src="../../../static/Client/images/but-ky-nguoi-di-san.jpg" alt="">
-                                            <p class="nameProductRate">Bút Ký Người Đi Săn</p> <br> <br>
-                                            <button class="btn btnChooseImageRate">Choose image</button>
-                                            <p class="star-rate"><i class="bi bi-star"></i><i class="bi bi-star"></i><i
-                                                    class="bi bi-star"></i><i class="bi bi-star"></i><i class="bi bi-star"></i>
-                                            </p>
-                                            <textarea name="" id="" cols="80" rows="5"
-                                                placeholder="Share everything you like product !"></textarea>
-                                        </div>
-                                        <div class="rateProduct">
-                                            <img class="imgProductRate"
-                                                src="../../../static/Client/images/but-ky-nguoi-di-san.jpg" alt="">
-                                            <p class="nameProductRate">Bút Ký Người Đi Săn</p> <br> <br>
-                                            <button class="btn btnChooseImageRate">Choose image</button>
-                                            <p class="star-rate"><i class="bi bi-star"></i><i class="bi bi-star"></i><i
-                                                    class="bi bi-star"></i><i class="bi bi-star"></i><i class="bi bi-star"></i>
-                                            </p>
-                                            <textarea name="" id="" cols="80" rows="5"
-                                                placeholder="Share everything you like product !"></textarea>
-                                        </div>
-                                    </div>
-                                    <div class="modal-footer" style="border: none;">
-                                        <button type="button" class="btn btnFinish-rateProduct">Finish</button>
-                                        <button type="button" class="btn btnCancel-rateProduct"
-                                            data-bs-dismiss="modal">Cancel</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+
                         <form action="">
-                            <button class="btn btnDetail-order" th:formaction="@{|/myAccount/orderDetailMyAccount/${b.bookingid}|}">Detail</button>
+                            <button class="btn btnDetail-order"
+                                th:formaction="@{|/myAccount/orderDetailMyAccount/${b.bookingid}|}">Chi tiết</button>
                         </form>
                     </div>
                 </div>
             </div>
             <div id="tabPendingConfirmation" class="tab-pane fade">
+                <!-- <div class="img-notOrder"
+                    th:if="${booking == null or booking.size() == 0 or booking[0].orderstatuses.statusname != 'Chờ xác nhận'}">
+                    <img th:src="@{|/Client/images/not-order.png|}" alt="">
+                    <p class="mt-4">Không có đơn hàng</p>
+                </div> -->
                 <div class="order" th:each="b : ${booking}" th:if="${b.orderstatuses.statusname} == 'Chờ xác nhận'">
                     <div class="cardHeader">
                         <span>
-                            <img id="logoAccountOrder" th:src="@{|/Client/images/${b.listOfDetailbookings.get(0).books.shoponlines.listOfFiles.get(0).filename}|}"  alt="">
-                            <p class="ms-2 mt-3 nameAccountOrder" th:text="${b.listOfDetailbookings.get(0).books.shoponlines.shopname}">tungle1204</p>
+                            <img id="logoAccountOrder"
+                                th:src="@{|/Client/images/${b.listOfDetailbookings.get(0).books.shoponlines.listOfFiles.get(0).filename}|}"
+                                alt="">
+                            <p class="ms-2 mt-3 nameAccountOrder"
+                                th:text="${b.listOfDetailbookings.get(0).books.shoponlines.shopname}"></p>
                         </span>
                         <button class="btn btnChat">Chat</button>
-                        <button class="btn btnReport">Report</button>
-                        <p id="pStatus">Status: <span  th:text="${b.orderstatuses.statusname}"></span></p>
+                        <button class="btn btnReport">Báo cáo</button>
+                        <p id="pStatus">Trạng thái: <span th:text="${b.orderstatuses.statusname}"></span></p>
                     </div>
                     <div class="cardBody">
-                        <img class="imgBook" th:src="@{|/Client/images/${b.listOfDetailbookings.get(0).books.listOfImagebooks.get(0).name}|}" alt="">
-                        <p class="nameBook"> <span th:text="${b.listOfDetailbookings.get(0).books.bookname}"></span><br> 
+                        <img class="imgBook"
+                            th:src="@{|/Client/images/${b.listOfDetailbookings.get(0).books.listOfImagebooks.get(0).name}|}"
+                            alt="">
+                        <p class="nameBook"> <span th:text="${b.listOfDetailbookings.get(0).books.bookname}"></span><br>
                             x<span th:text="${b.listOfDetailbookings.get(0).quantity}"></span></p>
-                        <p class="price-order" th:text="${b.listOfDetailbookings.get(0).books.price*b.listOfDetailbookings.get(0).quantity}"></p>
+                        <p class="price-order"
+                            th:text="${b.listOfDetailbookings.get(0).books.price*b.listOfDetailbookings.get(0).quantity}">
+                        </p>
                     </div>
                     <div class="cardFooter">
                         <p class="total">Total: <span th:text="${b.cost}"></span></p>
-                        <!-- <button class="btn btnRating">Rating</button> -->
-                        <button type="button" class="btn btnRating" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                            Rating
+                        <button class="btn btnCancelled" th:if="${b.orderstatuses.statusname} == 'Chờ xác nhận'"
+                            type="button" data-bs-toggle="modal" data-bs-target="#exampleModal1">Đơn hủy</button>
+
+                        <button th:if="${b.orderstatuses.statusname} == 'Hoàn thành'" type="button"
+                            class="btn btnRating" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                            Đánh giá
                         </button>
-                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-                            aria-hidden="true">
-                            <div class="modal-dialog">
-                                <div class="modal-content boxRateProduct">
-                                    <div class="modal-header" style="border: none;">
-                                        <h3 class="modal-title" id="exampleModalLabel">Report prodduct</h3>
-                                    </div>
-                                    <div class="modal-body">
-                                        <div class="rateProduct mb-5">
-                                            <img class="imgProductRate"
-                                                src="../../../static/Client/images/but-ky-nguoi-di-san.jpg" alt="">
-                                            <p class="nameProductRate">Bút Ký Người Đi Săn</p> <br> <br>
-                                            <button class="btn btnChooseImageRate">Choose image</button>
-                                            <p class="star-rate"><i class="bi bi-star"></i><i class="bi bi-star"></i><i
-                                                    class="bi bi-star"></i><i class="bi bi-star"></i><i class="bi bi-star"></i>
-                                            </p>
-                                            <textarea name="" id="" cols="80" rows="5"
-                                                placeholder="Share everything you like product !"></textarea>
-                                        </div>
-                                        <div class="rateProduct">
-                                            <img class="imgProductRate"
-                                                src="../../../static/Client/images/but-ky-nguoi-di-san.jpg" alt="">
-                                            <p class="nameProductRate">Bút Ký Người Đi Săn</p> <br> <br>
-                                            <button class="btn btnChooseImageRate">Choose image</button>
-                                            <p class="star-rate"><i class="bi bi-star"></i><i class="bi bi-star"></i><i
-                                                    class="bi bi-star"></i><i class="bi bi-star"></i><i class="bi bi-star"></i>
-                                            </p>
-                                            <textarea name="" id="" cols="80" rows="5"
-                                                placeholder="Share everything you like product !"></textarea>
-                                        </div>
-                                    </div>
-                                    <div class="modal-footer" style="border: none;">
-                                        <button type="button" class="btn btnFinish-rateProduct">Finish</button>
-                                        <button type="button" class="btn btnCancel-rateProduct"
-                                            data-bs-dismiss="modal">Cancel</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+
                         <form action="">
-                            <button class="btn btnDetail-order" th:formaction="@{|/myAccount/orderDetailMyAccount/${b.bookingid}|}">Detail</button>
+                            <button class="btn btnDetail-order"
+                                th:formaction="@{|/myAccount/orderDetailMyAccount/${b.bookingid}|}">Chi tiết</button>
                         </form>
                     </div>
                 </div>
             </div>
             <div id="tabTransprot" class="tab-pane fade">
+                <!-- <div class="img-notOrder"
+                    th:if="${booking == null or booking.size() == 0 or booking[0].orderstatuses.statusname != 'Đang vận chuyển'}">
+                    <img th:src="@{|/Client/images/not-order.png|}" alt="">
+                    <p class="mt-4">Không có đơn hàng</p>
+                </div> -->
                 <div class="order" th:each="b : ${booking}" th:if="${b.orderstatuses.statusname} == 'Đang vận chuyển'">
                     <div class="cardHeader">
                         <span>
-                            <img id="logoAccountOrder" th:src="@{|/Client/images/${b.listOfDetailbookings.get(0).books.shoponlines.listOfFiles.get(0).filename}|}"  alt="">
-                            <p class="ms-2 mt-3 nameAccountOrder" th:text="${b.listOfDetailbookings.get(0).books.shoponlines.shopname}">tungle1204</p>
+                            <img id="logoAccountOrder"
+                                th:src="@{|/Client/images/${b.listOfDetailbookings.get(0).books.shoponlines.listOfFiles.get(0).filename}|}"
+                                alt="">
+                            <p class="ms-2 mt-3 nameAccountOrder"
+                                th:text="${b.listOfDetailbookings.get(0).books.shoponlines.shopname}"></p>
                         </span>
                         <button class="btn btnChat">Chat</button>
-                        <button class="btn btnReport">Report</button>
-                        <p id="pStatus">Status: <span  th:text="${b.orderstatuses.statusname}"></span></p>
+                        <button class="btn btnReport">Báo cáo</button>
+                        <p id="pStatus">Trạng thái: <span th:text="${b.orderstatuses.statusname}"></span></p>
                     </div>
                     <div class="cardBody">
-                        <img class="imgBook" th:src="@{|/Client/images/${b.listOfDetailbookings.get(0).books.listOfImagebooks.get(0).name}|}" alt="">
-                        <p class="nameBook"> <span th:text="${b.listOfDetailbookings.get(0).books.bookname}"></span><br> 
+                        <img class="imgBook"
+                            th:src="@{|/Client/images/${b.listOfDetailbookings.get(0).books.listOfImagebooks.get(0).name}|}"
+                            alt="">
+                        <p class="nameBook"> <span th:text="${b.listOfDetailbookings.get(0).books.bookname}"></span><br>
                             x<span th:text="${b.listOfDetailbookings.get(0).quantity}"></span></p>
-                        <p class="price-order" th:text="${b.listOfDetailbookings.get(0).books.price*b.listOfDetailbookings.get(0).quantity}"></p>
+                        <p class="price-order"
+                            th:text="${b.listOfDetailbookings.get(0).books.price*b.listOfDetailbookings.get(0).quantity}">
+                        </p>
                     </div>
                     <div class="cardFooter">
-                        <p class="total">Total: <span th:text="${b.cost}"></span></p>
+                        <p class="total">Thành tiền: <span th:text="${b.cost}"></span></p>
                         <!-- <button class="btn btnRating">Rating</button> -->
-                        <button type="button" class="btn btnRating" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                            Rating
+                        <button th:if="${b.orderstatuses.statusname} == 'Hoàn thành'" type="button"
+                            class="btn btnRating" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                            Đánh giá
                         </button>
-                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-                            aria-hidden="true">
-                            <div class="modal-dialog">
-                                <div class="modal-content boxRateProduct">
-                                    <div class="modal-header" style="border: none;">
-                                        <h3 class="modal-title" id="exampleModalLabel">Report prodduct</h3>
-                                    </div>
-                                    <div class="modal-body">
-                                        <div class="rateProduct mb-5">
-                                            <img class="imgProductRate"
-                                                src="../../../static/Client/images/but-ky-nguoi-di-san.jpg" alt="">
-                                            <p class="nameProductRate">Bút Ký Người Đi Săn</p> <br> <br>
-                                            <button class="btn btnChooseImageRate">Choose image</button>
-                                            <p class="star-rate"><i class="bi bi-star"></i><i class="bi bi-star"></i><i
-                                                    class="bi bi-star"></i><i class="bi bi-star"></i><i class="bi bi-star"></i>
-                                            </p>
-                                            <textarea name="" id="" cols="80" rows="5"
-                                                placeholder="Share everything you like product !"></textarea>
-                                        </div>
-                                        <div class="rateProduct">
-                                            <img class="imgProductRate"
-                                                src="../../../static/Client/images/but-ky-nguoi-di-san.jpg" alt="">
-                                            <p class="nameProductRate">Bút Ký Người Đi Săn</p> <br> <br>
-                                            <button class="btn btnChooseImageRate">Choose image</button>
-                                            <p class="star-rate"><i class="bi bi-star"></i><i class="bi bi-star"></i><i
-                                                    class="bi bi-star"></i><i class="bi bi-star"></i><i class="bi bi-star"></i>
-                                            </p>
-                                            <textarea name="" id="" cols="80" rows="5"
-                                                placeholder="Share everything you like product !"></textarea>
-                                        </div>
-                                    </div>
-                                    <div class="modal-footer" style="border: none;">
-                                        <button type="button" class="btn btnFinish-rateProduct">Finish</button>
-                                        <button type="button" class="btn btnCancel-rateProduct"
-                                            data-bs-dismiss="modal">Cancel</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                         <form action="">
-                            <button class="btn btnDetail-order" th:formaction="@{|/myAccount/orderDetailMyAccount/${b.bookingid}|}">Detail</button>
+                            <button class="btn btnDetail-order"
+                                th:formaction="@{|/myAccount/orderDetailMyAccount/${b.bookingid}|}">Chi tiết</button>
                         </form>
                     </div>
                 </div>
             </div>
             <div id="tabSuccess" class="tab-pane fade">
+                <!-- <div class="img-notOrder"
+                    th:if="${booking == null or booking.size() == 0 or booking[0].orderstatuses.statusname != 'Hoàn thành'}">
+                    <img th:src="@{|/Client/images/not-order.png|}" alt="">
+                    <p class="mt-4">Không có đơn hàng</p>
+                </div> -->
                 <div class="order" th:each="b : ${booking}" th:if="${b.orderstatuses.statusname} == 'Hoàn thành'">
                     <div class="cardHeader">
                         <span>
-                            <img id="logoAccountOrder" th:src="@{|/Client/images/${b.listOfDetailbookings.get(0).books.shoponlines.listOfFiles.get(0).filename}|}"  alt="">
-                            <p class="ms-2 mt-3 nameAccountOrder" th:text="${b.listOfDetailbookings.get(0).books.shoponlines.shopname}">tungle1204</p>
+                            <img id="logoAccountOrder"
+                                th:src="@{|/Client/images/${b.listOfDetailbookings.get(0).books.shoponlines.listOfFiles.get(0).filename}|}"
+                                alt="">
+                            <p class="ms-2 mt-3 nameAccountOrder"
+                                th:text="${b.listOfDetailbookings.get(0).books.shoponlines.shopname}"></p>
                         </span>
                         <button class="btn btnChat">Chat</button>
-                        <button class="btn btnReport">Report</button>
-                        <p id="pStatus">Status: <span  th:text="${b.orderstatuses.statusname}"></span></p>
+                        <button class="btn btnReport">Báo cáo</button>
+                        <p id="pStatus">Trạng thái: <span th:text="${b.orderstatuses.statusname}"></span></p>
                     </div>
                     <div class="cardBody">
-                        <img class="imgBook" th:src="@{|/Client/images/${b.listOfDetailbookings.get(0).books.listOfImagebooks.get(0).name}|}" alt="">
-                        <p class="nameBook"> <span th:text="${b.listOfDetailbookings.get(0).books.bookname}"></span><br> 
+                        <img class="imgBook"
+                            th:src="@{|/Client/images/${b.listOfDetailbookings.get(0).books.listOfImagebooks.get(0).name}|}"
+                            alt="">
+                        <p class="nameBook"> <span th:text="${b.listOfDetailbookings.get(0).books.bookname}"></span><br>
                             x<span th:text="${b.listOfDetailbookings.get(0).quantity}"></span></p>
-                        <p class="price-order" th:text="${b.listOfDetailbookings.get(0).books.price*b.listOfDetailbookings.get(0).quantity}"></p>
+                        <p class="price-order"
+                            th:text="${b.listOfDetailbookings.get(0).books.price*b.listOfDetailbookings.get(0).quantity}">
+                        </p>
                     </div>
                     <div class="cardFooter">
-                        <p class="total">Total: <span th:text="${b.cost}"></span></p>
+                        <p class="total">Thành tiền: <span th:text="${b.cost}"></span></p>
                         <!-- <button class="btn btnRating">Rating</button> -->
-                        <button type="button" class="btn btnRating" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                            Rating
+                        <button th:if="${b.orderstatuses.statusname} == 'Hoàn thành'" type="button"
+                            class="btn btnRating" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                            Đánh giá
                         </button>
-                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-                            aria-hidden="true">
-                            <div class="modal-dialog">
-                                <div class="modal-content boxRateProduct">
-                                    <div class="modal-header" style="border: none;">
-                                        <h3 class="modal-title" id="exampleModalLabel">Report prodduct</h3>
-                                    </div>
-                                    <div class="modal-body">
-                                        <div class="rateProduct mb-5">
-                                            <img class="imgProductRate"
-                                                src="../../../static/Client/images/but-ky-nguoi-di-san.jpg" alt="">
-                                            <p class="nameProductRate">Bút Ký Người Đi Săn</p> <br> <br>
-                                            <button class="btn btnChooseImageRate">Choose image</button>
-                                            <p class="star-rate"><i class="bi bi-star"></i><i class="bi bi-star"></i><i
-                                                    class="bi bi-star"></i><i class="bi bi-star"></i><i class="bi bi-star"></i>
-                                            </p>
-                                            <textarea name="" id="" cols="80" rows="5"
-                                                placeholder="Share everything you like product !"></textarea>
-                                        </div>
-                                        <div class="rateProduct">
-                                            <img class="imgProductRate"
-                                                src="../../../static/Client/images/but-ky-nguoi-di-san.jpg" alt="">
-                                            <p class="nameProductRate">Bút Ký Người Đi Săn</p> <br> <br>
-                                            <button class="btn btnChooseImageRate">Choose image</button>
-                                            <p class="star-rate"><i class="bi bi-star"></i><i class="bi bi-star"></i><i
-                                                    class="bi bi-star"></i><i class="bi bi-star"></i><i class="bi bi-star"></i>
-                                            </p>
-                                            <textarea name="" id="" cols="80" rows="5"
-                                                placeholder="Share everything you like product !"></textarea>
-                                        </div>
-                                    </div>
-                                    <div class="modal-footer" style="border: none;">
-                                        <button type="button" class="btn btnFinish-rateProduct">Finish</button>
-                                        <button type="button" class="btn btnCancel-rateProduct"
-                                            data-bs-dismiss="modal">Cancel</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+
                         <form action="">
-                            <button class="btn btnDetail-order" th:formaction="@{|/myAccount/orderDetailMyAccount/${b.bookingid}|}">Detail</button>
+                            <button class="btn btnDetail-order"
+                                th:formaction="@{|/myAccount/orderDetailMyAccount/${b.bookingid}|}">Chi tiết</button>
                         </form>
                     </div>
                 </div>
             </div>
             <div id="tabOrderCancelled" class="tab-pane fade">
+                <!-- <div th:if="${booking != null and booking.size() > 0}">
+                    <div th:text="${#lists.exists(booking, #statusCheck.contains('Đơn Huỷ'))}"></div>
+                </div> -->
+                <!-- <div class="img-notOrder"
+                    th:if="${booking == null or booking.size() == 0 or booking[0].orderstatuses.statusname != 'Đơn Huỷ'}">
+                    <img th:src="@{|/Client/images/not-order.png|}" alt="">
+                    <p class="mt-4">Không có đơn hàng</p>
+                </div> -->
+
                 <div class="order" th:each="b : ${booking}" th:if="${b.orderstatuses.statusname} == 'Đơn Huỷ'">
                     <div class="cardHeader">
                         <span>
-                            <img id="logoAccountOrder" th:src="@{|/Client/images/${b.listOfDetailbookings.get(0).books.shoponlines.listOfFiles.get(0).filename}|}"  alt="">
-                            <p class="ms-2 mt-3 nameAccountOrder" th:text="${b.listOfDetailbookings.get(0).books.shoponlines.shopname}">tungle1204</p>
+                            <img id="logoAccountOrder"
+                                th:src="@{|/Client/images/${b.listOfDetailbookings.get(0).books.shoponlines.listOfFiles.get(0).filename}|}"
+                                alt="">
+                            <p class="ms-2 mt-3 nameAccountOrder"
+                                th:text="${b.listOfDetailbookings.get(0).books.shoponlines.shopname}"></p>
                         </span>
                         <button class="btn btnChat">Chat</button>
-                        <button class="btn btnReport">Report</button>
-                        <p id="pStatus">Status: <span  th:text="${b.orderstatuses.statusname}"></span></p>
+                        <button class="btn btnReport">Báo cáo</button>
+                        <p id="pStatus">Trạng thái: <span th:text="${b.orderstatuses.statusname}"></span></p>
                     </div>
                     <div class="cardBody">
-                        <img class="imgBook" th:src="@{|/Client/images/${b.listOfDetailbookings.get(0).books.listOfImagebooks.get(0).name}|}" alt="">
-                        <p class="nameBook"> <span th:text="${b.listOfDetailbookings.get(0).books.bookname}"></span><br> 
+                        <img class="imgBook"
+                            th:src="@{|/Client/images/${b.listOfDetailbookings.get(0).books.listOfImagebooks.get(0).name}|}"
+                            alt="">
+                        <p class="nameBook"> <span th:text="${b.listOfDetailbookings.get(0).books.bookname}"></span><br>
                             x<span th:text="${b.listOfDetailbookings.get(0).quantity}"></span></p>
-                        <p class="price-order" th:text="${b.listOfDetailbookings.get(0).books.price*b.listOfDetailbookings.get(0).quantity}"></p>
+                        <p class="price-order"
+                            th:text="${b.listOfDetailbookings.get(0).books.price*b.listOfDetailbookings.get(0).quantity}">
+                        </p>
                     </div>
                     <div class="cardFooter">
-                        <p class="total">Total: <span th:text="${b.cost}"></span></p>
+                        <p class="total">Thành tiền: <span th:text="${b.cost}"></span></p>
                         <!-- <button class="btn btnRating">Rating</button> -->
-                        <button type="button" class="btn btnRating" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                            Rating
+                        <button th:if="${b.orderstatuses.statusname} == 'Hoàn thành'" type="button"
+                            class="btn btnRating" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                            Đánh giá
                         </button>
-                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-                            aria-hidden="true">
-                            <div class="modal-dialog">
-                                <div class="modal-content boxRateProduct">
-                                    <div class="modal-header" style="border: none;">
-                                        <h3 class="modal-title" id="exampleModalLabel">Report prodduct</h3>
-                                    </div>
-                                    <div class="modal-body">
-                                        <div class="rateProduct mb-5">
-                                            <img class="imgProductRate"
-                                                src="../../../static/Client/images/but-ky-nguoi-di-san.jpg" alt="">
-                                            <p class="nameProductRate">Bút Ký Người Đi Săn</p> <br> <br>
-                                            <button class="btn btnChooseImageRate">Choose image</button>
-                                            <p class="star-rate"><i class="bi bi-star"></i><i class="bi bi-star"></i><i
-                                                    class="bi bi-star"></i><i class="bi bi-star"></i><i class="bi bi-star"></i>
-                                            </p>
-                                            <textarea name="" id="" cols="80" rows="5"
-                                                placeholder="Share everything you like product !"></textarea>
-                                        </div>
-                                        <div class="rateProduct">
-                                            <img class="imgProductRate"
-                                                src="../../../static/Client/images/but-ky-nguoi-di-san.jpg" alt="">
-                                            <p class="nameProductRate">Bút Ký Người Đi Săn</p> <br> <br>
-                                            <button class="btn btnChooseImageRate">Choose image</button>
-                                            <p class="star-rate"><i class="bi bi-star"></i><i class="bi bi-star"></i><i
-                                                    class="bi bi-star"></i><i class="bi bi-star"></i><i class="bi bi-star"></i>
-                                            </p>
-                                            <textarea name="" id="" cols="80" rows="5"
-                                                placeholder="Share everything you like product !"></textarea>
-                                        </div>
-                                    </div>
-                                    <div class="modal-footer" style="border: none;">
-                                        <button type="button" class="btn btnFinish-rateProduct">Finish</button>
-                                        <button type="button" class="btn btnCancel-rateProduct"
-                                            data-bs-dismiss="modal">Cancel</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+
                         <form action="">
-                            <button class="btn btnDetail-order" th:formaction="@{|/myAccount/orderDetailMyAccount/${b.bookingid}|}">Detail</button>
+                            <button class="btn btnDetail-order"
+                                th:formaction="@{|/myAccount/orderDetailMyAccount/${b.bookingid}|}">Chi tiết</button>
                         </form>
                     </div>
                 </div>
             </div>
             <div id="tabReturnRefund" class="tab-pane fade">
-                <div class="order" th:each="b : ${booking}" th:if="${b.orderstatuses.statusname} == 'Trả hang/ hoàn tiền'">
+                <!-- <div class="img-notOrder"
+                    th:if="${booking == null or booking[0].orderstatuses.statusname != 'Trả hang/ hoàn tiền'}">
+                    <img th:src="@{|/Client/images/not-order.png|}" alt="">
+                    <p class="mt-4">Không có đơn hàng</p>
+                </div> -->
+                <div class="order" th:each="b : ${booking}"
+                    th:if="${b.orderstatuses.statusname} == 'Trả hang/ hoàn tiền'">
                     <div class="cardHeader">
                         <span>
-                            <img id="logoAccountOrder" th:src="@{|/Client/images/${b.listOfDetailbookings.get(0).books.shoponlines.listOfFiles.get(0).filename}|}"  alt="">
-                            <p class="ms-2 mt-3 nameAccountOrder" th:text="${b.listOfDetailbookings.get(0).books.shoponlines.shopname}">tungle1204</p>
+                            <img id="logoAccountOrder"
+                                th:src="@{|/Client/images/${b.listOfDetailbookings.get(0).books.shoponlines.listOfFiles.get(0).filename}|}"
+                                alt="">
+                            <p class="ms-2 mt-3 nameAccountOrder"
+                                th:text="${b.listOfDetailbookings.get(0).books.shoponlines.shopname}">tungle1204</p>
                         </span>
                         <button class="btn btnChat">Chat</button>
-                        <button class="btn btnReport">Report</button>
-                        <p id="pStatus">Status: <span  th:text="${b.orderstatuses.statusname}"></span></p>
+                        <button class="btn btnReport">Báo cáo</button>
+                        <p id="pStatus">Trạng thái: <span th:text="${b.orderstatuses.statusname}"></span></p>
                     </div>
                     <div class="cardBody">
-                        <img class="imgBook" th:src="@{|/Client/images/${b.listOfDetailbookings.get(0).books.listOfImagebooks.get(0).name}|}" alt="">
-                        <p class="nameBook"> <span th:text="${b.listOfDetailbookings.get(0).books.bookname}"></span><br> 
+                        <img class="imgBook"
+                            th:src="@{|/Client/images/${b.listOfDetailbookings.get(0).books.listOfImagebooks.get(0).name}|}"
+                            alt="">
+                        <p class="nameBook"> <span th:text="${b.listOfDetailbookings.get(0).books.bookname}"></span><br>
                             x<span th:text="${b.listOfDetailbookings.get(0).quantity}"></span></p>
-                        <p class="price-order" th:text="${b.listOfDetailbookings.get(0).books.price*b.listOfDetailbookings.get(0).quantity}"></p>
+                        <p class="price-order"
+                            th:text="${b.listOfDetailbookings.get(0).books.price*b.listOfDetailbookings.get(0).quantity}">
+                        </p>
                     </div>
                     <div class="cardFooter">
-                        <p class="total">Total: <span th:text="${b.cost}"></span></p>
+                        <p class="total">Thành tiền: <span th:text="${b.cost}"></span></p>
                         <!-- <button class="btn btnRating">Rating</button> -->
-                        <button type="button" class="btn btnRating" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                            Rating
+                        <button th:if="${b.orderstatuses.statusname} == 'Hoàn thành'" type="button"
+                            class="btn btnRating" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                            Đánh giá
                         </button>
-                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-                            aria-hidden="true">
-                            <div class="modal-dialog">
-                                <div class="modal-content boxRateProduct">
-                                    <div class="modal-header" style="border: none;">
-                                        <h3 class="modal-title" id="exampleModalLabel">Report prodduct</h3>
-                                    </div>
-                                    <div class="modal-body">
-                                        <div class="rateProduct mb-5">
-                                            <img class="imgProductRate"
-                                                src="../../../static/Client/images/but-ky-nguoi-di-san.jpg" alt="">
-                                            <p class="nameProductRate">Bút Ký Người Đi Săn</p> <br> <br>
-                                            <button class="btn btnChooseImageRate">Choose image</button>
-                                            <p class="star-rate"><i class="bi bi-star"></i><i class="bi bi-star"></i><i
-                                                    class="bi bi-star"></i><i class="bi bi-star"></i><i class="bi bi-star"></i>
-                                            </p>
-                                            <textarea name="" id="" cols="80" rows="5"
-                                                placeholder="Share everything you like product !"></textarea>
-                                        </div>
-                                        <div class="rateProduct">
-                                            <img class="imgProductRate"
-                                                src="../../../static/Client/images/but-ky-nguoi-di-san.jpg" alt="">
-                                            <p class="nameProductRate">Bút Ký Người Đi Săn</p> <br> <br>
-                                            <button class="btn btnChooseImageRate">Choose image</button>
-                                            <p class="star-rate"><i class="bi bi-star"></i><i class="bi bi-star"></i><i
-                                                    class="bi bi-star"></i><i class="bi bi-star"></i><i class="bi bi-star"></i>
-                                            </p>
-                                            <textarea name="" id="" cols="80" rows="5"
-                                                placeholder="Share everything you like product !"></textarea>
-                                        </div>
-                                    </div>
-                                    <div class="modal-footer" style="border: none;">
-                                        <button type="button" class="btn btnFinish-rateProduct">Finish</button>
-                                        <button type="button" class="btn btnCancel-rateProduct"
-                                            data-bs-dismiss="modal">Cancel</button>
-                                    </div>
-                                </div>
+
+                        <form action="">
+                            <button class="btn btnDetail-order"
+                                th:formaction="@{|/myAccount/orderDetailMyAccount/${b.bookingid}|}">Chi tiết</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content boxRateProduct">
+                        <div class="modal-header" style="border: none;">
+                            <h3 class="modal-title" id="exampleModalLabel">Đánh giá sản phẩm</h3>
+                        </div>
+                        <div class="modal-body">
+                            <div class="rateProduct mb-5">
+                                <img class="imgProductRate" src="../../../static/Client/images/but-ky-nguoi-di-san.jpg"
+                                    alt="">
+                                <p class="nameProductRate">Bút Ký Người Đi Săn</p> <br> <br>
+                                <button class="btn btnChooseImageRate">Choose image</button>
+                                <p class="star-rate"><i class="bi bi-star"></i><i class="bi bi-star"></i><i
+                                        class="bi bi-star"></i><i class="bi bi-star"></i><i class="bi bi-star"></i>
+                                </p>
+                                <textarea name="" id="" cols="80" rows="5"
+                                    placeholder="Share everything you like product !"></textarea>
+                            </div>
+                            <div class="rateProduct">
+                                <img class="imgProductRate" src="../../../static/Client/images/but-ky-nguoi-di-san.jpg"
+                                    alt="">
+                                <p class="nameProductRate">Bút Ký Người Đi Săn</p> <br> <br>
+                                <button class="btn btnChooseImageRate">Chọn ảnh</button>
+                                <p class="star-rate"><i class="bi bi-star"></i><i class="bi bi-star"></i><i
+                                        class="bi bi-star"></i><i class="bi bi-star"></i><i class="bi bi-star"></i>
+                                </p>
+                                <textarea name="" id="" cols="80" rows="5"
+                                    placeholder="Share everything you like product !"></textarea>
                             </div>
                         </div>
-                        <form action="">
-                            <button class="btn btnDetail-order" th:formaction="@{|/myAccount/orderDetailMyAccount/${b.bookingid}|}">Detail</button>
-                        </form>
+                        <div class="modal-footer" style="border: none;">
+                            <button type="button" class="btn btnFinish-rateProduct">Hoàn thành</button>
+                            <button type="button" class="btn btnCancel-rateProduct"
+                                data-bs-dismiss="modal">Hủy</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel1"
+                aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content boxCanceled">
+                        <div class="modal-header" style="border: none;">
+                            <h3 class="modal-title" id="exampleModalLabel">Hủy đơn hàng</h3>
+                        </div>
+                        <div class="modal-body">
+                            <h5 class="ms-4">Bạn có chắc chắn muốn hủy đơn hàng?</h5>
+                        </div>
+                        <div class="modal-footer" style="border: none;">
+                            <form action="">
+                                <button type="button" class="btn btnFinish-rateProduct" ng-click="updateBooking()">Xác nhận</button>
+                                <button type="button" class="btn btnCancel-rateProduct" 
+                                    data-bs-dismiss="modal">Hủy</button>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>

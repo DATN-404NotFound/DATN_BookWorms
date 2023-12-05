@@ -5,7 +5,6 @@ import javax.validation.Valid;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,18 +15,18 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import jakarta.mail.MessagingException;
+
 import com.poly.DATN_BookWorms.dto.AccountDTO;
 import com.poly.DATN_BookWorms.entities.Account;
 import com.poly.DATN_BookWorms.service.AccountService;
 import com.poly.DATN_BookWorms.service.CustomUserDetailService;
+
 import com.poly.DATN_BookWorms.service.MailService;
 import com.poly.DATN_BookWorms.utils.CRC32_SHA256;
 import com.poly.DATN_BookWorms.utils.MailBody;
 import com.poly.DATN_BookWorms.utils.OTP_privateKey;
 import com.poly.DATN_BookWorms.utils.SessionService;
-
-import jakarta.mail.MessagingException;
-import jakarta.servlet.http.HttpServletRequest;
 
 @Controller
 @RequestMapping("/account")
@@ -35,19 +34,10 @@ public class    AccountController {
 
     @Autowired
     AccountService accountService;
-    
-    @Autowired
-    PasswordEncoder passwordEncoder;
 
     @Autowired
     CustomUserDetailService customUserDetailService;
-    
-    @Autowired
-    HttpServletRequest req;
-    
-    @Autowired
-    CRC32_SHA256 crc32_SHA256;
-    
+
     @Autowired
     MailService mailService;
     
@@ -60,12 +50,12 @@ public class    AccountController {
     @Autowired
     MailBody mailBody;
 
+    @Autowired
+    CRC32_SHA256 crc32_SHA256;
 
     @RequestMapping("/login")
     public String loginForm() {
-//    	sessionService.remove("acc");
-//    	sessionService.remove("OTP");
-        return "Client/Account_page/Login";
+        return "/Client/Account_page/Login";
     }
 
     @RequestMapping("/login-google/success")
@@ -83,42 +73,29 @@ public class    AccountController {
             accountService.save(accountDTO);
 
         }
-        try {
-            Thread.sleep(5000);
-            customUserDetailService.loadUserByUsername(performance.getName());
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
-
+        customUserDetailService.loadUserByUsername(performance.getName());
         return "redirect:/Ibook/index";
     }
-    
+
     @RequestMapping("/login-facebook/success")
     public String loginWithFaceBook(@AuthenticationPrincipal OAuth2User performance, Model model) {
-        System.out.println(performance.toString());
         if (performance == null) {
             return "redirect:/login";
         }
 
         if (accountService.findByUsename(performance.getName()) == null) {
             AccountDTO accountDTO = new AccountDTO();
-            accountDTO.setEmail("");
-            accountDTO.setUsername(performance.getAttribute("id"));
+            accountDTO.setEmail(performance.getAttribute("email"));
+            accountDTO.setUsername(performance.getName());
             accountDTO.setFullname(performance.getAttribute("name"));
             accountDTO.setPassword(String.valueOf(RandomStringUtils.randomAlphabetic(8)));
             accountService.save(accountDTO);
 
         }
-        try {
-            Thread.sleep(5000);
-            customUserDetailService.loadUserByUsername(performance.getAttribute("id"));
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
-
+        customUserDetailService.loadUserByUsername(performance.getName());
         return "redirect:/Ibook/index";
     }
-    
+
 
     @GetMapping("/registration")
     public String registrationForm(Model model) {
@@ -143,7 +120,7 @@ public class    AccountController {
     }
 
 
-      @GetMapping("/forgotPassword")
+    @GetMapping("/forgotPassword")
     public String forgotPassword(Model model) {
         return "Client/Account_page/ForgotPassword";
     }

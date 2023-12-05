@@ -1,8 +1,6 @@
 package com.poly.DATN_BookWorms.service;
 
 import java.util.List;
-
-import com.poly.DATN_BookWorms.repo.BooksRepo;
 import com.poly.DATN_BookWorms.response.BookResponse;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -10,10 +8,9 @@ import org.springframework.stereotype.Service;
 
 import com.poly.DATN_BookWorms.entities.Books;
 import com.poly.DATN_BookWorms.entities.Publishingcompanies;
-import com.poly.DATN_BookWorms.entities.Shoponlines;
-import com.poly.DATN_BookWorms.response.BookResponse;
+import org.springframework.web.multipart.MultipartFile;
 
-
+@Service
 public interface BookService {
 
 	List<Books> findAll();
@@ -23,7 +20,9 @@ public interface BookService {
 	
 	List<Publishingcompanies> getPCWithShop(Integer shopid);
 
-	Books create(Books book);
+	Books creates(String bookname, String language, String size, Double weight, Integer totalpage,
+				  Integer publishingyear, Double price, Integer quantity,
+				  Integer publishingcompanyid, Boolean isactive, MultipartFile[] images, Integer category);
 
 	Books update(Books book);
 
@@ -34,13 +33,18 @@ public interface BookService {
 	Books findTopBookByQuantitySold();
 	Page<Books> getBooksByCategoryID(Integer categories, Pageable pageable);
 	Page<Books> findByshopid(Integer shopid, Pageable pageable);
-	
-	List<Books> findByShopList(Integer shopid);
+	List<Books> findByshopidv2(Integer shopid);
 	List<Books> findTop5LowestQuantityBooksByShopId(Integer shopId);
-	
+
+
 	Page<Books> findBooksNew(Pageable pageable);
-	
+
+	void updateIsActive(Long bookId, boolean newIsActive);
+	List<Books> findByShopList(Integer shopid);
+
 	List<Integer> getBookWithTypeBook(List<Integer> listtype);
 	List<Integer> getBookWithWriters(List<Integer> listwriter);
 	List<Integer> getBookWithEvaluate(List<Integer> listeva);
+
+
 }
