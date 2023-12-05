@@ -140,4 +140,9 @@ public class AccountServiceImp implements AccountService {
 
 	}
 
+	@Override
+	public void save(Account user) {
+		accountRepo.save(user);
+	}
+
 }

@@ -51,6 +51,7 @@ public class Shoponlines implements Serializable {
     private String description;
 
     private String logo;
+    private String userid;
 
     @Column(name = "paycount", length = 10)
     public String paycount;
@@ -58,6 +59,7 @@ public class Shoponlines implements Serializable {
     public Boolean isactive;
     
     private String email;
+
 
 
 
@@ -98,10 +100,10 @@ public class Shoponlines implements Serializable {
         sb.append("|");
         sb.append(description);
         sb.append("|");
-
         sb.append(listOfAddressShop);
 
         sb.append(account.userid);
+        sb.append(userid);
         sb.append("|");
         sb.append(paycount);
         sb.append("|");

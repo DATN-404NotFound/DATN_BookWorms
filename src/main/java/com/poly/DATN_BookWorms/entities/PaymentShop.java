@@ -26,29 +26,30 @@ import java.io.Serializable;
  * @author Telosys
  */
 
-@NoArgsConstructor
-@AllArgsConstructor
+
 @Data
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "Paymentshop")
 public class PaymentShop implements Serializable {
-
-
-
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "paymentshopid", nullable = false)
-	private Long paymentshopid;
+	private Integer paymentshopid;
 	
 	@Temporal(TemporalType.DATE)
-    private Date       createat ;
+    private Date createat ;
 	
 	private boolean status;
 	
 	private long valuepayment;
+
+	private boolean isdelete;
 	
 	@ManyToOne
-    @JoinColumn(name="Shopid", referencedColumnName="ShopId", insertable=false, updatable=false)
+    @JoinColumn(name="Shopid", referencedColumnName="ShopId")
     private Shoponlines shoponlines ;
+
 }
 

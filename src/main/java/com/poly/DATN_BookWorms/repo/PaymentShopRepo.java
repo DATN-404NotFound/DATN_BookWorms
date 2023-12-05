@@ -11,7 +11,7 @@ import org.springframework.data.repository.query.Param;
 import java.util.Date;
 import java.util.List;
 
-public interface PaymentShopRepo extends JpaRepository<PaymentShop, Long> {
+public interface PaymentShopRepo extends JpaRepository<PaymentShop, Integer> {
     @Query("SELECT o FROM PaymentShop  o WHERE o.shoponlines.shopid = ?1")
     List<PaymentShop> findByShopId(Integer shopId);
     @Query("SELECT COALESCE(SUM(o.valuepayment), 0.0) FROM PaymentShop o WHERE o.shoponlines.shopid = :shopId and o.createat >= :startDate and o.createat <= :endDate and o.status = :status")

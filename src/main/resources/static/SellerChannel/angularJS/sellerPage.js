@@ -99,7 +99,7 @@ app.controller("indexController", function ($scope, $routeParams, $route, $http,
         };
         $http.post(url, formData, {headers: headers}).then(resp => {
             $scope.salesAnalysis = resp.data;
-            $scope.salesAnalysisNow.push(resp.data[currentMonth]-1);
+            $scope.salesAnalysisNow.push(resp.data[currentMonth-1]);
             $scope.salesAnalysisNow.push(resp.data[currentMonth - 2]);
             console.log("data", $scope.salesAnalysis)
             console.log("data", $scope.salesAnalysisNow)
@@ -169,7 +169,7 @@ app.controller("bankAccountController", function ($scope, $routeParams, $route, 
     $scope.getBankAccountBalance();
 })
 //revenue
-app.controller("revenueFinanceController", function ($scope, $routeParams, $route, $http, $rootScope,$timeout) {
+app.controller("revenueFinanceController", function ($scope, $routeParams, $route, $http, $rootScope,$timeout, $window) {
     let host = "http://localhost:8080/rest/revenueFinance/";
     $scope.paymentTotal=[];
     $scope.getRevenueFinance = function () {
@@ -178,6 +178,16 @@ app.controller("revenueFinanceController", function ($scope, $routeParams, $rout
         $http.get(url).then(resp => {
             $scope.shopPayment = resp.data;
             console.log("shopPayment:", $scope.shopPayment)
+        }).catch(error => {
+            console.log("Error", error)
+        });
+    }
+    $scope.getBankAccountBalance = function () {
+        $scope.accountBalance=[];
+        let url = `${host}getAccountBalance`;
+        $http.get(url).then(resp => {
+            $scope.accountBalance = resp.data;
+            console.log("accountBalance:", $scope.accountBalance)
         }).catch(error => {
             console.log("Error", error)
         });
@@ -230,6 +240,7 @@ app.controller("revenueFinanceController", function ($scope, $routeParams, $rout
     $scope.getRevenueFinance();
     $scope.getAnalysisFinance();
     $scope.getListFinance();
+    $scope.getBankAccountBalance();
 });
 //sales Analysis
 app.controller("salesController", function ($scope, $routeParams, $route, $http, $rootScope,$timeout) {
@@ -254,8 +265,8 @@ app.controller("salesController", function ($scope, $routeParams, $route, $http,
         };
         $http.post(url, formData, {headers: headers}).then(resp => {
             $scope.salesAnalysis = resp.data;
-            $scope.salesAnalysisNow.push(resp.data[currentMonth]);
-            $scope.salesAnalysisNow.push(resp.data[currentMonth - 1]);
+            $scope.salesAnalysisNow.push(resp.data[currentMonth-1]);
+            $scope.salesAnalysisNow.push(resp.data[currentMonth - 2 ]);
             $timeout(function () {
                 $scope.initDataChart(resp.data);
             }, 500);
@@ -281,7 +292,7 @@ app.controller("salesController", function ($scope, $routeParams, $route, $http,
         $scope.cRate = [];
         $scope.pViews = [];
         $scope.sOrder = [];
-        for (let i = 1; i < salesAnalysis.length; i++) {
+        for (let i = 0; i < salesAnalysis.length; i++) {
             $scope.mSales.push(salesAnalysis[i].monthlySales)
             $scope.order.push($scope.salesAnalysis[i].orders)
             $scope.cRate.push($scope.salesAnalysis[i].conversionRate)

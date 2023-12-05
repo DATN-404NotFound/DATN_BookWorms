@@ -58,7 +58,7 @@ public class AdminPaymentRestController {
 			if ("00".equals(vnp_ResponseCode)) {
 				// Giao dịch thành công
 				// Thực hiện các xử lý cần thiết, ví dụ: cập nhật CSDL
-				PaymentShop paymentShop = paymentShopRepo.findById(Long.parseLong(queryParams.get("paymentshopid")))
+				PaymentShop paymentShop = paymentShopRepo.findById(Integer.parseInt(queryParams.get("paymentshopid")))
 						.orElseThrow(() -> new NotFoundException());
 				paymentShop.setStatus(true);
 				Shoponlines shopOnlines = paymentShopRepo.findShopId(paymentShop.getShoponlines().getShopid());

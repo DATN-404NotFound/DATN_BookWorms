@@ -41,6 +41,9 @@ public class HomeController {
     @Autowired
     ShopOnlinesService shopOnlinesService;
 
+    @Autowired
+    AccountService accountService;
+
     @RequestMapping("/index")
     public String home(Model model, Authentication authentication) {
         //get user on session
@@ -89,34 +92,52 @@ public class HomeController {
             model.addAttribute("name", user.getFullname());
 
             Roles roles = roleService.findSellerByRoleId("SELLER");
+
+            Shoponlines shoponlines = shopService.findUserId(user.getUserid());
+            model.addAttribute("shop", shoponlines);
         }
         return "Client/header_footer_index/header_index";
     }
 
     @RequestMapping("/seller")
-    public String seller(Model model){
+    public String seller(Model model) {
         Account user = sessionService.get("user");
-        if (user == null){
+        if (user == null) {
             return "redirect:/account/login";
-        }
+        } else {
+            //get data shop
+            Shoponlines shoponlines = shopService.findUserId(user.getUserid());
+            model.addAttribute("shop", shoponlines);
 
-        List<Authorities> authorities = user.getAuthorities();
-        for (Authorities authority : authorities) {
-            if (authority.getRoles().getRoleid().equals("SELLER")) {
-                return "SellerChannel/index";
-            }
+            return "SellerChannel/index";
         }
+    }
 
-        // add role SEller for user
+    @RequestMapping("/createSeller")
+    public String newSeller(Model model) {
+        Account user = sessionService.get("user");
+
+        // add role SEller if dont have ROLE SELLER
         Roles role = roleService.findSellerByRoleId("SELLER");
         if (role == null) {
             role = roleService.save(new Roles("SELLER", "Seller", null));
         }
+        //Create ROLE SELLER TO USER
         String authorityId = crc32Sha256.getCodeCRC32C(user.getUsername() + role.getRoleid());
         authoritiesService.save(new Authorities(authorityId, user, role));
 
         //create default shop with account
-        shopService.createShopDefaultWithUser(user);
+        if (shopService.findById(user.getListOfShoponlines().get(0).getShopid())==null) {
+            shopService.createShopDefaultWithUser(user);
+        }
+
+        //Add Account to Session again
+        Account user2 = accountService.findByUserId(user.getUserid());
+        sessionService.set("user",user2);
+
+        //get data shop
+        Shoponlines shoponlines = shopService.findUserId(user2.getUserid());
+        model.addAttribute("shop", shoponlines);
         return "SellerChannel/index";
     }
 
