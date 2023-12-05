@@ -33,10 +33,10 @@
                   <ol class="breadcrumb mt-3" style="background-color: transparent;">
                     <li class="breadcrumb-item"><a href="#">Tranport Channel</a></li>
 
-                    <li class="breadcrumb-item active" aria-current="page">Tranport</li>
+                    <li class="breadcrumb-item active" aria-current="page">Voucher</li>
                   </ol>
                 </nav>
-                <h3>Tranport</h3>
+                <h3>Voucher</h3>
               </div>
             </div>
             <div class="mb-2 align-items-center">
@@ -44,28 +44,10 @@
                 <div class="card-body">
                   <ul class="nav nav-pills nav-fill mb-3">
                     <li class="nav-item">
-                      <a class="nav-link active" ng-click="findByOrderStatusId(0)" ng-init="findByOrderStatusId(0)" data-toggle="pill">All</a>
+                      <a class="nav-link active" ng-click="findByOrderStatusId('S')" ng-init="findByOrderStatusId('S')" data-toggle="pill">Voucher for books</a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link" ng-click="findByOrderStatusId(1)" data-toggle="pill" >Unpaid</a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link" ng-click="findByOrderStatusId(2)" data-toggle="pill">Paid</a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link" ng-click="findByOrderStatusId(3)" data-toggle="pill">Wait for confirmation</a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link" ng-click="findByOrderStatusId(4)" data-toggle="pill">Shipping</a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link" ng-click="findByOrderStatusId(5)" data-toggle="pill">Complete</a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link" ng-click="findByOrderStatusId(6)" data-toggle="pill">Delivery failed</a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link" ng-click="findByOrderStatusId(7)" data-toggle="pill">Return/Refund</a>
+                      <a class="nav-link" ng-click="findByOrderStatusId('D')" data-toggle="pill" >Voucher for delivery</a>
                     </li>
                   </ul>
                   <div class="tab-content mb-1" id="pills-tabContent">
@@ -138,7 +120,7 @@
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        <tr ng-repeat="booking in bookings">
+                                        <tr ng-repeat="vouchers in voucher">
                                           <td>
                                             <div class="custom-control custom-checkbox">
                                               <input type="checkbox" class="custom-control-input">
@@ -146,17 +128,17 @@
                                             </div>
                                           </td>
 
-                                          <td>{{ booking.bookingid }}</td>
-                                          <td>{{ booking.createat }}</td>
-                                          <td>{{ booking.cost }}</td>
-                                          <td>{{ booking.shippingunits.name }}</td>
-                                          <td>{{ booking.id }}</td>
+                                          <td>{{ vouchers.couoponcode }}</td>
+                                          <td>{{ vouchers.promotionname }}</td>
+                                          <td>{{ vouchers.cost }}</td>
+                                          <td>{{ vouchers.createat }}</td>
+                                          <td>{{ vouchers.descriptions }}</td>
                                           <td><button class="btn btn-sm dropdown-toggle more-horizontal" type="button"
                                                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                             <span class="text-muted sr-only">Action</span>
                                           </button>
                                             <div class="dropdown-menu dropdown-menu-right">
-                                              <a class="dropdown-item" href="#">Edit</a>
+                                              <a class="dropdown-item" data-toggle="modal" data-target=".bd-example-modal-xl">Edit</a>
                                               <a class="dropdown-item" href="#">Remove</a>
                                               <a class="dropdown-item" href="#">Assign</a>
                                             </div>
@@ -178,6 +160,84 @@
                                           </ul>
                                         </nav>
                                       </table>
+
+                                    </div>
+                                    <div class="form-group col-md-2 mt-1">
+
+                                      <div class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog modal-xl" role="document">
+                                          <div class="modal-content">
+                                            <div class="modal-content">
+                                              <div class="modal-header">
+                                                <h5 class="modal-title" id="varyModalLabel">Choose books</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                  <span aria-hidden="true">&times;</span>
+                                                </button>
+                                              </div>
+                                              <div class="modal-body">
+                                                <form>
+                                                  <div class="form-group">
+                                                    <div class="card shadow">
+                                                      <div class="card-body">
+                                                        <h5 class="card-title">Choose books add voucher</h5>
+                                                        <p class="card-text">You choose Active if you want add voucher to book</p>
+                                                        <table class="table table-bordered table-hover mb-0">
+                                                          <thead>
+                                                          <tr>
+                                                            <th>ID</th>
+                                                            <th>Name</th>
+                                                            <th>Language</th>
+                                                            <th>Active?</th>
+
+
+                                                          </tr>
+                                                          </thead>
+                                                          <tbody>
+                                                          <tr ng-repeat="book in paginatedBooks">
+                                                            <td>{{ book.bookid }}</td>
+                                                            <td>{{ book.bookname }}</td>
+                                                            <td>{{ book.language }}</td>
+                                                            <td>
+                                                              <div class="custom-control custom-switch">
+                                                                <input type="checkbox" class="custom-control-input" id="c{{$index + 1}}">
+                                                                <label class="custom-control-label" for="c{{$index + 1}}"></label>
+                                                              </div>
+                                                            </td>
+                                                          </tr>
+
+
+
+
+                                                          </tbody>
+
+                                                          <nav aria-label="Page navigation example">
+                                                            <ul class="pagination">
+                                                              <li class="page-item" ng-class="{disabled: currentPage === 1}">
+                                                                <a class="page-link" ng-click="setPage(currentPage - 1)">Previous</a>
+                                                              </li>
+                                                              <li class="page-item" ng-repeat="page in getPages()" ng-class="{active: currentPage === page}">
+                                                                <a class="page-link" ng-click="setPage(page)">{{ page }}</a>
+                                                              </li>
+                                                              <li class="page-item" ng-class="{disabled: currentPage === totalPages}">
+                                                                <a class="page-link" ng-click="setPage(currentPage + 1)">Next</a>
+                                                              </li>
+                                                            </ul>
+                                                          </nav>
+                                                        </table>
+                                                      </div>
+
+                                                    </div>
+                                                  </div> <!-- Bordered table -->
+                                                </form>
+                                              </div>
+                                              <div class="modal-footer">
+                                                <button type="button" class="btn mb-2 btn-secondary" data-dismiss="modal">Close</button>
+                                                <button type="button" class="btn mb-2 btn-primary">Create</button>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div> <!-- large modal -->
 
                                     </div>
                                   </div>

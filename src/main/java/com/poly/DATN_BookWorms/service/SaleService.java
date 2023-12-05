@@ -21,6 +21,7 @@ public interface SaleService {
 
 
 
+
 	Sales create(Sales sales);
 
 	Sales update(Sales sale);
@@ -28,5 +29,9 @@ public interface SaleService {
 	void delete(String id);
 
 	List<Sales> saleOfShopIntendFor(String intendFor);
-	
+
+
+
+
+	List<Sales> findAllByShopid(String intendfor, Integer shopid);
 }

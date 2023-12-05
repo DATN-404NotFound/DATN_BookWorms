@@ -4,6 +4,11 @@ import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
+import com.poly.DATN_BookWorms.entities.Account;
+import com.poly.DATN_BookWorms.entities.Books;
+import com.poly.DATN_BookWorms.entities.Hassales;
+import com.poly.DATN_BookWorms.service.HasSaleService;
+import com.poly.DATN_BookWorms.utils.SessionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
@@ -18,9 +23,12 @@ import com.poly.DATN_BookWorms.service.SaleService;
 @CrossOrigin("")
 @RequestMapping("/rest/sale")
 public class SaleRestController {
-
+@Autowired
+	SessionService service;
 	@Autowired
 	SaleService saleService;
+	@Autowired
+	HasSaleService hasSaleService;
 	
 	@GetMapping("/")
 	public List<Sales> getSale(){ 
@@ -44,6 +52,14 @@ public class SaleRestController {
 		Sales createdSale = saleService.create(sales);
 		return ResponseEntity.ok(createdSale);
 	}
-
+	@GetMapping("/listvoucher/{intendforv}")
+	public List<Sales> getAllVoucher( @PathVariable("intendforv") String intendfor) {
+		Account account = service.get("user");
+		return saleService.findAllByShopid(intendfor,account.getListOfShoponlines().get(0).getShopid());
+	}
+	@GetMapping("/findByCouponCode/{couponCode}")
+	public List<Hassales> findAllByCouponCode(@PathVariable("couponCode") String couponCode) {
+		return hasSaleService.findAllByCouponCode(couponCode);
+	}
 
 }

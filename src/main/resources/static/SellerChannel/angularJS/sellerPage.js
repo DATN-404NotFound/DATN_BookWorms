@@ -483,6 +483,43 @@ app.controller('transportController', function($scope, $routeParams, $route, $ht
 
 
     //Voucher
+app.controller('voucherController', function($scope, $routeParams, $route, $http, $rootScope) {
+    $scope.pageSize = 5; // Number of items per page
+    $scope.currentPage = 1; // Current page
+    $scope.totalPages = 1
+    $scope.findByOrderStatusId = function(orderstatusid) {
+        $scope.voucher = [];
+        $http.get('/rest/sale/listvoucher/' + orderstatusid)
+            .then(function(response) {
+                $scope.voucher = response.data;
+                $scope.totalPages = Math.ceil($scope.voucher.length / $scope.pageSize);
+                $scope.setPage(1); // Set initial page
+            });
+    };
+    $scope.findByOrderStatusId();
+    $scope.setPage = function (page) {
+        console.log('Current Page:', $scope.currentPage);
+        console.log('Total Pages:', $scope.totalPages);
+        if (page < 1 || page > $scope.totalPages) {
+            return;
+        }
+        $scope.currentPage = page;
+        var startIndex = (page - 1) * $scope.pageSize;
+        var endIndex = startIndex + $scope.pageSize;
+        $scope.paginatedBooks = $scope.voucher.slice(startIndex, endIndex);
+        console.log('setPage called with page:', page);
+        // ... (rest of the code)
+
+        console.log('currentPage:', $scope.currentPage);
+        console.log('paginatedBooks:', $scope.paginatedBooks);
+    };
+    $scope.getPages = function () {
+        return new Array($scope.totalPages).fill().map((_, index) => index + 1);
+    };
+
+
+
+});
     //Create Voucher
 app.controller('createVoucherController', function($scope, $http, $window) {
     $scope.createvoucher ={};
