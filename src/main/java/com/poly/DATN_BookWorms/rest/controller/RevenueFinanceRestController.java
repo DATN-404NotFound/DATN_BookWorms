@@ -91,6 +91,7 @@ public class RevenueFinanceRestController {
         paymentShop.setValuepayment(Long.parseLong(paymentTotal));
         paymentShop.setShoponlines(shoponlines);
         paymentShop.setIsdelete(false);
+
         paymentShopService.save(paymentShop);
         // Trả về phản hồi thành công
         return ResponseEntity.ok(paymentShop);
@@ -111,9 +112,11 @@ public class RevenueFinanceRestController {
         Account user = sessionService.get("user");
         Shoponlines shoponlines = shopService.findUserId(user.getUserid());
         String paymentAccountId = crc32Sha256.getCodeCRC32C(paymentaccount.getAccountnumber()+paymentaccount.getCccd()) ;
+
         paymentaccount.setPaid(paymentAccountId);
         paymentAccountService.save(paymentaccount);
         shoponlines.setPaycount(paymentAccountId);
+
         shopService.save(shoponlines);
         return ResponseEntity.ok(paymentaccount);
     }

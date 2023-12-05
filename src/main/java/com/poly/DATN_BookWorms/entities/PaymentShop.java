@@ -35,7 +35,7 @@ public class PaymentShop implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "paymentshopid", nullable = false)
-	private Long paymentshopid;
+	private Integer paymentshopid;
 	
 	@Temporal(TemporalType.DATE)
     private Date createat ;
@@ -49,5 +49,6 @@ public class PaymentShop implements Serializable {
 	@ManyToOne
     @JoinColumn(name="Shopid", referencedColumnName="ShopId", insertable=false, updatable=false)
     private Shoponlines shoponlines ;
+
 }
 
