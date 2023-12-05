@@ -92,7 +92,7 @@ public class HomeController {
         if (user == null){
             return "redirect:/account/login";
         }
-
+        Shoponlines shoponlines = shopService.findUserId(user.getUserid());
         List<Authorities> authorities = user.getAuthorities();
         for (Authorities authority : authorities) {
             if (authority.getRoles().getRoleid().equals("SELLER")) {
@@ -109,6 +109,7 @@ public class HomeController {
         authoritiesService.save(new Authorities(authorityId, user, role));
 
         //create default shop with account
+        model.addAttribute("shop", shoponlines);
         shopService.createShopDefaultWithUser(user);
         return "SellerChannel/index";
     }

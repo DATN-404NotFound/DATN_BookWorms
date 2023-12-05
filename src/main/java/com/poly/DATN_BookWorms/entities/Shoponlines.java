@@ -106,6 +106,4 @@ public class Shoponlines implements Serializable {
         return sb.toString();
     }
 
-
-
 }

@@ -26,10 +26,11 @@ import java.io.Serializable;
  * @author Telosys
  */
 
-@NoArgsConstructor
-@AllArgsConstructor
+
 @Data
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "Paymentshop")
 public class PaymentShop implements Serializable {
 	@Id
@@ -47,7 +48,7 @@ public class PaymentShop implements Serializable {
 	private boolean isdelete;
 	
 	@ManyToOne
-    @JoinColumn(name="Shopid", referencedColumnName="ShopId", insertable=false, updatable=false)
+    @JoinColumn(name="Shopid", referencedColumnName="ShopId")
     private Shoponlines shoponlines ;
 
 }

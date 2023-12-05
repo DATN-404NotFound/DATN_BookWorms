@@ -80,12 +80,12 @@ public class RevenueFinanceRestController {
         AnalysisFinance analysisFinance = new AnalysisFinance(monthPaid,totalPaid,totalUnPaid);
         return ResponseEntity.ok(analysisFinance);
     }
-    @PostMapping(value = "/sendRequestPayment", consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/sendRequestPayment", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<PaymentShop> createUser(@RequestParam("paymentTotal") String paymentTotal) {
         Account user = sessionService.get("user");
         Shoponlines shoponlines = shopService.findUserId(user.getUserid());
         // Lưu đối tượng người dùng vào cơ sở dữ liệu
-        PaymentShop  paymentShop =  new PaymentShop();
+        PaymentShop  paymentShop = new PaymentShop();
         paymentShop.setCreateat(new Date());
         paymentShop.setStatus(false);
         paymentShop.setValuepayment(Long.parseLong(paymentTotal));

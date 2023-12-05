@@ -42,7 +42,7 @@ public class SecurityConfig {
 				.permitAll().requestMatchers("static/Client/**").permitAll().requestMatchers("admin/**", "api/payment/**").hasAuthority("ADMIN")
 				.requestMatchers("/seller/**").hasAuthority("SELLER").anyRequest().authenticated())
 
-				.formLogin(form -> form.loginPage("/account/login").defaultSuccessUrl("/product/dashboard").permitAll())
+				.formLogin(form -> form.loginPage("/account/login").defaultSuccessUrl("/IBook/index").permitAll())
 
 				.logout((form) -> form.logoutUrl("/account/logout").logoutSuccessUrl("/account/logoutSuccess")
 
