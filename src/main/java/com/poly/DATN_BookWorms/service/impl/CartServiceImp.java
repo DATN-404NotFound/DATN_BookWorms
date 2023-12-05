@@ -3,6 +3,8 @@ package com.poly.DATN_BookWorms.service.impl;
 import java.util.List;
 import java.util.Optional;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +21,8 @@ import jakarta.servlet.http.HttpServletRequest;
 
 @Service
 public class CartServiceImp implements CartService {
+	
+	private static final Logger logger = LogManager.getLogger();
 	
 	@Autowired
 	CartRepo cartRepo;
@@ -42,11 +46,11 @@ public class CartServiceImp implements CartService {
 
 	@Override
 	public Cart findById(Long cartid) {
-		// TODO Auto-generated method stub
-		System.out.println("lll");
+		logger.info("find Cart by id with cart id : {}", cartid);
 		return cartRepo.findById(cartid).get();
 	}
 
+	
 	@Override
 	public Cart create(Cart book) {
 //		 
@@ -62,18 +66,27 @@ public class CartServiceImp implements CartService {
 	@Override
 	public void delete(Long cartid) {
 		// TODO Auto-generated method stub
-		cartRepo.deleteById(cartid);
+		try {
+			logger.info("delete cart with cartid : {}", cartid);
+			cartRepo.deleteById(cartid);
+			logger.info("delete cart success with cartid : {}", cartid);
+		} catch (Exception e) {
+			logger.error("Delete cart by id is failed");
+			// TODO: handle exception
+		}
 	}
 
 	@Override
 	public Cart update(Cart cart) {
 		// TODO Auto-generated method stub
+		logger.info("Update cart id with cart for update : {}", cart);
 		return cartRepo.save(cart);
 	}
 
 	@Override
 	public List<Cart> findByUser() {
 		System.out.println("userid "+ crc.getCodeCRC32C(request.getRemoteUser()));
+		logger.info("find cart by user with userid : ", crc.getCodeCRC32C(request.getRemoteUser()));
 		// TODO Auto-generated method stub
 		return cartRepo.findCartByUser(crc.getCodeCRC32C(request.getRemoteUser()));
 	}

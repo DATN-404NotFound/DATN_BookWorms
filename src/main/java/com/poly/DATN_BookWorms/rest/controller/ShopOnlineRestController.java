@@ -1,5 +1,7 @@
 package com.poly.DATN_BookWorms.rest.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,5 +23,10 @@ public class ShopOnlineRestController {
 	@GetMapping("/{id}")
 	public Shoponlines getOne(@PathVariable("id") Integer id) { 
 		return shopOnlineService.findById(id);
+	}
+	
+	@GetMapping("")
+	public List<Shoponlines> getAll() { 
+		return shopOnlineService.findAll();
 	}
 }

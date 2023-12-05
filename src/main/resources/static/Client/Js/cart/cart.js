@@ -71,7 +71,6 @@ function selectOne(e) {
 	check2(e);
 	check();
 	checkAll();
-	console.log(purchase)
 }
 
 
@@ -81,7 +80,6 @@ function Active(cartid, action) {
 		json = data;
 		json.quantity = e;
 		var shop = json.books.shopid;
-		console.log("ship = " + shop)
 		switch (action) {
 			case 'PUT': {
 				updateCart(cartid, json);
@@ -102,23 +100,21 @@ function updateCart(id, json) {
 		type: "PUT",
 		data: JSON.stringify(json),
 		contentType: "application/json; charset=utf-8",
-		dataType: "json",
 		success: function (resultData) {
-			console.log(resultData);
 			$("#cart" + id).children().eq(5).text(formatNumber(resultData.books.price * resultData.quantity, ".", ","));
-			console.log("ok");
 			checkAll();
 		},
 	});
 
 }
 
+
+
 function deleteCart(id, shop) {
 	$.ajax({
 		url: "http://localhost:8080/rest/cart/" + id,
 		type: "DELETE",
 		success: function (resultData) {
-			console.log(resultData)
 		},
 	});
 	$("#cart" + id).remove();
@@ -150,7 +146,6 @@ function checkAll() {
 		var strprice = document.getElementById('cartid' + purchase[i]).innerText;
 		var reply = strprice.replace(',', '');
 		this.tong += Number(reply);
-
 	}
 	document.getElementById("allPrice").innerText = formatNumber(this.tong, ".", ",");
 }
@@ -162,12 +157,10 @@ function check2(e) {
 	var chil = parent.children;
 	var a = 0;
 	for (var i = 0; i < chil.length; i++) {
-		console.log(chil.length);
 		if (chil[i].children[0].children[0].checked) {
 			a += 1;
 			var pa = parent.parentElement.parentElement;
 			var shops = pa.children[0].children[0];
-			console.log("i " + a + " - leng - " + chil.length)
 			if (chil.length == a) {
 				shops.checked = true;
 			}
@@ -202,17 +195,29 @@ function check() {
 
 
 
-const app = angular.module("cart_app", []);
-let host = "http://localhost:8080/rest/cart"
-app.controller("cart_ctrl", function ($scope, $http, $rootScope) {
+const app = angular.module("my_app", []);
 
-	// Product list
+let host = "http://localhost:8080/rest/cart"
+app.controller("cart_ctrl", function ($scope, $http, $timeout) {
+
+
+	$scope.loadContent = function (bookid) {
+		$http.get("/Client/Js/content.json").then(resp => {
+			$scope.bookcontent = resp.data;
+			$scope.itembookcontent = $scope.bookcontent.find(item => item.bookid == bookid);
+			$('#content' + bookid).text($scope.itembookcontent.content)
+		})
+	}
+
+
+
+	/////////////////// Product list
 	$scope.sp = [];
 	$scope.loadProduct = function () {
 		$http.get("http://localhost:8080/rest/books").then(resp => {
 			var am = localStorage.getItem('filter1');
 			$scope.sp = resp.data;
-			if (am !==null && am !="") {
+			if (am !== null && am != "") {
 				$scope.filterCate.push(am);
 				$scope.getList(1, "type", "listtype", $scope.filterCate)
 				localStorage.removeItem("filter1");
@@ -226,6 +231,17 @@ app.controller("cart_ctrl", function ($scope, $http, $rootScope) {
 			var a = [];
 			a = (resp.data);
 			document.getElementById('product' + bookId).src = "/Client/images/" + a[0].name
+		}).catch(error => {
+			console.log("Error", error)
+		});;
+	}
+
+	$scope.setShop = function (shopId) {
+		let url = `http://localhost:8080/rest/files/` + shopId;
+		$http.get(url).then(resp => {
+			var a = [];
+			a = (resp.data);
+			document.getElementById('shopimage' + shopId).src = "/Client/images/" + a[0].filename
 		}).catch(error => {
 			console.log("Error", error)
 		});;
@@ -266,7 +282,6 @@ app.controller("cart_ctrl", function ($scope, $http, $rootScope) {
 			}
 			case 4: {
 				var a = name.getAttribute('id');
-				console.log("KKKKcx" + typeof (a))
 				if (name.checked) {
 
 					switch (a) {
@@ -342,8 +357,8 @@ app.controller("cart_ctrl", function ($scope, $http, $rootScope) {
 		else {
 			return ($scope.filterPC.indexOf(b.publishingcompanies.namepc) !== -1);
 		}
-
 	};
+
 
 	$(document).ready(function () {
 		$('#showtab').click(function () {
@@ -351,6 +366,37 @@ app.controller("cart_ctrl", function ($scope, $http, $rootScope) {
 		})
 	});
 
+
+	//header
+	$scope.mms = function () {
+		localStorage.setItem("searchfilter", $scope.searchfilter);
+
+	}
+
+
+	$scope.filterAll = function (b) {
+		
+		$scope.searchfilter = localStorage.getItem("searchfilter");
+	
+		if ($scope.searchfilter == null) {
+			
+			return (JSON.stringify(angular.lowercase(b.bookname)).indexOf($scope.searchfilter) == -1 || JSON.stringify(b.price).indexOf($scope.searchfilter) == -1);
+		}
+		else {
+	
+			return (JSON.stringify(angular.lowercase(b.bookname)).indexOf($scope.searchfilter) != -1 || JSON.stringify(b.price).indexOf($scope.searchfilter) != -1);
+		}
+	}
+
+	$scope.filtershop = function (s) {
+		$scope.searchfilter = localStorage.getItem("searchfilter")
+		if ($scope.searchfilter == null) {
+			return (JSON.stringify(angular.lowercase(s.shopname)).indexOf($scope.searchfilter) == -1);
+		}
+		else {
+			return (JSON.stringify(angular.lowercase(s.shopname)).indexOf($scope.searchfilter) != -1);
+		}
+	}
 
 	$scope.filterByCate = function (b) {
 		if ($scope.filterCate.length == 0) {
@@ -360,6 +406,7 @@ app.controller("cart_ctrl", function ($scope, $http, $rootScope) {
 			return ($scope.filterValueCate.indexOf(b.bookid) !== -1);
 		}
 	};
+
 
 	$scope.filterByWriter = function (b) {
 		if ($scope.filterWrite.length == 0) {
@@ -375,7 +422,6 @@ app.controller("cart_ctrl", function ($scope, $http, $rootScope) {
 			return ($scope.filterValueRatting.indexOf(b.bookid) == -1);
 		}
 		else {
-			console.log("log " + $scope.filterValueRatting.length)
 			return ($scope.filterValueRatting.indexOf(b.bookid) !== -1);
 		}
 	};
@@ -390,42 +436,33 @@ app.controller("cart_ctrl", function ($scope, $http, $rootScope) {
 		else {
 			$scope.filterPrice.forEach(p => {
 				if ((b.price >= Number(p.substring(0, p.indexOf("-"))) && b.price <= Number(p.substring(p.indexOf("-") + 1, p.length)))) {
-					console.log("min " + p.substring(p.indexOf("-") + 1, p.length))
 					object = b
 				}
 			})
 			return object;
 		}
-
 	};
 
 	$scope.filterChoose1 = function (stt, name) {
 		var la = [];
-
 		la.push(name.getAttribute('id'));
 		localStorage.setItem('filter1', la);
-
-
 	}
+
+
 	$scope.process = function (array, name) {
 		if (name.checked) {
-			console.log("chose name : " + name.getAttribute('id'));
 			array.push(name.getAttribute('id'));
 		}
 		else {
-			console.log("fal name : " + name);
 			var del = array.findIndex(i => i === name.getAttribute('id'));
 			array.splice(del, 1)
 		}
-		console.log("filter : " + array)
 	}
 
+
 	$scope.getList = function (mang, name, key, value) {
-		console.log("datatype " + typeof (value))
-
-		console.log("req : " + "http://localhost:8080/rest/books/" + name + "?" + key + "=" + value + "")
 		$http.get("http://localhost:8080/rest/books/" + name + "?" + key + "=" + value + "").then(resp => {
-
 			switch (mang) {
 				case 1: {
 					$scope.filterValueCate = resp.data;
@@ -451,10 +488,33 @@ app.controller("cart_ctrl", function ($scope, $http, $rootScope) {
 			$scope.booksCate = resp.data;
 		})
 	}
-
-
+	$scope.quantityPro = 1;
 
 	// HomePage
+	$scope.buyNow = function (id) {
+		$http.get("/rest/books/" + id).then(resp => {
+			var book = [];
+			book.push(resp.data);
+			localStorage.setItem('books', JSON.stringify(book));
+			var shop = [];
+			shop.push(book[0].shoponlines);
+			localStorage.setItem('shoponline', JSON.stringify(shop));
+			var deal = [
+				{
+					books: book[0],
+					quantity: $scope.quantityPro
+				}
+			]
+			var sale = [];
+			localStorage.setItem('deal', JSON.stringify(deal));
+			localStorage.setItem('sales', JSON.stringify(sale));
+			location.href = "/order";
+		})
+
+
+	}
+
+
 	$scope.edu = function (id, a, b) {
 		$http.get("/rest/books/cate/" + id).then(resp => {
 			$scope.a = a;
@@ -494,18 +554,16 @@ app.controller("cart_ctrl", function ($scope, $http, $rootScope) {
 	$scope.loadAll();
 
 	$scope.next = function (id, cate) {
-		console.log("next" + id)
 		$scope.b = id + 1;
 		$scope.edu(cate, 4, $scope.b)
 	}
 
 	$scope.prev = function (id, cate) {
-		console.log("next" + id)
 		$scope.b = id - 1;
 		$scope.edu(cate, 4, $scope.b)
 	}
 
-	$scope.setQuantityPro = function(id){ 
+	$scope.setQuantityPro = function (id) {
 		$scope.quantityPro = 1;
 		$scope.cart.add(id);
 	}
@@ -513,9 +571,7 @@ app.controller("cart_ctrl", function ($scope, $http, $rootScope) {
 	$scope.cart = {
 		items: [],
 		add(id) {
-			console.log("ennn" + id)
 			var item = this.items.find(item => item.books.bookid == id);
-
 			if (item) {
 				item.quantity += $scope.quantityPro;
 				var updatecart = `${host}`;
@@ -548,31 +604,61 @@ app.controller("cart_ctrl", function ($scope, $http, $rootScope) {
 			});
 		},
 	}
-
 	$scope.cart.load();
-
 	$scope.detailBook = function (bookid) {
 		location.href = "/product/detail/" + bookid;
 	}
 
-	//Shop Page 
+
+	///////////////////////// Shop Page 
 	$scope.ListBookOfShop = []
 	$scope.toShopDetail = function (shopid) {
 		$http.get("http://localhost:8080/rest/books/shop?shopid=" + shopid).then(resp => {
 			localStorage.setItem('productShop', JSON.stringify(resp.data));
-			location.href = "/shop/" + shopid
+			//location.href = "/shop/" + shopid
 		})
 	}
 
+	$scope.shopAll = [];
+	$scope.getAllshop = function () {
+		$http.get("/rest/shoponline").then(resp => {
+			$scope.shopAll = resp.data;
 
+		})
+	}
+
+	$scope.addDiscount = function (couoponcode) {
+		try {
+			$scope.discountAdd = {
+				discountcodeid: "",
+				saleid: couoponcode,
+				userid: "",
+				startdiscount: new Date(),
+				enddiscount: "2023-12-31",
+				isdelete: false,
+				minprice: "",
+				status: "",
+
+			}
+			var dis = angular.copy($scope.discountAdd)
+			$http.post(`/rest/discount`, dis).then(resp => {
+			})
+			document.getElementById('accep' + couoponcode).innerText = "Đã nhận";
+			document.getElementById('accep' + couoponcode).disabled
+		} catch (error) {
+			console.log("error1 : " + error)
+
+		}
+	}
 
 
 	$(document).ready(function () {
-		console.log("In sl " + localStorage.getItem("productShop"));
 		$scope.ListBookOfShop = JSON.parse(localStorage.getItem('productShop'));
 	});
 
-	// Cart Page
+	$scope.getAllshop();
+
+	///////////////////////// Cart Page
 	$scope.cartsvoucher = {
 		voucherAll: [],
 		changevoucher(couoponcode) {
@@ -600,13 +686,11 @@ var vouchero = {};
 
 $(document).ready(function () {
 	$('#voucherOther').change(function () {
-
 		var a = $('#voucherOther').children("option:selected").val();
 		$.get("http://localhost:8080/rest/discount/" + a, function (data, status) {
-			console.log(data)
 			var b = document.getElementById('totalPriceAll').innerText;
-			var reply = b.replace(',', '');
-			var c = Number(reply) * data.sales.discountpercentage;
+			var reply = b.replaceAll(',', '');
+			var c = Number(reply) * Number(data.sales.discountpercentage);
 			document.getElementById('totalSales').innerText = formatNumber(c, ".", ",");
 			vouchero = data;
 			calculatorPrice();
@@ -630,16 +714,13 @@ $(document).ready(function () {
 });
 
 
-
-
 function voucherSelected(shopid) {
 	var vou = $('#voucher' + shopid).children("option:selected").val();
-	console.log(vou)
+try {
 	$.get("http://localhost:8080/rest/discount/" + vou, function (data, status) {
-		console.log(data)
-		if (!data || data.value === null) {
-			console.log("nullrooif")
+		if (!data || data.value === null || vou == undefined) {
 			localStorage.setItem('sales', JSON.stringify(salevoucher));
+			console.log("vouchernull : ")
 		}
 		else {
 			var v = salevoucher.find(i => i.saleid == vou);
@@ -648,21 +729,23 @@ function voucherSelected(shopid) {
 			else {
 				salevoucher.push(data);
 				localStorage.setItem('sales', JSON.stringify(salevoucher));
-				console.log("selas" + salevoucher)
+				console.log("voucher : "+ salevoucher.length)
 			}
 		}
 	});
+} catch (error) {
+	console.log('error : '+ error)
+	
+}
 }
 
 function selectShop(item) {
 	$.get("http://localhost:8080/rest/shoponline/" + item, function (data, status) {
-
 		var y = shoponline.find(i => i.shopid == data.shopid);
 		if (y) {
 		}
 		else {
 			shoponline.push(data);
-			console.log("datashop " + shoponline.length)
 			localStorage.setItem('shoponline', JSON.stringify(shoponline));
 			voucherSelected(data.shopid);
 		}
@@ -673,6 +756,7 @@ function findBook(item) {
 	$.get("http://localhost:8080/rest/books/" + item.bookid, function (data, status) {
 		books.push(data);
 		localStorage.setItem('books', JSON.stringify(books));
+		console.log(" 755: "+ books.length)
 		selectShop(data.shoponlines.shopid);
 	})
 }
@@ -681,18 +765,19 @@ function findCart(item) {
 	$.get("http://localhost:8080/rest/cart/" + item, function (data, status) {
 		deal.push(data);
 		localStorage.setItem('deal', JSON.stringify(deal));
+		console.log(" 763 : "+ deal.length)
 		findBook(data);
 	})
 }
 
 
-function findPaymentAccount() {
-	$.get("http://localhost:8080/rest/paymentaccount/user", function (data, status) {
-		deal.push(data);
-		localStorage.setItem('deal', JSON.stringify(deal));
-		findBook(data);
-	})
-}
+// function findPaymentAccount() {
+// 	$.get("http://localhost:8080/rest/paymentaccount/user", function (data, status) {
+// 		deal.push(data);
+// 		localStorage.setItem('deal', JSON.stringify(deal));
+// 		findBook(data);
+// 	})
+// }
 
 
 function deals() {
@@ -700,15 +785,22 @@ function deals() {
 	salevoucher = [];
 	books = [];
 	deal = [];
-	console.log(purchase);
 	purchase.forEach(item => {
 		findCart(item);
 		localStorage.setItem('deal', JSON.stringify(deal));
-		location.href = "/order";
+	
+		
 
 	})
+	setTimeout(greeting, 100);
 }
 
+
+function greeting(){
+	location.href = "/order"
+  }
+  
+  
 
 $(document).ready(function () {
 	loadWin();
@@ -722,27 +814,33 @@ function loadWin() {
 	var b = JSON.parse(localStorage.getItem('deal'));
 	var c = JSON.parse(localStorage.getItem('shoponline'));
 	var d = JSON.parse(localStorage.getItem('sales'));
+	console.log("books L "+ a);
+	console.log("books d "+ b);
+	console.log("books s "+ c);
+	console.log("books sa "+ d);
 	var totalPriceAll = 0;
-	c.forEach(m => {
-		var priceItem = 0;
+	if (c != null) {
+		c.forEach(m => {
+			var priceItem = 0;
 
-		b.forEach(i => {
-			if (i.books.shopid == m.shopid) {
-				priceItem += (i.books.price * i.quantity);
-			}
-		})
-		if (d.length > 0) {
-			d.forEach(j => {
-				if (j.sales.shopid == m.shopid) {
-					priceItem -= (priceItem * j.sales.discountpercentage);
+			b.forEach(i => {
+				if (i.books.shopid == m.shopid) {
+					priceItem += (i.books.price * i.quantity);
 				}
 			})
-		}
-		document.getElementById('priceItem' + m.shopid).innerText = formatNumber(priceItem, ".", ",");;
-		totalPriceAll += priceItem;
-		console.log("priceAll " + totalPriceAll)
+			if (d.length > 0) {
+				d.forEach(j => {
+					if (j.sales.shopid == m.shopid) {
+						priceItem -= (priceItem * j.sales.discountpercentage);
+					}
+				})
+			}
+			document.getElementById('priceItem' + m.shopid).innerText = formatNumber(priceItem, ".", ",");;
+			totalPriceAll += priceItem;
 
-	})
+
+		})
+	}
 	document.getElementById('totalPriceAll').innerText = formatNumber(totalPriceAll, ".", ",");
 	calculatorPrice();
 }
@@ -750,10 +848,10 @@ function loadWin() {
 
 
 function calculatorPrice() {
-	var a = document.getElementById('totalPriceAll').innerText.replace(',', '');
-	var b = document.getElementById('shippingPrice').innerText.replace(',', '');
-	var c = document.getElementById('totalSales').innerText.replace(',', '');
-	var d = document.getElementById('totalFreeShip').innerText.replace(',', '');
+	var a = document.getElementById('totalPriceAll').innerText.replaceAll(',', '');
+	var b = document.getElementById('shippingPrice').innerText.replaceAll(',', '');
+	var c = document.getElementById('totalSales').innerText.replaceAll(',', '');
+	var d = document.getElementById('totalFreeShip').innerText.replaceAll(',', '').replaceAll('-', '');
 	var e = document.getElementById('totalFinal');
 	var f = Number(a) + Number(b) - Number(c) - Number(d);
 	e.innerText = formatNumber(f, ".", ",");
@@ -761,10 +859,9 @@ function calculatorPrice() {
 
 
 
-const app1 = angular.module("order_app", []);
-app1.controller("order_ctrl", function ($scope, $http, $timeout) {
+app.controller("order_ctrl", function ($scope, $http, $timeout) {
 
-	// Deal Page
+/////////////// Deal Page
 	$scope.bookItem = [];
 	$scope.dealItem = [];
 	$scope.shopItem = [];
@@ -772,12 +869,11 @@ app1.controller("order_ctrl", function ($scope, $http, $timeout) {
 	$scope.totalQuantity = 0;
 
 	$scope.loadDeal = function () {
+
 		$scope.bookItem = JSON.parse(localStorage.getItem('books'));
 		$scope.dealItem = JSON.parse(localStorage.getItem('deal'));
 		$scope.shopItem = JSON.parse(localStorage.getItem('shoponline'));
-		console.log("al " + $scope.shopItem.length)
 		$scope.salesItem = JSON.parse(localStorage.getItem('sales'));
-
 		$scope.totalQuantity = $scope.bookItem.length;
 	}
 
@@ -799,7 +895,14 @@ app1.controller("order_ctrl", function ($scope, $http, $timeout) {
 			})
 		})
 	}
+
+	$scope.clearLocal = function(){ 
+		localStorage.clear();
+
+	}
+
 	$scope.paymentCart = function () {
+	
 		var timeoutTimer = 0;
 		$scope.shopItem.forEach(i => {
 			var a = document.getElementById('priceItem' + i.shopid).innerText;
@@ -845,23 +948,69 @@ app1.controller("order_ctrl", function ($scope, $http, $timeout) {
 			}
 			var booking = angular.copy($scope.bookings);
 			console.log("ind " + JSON.stringify($scope.bookings))
+		
 			$http.post(`/rest/bookings`, booking).then(resp => {
+				
 				$scope.deleteDeal();
 				$http.delete("http://localhost:8080/rest/discount/" + vouchero.discountcodeid).then(resp => {
 				})
-				$('#myModal').show();
-				$('#iconModel').html('<i  style="font-size: 50px;color: green;" class="bi bi-check-circle"></i> ')
-				// $('#iconModel').css({"font-size": "50px","color": "green"})
-				$('#descrptionInfor').text("Đặt hàng thành công!")
-				//  location.href = "/cart"
+				console.log("949")
+				$('#dhmodal').show();
+				$('#iconModels').html('<i  style="font-size: 50px;color: green;" class="bi bi-check-circle"></i> ')
+			
+			 	$('#descrptionInfors').text("Đặt hàng thành công!")
 			}).catch(error => {
-				$('#myModal').show();
-				$('#iconModel').html('<i  style="font-size: 50px;color: red;" class="bi bi-x-circle"></i> ')
-				// $('#iconModel').css({"font-size": "50px","color": "red"})
-				$('#descrptionInfor').text("Đặt hàng thất bại! Vui lòng thử lại")
+				console.log("954")
+				$('#dhmodal').show();
+				$('#iconModels').html('<i  style="font-size: 50px;color: red;" class="bi bi-x-circle"></i> ')
+				$('#descrptionInfors').text("Đặt hàng thất bại! Vui lòng thử lại")
 				console.log(error)
 			})
 		});
 	}
 });
 
+
+app.controller("address_ctrl", function ($scope, $http) {
+
+    $scope.callModel = function(addressid){
+        $http.get("/rest/address/"+ addressid).then(resp=>{ 
+            console.log("resp = "+ JSON.stringify(resp.data));
+            $scope.add = resp.data;
+
+        })
+    }
+
+    $scope.updateAdd = function(){ 
+        var ad = angular.copy($scope.add);
+        $http.post("/rest/address", ad).then(resp =>{ 
+            location.href="/myAccount/address";
+        })
+    }
+
+    $scope.deleteAdd = function(addressid){ 
+        console.log(addressid)
+        $http.delete("/rest/address/"+ addressid).then(resp =>{ 
+            console.log("lsklf")           
+            location.href="/myAccount/address";
+        })
+    
+    }
+
+	$scope.callModel = function(bookingId){
+        console.log(bookingId)
+        $http.get("/rest/bookings/"+ bookingId).then(resp=>{ 
+            console.log(bookingId)
+            console.log("resp = "+ JSON.stringify(resp.data));
+            $scope.add = resp.data;
+
+        })
+    }
+
+    $scope.updateBooking = function(){ 
+        var ad = angular.copy($scope.add);
+        $http.post("/rest/bookings/update", ad).then(resp =>{ 
+            location.href="/myAccount/orderMyAccount";
+        })
+    }
+});

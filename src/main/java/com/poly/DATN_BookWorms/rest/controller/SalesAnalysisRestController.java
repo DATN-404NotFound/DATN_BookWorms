@@ -82,26 +82,26 @@ public class SalesAnalysisRestController {
     public ResponseEntity<List<CategoryRanking>> getCategoryRanking() {
 
         List<CategoryRanking> listCategoryRanking = salesAnalysisService.getCategoryRanking();
-//        System.out.println(listCategoryRanking.toString());
+        System.out.println("Category"+listCategoryRanking.toString());
         return ResponseEntity.ok(listCategoryRanking);
     }
 
     @GetMapping("/accordingToSales")
     public ResponseEntity<List<BookRankingToSales>> getAccordingToSales() {
         List<BookRankingToSales> listBookRankingToSales = salesAnalysisService.getBookRankingToSales();
-        System.out.println(listBookRankingToSales.toString());
+        System.out.println("Book Ranking To Sales"+listBookRankingToSales.toString());
         return ResponseEntity.ok(listBookRankingToSales);
     }
     @GetMapping("/accordingToView")
     public ResponseEntity<List<Books>> getAccordingToView() {
         List<Books> listBookRankingToView = salesAnalysisService.getBookRankingToView();
-        System.out.println(listBookRankingToView.toString());
+        System.out.println("Book Ranking To View"+listBookRankingToView.toString());
         return ResponseEntity.ok(listBookRankingToView);
     }
     @GetMapping("/productNumber")
     public ResponseEntity<List<BookRankingToNumber>> getProductNumber() {
         List<BookRankingToNumber> listBookRankingToNumber = salesAnalysisService.getBookRankingToNumber();
-        System.out.println(listBookRankingToNumber.toString());
+        System.out.println("Book Ranking To Number"+listBookRankingToNumber.toString());
         return ResponseEntity.ok(listBookRankingToNumber);
     }
 }

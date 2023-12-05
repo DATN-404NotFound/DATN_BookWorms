@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -35,6 +36,9 @@ public class HomeController {
 
     @Autowired
     ShopService shopService;
+    
+    @Autowired
+    ShopOnlinesService shopOnlinesService;
 
     @RequestMapping("/index")
     public String home(Model model) {
@@ -109,5 +113,17 @@ public class HomeController {
         return "SellerChannel/index";
     }
 
+    @GetMapping("/shop")
+    public String getAllShop(Model model) { 
+    	List<Shoponlines> listshop = new ArrayList<Shoponlines>();
+    	listshop = shopOnlinesService.getAllListShop();
+    	model.addAttribute("shoplist", listshop);
+    	 return "Client/Product_page/shop_list";
+    }
 
+    @GetMapping("/about")
+    public String getBout(Model model) { 
+ 	
+    	 return "Client/header_footer_index/about";
+    }
 }

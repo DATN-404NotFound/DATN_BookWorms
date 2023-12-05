@@ -2,6 +2,8 @@ package com.poly.DATN_BookWorms.service.impl;
 
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +15,8 @@ import com.poly.DATN_BookWorms.service.DiscountCodeService;
 @Service
 public class DiscountCodeServiceImp implements DiscountCodeService {
 
+	private static final Logger logger = LogManager.getLogger();
+	
 	@Autowired
 	DiscountcodesRepo discountcodesRepo;
 
@@ -26,6 +30,7 @@ public class DiscountCodeServiceImp implements DiscountCodeService {
 	@Override
 	public Discountcodes findSalesId(String salesid, String userid) {
 		// TODO Auto-generated method stub
+		logger.info("find Discountcodes by saleId : {} and userId : {}",salesid, userid);
 		return  discountcodesRepo.findSalesId(salesid, userid);
 	}
 
@@ -38,7 +43,7 @@ public class DiscountCodeServiceImp implements DiscountCodeService {
 	@Override
 	public Discountcodes create(Discountcodes discount) {
 		// TODO Auto-generated method stub
-		return null;
+		return discountcodesRepo.save(discount);
 	}
 
 	@Override
@@ -56,7 +61,14 @@ public class DiscountCodeServiceImp implements DiscountCodeService {
 	@Override
 	public List<Discountcodes> findDisountForSys(String userid) {
 		// TODO Auto-generated method stub
+		logger.info("find Discountcodes for hệ thống  by userId : {}", userid);
 		return discountcodesRepo.findDisountForSys(userid);
+	}
+
+	@Override
+	public List<Discountcodes> findDisountOfShopWithUser(String userid, int shopid) {
+		// TODO Auto-generated method stub
+		return discountcodesRepo.findDisountOfShopWithUser(userid, shopid);
 	}
 
 

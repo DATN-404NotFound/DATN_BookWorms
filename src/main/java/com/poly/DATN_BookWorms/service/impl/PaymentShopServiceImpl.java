@@ -42,4 +42,10 @@ public class PaymentShopServiceImpl implements PaymentShopService {
     public void save(PaymentShop paymentShop) {
          paymentShopRepo.save(paymentShop);
     }
+
+	@Override
+	public List<PaymentShop> findAll() {
+		// TODO Auto-generated method stub
+		return paymentShopRepo.findAll();
+	}
 }

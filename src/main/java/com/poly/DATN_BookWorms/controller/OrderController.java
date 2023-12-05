@@ -2,6 +2,8 @@ package com.poly.DATN_BookWorms.controller;
 
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -29,6 +31,8 @@ import jakarta.servlet.http.HttpServletRequest;
 @Controller
 @RequestMapping("/order")
 public class OrderController {
+	
+	private static final Logger logger = LogManager.getLogger();
 
 	@Autowired
 	CartService cartService;
@@ -56,15 +60,20 @@ public class OrderController {
 
 	@GetMapping
 	public String orderPage(Model model) {
-		String userid = crc32_SHA256.getCodeCRC32C(request.getRemoteUser());
-		List<Addressusers> addressusser = accountAddressService.getAdressByUser(userid);
-		model.addAttribute("addressusser", addressusser);
-		List<Discountcodes> discountcode = discountCodeService.findDisountForSys(userid);
-		model.addAttribute("discountcode", discountcode);
-		List<Shippingunits> shippingunit = shippingUnitService.getAll();
-		model.addAttribute("shippingunit", shippingunit);
-		List<Paymentaccounts> paymentaccount = paymentAccountService.findWithUser(userid);
-		model.addAttribute("paymentaccount", paymentaccount);
+		try {
+			String userid = crc32_SHA256.getCodeCRC32C(request.getRemoteUser());
+			List<Addressusers> addressusser = accountAddressService.getAdressByUser(userid);
+			model.addAttribute("addressusser", addressusser);
+			List<Discountcodes> discountcode = discountCodeService.findDisountForSys(userid);
+			model.addAttribute("discountcode", discountcode);
+			List<Shippingunits> shippingunit = shippingUnitService.getAll();
+			model.addAttribute("shippingunit", shippingunit);
+			List<Paymentaccounts> paymentaccount = paymentAccountService.findWithUser(userid);
+			model.addAttribute("paymentaccount", paymentaccount);
+			logger.info("get order Page");
+		} catch (Exception e) {
+			logger.info("Error during controller with error :{}",e);
+		}
 		return "Client/cart_client/deal";
 	}
 	

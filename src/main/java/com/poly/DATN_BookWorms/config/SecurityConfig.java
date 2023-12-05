@@ -34,44 +34,19 @@ public class SecurityConfig {
 	}
 
 	@Bean
-	public RedirectStrategy redirectStrategy() {
-		return new DefaultRedirectStrategy() {
-			public String getLocation(HttpServletRequest request, HttpServletResponse response, Authentication authentication) {
-				String previousUrl = request.getHeader("Referer");
-				if (previousUrl != null) {
-					return previousUrl;
-				} else {
-					return "/Ibook/index";
-				}
-			}
-		};
-	}
-
-	@Bean
-	public AuthenticationSuccessHandler successHandler() {
-		return new AuthenticationSuccessHandler() {
-			@Override
-			public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
-				redirectStrategy().sendRedirect(request, response, "/Ibook/index");
-			}
-		};
-	}
-	//	Phân quyền sử dụng
-	@Bean
 	public SecurityFilterChain web(HttpSecurity http) throws Exception {
 		http.authorizeHttpRequests((request) -> request
-				.requestMatchers("/account/**", "/signin/**", "/signup/**", "/product/**", "/Admin/**","/Ibook/index","/Ibook/header")
-				.permitAll().requestMatchers("rest/**").permitAll()
-				.requestMatchers("/Client/**")
-				.permitAll()
-				.requestMatchers("static/**")
-				.permitAll()
-				.requestMatchers("/admin/**").hasAuthority("ADMIN")
-				.anyRequest().authenticated());
-		http.formLogin(form -> form.loginPage("/account/login")
-				.loginProcessingUrl("/account/login")
-				.successHandler(successHandler())
-				.permitAll());
+				.requestMatchers("/account/**", "/Admin/Css/**", "/Admin/Image/**", "/Admin/Js/**")
+
+				.permitAll().requestMatchers("/Client/**", "/product/**").permitAll().requestMatchers("/rest/**")
+				.permitAll().requestMatchers("static/Client/**").permitAll().requestMatchers("admin/**", "api/payment/**").hasAuthority("ADMIN")
+				.requestMatchers("/seller/**").hasAuthority("SELLER").anyRequest().authenticated())
+
+				.formLogin(form -> form.loginPage("/account/login").defaultSuccessUrl("/product/dashboard").permitAll())
+
+				.logout((form) -> form.logoutUrl("/account/logout").logoutSuccessUrl("/account/logoutSuccess")
+
+						.permitAll());
 
 		http.oauth2Login(customize -> customize.loginPage("/account/login")
 				.defaultSuccessUrl("/account/login-google/success").defaultSuccessUrl("/account/login-facebook/success")
@@ -85,8 +60,9 @@ public class SecurityConfig {
 				.logoutSuccessUrl("/account/login")
 				.permitAll());
 
-		http.cors().and().csrf().disable();
+		http.cors().disable().csrf().disable();
 		return http.build();
 	}
+	//	Phân quyền sử dụng
 
 }

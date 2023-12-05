@@ -46,6 +46,9 @@ public class Sales implements Serializable {
 
     @Temporal(TemporalType.DATE)
     public Date       createat ;
+    
+    @Temporal(TemporalType.DATE)
+    public Date       enddiscount ;
 
     @Column(name="descriptions", length=255)
     public String     descriptions ;
@@ -58,6 +61,9 @@ public class Sales implements Serializable {
     public String     intendfor ;
 
     public Integer    shopid ;
+    
+    public Double     minprice ;
+    public boolean isdelete;
 
 
     //--- ENTITY LINKS ( RELATIONSHIP )

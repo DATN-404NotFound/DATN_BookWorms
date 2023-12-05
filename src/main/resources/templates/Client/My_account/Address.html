@@ -12,72 +12,130 @@
         integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" />
     <link rel="stylesheet" href="../../../static/Client/css/myAccount.css" />
+    <script src="../../../static/Client/Js/MyAccount/address.js"></script>
+    <script th:src="@{/Client/Js/MyAccount/address.js}"></script>
 </head>
 
 <body>
-    <div th:fragment="maccount">
+    <div th:fragment="maccount" >
         <p class="mt-4 ms-4" id="titleAddressSetting">Address Setting</p>
         <div class="addressDetail">
-            <div class="row address1" th:each="ad : ${ad}">
+            <div class="row address1" th:each="adu : ${ad}" >
                 <div class="col-9">
-                    <p class="NamePhone"><span th:text="${ad.fullname}"></span> | <span th:text="${ad.phonenumber}"></span></p>
-                    <p class="pAddressDetail" th:text="${ad.address}"></p>
+                    <p class="NamePhone"><span th:text="${adu.fullname}"></span> | <span th:text="${adu.phonenumber}"></span></p>
+                    <p class="pAddressDetail" th:text="${adu.address}"></p>
                 </div>
                 <div class="col-3">
-                    <a href=""><i class="bi bi-pencil float-end"></i></a><br>
-                    <button class="btn float-end me-3 mt-3 btnSetToDefault">Set to default</button>
+                    <a class="float-end btnEditAddress" data-bs-toggle="modal" th:attr="ng-click=@{|callModel('${adu.addressuserid}')|}" data-bs-target="#exampleModal1"><i class="bi bi-pencil"></i></a><br>
+                    <div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" >
+                            <div class="modal-content boxNewAddress">
+                                
+                                <div class="modal-header" id="adID" style="border: none;">
+                                    <h3 class="modal-title" id="exampleModalLabel">Edit Address</h3>
+                                </div>
+                                <div class="modal-body">
+                                    <div id="formNewAddress" class="row" >
+                                        
+                                        <div class="mb-3 col-6">
+                                            <input ng-model="add.fullname" type="text" class="form-control" id="fullName-newAddress" name="fullNameEditAddress" placeholder="Fullname">
+                                        </div>
+                                        <div class="mb-3 col-6">
+                                            <input ng-model="add.phonenumber" type="text" class="form-control" id="numberPhone-newAddress" name="numberPhoneEditAddress"
+                                                placeholder="Number phone">
+                                        </div>
+                                        <div class="mb-3">
+                                            <input ng-model="add.address" type="text" class="form-control" id="province-newAddress" name="provinceEditAddress"
+                                                placeholder="Province">
+                                        </div>
+                                        <div class="mb-3">
+                                            <input ng-model="add.address" type="text" class="form-control" id="district-newAddress" name="districtEditAddress"
+                                                placeholder="District">
+                                        </div>
+                                        <div class="mb-3">
+                                            <input ng-model="add.address" type="text" class="form-control" id="ward-newAddress" name="wardEditAddress"
+                                                placeholder="Ward">
+                                        </div>
+                                        <div class="mb-3">
+                                            <input ng-model="add.address" type="text" class="form-control" id="specificAddress-newAddress" name="specificAddressEditAddress"
+                                                placeholder="Specific Address">
+                                        </div>
+                                        <div class="mb-5">
+                                            <label class="me-3">Status Address:</label>
+                                           <form action="" class="form-checked">
+                                                <input value="true"  type="radio" ng-checked="add.statusaddress  === 'Mặc định'"
+                                                name="statusEditAddress" id="" > Default
+                                                <input value="false" type="radio" ng-checked="add.statusaddress === 'Không'"
+                                                name="statusEditAddress" id=""> Non
+                                           </form>
+                                        </div>
+                                        <button class="btn btnFinish-editAddress" ng-click="updateAdd()">Update</button>
+                                        <button  class="btn btn-warning btnDelete-editAddress" ng-click="deleteAdd(add.addressuserid)">Delete</button>
+                                        <button type="button" class="btn btnCancel-newAddress"
+                                            data-bs-dismiss="modal">Cancel</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button th:if="${adu.statusaddress == 'Không'}" class="btn float-end me-3 mt-3 btnSetToDefault">Set to default</button>
                 </div>
             </div>
         </div>
-        <button type="button" class="btn btnNewAddress" data-bs-toggle="modal" data-bs-target="#exampleModal">
+        <button type="button" class="btn btnNewAddress" data-bs-toggle="modal" data-bs-target="#exampleModal2">
             New address
         </button>
-        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content boxNewAddress">
                     <div class="modal-header" style="border: none;">
                         <h3 class="modal-title" id="exampleModalLabel">New Address</h3>
                     </div>
                     <div class="modal-body">
-                        <form id="formNewAddress" class="row">
+                        <form id="formNewAddress" class="row" th:object="${adr}" action="">
                             <div class="mb-3 col-6">
-                                <input type="text" class="form-control" id="fullName-newAddress" placeholder="Fullname">
+                                <input type="text" class="form-control" id="fullName-newAddress" name="fullNameNewAddress" placeholder="Fullname">
                             </div>
                             <div class="mb-3 col-6">
-                                <input type="text" class="form-control" id="numberPhone-newAddress"
+                                <input type="text" class="form-control" id="numberPhone-newAddress" name="numberPhoneNewAddress"
                                     placeholder="Number phone">
                             </div>
                             <div class="mb-3">
-                                <select name="" class="form-select" id="province-newAddress">
+                                <input type="text" class="form-control" id="province-newAddress" name="province"
+                                    placeholder="Province">
+                                <!-- <select name="" class="form-select" id="province-newAddress">
                                     <option value="">Province/City</option>
                                     <option value="">Ho Chi Minh</option>
-                                </select>
+                                </select> -->
                             </div>
                             <div class="mb-3">
-                                <select name="" class="form-select" id="district-newAddress">
+                                <input type="text" class="form-control" id="district-newAddress" name="district"
+                                    placeholder="District">
+                                <!-- <select name="" class="form-select" id="district-newAddress">
                                     <option value="">District</option>
                                     <option value="">12 District</option>
-                                </select>
+                                </select> -->
                             </div>
                             <div class="mb-3">
-                                <select name="" class="form-select" id="ward-newAddress">
+                                <input type="text" class="form-control" id="ward-newAddress" name="ward"
+                                    placeholder="Ward">
+                                <!-- <select name="" class="form-select" id="ward-newAddress">
                                     <option value="">Ward</option>
                                     <option value="">Tan Thoi Hiep ward</option>
-                                </select>
+                                </select> -->
                             </div>
                             <div class="mb-3">
-                                <input type="text" class="form-control" id="specificAddress-newAddress"
+                                <input type="text" class="form-control" id="specificAddress-newAddress" name="specificAddressNewAddress"
                                     placeholder="Specific Address">
                             </div>
                             <div class="mb-5">
                                 <label class="me-3">Status Address:</label>
-                                <input type="radio" class="" name="statusAddress" id="statusAddress-default"
-                                    value="Default">
-                                <label for="statusAddress-default" class="me-3">Mặc định</label>
-                                <input type="radio" class="" name="statusAddress" id="statusAddress-non" value="Non">
-                                <label for="statusAddress-non" class="">Không</label>
+                                <input value="Mặc định" th:field="*{statusaddress}" type="radio"
+                                name="statusAddress" id="statusAddress-default"> Default
+                                <input value="Không" th:field="*{statusaddress}" type="radio"
+                                name="statusAddress" id="statusAddress-non"> Non
                             </div>
-                            <button type="button" class="btn btnFinish-newAddress">Finish</button>
+                            <button type="submit" class="btn btnFinish-newAddress" th:formaction="@{|/myAccount/newAddress|}" th:formmethod="post">Finish</button>
                             <button type="button" class="btn btnCancel-newAddress"
                                 data-bs-dismiss="modal">Cancel</button>
                         </form>
@@ -85,7 +143,9 @@
                 </div>
             </div>
         </div>
-
+        <script src="../../../static/Client/Js/MyAccount/address.js"></script>
+        <script th:src="@{/Client/Js/MyAccount/address.js}"></script>
+        <script src="../../../static/Client/Js/MyAccount/address.js"></script>
         <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js "
             integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN "
             crossorigin="anonymous "></script>

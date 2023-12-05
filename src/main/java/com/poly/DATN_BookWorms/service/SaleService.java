@@ -1,5 +1,7 @@
 package com.poly.DATN_BookWorms.service;
 
+	import java.math.BigDecimal;
+	import java.util.Date;
 	import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -13,12 +15,18 @@ public interface SaleService {
 
 	Sales findById(String id);
 
-	Sales create(Sales sale);
+
+
+
+
+	Sales create(String promotionname, Date createat, String descriptions, BigDecimal discountpercentage, String statuses, String intendfor);
 
 	Sales update(Sales sale);
 
 	void delete(String id);
 
 	List<Sales> saleOfShopIntendFor(String intendFor);
+	
+	List<Sales> saleByShopAndByIntendFor(int shopId,String intendFor);
 	
 }

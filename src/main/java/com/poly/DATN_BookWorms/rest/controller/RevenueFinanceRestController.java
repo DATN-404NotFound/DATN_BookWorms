@@ -88,7 +88,7 @@ public class RevenueFinanceRestController {
         PaymentShop  paymentShop =  new PaymentShop();
         paymentShop.setCreateat(new Date());
         paymentShop.setStatus(false);
-        paymentShop.setValuepayment(Double.parseDouble(paymentTotal));
+        paymentShop.setValuepayment(Long.parseLong(paymentTotal));
         paymentShop.setShoponlines(shoponlines);
         paymentShopService.save(paymentShop);
         // Trả về phản hồi thành công

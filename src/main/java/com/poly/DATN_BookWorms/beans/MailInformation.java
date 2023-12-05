@@ -3,10 +3,11 @@ package com.poly.DATN_BookWorms.beans;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class MailInformation {
-	private String from = "POPEYES <thienlc06052000@gmail.com>";
+	private String from = "IBOOK <hanguyent03@gmail.com>";
 	private String to;
 	private String[] cc;
 	private String[] bcc;
@@ -76,6 +77,12 @@ public class MailInformation {
 	}
 	public void setFiles(List<File> files) {
 		this.files = files;
+	}
+
+	@Override
+	public String toString() {
+		return "MailInformation [from=" + from + ", to=" + to + ", cc=" + Arrays.toString(cc) + ", bcc="
+				+ Arrays.toString(bcc) + ", subject=" + subject + ", body=" + body + ", files=" + files + "]";
 	}
 	
 	

@@ -19,11 +19,13 @@
     <script src="../../../static/Client/Js/MyAccount/myPersonal.js"></script>
     <script th:src="@{/Client/Js/MyAccount/orderDetail.js}"></script>
     <script src="../../../static/Client/Js/MyAccount/orderDetail.js"></script>
+    <script src="../../../static/Client/Js/cart/cart.js"></script>
+    <script th:src="@{/Client/Js/cart/cart.js}"></script>
 
 </head>
 
 <body>
-    <main>
+    <main ng-controller="address_ctrl">
         <div class="container-fluid ">
             <div class="frameMyAccount">
                 <div class="frameMyAccount-left" >
@@ -36,34 +38,24 @@
                     </div>
                     <div class="menuMyAccount ms-3">
                         <a class="aMyAccount" data-bs-toggle="collapse" href="#collapseExample1" aria-expanded="false"
-                            aria-controls="collapseExample"><i class="bi bi-person"></i> My Account </a>
+                            aria-controls="collapseExample"><i class="bi bi-person"></i> Tài khoản </a>
                         <div class="collapse" id="collapseExample1">
                             <ul class="list-group">
-                                <li class="list-group-item"><a th:href="@{|/myAccount/myPersonal|}">My personal</a></li>
-                                <li class="list-group-item"><a th:href="@{|/myAccount/address|}">Address</a></li>
-                                <li class="list-group-item"><a th:href="@{|/myAccount/changePassword|}">Change Password</a></li>
+                                <li class="list-group-item"><a th:href="@{|/myAccount/myPersonal|}">Hồ sơ</a></li>
+                                <li class="list-group-item"><a th:href="@{|/myAccount/address|}">Địa chỉ</a></li>
+                                <li class="list-group-item"><a th:href="@{|/myAccount/changePassword|}">Đổi mật khẩu</a></li>
+                                <li class="list-group-item"><a th:href="@{|/account/logout|}">Đăng xuất</a></li>
                             </ul>
                         </div>
                     </div>
                     <div class="menuMyAccount ms-3">
-                        <a class="aPurchaseorder" data-bs-toggle="collapse" href="#collapseExample2"
-                            aria-expanded="false" aria-controls="collapseExample"><i class="bi bi-receipt"></i> Purchase
-                            order</a>
-                        <div class="collapse" id="collapseExample2">
-                            <ul class="list-group">
-                                <li class="list-group-item"><a th:href="@{|/myAccount/orderMyAccount|}">Order</a></li>
-                                <li class="list-group-item"><a href="">Bill</a></li>
-                            </ul>
-                        </div>
+                        <a class="aPurchaseorder" th:href="@{|/myAccount/orderMyAccount|}"><i class="bi bi-receipt"></i> Đơn mua</a>
                     </div>
                     <div class="menuMyAccount ms-3">
-                        <a class="aNofication" data-bs-toggle="collapse" href="#collapseExample3" aria-expanded="false"
-                            aria-controls="collapseExample"><i class="bi bi-chat-square-text"></i> Nofication </a>
-                        <!-- <div class="collapse" id="collapseExample3">
-                        <ul class="list-group">
-                            <li class="list-group-item"></li>
-                        </ul>
-                    </div> -->
+                        <a class="aVoucher" href="#"><i class="bi bi-ticket"></i> Kho Voucher</a>
+                    </div>
+                    <div class="menuMyAccount ms-3">
+                        <a class="aNofication" href="#"><i class="bi bi-chat-square-text"></i> Thông báo </a>
                     </div>
                 </div>
                 <div class="frameMyAccount-right">
@@ -73,6 +65,8 @@
         </div>
         <script src="../../../static/Client/Js/MyAccount/myPersonal.js"></script>
         <script th:src="@{/Client/Js/MyAccount/myPersonal.js}"></script>
+        <script src="../../../static/Client/Js/cart/cart.js"></script>
+        <script th:src="@{/Client/Js/cart/cart.js}"></script>
         <script th:src="@{/Client/Js/MyAccount/order.js}"></script>
         <script src="../../../static/Client/Js/MyAccount/order.js"></script>
         <script th:src="@{/Client/Js/MyAccount/orderDetail.js}"></script>

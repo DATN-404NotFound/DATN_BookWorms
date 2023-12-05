@@ -52,6 +52,8 @@ public class Payments  {
 
     private String     addressuserid ;
 
+	private boolean  isdelete;
+
 
     //--- ENTITY LINKS ( RELATIONSHIP )
     @ManyToOne
