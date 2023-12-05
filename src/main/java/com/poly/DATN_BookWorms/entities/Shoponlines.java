@@ -57,6 +57,8 @@ public class Shoponlines implements Serializable {
     public String paycount;
 
     public Boolean isactive;
+    
+    private String email;
 
 
 

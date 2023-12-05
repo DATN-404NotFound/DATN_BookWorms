@@ -9,6 +9,7 @@ import com.poly.DATN_BookWorms.utils.SessionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -41,7 +42,7 @@ public class HomeController {
     ShopOnlinesService shopOnlinesService;
 
     @RequestMapping("/index")
-    public String home(Model model) {
+    public String home(Model model, Authentication authentication) {
         //get user on session
         Account user = sessionService.get("user");
 
@@ -72,7 +73,13 @@ public class HomeController {
 
         model.addAttribute("user", user);
         System.out.println(user.getUserid());
-        return "Client/header_footer_index/aaa";
+        if (authentication != null && authentication.getAuthorities().stream()
+                .anyMatch(a -> a.getAuthority().equals("ADMIN"))) {
+            return "redirect:/admin/index";
+        } else {
+            return "Client/header_footer_index/aaa";
+        }
+    
     }
 
     @RequestMapping("/header")
