@@ -12,6 +12,7 @@ public class HasSaleServiceImp implements HasSaleService {
     HassalesRepo hassalesRepo;
     @Override
     public List<Hassales> findAllByCouponCode(String couponCode) {
+
         return hassalesRepo.findAllByCouponCode(couponCode);
     }
 }

@@ -538,6 +538,59 @@ app.controller('transportController', function($scope, $routeParams, $route, $ht
     $scope.getPages = function () {
         return new Array($scope.totalPages).fill().map((_, index) => index + 1);
     };
+    $scope.checkboxes = [];
+
+    $scope.hasCheckedCheckbox = function() {
+        return $scope.checkboxes.some(function(checkbox) {
+            return checkbox;
+        });
+    };
+
+    $scope.confirmAction = function() {
+        if ($scope.hasCheckedCheckbox()) {
+            console.log('Confirm action');
+        } else {
+            console.log('No checkbox is checked');
+        }
+    };
+    // show confilm
+
+    // Thêm hàm confirmSelectedBookings vào controller
+    $scope.confirmSelectedBookings = function() {
+        var selectedBookings = [];
+
+        // Lặp qua mảng checkboxes để lấy các booking đã chọn
+        for (var i = 0; i < $scope.checkboxes.length; i++) {
+            if ($scope.checkboxes[i]) {
+                selectedBookings.push($scope.bookings[i]);
+            }
+        }
+
+        // Gửi yêu cầu API cho mỗi booking đã chọn
+        selectedBookings.forEach(function(booking) {
+            // Gọi API để cập nhật trạng thái
+            // Sử dụng $http service hoặc $resource để thực hiện yêu cầu API
+            $http.put('/rest/tranportChannel/' + booking.bookingid + '/updateOrderStatus')
+                .then(function(response) {
+                    // Xử lý kết quả nếu cần
+                   alert("Comfilm Complete")
+                    $scope.findByOrderStatusId();
+                })
+                .catch(function(error) {
+                    // Xử lý lỗi nếu có
+                    alert('Error updating booking:'+ error);
+                });
+        });
+    };
+    //Check Tab
+    $scope.waitForConfirmationTabSelected = false;
+    $scope.tabSelected = function(tabId) {
+        if (tabId === 3) {
+            $scope.waitForConfirmationTabSelected = true;
+        } else {
+            $scope.waitForConfirmationTabSelected = false;
+        }
+    };
 
 });
 
@@ -576,6 +629,37 @@ app.controller('voucherController', function($scope, $routeParams, $route, $http
     $scope.getPages = function () {
         return new Array($scope.totalPages).fill().map((_, index) => index + 1);
     };
+
+
+   //Find
+    $scope.pageSizev2 = 5; // Number of items per page
+    $scope.currentPagev2 = 1; // Current page
+    $scope.totalPagesv2 = 1
+    $scope.findByOrderStatusIdv2 = function(orderstatusid) {
+        $scope.booksselect = [];
+        $http.get('/rest/sale/findByCouponCode/' + orderstatusid)
+            .then(function(response) {
+                $scope.booksselect = response.data;
+                $scope.totalPagesv2 = Math.ceil($scope.booksselect.length / $scope.pageSizev2);
+                $scope.setPage(1); // Set initial page
+            });
+    };
+    $scope.findByOrderStatusIdv2();
+    $scope.setPagev2 = function (page) {
+
+        if (page < 1 || page > $scope.totalPagesv2) {
+            return;
+        }
+        $scope.currentPagev2 = page;
+        var startIndex = (page - 1) * $scope.pageSizev2;
+        var endIndex = startIndex + $scope.pageSizev2;
+        $scope.paginatedBooksv2 = $scope.booksselect.slice(startIndex, endIndex);
+
+    };
+    $scope.getPagesv2 = function () {
+        return new Array($scope.totalPagesv2).fill().map((_, index) => index + 1);
+    };
+    $scope.checkboxes = [];
 
 
 

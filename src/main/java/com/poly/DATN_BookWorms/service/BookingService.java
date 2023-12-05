@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.poly.DATN_BookWorms.entities.Bookings;
+import jakarta.transaction.Transactional;
 
 
 public interface BookingService {
@@ -22,4 +23,7 @@ public interface BookingService {
 	List<Bookings> findAllByUserId(String userId);
 
 	List<Bookings> findByUserIdAndOrderStatusId(String userId, Integer orderStatusId);
+
+    @Transactional
+    void updateOrderStatus(String bookingId);
 }

@@ -193,10 +193,10 @@
                                                           </tr>
                                                           </thead>
                                                           <tbody>
-                                                          <tr ng-repeat="book in paginatedBooks">
-                                                            <td>{{ book.bookid }}</td>
-                                                            <td>{{ book.bookname }}</td>
-                                                            <td>{{ book.language }}</td>
+                                                          <tr ng-repeat="booksselects in booksselect">
+                                                            <td>{{ booksselect.bookid }}</td>
+                                                            <td>{{ booksselect.bookname }}</td>
+                                                            <td>{{ booksselect.language }}</td>
                                                             <td>
                                                               <div class="custom-control custom-switch">
                                                                 <input type="checkbox" class="custom-control-input" id="c{{$index + 1}}">
