@@ -69,14 +69,13 @@
                    role="button"
                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <span class="avatar avatar-sm mt-2">
-              <img th:if="${shop.logo == null}" src="http://bootdey.com/img/Content/avatar/avatar1.png" alt="..." class="avatar-img rounded-circle">
-               <img th:if="${shop != null and shop.logo != null}" th:src="@{|/SellerChannel/images/${shop.logo}|}" alt="..." class="avatar-img rounded-circle">
+              <img th:if="${shop?.logo == null}" src="http://bootdey.com/img/Content/avatar/avatar1.png" alt="..." class="avatar-img rounded-circle">
+               <img th:if="${shop?.logo != null}" th:src="@{|/SellerChannel/images/${shop.logo}|}" alt="..." class="avatar-img rounded-circle">
             </span>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-                    <a class="dropdown-item" href="#">Profile</a>
-                    <a class="dropdown-item" href="#">Settings</a>
-                    <a class="dropdown-item" href="#">Activities</a>
+                    <a class="dropdown-item" href="/Ibook/index">Buyer interface</a>
+                    <a class="dropdown-item" href="/account/login">Log out</a>
                 </div>
             </li>
         </ul>
