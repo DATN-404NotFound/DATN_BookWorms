@@ -62,13 +62,6 @@
                           <input type="date" id="Createat" ng-model="sales.Createat" required class="form-control datetimes" />
 
                         </div>
-                        <div class="form-group col-md-4">
-                          <label for="inputState">Target buyer</label>
-                          <select id="inputState5" class="form-control" ng-model="sales.Intendfor" ng-change="updateButtonStatus()">
-                            <option value="Delivery">Delivery</option>
-                            <option value="Books">Books</option>
-                          </select>
-                        </div>
 
 
                       </div>
@@ -87,83 +80,7 @@
                         </div>
                       
                       
-                        <div class="form-group col-md-2 mt-1">
-                          <button type="button" class="btn btn-primary mt-4" data-toggle="modal" data-target=".bd-example-modal-xl">Edit Taget buyer now!</button>
-                      <div class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
-                        <div class="modal-dialog modal-xl" role="document">
-                          <div class="modal-content">
-                            <div class="modal-content">
-                              <div class="modal-header">
-                                <h5 class="modal-title" id="varyModalLabel">Choose books</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                  <span aria-hidden="true">&times;</span>
-                                </button>
-                              </div>
-                              <div class="modal-body">
-                                <form>
-                                  <div class="form-group">
-                                    <div class="card shadow">
-                                      <div class="card-body">
-                                        <h5 class="card-title">Choose books add voucher</h5>
-                                        <p class="card-text">You choose Active if you want add voucher to book</p>
-                                        <table class="table table-bordered table-hover mb-0">
-                                          <thead>
-                                            <tr>
-                                              <th>ID</th>
-                                              <th>Name</th>
-                                              <th>Language</th>
-                                              <th>Active?</th>
-
-
-                                            </tr>
-                                          </thead>
-                                          <tbody>
-                                            <tr ng-repeat="book in paginatedBooks">
-                                              <td>{{ book.bookid }}</td>
-                                              <td>{{ book.bookname }}</td>
-                                              <td>{{ book.language }}</td>
-                                              <td>
-                                                <div class="custom-control custom-switch">
-                                                  <input type="checkbox" class="custom-control-input" id="c{{$index + 1}}">
-                                                  <label class="custom-control-label" for="c{{$index + 1}}"></label>
-                                                </div>
-                                              </td>
-                                            </tr>
-
-
-
-
-                                          </tbody>
-
-                                          <nav aria-label="Page navigation example">
-                                            <ul class="pagination">
-                                              <li class="page-item" ng-class="{disabled: currentPage === 1}">
-                                                <a class="page-link" ng-click="setPage(currentPage - 1)">Previous</a>
-                                              </li>
-                                              <li class="page-item" ng-repeat="page in getPages()" ng-class="{active: currentPage === page}">
-                                                <a class="page-link" ng-click="setPage(page)">{{ page }}</a>
-                                              </li>
-                                              <li class="page-item" ng-class="{disabled: currentPage === totalPages}">
-                                                <a class="page-link" ng-click="setPage(currentPage + 1)">Next</a>
-                                              </li>
-                                            </ul>
-                                          </nav>
-                                        </table>
-                                      </div>
-                                      
-                                    </div>
-                                  </div> <!-- Bordered table -->
-                                </form>
-                              </div>
-                              <div class="modal-footer">
-                                <button type="button" class="btn mb-2 btn-secondary" data-dismiss="modal">Close</button>
-                                <button type="button" class="btn mb-2 btn-primary">Create</button>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div> <!-- large modal -->
-                         
+                        
                         </div>      
                         <div class="form-group col-md-2">
                           <label for="inputState">Statuses</label>
@@ -541,6 +458,12 @@
           });
         }, false);
       })();
+      document.getElementById('selectAll').addEventListener('change', function () {
+          var checkboxes = document.querySelectorAll('.checkbox');
+          checkboxes.forEach(function (checkbox) {
+            checkbox.checked = document.getElementById('selectAll').checked;
+          });
+        });
     </script>
 </body>
 
