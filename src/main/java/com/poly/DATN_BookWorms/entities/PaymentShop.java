@@ -48,6 +48,8 @@ public class PaymentShop implements Serializable {
 	@ManyToOne
     @JoinColumn(name="Shopid", referencedColumnName="ShopId", insertable=false, updatable=false)
 	public Shoponlines shoponlines ;
+	
+	public boolean isdelete;
 
 	public Long getPaymentshopid() {
 		return paymentshopid;
@@ -88,6 +90,18 @@ public class PaymentShop implements Serializable {
 	public void setShoponlines(Shoponlines shoponlines) {
 		this.shoponlines = shoponlines;
 	}
+
+	public boolean isIsdelete() {
+		return isdelete;
+	}
+
+	public void setIsdelete(boolean isdelete) {
+		this.isdelete = isdelete;
+	}
+
+
+
+
 	
 	
 }

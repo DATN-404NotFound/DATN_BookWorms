@@ -902,71 +902,82 @@ app.controller("order_ctrl", function ($scope, $http, $timeout) {
 	}
 
 	$scope.paymentCart = function () {
-	
-		var timeoutTimer = 0;
-		$scope.shopItem.forEach(i => {
-			var a = document.getElementById('priceItem' + i.shopid).innerText;
-			$scope.bookings = {
-				bookingid: i.shopid,
-				createat: new Date(),
-				cost: Number(a.replace(',', '')),
-				userid: "",
-				orderstatusid: 1,
-				shippingunitid: Number($('#shippunit' + i.shopid).children("option:selected").val()),
-				note: $('#noteBooking' + i.shopid).val(),
-				get listOfPayments() {
-					return {
-						paymentid: "",
-						createat: new Date(),
-						status: "Chưa thanh toán",
-						paid: $('#pac').children("option:selected").val(),
-						type: Number($('#pay').children("option:selected").val()),
-						addressuserid: $('#addressship').children("option:selected").val(),
-						addressusers: { addressuserid: $('#addressship').children("option:selected").val() },
-
-					}
-				},
-				orderstatuses: { orderstatusid: 1 },
-				account: { userid: "" },
-				get listOfDetailbookings() {
-					return $scope.dealItem.map(item => {
-						if (item.books.shopid == i.shopid) {
-							return {
-								dbid: "",
-								bookid: item.books.bookid,
-								quantity: item.quantity,
-								books: { bookid: item.books.bookid }
-							}
-						}
-						else {
-							console.log("khác shop" + item.books.shopid)
-							return;
-						}
-
-					})
-				},
-			}
-			var booking = angular.copy($scope.bookings);
-			console.log("ind " + JSON.stringify($scope.bookings))
+		var payone =  Number($('#pay').children("option:selected").val());
 		
-			$http.post(`/rest/bookings`, booking).then(resp => {
-				
-				$scope.deleteDeal();
-				$http.delete("http://localhost:8080/rest/discount/" + vouchero.discountcodeid).then(resp => {
-				})
-				console.log("949")
-				$('#dhmodal').show();
-				$('#iconModels').html('<i  style="font-size: 50px;color: green;" class="bi bi-check-circle"></i> ')
+		if(payone == -1){ 
+			$('#messPay').text("Vui lòng chọn hình thức thanh toán")
+		}
+		if(shiper == 0){ 
+			$('#messShip').text("Vui lòng chọn hình thức vận chuyển");
 			
-			 	$('#descrptionInfors').text("Đặt hàng thành công!")
-			}).catch(error => {
-				console.log("954")
-				$('#dhmodal').show();
-				$('#iconModels').html('<i  style="font-size: 50px;color: red;" class="bi bi-x-circle"></i> ')
-				$('#descrptionInfors').text("Đặt hàng thất bại! Vui lòng thử lại")
-				console.log(error)
-			})
-		});
+		}
+		else{ 
+			var timeoutTimer = 0;
+			$scope.shopItem.forEach(i => {
+				var a = document.getElementById('priceItem' + i.shopid).innerText;
+				$scope.bookings = {
+					bookingid: i.shopid,
+					createat: new Date(),
+					cost: Number(a.replace(',', '')),
+					userid: "",
+					orderstatusid: 1,
+					shippingunitid: Number($('#shippunit' + i.shopid).children("option:selected").val()),
+					note: $('#noteBooking' + i.shopid).val(),
+					get listOfPayments() {
+						return {
+							paymentid: "",
+							createat: new Date(),
+							status: "Chưa thanh toán",
+							paid: $('#pac').children("option:selected").val(),
+							type: Number($('#pay').children("option:selected").val()),
+							addressuserid: $('#addressship').children("option:selected").val(),
+							addressusers: { addressuserid: $('#addressship').children("option:selected").val() },
+	
+						}
+					},
+					orderstatuses: { orderstatusid: 1 },
+					account: { userid: "" },
+					get listOfDetailbookings() {
+						return $scope.dealItem.map(item => {
+							if (item.books.shopid == i.shopid) {
+								return {
+									dbid: "",
+									bookid: item.books.bookid,
+									quantity: item.quantity,
+									books: { bookid: item.books.bookid }
+								}
+							}
+							else {
+								console.log("khác shop" + item.books.shopid)
+								return;
+							}
+	
+						})
+					},
+				}
+				var booking = angular.copy($scope.bookings);
+				console.log("ind " + JSON.stringify($scope.bookings))
+			
+				$http.post(`/rest/bookings`, booking).then(resp => {
+					
+					$scope.deleteDeal();
+					$http.delete("http://localhost:8080/rest/discount/" + vouchero.discountcodeid).then(resp => {
+					})
+					console.log("949")
+					$('#dhmodal').show();
+					$('#iconModels').html('<i  style="font-size: 50px;color: green;" class="bi bi-check-circle"></i> ')
+				
+					 $('#descrptionInfors').text("Đặt hàng thành công!")
+				}).catch(error => {
+					console.log("954")
+					$('#dhmodal').show();
+					$('#iconModels').html('<i  style="font-size: 50px;color: red;" class="bi bi-x-circle"></i> ')
+					$('#descrptionInfors').text("Đặt hàng thất bại! Vui lòng thử lại")
+					
+				})
+			});
+		}
+
 	}
 });
 

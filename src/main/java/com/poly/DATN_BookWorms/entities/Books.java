@@ -391,6 +391,16 @@ public class Books implements Serializable {
 	}
 
 
+	public Boolean getIsdelete() {
+		return isdelete;
+	}
+
+
+	public void setIsdelete(Boolean isdelete) {
+		this.isdelete = isdelete;
+	}
+
+
 
 
 }
