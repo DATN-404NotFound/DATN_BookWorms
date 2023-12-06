@@ -886,7 +886,7 @@ app.controller("order_ctrl", function ($scope, $http, $timeout) {
 			document.getElementById('img' + bookId).src = "Client/images/" + a[0].name
 		}).catch(error => {
 			console.log("Error", error)
-		});;
+		});
 	}
 
 	$scope.deleteDeal = function () {
@@ -907,10 +907,10 @@ app.controller("order_ctrl", function ($scope, $http, $timeout) {
 		if(payone == -1){ 
 			$('#messPay').text("Vui lòng chọn hình thức thanh toán")
 		}
-		if(shiper == 0){ 
-			$('#messShip').text("Vui lòng chọn hình thức vận chuyển");
-			
-		}
+		// if(shiper == 0){
+		// 	$('#messShip').text("Vui lòng chọn hình thức vận chuyển");
+		//
+		// }
 		else{ 
 			var timeoutTimer = 0;
 			$scope.shopItem.forEach(i => {

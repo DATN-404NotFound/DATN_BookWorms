@@ -50,8 +50,9 @@ public class Discountcodes implements Serializable {
     @Temporal(TemporalType.DATE)
     public Date       startdiscount ;
 
+    @Column(name = "Enddiscount")
     @Temporal(TemporalType.DATE)
-    public Date       enddiscount ;
+    public Date       enddiscount;
 
     public Boolean    isdelete ;
 
@@ -90,80 +91,5 @@ public class Discountcodes implements Serializable {
         return sb.toString(); 
     }
 
-	public Integer getDiscountcodeid() {
-		return discountcodeid;
-	}
-
-	public void setDiscountcodeid(Integer discountcodeid) {
-		this.discountcodeid = discountcodeid;
-	}
-
-	public String getSaleid() {
-		return saleid;
-	}
-
-	public void setSaleid(String saleid) {
-		this.saleid = saleid;
-	}
-
-	public String getUserid() {
-		return userid;
-	}
-
-	public void setUserid(String userid) {
-		this.userid = userid;
-	}
-
-	public Date getStartdiscount() {
-		return startdiscount;
-	}
-
-	public void setStartdiscount(Date startdiscount) {
-		this.startdiscount = startdiscount;
-	}
-
-	public Date getEnddiscount() {
-		return enddiscount;
-	}
-
-	public void setEnddiscount(Date enddiscount) {
-		this.enddiscount = enddiscount;
-	}
-
-	public Boolean getIsdelete() {
-		return isdelete;
-	}
-
-	public void setIsdelete(Boolean isdelete) {
-		this.isdelete = isdelete;
-	}
-
-	public String getStatus() {
-		return status;
-	}
-
-	public void setStatus(String status) {
-		this.status = status;
-	}
-
-	public Account getAccount() {
-		return account;
-	}
-
-	public void setAccount(Account account) {
-		this.account = account;
-	}
-
-	public Sales getSales() {
-		return sales;
-	}
-
-	public void setSales(Sales sales) {
-		this.sales = sales;
-	}
-
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	} 
 
 }

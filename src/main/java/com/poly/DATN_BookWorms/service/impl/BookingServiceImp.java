@@ -254,7 +254,7 @@ public class BookingServiceImp implements BookingService{
 	@Override
 	public Bookings byBookingUserId(String bookingUserId) {
 		// TODO Auto-generated method stub
-		return bookingRepo.findById(bookingUserId).get();
+		return bookingRepo.findById(bookingUserId).get();	
 	}
 
 	@Override
