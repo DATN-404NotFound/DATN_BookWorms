@@ -23,12 +23,12 @@ public class BookRankingToSales {
 	public void setSale(double sale) {
 		this.sale = sale;
 	}
-	public BookRankingToSales(Books book, double sale) {
-		this.book = book;
-		this.sale = sale;
-	}
-	public BookRankingToSales() {
-	}
-    
+//	public BookRankingToSales(Books book, double sale) {
+//		this.book = book;
+//		this.sale = sale;
+//	}
+//	public BookRankingToSales() {
+//	}
+//    
     
 }

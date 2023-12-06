@@ -23,14 +23,14 @@ public class BookRankingToNumber {
 	public void setNumbers(int numbers) {
 		this.numbers = numbers;
 	}
-	public BookRankingToNumber(Books book, int numbers) {
-
-
-		this.book = book;
-		this.numbers = numbers;
-	}
-	public BookRankingToNumber() {
-	}
-    
+//	public BookRankingToNumber(Books book, int numbers) {
+//
+//
+//		this.book = book;
+//		this.numbers = numbers;
+//	}
+//	public BookRankingToNumber() {
+//	}
+//    
     
 }

@@ -29,17 +29,17 @@ public class AnalysisFinance {
 	public void setTotalUnpaid(Float totalUnpaid) {
 		this.totalUnpaid = totalUnpaid;
 	}
-	public AnalysisFinance(Float monthPaid, Float totalPaid, Float totalUnpaid) {
-
-
-		this.monthPaid = monthPaid;
-		this.totalPaid = totalPaid;
-		this.totalUnpaid = totalUnpaid;
-	}
-	public AnalysisFinance() {
-
-
-	}
-    
+//	public AnalysisFinance(Float monthPaid, Float totalPaid, Float totalUnpaid) {
+//
+//
+//		this.monthPaid = monthPaid;
+//		this.totalPaid = totalPaid;
+//		this.totalUnpaid = totalUnpaid;
+//	}
+//	public AnalysisFinance() {
+//
+//
+//	}
+//    
     
 }

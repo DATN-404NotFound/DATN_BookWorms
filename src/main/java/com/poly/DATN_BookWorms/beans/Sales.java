@@ -59,16 +59,16 @@ public class Sales {
 		this.salesPerOrder = salesPerOrder;
 	}
 
-	public Sales(double monthlySales, int orders, double conversionRate, double pagesViews, double salesPerOrder) {
-		this.monthlySales = monthlySales;
-		this.orders = orders;
-		this.conversionRate = conversionRate;
-		this.pagesViews = pagesViews;
-		this.salesPerOrder = salesPerOrder;
-	}
-
-	public Sales() {
-	}
+//	public Sales(double monthlySales, int orders, double conversionRate, double pagesViews, double salesPerOrder) {
+//		this.monthlySales = monthlySales;
+//		this.orders = orders;
+//		this.conversionRate = conversionRate;
+//		this.pagesViews = pagesViews;
+//		this.salesPerOrder = salesPerOrder;
+//	}
+//
+//	public Sales() {
+//	}
 
     
 }

@@ -290,6 +290,7 @@
 													<td style="width: 200px" th:if="${item.status  == true}" class="text-danger">Đã thanh toán</td>
 													<td th:if="${item.status  == false}">Chưa thanh toán</td>
 													<td th:text="${item.valuepayment}"></td>
+													<td style="display: none;" th:text="${item.isdelete}"></td>
 													<td th:text="${item.shoponlines.shopid}"></td>
 													<td><a class="btn btn-danger" style="color: white" th:if="${item.status == true}">Payment</a>
 													<a class="btn btn-success" th:if="${item.status == false}" th:href="@{/api/payment/create_payment/} +${item.paymentshopid} + '&' + ${item.valuepayment}">Payment</a>

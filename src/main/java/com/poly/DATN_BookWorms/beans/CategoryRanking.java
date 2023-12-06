@@ -44,17 +44,17 @@ public class CategoryRanking {
     }
 
 
-
-	public CategoryRanking(Categories categories, int orderNumbers) {
-		this.categories = categories;
-		this.orderNumbers = orderNumbers;
-	}
-
-
-
-	public CategoryRanking() {
-	
-	}
+//
+//	public CategoryRanking(Categories categories, int orderNumbers) {
+//		this.categories = categories;
+//		this.orderNumbers = orderNumbers;
+//	}
+//
+//
+//
+//	public CategoryRanking() {
+//	
+//	}
 	
 	
 }
