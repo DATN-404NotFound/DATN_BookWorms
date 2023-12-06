@@ -11,5 +11,7 @@ public class AnalysisFinance {
     private Float monthPaid;
     private Float totalPaid;
     private Float totalUnpaid;
+
+    
     
 }

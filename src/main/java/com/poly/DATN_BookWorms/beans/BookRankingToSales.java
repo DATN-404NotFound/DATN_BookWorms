@@ -11,7 +11,6 @@ import lombok.NoArgsConstructor;
 public class BookRankingToSales {
     private Books book;
     private double sale;
-
     
     
 }
