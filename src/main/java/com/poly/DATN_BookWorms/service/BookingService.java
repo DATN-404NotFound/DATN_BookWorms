@@ -47,13 +47,23 @@ public interface BookingService {
 
 	List<Bookings> refund();
 
-	List<Bookings> findAllByUserId(String userId);
 
-	List<Bookings> findByUserIdAndOrderStatusId(String userId, Integer orderStatusId);
+	//	@Override
+	//	public List<Bookings> findByUserIdAndOrderStatusId(String userId, Integer orderStatusId) {
+	//		List<Bookings> allByUserId = findAllByUserId(userId);
+	//
+	//		return allByUserId.stream()
+	//				.filter(booking -> booking.getOrderstatusid().equals(orderStatusId))
+	//				.collect(Collectors.toList());
+	//	}
+	List<Bookings> findBookingsByShopIdAndOrderStatusID(Integer shopId, Integer orderStatusId);
 
 	public Bookings update(Bookings bookingId);
 
 	public Bookings byBookingUserId(String bookingUserId);
     @Transactional
+	List<Bookings> findBookingsByShopId(Integer shopId);
+
+	@Transactional
     void updateOrderStatus(String bookingId);
 }

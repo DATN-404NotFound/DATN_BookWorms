@@ -162,15 +162,23 @@ public class BookingServiceImp implements BookingService{
 	}
 
 
+//	@Override
+//	public List<Bookings> findAllByUserId(String userId) {
+//		return bookingRepo.findByuserid(userId);
+//	}
+//	@Override
+//	public List<Bookings> findByUserIdAndOrderStatusId(String userId, Integer orderStatusId) {
+//		List<Bookings> allByUserId = findAllByUserId(userId);
+//
+//		return allByUserId.stream()
+//				.filter(booking -> booking.getOrderstatusid().equals(orderStatusId))
+//				.collect(Collectors.toList());
+//	}
 	@Override
-	public List<Bookings> findAllByUserId(String userId) {
-		return bookingRepo.findByuserid(userId);
-	}
-	@Override
-	public List<Bookings> findByUserIdAndOrderStatusId(String userId, Integer orderStatusId) {
-		List<Bookings> allByUserId = findAllByUserId(userId);
+	public List<Bookings> findBookingsByShopIdAndOrderStatusID(Integer shopId, Integer orderStatusId) {
+		List<Bookings> allBookings =bookingRepo.findBookingsByShopId(shopId);
 
-		return allByUserId.stream()
+		return allBookings.stream()
 				.filter(booking -> booking.getOrderstatusid().equals(orderStatusId))
 				.collect(Collectors.toList());
 	}
@@ -256,6 +264,15 @@ public class BookingServiceImp implements BookingService{
 		// TODO Auto-generated method stub
 		return bookingRepo.findById(bookingUserId).get();	
 	}
+
+	@Override
+	public List<Bookings> findBookingsByShopId(Integer shopId) {
+		return bookingRepo.findBookingsByShopId(shopId);
+	}
+//	@Override
+//	public List<Bookings> findByShopIdAndOrderStatusId(Integer shopId, Integer orderStatusId) {
+//		return bookingRepo.findBookingsByShopIdAndOrderStatusId(shopId, orderStatusId);
+//	}
 
 	@Override
 	@Transactional
