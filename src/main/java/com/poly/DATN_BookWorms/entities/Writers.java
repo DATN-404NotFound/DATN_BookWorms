@@ -64,6 +64,50 @@ public class Writers implements Serializable {
         sb.append("|");
         sb.append(bookid);
         return sb.toString(); 
-    } 
+    }
+
+	public Integer getWriteid() {
+		return writeid;
+	}
+
+	public void setWriteid(Integer writeid) {
+		this.writeid = writeid;
+	}
+
+	public Integer getWrittingmasterid() {
+		return writtingmasterid;
+	}
+
+	public void setWrittingmasterid(Integer writtingmasterid) {
+		this.writtingmasterid = writtingmasterid;
+	}
+
+	public Integer getBookid() {
+		return bookid;
+	}
+
+	public void setBookid(Integer bookid) {
+		this.bookid = bookid;
+	}
+
+	public Books getBooks() {
+		return books;
+	}
+
+	public void setBooks(Books books) {
+		this.books = books;
+	}
+
+	public Writtingmasters getWrittingmasters() {
+		return writtingmasters;
+	}
+
+	public void setWrittingmasters(Writtingmasters writtingmasters) {
+		this.writtingmasters = writtingmasters;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	} 
 
 }

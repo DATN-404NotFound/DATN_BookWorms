@@ -32,14 +32,55 @@ public class Authorities implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id 
-	private String authorityid;
+	public String authorityid;
 
 	@ManyToOne @JoinColumn(name = "userid")
-	private Account account;
+	public Account account;
 
 	// TODO Auto-generated method stub
 	@ManyToOne  @JoinColumn(name = "roleid")
-	private Roles roles;
+	public Roles roles;
+
+	public String getAuthorityid() {
+		return authorityid;
+	}
+
+	public void setAuthorityid(String authorityid) {
+		this.authorityid = authorityid;
+	}
+
+	public Account getAccount() {
+		return account;
+	}
+
+	public void setAccount(Account account) {
+		this.account = account;
+	}
+
+	public Roles getRoles() {
+		return roles;
+	}
+
+	public void setRoles(Roles roles) {
+		this.roles = roles;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
+	public Authorities(String authorityid, Account account, Roles roles) {
+		
+		this.authorityid = authorityid;
+		this.account = account;
+		this.roles = roles;
+	}
+
+	public Authorities() {
+
+	}
+	
+	
 
 
 		

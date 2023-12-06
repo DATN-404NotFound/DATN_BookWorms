@@ -73,4 +73,48 @@ public class Categories implements Serializable {
 		return sb.toString();
 	}
 
+	public Integer getCategoryid() {
+		return categoryid;
+	}
+
+	public void setCategoryid(Integer categoryid) {
+		this.categoryid = categoryid;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public Date getDateadded() {
+		return dateadded;
+	}
+
+	public void setDateadded(Date dateadded) {
+		this.dateadded = dateadded;
+	}
+
+	public List<Typebooks> getListOfTypebooks() {
+		return listOfTypebooks;
+	}
+
+	public void setListOfTypebooks(List<Typebooks> listOfTypebooks) {
+		this.listOfTypebooks = listOfTypebooks;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
 }

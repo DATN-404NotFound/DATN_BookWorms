@@ -19,4 +19,56 @@ public class Sales {
 
     private double  salesPerOrder;
 
+	public double getMonthlySales() {
+		return monthlySales;
+	}
+
+	public void setMonthlySales(double monthlySales) {
+		this.monthlySales = monthlySales;
+	}
+
+	public int getOrders() {
+		return orders;
+	}
+
+	public void setOrders(int orders) {
+		this.orders = orders;
+	}
+
+	public double getConversionRate() {
+		return conversionRate;
+	}
+
+	public void setConversionRate(double conversionRate) {
+		this.conversionRate = conversionRate;
+	}
+
+	public double getPagesViews() {
+		return pagesViews;
+	}
+
+	public void setPagesViews(double pagesViews) {
+		this.pagesViews = pagesViews;
+	}
+
+	public double getSalesPerOrder() {
+		return salesPerOrder;
+	}
+
+	public void setSalesPerOrder(double salesPerOrder) {
+		this.salesPerOrder = salesPerOrder;
+	}
+
+	public Sales(double monthlySales, int orders, double conversionRate, double pagesViews, double salesPerOrder) {
+		this.monthlySales = monthlySales;
+		this.orders = orders;
+		this.conversionRate = conversionRate;
+		this.pagesViews = pagesViews;
+		this.salesPerOrder = salesPerOrder;
+	}
+
+	public Sales() {
+	}
+
+    
 }
