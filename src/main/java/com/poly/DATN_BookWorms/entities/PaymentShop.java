@@ -26,15 +26,13 @@ import java.io.Serializable;
  * @author Telosys
  */
 
-@NoArgsConstructor
-@AllArgsConstructor
+
 @Data
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "Paymentshop")
 public class PaymentShop implements Serializable {
-
-
-
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "paymentshopid", nullable = false)

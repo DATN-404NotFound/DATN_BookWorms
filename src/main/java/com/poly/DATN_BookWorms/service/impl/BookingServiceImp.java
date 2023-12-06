@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -254,4 +255,13 @@ public class BookingServiceImp implements BookingService{
 		return bookingRepo.findById(bookingUserId).get();
 	}
 
+	@Override
+	@Transactional
+	public void updateOrderStatus(String bookingId) {
+		Bookings booking = bookingRepo.findById(bookingId).orElse(null);
+		if (booking != null) {
+			booking.setOrderstatusid(4);
+			bookingRepo.save(booking);
+		}
+	}
 }

@@ -46,12 +46,18 @@ public class AdminController {
 		long countRefund = bookingService.countRefund();
 		model.addAttribute("countRefund", countRefund);
 	}
-	@GetMapping("/index")
-	public String index(Model model) {
+	
+	@RequestMapping("/index")
+    public String index(Model model){
+        return "admin/index";
+    }
+	
+	@GetMapping("/findOrderUser")
+	public String findByOrderUser(Model model) {
 		List<Bookings> item = bookingService.findAll();
 		model.addAttribute("item", item);
 		display(model);
-		return "admin/index";
+		return "admin/findOrderUser";
 	}
 
 	@GetMapping("/unpaid")
@@ -119,4 +125,11 @@ public class AdminController {
 		model.addAttribute("item1", item1);
 		return "admin/findtop5";
 	}
+	
+	@GetMapping("/createvoucher")
+	public String createVoucher(Model model) {
+		
+		return "admin/createvoucher";
+	}
 }
+

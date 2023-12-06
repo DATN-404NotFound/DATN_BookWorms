@@ -69,7 +69,8 @@ public class Sales implements Serializable {
     //--- ENTITY LINKS ( RELATIONSHIP )
     @OneToMany(mappedBy="sales")
     @JsonIgnore
-    public List<Discountcodes> listOfDiscountcodes ; 
+    private List<Discountcodes> listOfDiscountcodes ;
+
 
     //--- toString specific method
 	@Override

@@ -10,6 +10,11 @@ import com.poly.DATN_BookWorms.entities.Books;
 import com.poly.DATN_BookWorms.entities.Publishingcompanies;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.poly.DATN_BookWorms.entities.*;
+import com.poly.DATN_BookWorms.response.BookResponse;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 @Service
 public interface BookService {
 
@@ -20,9 +25,11 @@ public interface BookService {
 	
 	List<Publishingcompanies> getPCWithShop(Integer shopid);
 
-	Books creates(String bookname, String language, String size, Double weight, Integer totalpage,
-				  Integer publishingyear, Double price, Integer quantity,
-				  Integer publishingcompanyid, Boolean isactive, MultipartFile[] images, Integer category);
+
+
+
+
+	Books creates(Books books);
 
 	Books update(Books book);
 
@@ -47,4 +54,10 @@ public interface BookService {
 	List<Integer> getBookWithEvaluate(List<Integer> listeva);
 
 
+
+	void deleteBook(Long bookId, boolean newIsActive);
+
+	 Books save(Books book);
+
+	Books getNewBook();
 }

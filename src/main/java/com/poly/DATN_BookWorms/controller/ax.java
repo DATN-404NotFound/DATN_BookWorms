@@ -17,7 +17,7 @@ public class ax {
 
 	@RequestMapping("/a")
 	public String a() {
-		return "Client/header_footer_index/aaa";
+		return "/Client/header_footer_index/aaa";
 	}
 
 	@GetMapping("/b")
