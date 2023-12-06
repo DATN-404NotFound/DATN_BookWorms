@@ -735,7 +735,7 @@ app.service('BookService', function($http) {
                     //Add
 //Tranport
 app.controller('transportController', function($scope, $routeParams, $route, $http, $rootScope) {
-    $scope.pageSize = 15; // Number of items per page
+    $scope.pageSize = 5; // Number of items per page
     $scope.currentPage = 1; // Current page
     $scope.totalPages = 1
     $scope.findByOrderStatusId = function(orderstatusid) {
@@ -758,6 +758,8 @@ app.controller('transportController', function($scope, $routeParams, $route, $ht
     };
     $scope.findByOrderStatusId();
     $scope.setPage = function (page) {
+        console.log('Current Page:', $scope.currentPage);
+        console.log('Total Pages:', $scope.totalPages);
         if (page < 1 || page > $scope.totalPages) {
             return;
         }
@@ -809,25 +811,22 @@ app.controller('transportController', function($scope, $routeParams, $route, $ht
             $http.put('/rest/tranportChannel/' + booking.bookingid + '/updateOrderStatus')
                 .then(function(response) {
                     // Xử lý kết quả nếu cần
-
+                   alert("Comfilm Complete")
                     $scope.findByOrderStatusId();
                 })
                 .catch(function(error) {
                     // Xử lý lỗi nếu có
-
+                    alert('Error updating booking:'+ error);
                 });
         });
     };
     //Check Tab
     $scope.waitForConfirmationTabSelected = false;
-    $scope.showCheckboxColumn = false;
     $scope.tabSelected = function(tabId) {
         if (tabId === 3) {
             $scope.waitForConfirmationTabSelected = true;
-            $scope.showCheckboxColumn = true;
         } else {
             $scope.waitForConfirmationTabSelected = false;
-            $scope.showCheckboxColumn = false;
         }
     };
 

@@ -21,7 +21,6 @@ import org.springframework.data.jpa.repository.Query;
 import com.poly.DATN_BookWorms.entities.Bookings;
 import com.poly.DATN_BookWorms.entities.Cart;
 import com.poly.DATN_BookWorms.entities.Shoponlines;
-import org.springframework.data.repository.query.Param;
 
 
 public interface BookingsRepo extends JpaRepository<Bookings, String>{
@@ -88,15 +87,4 @@ public interface BookingsRepo extends JpaRepository<Bookings, String>{
 	
 	@Query("SELECT b FROM Bookings b WHERE b.orderstatuses.orderstatusid = 7")
 	List<Bookings> refund();
-	@Query("SELECT b FROM Bookings b " +
-			"INNER JOIN Detailbookings db ON b.bookingid = db.bookingid " +
-			"INNER JOIN Books bk ON db.bookid = bk.bookid " +
-			"WHERE bk.shopid = :shopid AND b.orderstatusid = :orderstatusid")
-	List<Bookings> findBookingsByShopIdAndOrderStatusId(@Param("shopid") Integer shopId, @Param("orderstatusid") Integer orderStatusId);
-
-	@Query("SELECT b FROM Bookings b " +
-			"INNER JOIN Detailbookings db ON b.bookingid = db.bookingid " +
-			"INNER JOIN Books bk ON db.bookid = bk.bookid " +
-			"WHERE bk.shopid = :shopid")
-	List<Bookings> findBookingsByShopId(@Param("shopid") Integer shopId);
 }
