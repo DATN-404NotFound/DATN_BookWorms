@@ -72,8 +72,9 @@
             </div>
             <div class="col-sm-5 text-center">
                 <input class="search__input" type="text" ng-model="searchfilter" ng-change="mms()" placeholder="Search">
-                <a th:href="@{|/cart|}"><i class="bi bi-cart3 mx-4"
-                                                  style="color: white; font-size: 30px;"></i></a>
+                <a th:href="@{|/cart|}" class="cartlheader"><i class="bi bi-cart3 mx-4 "
+                                                  style="color: white; font-size: 30px;"></i>
+                                                  <span class="badge rounded-pill bg-warning" id="cartUser"></span></a>
                 <a th:href="@{|/myAccount/myPersonal|}">
                     <i class="bi bi-person-circle" style="color: white; font-size: 30px;" ></i>
                     

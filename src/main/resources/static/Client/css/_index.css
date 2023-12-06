@@ -282,9 +282,9 @@ a :hover{
 }
 
 .cart_articical{ 
-    height: 950px;
+    height: 900px;
     width: 100%;
-    background-color: #E8E8E8;
+    background-color: #f1f1f1;
 }
 .cart_articical .cart_title{ 
     text-align: center;
@@ -468,6 +468,7 @@ button:hover{
     background-color: white;
     color: #C93F04;
     border: 1px solid #C93F04;
+ 
 }
 
 a{
@@ -488,3 +489,16 @@ a:hover{
 .active .mm{ 
     background-color: #666;
 }
+
+.cartlheader{ 
+    height: auto;
+    position: relative;
+
+}
+
+.cartlheader .badge{ 
+    position: absolute;
+    right: 17px;
+   
+}
+

@@ -2,6 +2,20 @@ var purchase = [];
 var tong = 0;
 var json = [];
 
+$(document).ready(function() {
+	console.log('6')
+	var cartAllUser = [];
+	try {
+		$.get("/rest/cart/user", function(resp, status) {
+			cartAllUser = resp;
+			$('#cartUser').text(cartAllUser.length)
+		});
+	} catch (error) {
+		console.log("error cartUser "+ error)
+		$('#cartUser').hide();
+	}
+});
+
 function choose(e) {
 	check()
 	var a = document.getElementById(e);
@@ -11,7 +25,7 @@ function choose(e) {
 	var e = c.getElementsByClassName('total_pro');
 	if (a.checked) {
 		for (var i = 0; i < d.length; i++) {
-			if (d[i].checked) {
+			if (d[i].checked || d[i].disabled) {
 				continue;
 			} else {
 				d[i].checked = true;
@@ -32,7 +46,7 @@ function choose(e) {
 $(document).ready(function () {
 	$('#selectAll').click(function () {
 		var $name = 'name="carttest"';
-		$(':checkbox').prop('checked', true)
+		$(':checkbox').prop('checked', true);
 		$(this).prop('disabled', true)
 		$('#deleteAll').prop('disabled', false)
 		purchase = []
@@ -140,6 +154,7 @@ function deleteCart(id, shop) {
 	$("#cart" + id).remove();
 	var index = purchase.findIndex(item => item == id);
 	purchase.splice(index, 1);
+	$('#cartUser').text(Number($('#cartUser').text())-1)
 	var chi = $("#cart" + shop).children();
 	if (chi.length == 0) {
 		$("#shop" + shop).remove();
@@ -626,6 +641,7 @@ app.controller("cart_ctrl", function ($scope, $http, $timeout) {
 							$http.post(`/rest/cart`, addc).then(resp => {
 								this.items.push(resp.data);
 								$scope.cart.load();
+								$('#cartUser').text(Number($('#cartUser').text())+1)
 							})
 						})
 					}
@@ -821,14 +837,17 @@ function deals() {
 	salevoucher = [];
 	books = [];
 	deal = [];
-	purchase.forEach(item => {
-		findCart(item);
-		localStorage.setItem('deal', JSON.stringify(deal));
-
-
-
-	})
-	setTimeout(greeting, 100);
+	if(purchase.length == 0){ 
+		location.href = "/cart"
+	}
+	else{ 
+		purchase.forEach(item => {
+			findCart(item);
+			localStorage.setItem('deal', JSON.stringify(deal));
+			setTimeout(greeting, 100);
+		})
+	}
+	
 }
 
 
@@ -938,71 +957,85 @@ app.controller("order_ctrl", function ($scope, $http, $timeout) {
 	}
 
 	$scope.paymentCart = function () {
-
-		var timeoutTimer = 0;
-		$scope.shopItem.forEach(i => {
-			var a = document.getElementById('priceItem' + i.shopid).innerText;
-			$scope.bookings = {
-				bookingid: i.shopid,
-				createat: new Date(),
-				cost: Number(a.replace(',', '')),
-				userid: "",
-				orderstatusid: 1,
-				shippingunitid: Number($('#shippunit' + i.shopid).children("option:selected").val()),
-				note: $('#noteBooking' + i.shopid).val(),
-				get listOfPayments() {
-					return {
-						paymentid: "",
-						createat: new Date(),
-						status: "Chưa thanh toán",
-						paid: $('#pac').children("option:selected").val(),
-						type: Number($('#pay').children("option:selected").val()),
-						addressuserid: $('#addressship').children("option:selected").val(),
-						addressusers: { addressuserid: $('#addressship').children("option:selected").val() },
-
-					}
-				},
-				orderstatuses: { orderstatusid: 1 },
-				account: { userid: "" },
-				get listOfDetailbookings() {
-					return $scope.dealItem.map(item => {
-						if (item.books.shopid == i.shopid) {
-							return {
-								dbid: "",
-								bookid: item.books.bookid,
-								quantity: item.quantity,
-								books: { bookid: item.books.bookid }
+		var payone =  Number($('#pay').children("option:selected").val());
+		
+		if(payone == -1){ 
+			$('#messPay').text("Vui lòng chọn hình thức thanh toán")
+			$('#dhmodal').show();
+			$('#iconModels').html('<i  style="font-size: 50px;color: red;" class="bi bi-x-circle"></i> ')
+			$('#descrptionInfors').text("Vui lòng kiểm tra chính xác thông tin!!");
+			$('#modalbutton').hide();
+		}
+		else{
+			var timeoutTimer = 0;
+			$scope.shopItem.forEach(i => {
+				var a = document.getElementById('priceItem' + i.shopid).innerText;
+				$scope.bookings = {
+					bookingid: i.shopid,
+					createat: new Date(),
+					cost: Number(a.replace(',', '')),
+					userid: "",
+					orderstatusid: 1,
+					shippingunitid: Number($('#shippunit' + i.shopid).children("option:selected").val()),
+					note: $('#noteBooking' + i.shopid).val(),
+					get listOfPayments() {
+						return {
+							paymentid: "",
+							createat: new Date(),
+							status: "Chưa thanh toán",
+							paid: $('#pac').children("option:selected").val(),
+							type: Number($('#pay').children("option:selected").val()),
+							addressuserid: $('#addressship').children("option:selected").val(),
+							addressusers: { addressuserid: $('#addressship').children("option:selected").val() },
+	
+						}
+					},
+					orderstatuses: { orderstatusid: 1 },
+					account: { userid: "" },
+					get listOfDetailbookings() {
+						return $scope.dealItem.map(item => {
+							if (item.books.shopid == i.shopid) {
+								return {
+									dbid: "",
+									bookid: item.books.bookid,
+									quantity: item.quantity,
+									books: { bookid: item.books.bookid }
+								}
 							}
-						}
-						else {
-							console.log("khác shop" + item.books.shopid)
-							return;
-						}
-
+							else {
+								console.log("khác shop" + item.books.shopid)
+								return;
+							}
+	
+						})
+					},
+				}
+				var booking = angular.copy($scope.bookings);
+				console.log("ind " + JSON.stringify($scope.bookings))
+	
+				$http.post(`/rest/bookings`, booking).then(resp => {
+	
+					$scope.deleteDeal();
+					$http.delete("http://localhost:8080/rest/discount/" + vouchero.discountcodeid).then(resp => {
 					})
-				},
-			}
-			var booking = angular.copy($scope.bookings);
-			console.log("ind " + JSON.stringify($scope.bookings))
-
-			$http.post(`/rest/bookings`, booking).then(resp => {
-
-				$scope.deleteDeal();
-				$http.delete("http://localhost:8080/rest/discount/" + vouchero.discountcodeid).then(resp => {
+					console.log("949")
+					$('#dhmodal').show();
+					$('#iconModels').html('<i  style="font-size: 50px;color: green;" class="bi bi-check-circle"></i> ')
+					$('#buttonClose').hide();
+					$('#descrptionInfors').text("Đặt hàng thành công!");
+					$('#modalbutton').show();
+				}).catch(error => {
+					console.log("954")
+					$('#dhmodal').show();
+					$('#iconModels').html('<i  style="font-size: 50px;color: red;" class="bi bi-x-circle"></i> ')
+					$('#descrptionInfors').text("Đặt hàng thất bại! Vui lòng thử lại");
+					$('#buttonClose').hide();
+					$('#modalbutton').show();
+					console.log(error)
 				})
-				console.log("949")
-				$('#dhmodal').show();
-				$('#iconModels').html('<i  style="font-size: 50px;color: green;" class="bi bi-check-circle"></i> ')
-
-				$('#descrptionInfors').text("Đặt hàng thành công!")
-			}).catch(error => {
-				console.log("954")
-				$('#dhmodal').show();
-				$('#iconModels').html('<i  style="font-size: 50px;color: red;" class="bi bi-x-circle"></i> ')
-				$('#descrptionInfors').text("Đặt hàng thất bại! Vui lòng thử lại")
-				console.log(error)
-			})
-		});
+			});
+		}
+	
 	}
 });
 
@@ -1046,7 +1079,10 @@ app.controller("address_ctrl", function ($scope, $http) {
 	$scope.updateBooking = function () {
 		var ad = angular.copy($scope.add);
 		$http.post("/rest/bookings/update", ad).then(resp => {
-			//location.href = "/myAccount/orderMyAccount";
+			location.href = "/myAccount/orderMyAccount";
 		})
 	}
 });
+
+
+

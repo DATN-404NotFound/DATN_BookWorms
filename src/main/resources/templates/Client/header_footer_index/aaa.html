@@ -251,7 +251,7 @@
                                 <div class="book_img text-center">
                                     <img id="imgs2{{x.bookid}}"  ng-src="" alt=""
                                     ng-init="setImage(x.bookid,2)">
-                                    <button class="btn"
+                                    <button class="btn" ng-click = "detailBook(x.bookid)"
                                         style="background-color: #C93F04; color: white; font-size: 18px;">Chi
                                         tiết</button>
                                 </div>
@@ -260,8 +260,8 @@
                                         <p>{{x.bookname}}</p>
                                     </a>
                                     <p style="font-size: 18px;margin-top: 0px;  color: #666;">{{x.shoponlines.shopname}}</p>
-                                    <p style="font-size: 18px;margin-top: -10px;">Giá : <strong>{{x.price}}
-                                            VND</strong>
+                                    <p style="font-size: 18px;margin-top: -10px;">Giá : <strong>{{x.price | currency : "" : 2}}
+                                            đ</strong>
                                     </p>
                                 </div>
 
@@ -308,8 +308,8 @@
                                         <p>{{x.bookname}}</p>
                                     </a>
                                     <p style="font-size: 18px;margin-top: 0px;  color: #666;">{{x.shoponlines.shopname}}</p>
-                                    <p style="font-size: 18px;margin-top: -10px;">Giá : <strong>{{x.price}}
-                                            VND</strong>
+                                    <p style="font-size: 18px;margin-top: -10px;">Giá : <strong>{{x.price | currency : "" : 2}}
+                                            đ</strong>
                                     </p>
                                 </div>
                                 <div class="d-flex justify-content-between " style="margin-top: -5px;">
@@ -348,7 +348,7 @@
                                 <div class="book_img text-center">
                                     <img id="imgs7{{x.bookid}}"  ng-src="" alt=""
                                     ng-init="setImage(x.bookid)">
-                                    <button class="btn"
+                                    <button class="btn" ng-click = "detailBook(x.bookid)"
                                         style="background-color: #C93F04; color: white; font-size: 18px;">Chi
                                         tiết</button>
                                 </div>
@@ -357,8 +357,8 @@
                                         <p>{{x.bookname}}</p>
                                     </a>
                                     <p style="font-size: 18px;margin-top: 0px;  color: #666;">{{x.shoponlines.shopname}}</p>
-                                    <p style="font-size: 18px;margin-top: -10px;">Giá : <strong>{{x.price}}
-                                            VND</strong>
+                                    <p style="font-size: 18px;margin-top: -10px;">Giá : <strong>{{x.price | currency : "" : 2}}
+                                            đ</strong>
                                     </p>
                                 </div>
                                 <div class="d-flex justify-content-between " style="margin-top: -5px;">
@@ -394,7 +394,7 @@
             </div>
             <div class="cart_articical">
                 <div class="cart_title">
-                    <p style="padding-top: 50px;">Best Seller Product In Last Month</p>
+                    <p style="padding-top: 50px;">Sản Phẩm Bán Chạy Nhất</p>
                 </div>
                 <div class="cart_body">
                     <div class="contain">
@@ -437,30 +437,30 @@
                                             <span class="review-no ms-2 text-dark">41 reviews</span>
                                         </div>
                                     </div>
+                                    <div class="btn btn-warning" th:text="${item.statues}"></div> <b style="font-size: 20px;" class="mx-3"><span th:text="${item.productviews}"></span> <span>lượt xem</span></b>
+                                    <form action="" class="form-checked m-3">
+                                        <input type="radio" th:checked = "${item.isactive == true}  " name ="isActive" > Đang bán
+                                        <input type="radio" th:checked = "${item.isactive  == false}  "  name ="isActive" > Tạm ngưng
+                                    </form>
                                     <p class="product-description">“Bạn hối tiếc vì không
                                         nắm bắt lấy một cơ hội nào đó, chẳng có ai phải mất ngủ.
                                         Bạn trải qua những ngày tháng nhạt nhẽo với công việc bạn căm ghét, người ta
                                         chẳng hề bận lòng.
                                         Bạn có chết mòn nơi xó tường với những ước mơ dang dở, đó không phải là việc
                                         của họ.</p>
-                                    <h4 class="price">Current price: <span
+                                    <h4 class="price">Giá: <span
                                             th:text="${#numbers.formatDecimal(item.price, 0, 'POINT', 0, 'COMMA')} +'₫'"></span>
                                     </h4>
                                     <input type="number" id="quantity" ng-model = "quantityPro" ng-init ="1"  min="1" max="5">
                                     <hr class="my-4">
                                     <div class="action">
-                                        <button th:attr="ng-click=@{|cart.add(${item.bookid})|}"
-                                            class="button_all_orange">Add to card</button>
-                                        <button class="button_all_none" th:attr="ng-click=@{|buyNow(${item.bookid})|}" >Buy now</button>
+                                        <button th:disabled="${item.isactive  == false} OR ${item.statues == 'Hết hàng'} " th:attr="ng-click=@{|cart.add(${item.bookid})|}" onclick="as()"
+                                        class="button_all_orange">Thêm vào giỏ</button>
+
+                                    <button th:disabled="${item.isactive  == false} OR ${item.statues == 'Hết hàng'} " th:attr="ng-click=@{|buyNow(${item.bookid})|}" class="button_all_none">Mua Ngay</button>
                                     </div>
                                     <hr class="my-5">
-                                    <div class="info_book">
-                                        <p><span>SKU</span> <strong style="margin-left: 100px;">SS-501</strong></p>
-                                        <p><span>CATEGORY</span> <strong style="margin-left: 40px;"
-                                                th:text="${item.listOfTypebooks.get(0).categories.name}"></strong></p>
-                                        <p><span>TAGS</span> <strong style="margin-left: 95px;">book,
-                                                psychological</strong></p>
-                                    </div>
+                    
                                 </div>
                             </div>
                         </div>

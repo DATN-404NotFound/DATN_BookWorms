@@ -4,6 +4,7 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.Collectors;
 
 import org.apache.logging.log4j.LogManager;
@@ -61,11 +62,12 @@ public class BookingServiceImp implements BookingService{
 			ObjectMapper mapper = new ObjectMapper();
 			mapper.configure(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY, true);
 			Bookings booking = mapper.convertValue(bookingData, Bookings.class);
+			int a = ThreadLocalRandom.current().nextInt(1000,9999);
 			logger.info("have booking for create : {}",booking.toString());
 			String userid = crc32_SHA256.getCodeCRC32C(request.getRemoteUser());
 			logger.info("userid for booking : {}",userid);
 			booking.setUserid(userid);
-			booking.setBookingid(crc32_SHA256.getCodeCRC32C(booking.getUserid()+booking.getCreateat()+ booking.getBookingid()));
+			booking.setBookingid(crc32_SHA256.getCodeCRC32C(booking.getUserid()+booking.getCreateat()+ booking.getBookingid()+a));
 			booking.getAccount().setUserid(userid);
 			System.out.println("IN booking "+ booking.toString());
 			bookingRepo.save(booking);
@@ -86,7 +88,10 @@ public class BookingServiceImp implements BookingService{
 								
 								books.setQuantitysold(books.getQuantitysold() + d.getQuantity());
 								books.setQuantity(books.getQuantity() - d.getQuantity());
-								
+								if(books.getQuantity() ==0 ) { 
+									books.setStatues("Hết hàng");
+									books.setIsactive(false);
+								}
 								d.setBookingid(booking.getBookingid());
 								 d.setBookings(booking);
 								 d.setDbid(crc32_SHA256.getCodeCRC32C(userid+d.getBookid()));
