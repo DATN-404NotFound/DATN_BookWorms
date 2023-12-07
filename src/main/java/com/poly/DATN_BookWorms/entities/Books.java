@@ -120,6 +120,39 @@ public class Books implements Serializable {
 
 
 
+  //--- toString specific method
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(bookid);
+        sb.append("|");
+        sb.append(bookname);
+        sb.append("|");
+        sb.append(language);
+        sb.append("|");
+        sb.append(size);
+        sb.append("|");
+        sb.append(weight);
+        sb.append("|");
+        sb.append(totalpage);
+        sb.append("|");
+        sb.append(publishingyear);
+        sb.append("|");
+        sb.append(price);
+        sb.append("|");
+        sb.append(quantity);
+        sb.append("|");
+        sb.append(statues);
+        sb.append("|");
+        sb.append(publishingcompanyid);
+        sb.append("|");
+        sb.append(isactive);
+        sb.append("|");
+        sb.append(quantitysold);
+        sb.append("|");
+        sb.append(shopid);
+        return sb.toString();
+    }
 
     //--- toString specific method
 

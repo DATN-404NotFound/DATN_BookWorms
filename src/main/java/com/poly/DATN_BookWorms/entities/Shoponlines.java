@@ -86,5 +86,25 @@ public class Shoponlines implements Serializable {
     public Account    account ; 
 
     //--- toString specific method
-
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(shopid);
+        sb.append("|");
+        sb.append(shopname);
+        sb.append("|");
+        sb.append(phonenumber);
+        sb.append("|");
+        sb.append(total);
+        sb.append("|");
+        sb.append(description);
+        sb.append("|");
+        sb.append(listOfAddressShop);
+        sb.append(userid);
+        sb.append("|");
+        sb.append(paycount);
+        sb.append("|");
+        sb.append(isactive);
+        return sb.toString();
+    }
 }

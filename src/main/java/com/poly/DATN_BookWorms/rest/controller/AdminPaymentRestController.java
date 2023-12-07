@@ -74,12 +74,12 @@ public class AdminPaymentRestController {
 				shopOnlines.setTotal(shopOnlines.getTotal() - paymentShop.getValuepayment());
 				shopOnlinesRepo.save(shopOnlines);
 				paymentShopRepo.save(paymentShop);
-			//	mailInfo.setTo(paymentShop.getShoponlines().getEmail());
-				mailInfo.setSubject("IBook chào bạn! Thông tin thanh toán");
+				mailInfo.setTo(paymentShop.getShoponlines().getAccount().getEmail());
+				mailInfo.setSubject("IBook chào bạn! Yêu cầu thanh toán của bạn đã được xử lý");
 				String body = "VNPay_TxnRef: " + vnp_TxnRef + " VNPay_Amount: " + vnp_Amount + " VNPay_OrderInfo: " + vnp_OrderInfo;
 				mailInfo.setBody(body);
 				mailer.send(mailInfo);
-				response.sendRedirect("http://localhost:8080/api/payment/callpayment");
+				response.sendRedirect("http://localhost:8080/admin/index");
 			} else {
 				// Giao dịch thất bại
 				// Thực hiện các xử lý cần thiết, ví dụ: không cập nhật CSDL\

@@ -15,7 +15,7 @@ app.config(function ($routeProvider) {
         })
         .when('/api/payment/callpayment', {
             templateUrl: '/api/payment/callpayment',
-            controller: 'transportController'
+            controller: ''
         })
         .when('/admin/confirm', {
             templateUrl: '/admin/confirm',
