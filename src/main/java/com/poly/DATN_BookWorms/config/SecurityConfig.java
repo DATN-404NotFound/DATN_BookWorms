@@ -60,8 +60,8 @@ public class SecurityConfig {
 	@Bean
 	public SecurityFilterChain web(HttpSecurity http) throws Exception {
 		http.authorizeHttpRequests((request) -> request
-				.requestMatchers("/account/**", "/signin/**", "/signup/**", "/product/**", "/Admin/**","/Ibook/index","/Ibook/header")
-				.permitAll().requestMatchers("rest/**").permitAll()
+				.requestMatchers("/account/**", "/signin/**", "/signup/**", "/product/**", "/Admin/**","/Ibook/index","/Ibook/header").permitAll()
+				.requestMatchers("rest/**").permitAll()
 				.requestMatchers("/Client/**")
 				.permitAll()
 				.requestMatchers("static/**")

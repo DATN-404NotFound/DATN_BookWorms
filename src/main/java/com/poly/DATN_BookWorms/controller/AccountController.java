@@ -73,7 +73,14 @@ public class    AccountController {
             accountService.save(accountDTO);
 
         }
-        customUserDetailService.loadUserByUsername(performance.getName());
+        try {
+            // Sleep for 2 seconds (2000 milliseconds)
+            Thread.sleep(2000);
+            customUserDetailService.loadUserByUsername(performance.getName());
+
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         return "redirect:/Ibook/index";
     }
 
@@ -82,17 +89,25 @@ public class    AccountController {
         if (performance == null) {
             return "redirect:/login";
         }
-
+        System.out.println(performance.toString());
         if (accountService.findByUsename(performance.getName()) == null) {
             AccountDTO accountDTO = new AccountDTO();
-            accountDTO.setEmail(performance.getAttribute("email"));
-            accountDTO.setUsername(performance.getName());
+            accountDTO.setEmail("");
+            accountDTO.setUsername(performance.getAttribute("id"));
             accountDTO.setFullname(performance.getAttribute("name"));
             accountDTO.setPassword(String.valueOf(RandomStringUtils.randomAlphabetic(8)));
             accountService.save(accountDTO);
 
         }
-        customUserDetailService.loadUserByUsername(performance.getName());
+
+        try {
+            // Sleep for 2 seconds (2000 milliseconds)
+            Thread.sleep(2000);
+            customUserDetailService.loadUserByUsername(performance.getName());
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
         return "redirect:/Ibook/index";
     }
 

@@ -127,7 +127,7 @@ public class HomeController {
         authoritiesService.save(new Authorities(authorityId, user, role));
 
         //create default shop with account
-        if (shopService.findById(user.getListOfShoponlines().get(0).getShopid())==null) {
+        if ( user.getListOfShoponlines().isEmpty()|| shopService.findById(user.getListOfShoponlines().get(0).getShopid())==null ) {
             shopService.createShopDefaultWithUser(user);
         }
 
