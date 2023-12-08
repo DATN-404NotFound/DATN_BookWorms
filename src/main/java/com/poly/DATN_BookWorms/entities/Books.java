@@ -121,40 +121,44 @@ public class Books implements Serializable {
 
 
   //--- toString specific method
+
+    //--- toString specific method
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append(bookid);
+        sb.append(this.bookid);
         sb.append("|");
-        sb.append(bookname);
+        sb.append(this.statues);
         sb.append("|");
-        sb.append(language);
+        sb.append(this.size);
         sb.append("|");
-        sb.append(size);
+        sb.append(this.bookname);
         sb.append("|");
-        sb.append(weight);
+        sb.append(this.productviews);
         sb.append("|");
-        sb.append(totalpage);
+        sb.append(this.publishingcompanyid);
         sb.append("|");
-        sb.append(publishingyear);
+        sb.append(this.quantitysold);
         sb.append("|");
-        sb.append(price);
+        sb.append(this.shopid);
         sb.append("|");
-        sb.append(quantity);
+        sb.append(this.isactive);
         sb.append("|");
-        sb.append(statues);
+        sb.append(this.isdelete);
         sb.append("|");
-        sb.append(publishingcompanyid);
+        sb.append(this.quantity);
         sb.append("|");
-        sb.append(isactive);
+        sb.append(this.language);
         sb.append("|");
-        sb.append(quantitysold);
+        sb.append(this.price);
         sb.append("|");
-        sb.append(shopid);
+        sb.append(this.totalpage);
+        sb.append("|");
+        sb.append(this.publishingyear);
+        sb.append("|");
+        sb.append(this.weight);
+        sb.append("|");
         return sb.toString();
     }
-
-    //--- toString specific method
-
 
 }

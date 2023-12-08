@@ -35,6 +35,26 @@ public class AddressShop implements Serializable {
     @ManyToOne
     @JoinColumn(name = "Shopid", referencedColumnName="ShopId")
     private Shoponlines shoponlines ;
-
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(this.shoponlines);
+        sb.append("|");
+        sb.append(this.address);
+        sb.append("|");
+        sb.append(this.namereceiver);
+        sb.append("|");
+        sb.append(this.phonenumber);
+        sb.append("|");
+        sb.append(this.isactive);
+        sb.append("|");
+        sb.append(this.addressshopid);
+        sb.append("|");
+        sb.append(this.createat);
+        sb.append("|");
+        sb.append(this.isdelete);
+        sb.append("|");
+        return sb.toString();
+    }
 
 }
