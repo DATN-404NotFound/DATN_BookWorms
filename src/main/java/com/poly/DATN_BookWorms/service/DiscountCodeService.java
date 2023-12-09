@@ -2,6 +2,7 @@ package com.poly.DATN_BookWorms.service;
 
 import java.util.List;
 
+import com.poly.DATN_BookWorms.entities.Discountcodebyuserid;
 import com.poly.DATN_BookWorms.entities.Discountcodes;
 
 
@@ -25,6 +26,7 @@ public interface DiscountCodeService {
 	
 	public Discountcodes update(Discountcodes discountid);
 	
+	public List<Discountcodes> findDisountByUserId(String userid);
 	
 
 }

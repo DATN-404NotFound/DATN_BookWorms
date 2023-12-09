@@ -46,9 +46,9 @@ a{
     text-decoration: none;
     color: #000;
 }
-a:hover{
+.frameMyAccount a:hover{
     text-decoration: none;
-    color: #F25019;
+    color: #F25019 !important;
 }
 .menuMyAccount{
     margin-bottom: 30px;
@@ -260,7 +260,6 @@ a:hover{
 #titleChangePassword{
     font-size: 26px;
     font-weight: 600;
-    margin-left: 70px;
 }
 #changePassword{
     width: 897.5px;
@@ -318,7 +317,7 @@ a:hover{
     margin: 30px 0 0 24px;
     background-color: #F0F0F0;
     border-radius: 5px;
-    box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.5);
+    box-shadow: 4px 4px 5px rgba(0, 0, 0, 0.2);
 }
 .cardHeader{
     height: 62.5px;
@@ -629,7 +628,7 @@ a:hover{
     padding-bottom: 20px;
     float: left;
     background-color: #F0F0F0;
-    box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.5);
+    box-shadow: var(--vc-template-box-shadow,.125rem .125rem .3125rem rgba(0,0,0,.07));
 }
 .detailInfo-left{
     width: 50%;
@@ -762,4 +761,53 @@ a:hover{
     width: 145px;
     height: 46.25px;
     margin-right: 52px;
+}
+
+ /* voucher */
+
+ #titleVoucherMA{
+    font-size: 26px;
+    font-weight: 600;
+}
+.voucherMA:nth-child(even){
+    background-color: #fff;
+    box-shadow: var(--vc-template-box-shadow,.125rem .125rem .3125rem rgba(0,0,0,.07));
+    float: left;
+    width: 44%;
+    height: 118px;
+    margin: 0 2% 20px 5%;
+}
+.voucherMA:nth-child(odd){
+    background-color: #fff;
+    box-shadow: var(--vc-template-box-shadow,.125rem .125rem .3125rem rgba(0,0,0,.07));
+    float: left;
+    width: 44%;
+    height: 118px;
+    margin: 0 0 20px 0;
+}
+#imgVoucher{
+    width: 25%;
+    height: 100px;
+    margin: 9px 15px 0 0;
+    float: left;
+}
+.descriptionsVoucher{
+    /* float: left; */
+    width:  65%;
+    height: 118px;
+    padding: 0 5px 0 5px;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+}
+#promotionnameVoucher{
+    font-size: 18px;
+}
+#timeVoucher{
+    font-size: 14px;
+    color: #F25019;
+}
+#timeVoucher a{
+    float: right;
+    color: blue;
 }

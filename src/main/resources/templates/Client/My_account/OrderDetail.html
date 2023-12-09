@@ -5,13 +5,13 @@
     <div th:fragment="maccount">
         <div class="boxOrderDetail-top">
             <p class="mt-4" id="pDiaChiNhanHang">Địa chỉ nhận hàng</p>
-            <p class="mt-4" id="pID-orderDetail">ID: <span th:text="${db.get(0).bookings.bookingid}"></span></p> <br>
+            <!-- <p class="mt-4" id="pID-orderDetail">ID: <span th:text="${db.get(0).bookings.bookingid}"></span></p> <br> -->
             <p id="pAddressDetail">
                 <span th:text="${adr.addressusers.fullname}"></span> <br>
                 <span th:text="${adr.addressusers.phonenumber}"></span> <br>
                 <span th:text="${adr.addressusers.address}"></span><br>
             </p>
-            <div class="deliveryProcess">
+            <div class="deliveryProcess" th:if="${db.get(0).bookings.orderstatuses.statusname} != 'Đơn Huỷ'">
                 <div class="bar1"></div>
                 <div class="bar2"></div>
                 <div class="orderIsConfirm">
@@ -34,7 +34,7 @@
                 </div>
             </div>
         </div>
-        <div class="boxOrderDetail-bottom">
+        <div class="boxOrderDetail-bottom mt-2">
             <div th:each="d : ${db}">
                 <div class="boxHeader">
                     <span>
@@ -43,8 +43,8 @@
                         <p class="ms-2 nameAccountOrderDetail" th:text="${d.books.shoponlines.shopname}"></p>
                     </span>
                     <button class="btn btnChat-orderDetail-top">Chat</button>
-                    <button class="btn btnReport-orderDetail">Report</button>
-                    <p id="pStatus-orderDetail">Status: <span id="spanStatus-orderDetail" th:text="${d.bookings.orderstatuses.statusname}"></span>
+                    <button class="btn btnReport-orderDetail">Báo cáo</button>
+                    <p id="pStatus-orderDetail">Trạng thái: <span id="spanStatus-orderDetail" th:text="${d.bookings.orderstatuses.statusname}"></span>
                     </p>
                 </div>
                 <div class="boxBody">
@@ -61,11 +61,11 @@
                 <div class="detailInfo-left">
                     <table class="tabledetailInfo">
                         <tr>
-                            <td>Total product:</td>
+                            <td>Tổng tiền hàng:</td>
                             <td th:text="${db.get(0).bookings.cost}"></td>
                         </tr>
                         <tr>
-                            <td>Shipping:</td>
+                            <td>Phí vận chuyển:</td>
                             <td>15.00</td>
                         </tr>
                         <tr>
@@ -73,11 +73,15 @@
                             <td>-30.00</td>
                         </tr>
                         <tr>
-                            <td>Payment:</td>
+                            <td>FreeShip:</td>
+                            <td>-30.00</td>
+                        </tr>
+                        <tr>
+                            <td>Phương thức thanh toán:</td>
                             <td>COD</td>
                         </tr>
                         <tr>
-                            <td>Total:</td>
+                            <td>Thành tiền:</td>
                             <td>295.00</td>
                         </tr>
                     </table>

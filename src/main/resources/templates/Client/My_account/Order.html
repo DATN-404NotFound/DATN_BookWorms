@@ -156,7 +156,8 @@
                     <div class="cardFooter">
                         <p class="total">Total: <span th:text="${b.cost}"></span></p>
                         <button class="btn btnCancelled" th:if="${b.orderstatuses.statusname} == 'Chờ xác nhận'"
-                            type="button" data-bs-toggle="modal" data-bs-target="#exampleModal1">Đơn hủy</button>
+                            type="button" data-bs-toggle="modal" data-bs-target="#exampleModal1"
+                            th:attr="ng-click=@{|callModel2('${b.bookingid}')|}">Hủy đơn</button>
 
                         <button th:if="${b.orderstatuses.statusname} == 'Hoàn thành'" type="button"
                             class="btn btnRating" data-bs-toggle="modal" data-bs-target="#exampleModal">

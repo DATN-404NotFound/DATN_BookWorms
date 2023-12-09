@@ -7,6 +7,7 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.poly.DATN_BookWorms.entities.Discountcodebyuserid;
 import com.poly.DATN_BookWorms.entities.Discountcodes;
 import com.poly.DATN_BookWorms.repo.DiscountcodesRepo;
 import com.poly.DATN_BookWorms.service.DiscountCodeService;
@@ -70,6 +71,13 @@ public class DiscountCodeServiceImp implements DiscountCodeService {
 		// TODO Auto-generated method stub
 		return discountcodesRepo.findDisountOfShopWithUser(userid, shopid);
 	}
+
+	@Override
+	public List<Discountcodes> findDisountByUserId(String userid) {
+		// TODO Auto-generated method stub
+		return discountcodesRepo.findDisountByUserId(userid);
+	}
+
 
 
 }

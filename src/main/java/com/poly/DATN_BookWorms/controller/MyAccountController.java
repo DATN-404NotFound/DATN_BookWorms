@@ -5,9 +5,10 @@ import com.poly.DATN_BookWorms.service.AccountService;
 import com.poly.DATN_BookWorms.service.AddressService;
 import com.poly.DATN_BookWorms.service.BookingService;
 import com.poly.DATN_BookWorms.service.DetailBookingService;
+import com.poly.DATN_BookWorms.service.DiscountCodeService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.http.MediaType;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -64,6 +65,9 @@ public class MyAccountController {
 
     @Autowired
     PasswordEncoder passwordEncoder;
+    
+    @Autowired
+    DiscountCodeService discountCodeService;
 
     @GetMapping ("/myPersonal")
     public String  myPersonal(Model model){
@@ -235,5 +239,21 @@ public class MyAccountController {
 
         model.addAttribute("db", a);
         return "Client/My_account/OrderDetail";
+    }
+    
+    @RequestMapping("/voucherMyAccount")
+    public String  voucherMyAccount(Model model){
+        Account account = sessionService.get("user");
+        model.addAttribute("account", account);
+        Shoponlines shop = new Shoponlines();
+        model.addAttribute("shop", shop);
+        com.poly.DATN_BookWorms.entities.Files files = new com.poly.DATN_BookWorms.entities.Files();
+        model.addAttribute("files", files);
+        System.out.println("sucsess");
+        List<Discountcodes> discountcodes = discountCodeService.findDisountByUserId(account.getUserid());
+        model.addAttribute("discount", discountcodes);
+        System.out.println("sucsess1");
+        
+        return "Client/My_account/VoucherMyAccount";
     }
 }

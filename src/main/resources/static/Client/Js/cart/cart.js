@@ -997,7 +997,7 @@ app.controller("address_ctrl", function ($scope, $http) {
     
     }
 
-	$scope.callModel = function(bookingId){
+	$scope.callModel2 = function(bookingId){
         console.log(bookingId)
         $http.get("/rest/bookings/"+ bookingId).then(resp=>{ 
             console.log(bookingId)

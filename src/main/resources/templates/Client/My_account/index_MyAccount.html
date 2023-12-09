@@ -26,7 +26,7 @@
 
 <body>
     <main ng-controller="address_ctrl">
-        <div class="container-fluid ">
+        <div class="container-fluid">
             <div class="frameMyAccount">
                 <div class="frameMyAccount-left" >
                     <div class="infomation">
@@ -52,7 +52,7 @@
                         <a class="aPurchaseorder" th:href="@{|/myAccount/orderMyAccount|}"><i class="bi bi-receipt"></i> Đơn mua</a>
                     </div>
                     <div class="menuMyAccount ms-3">
-                        <a class="aVoucher" href="#"><i class="bi bi-ticket"></i> Kho Voucher</a>
+                        <a class="aVoucher" th:href="@{|/myAccount/voucherMyAccount|}"><i class="bi bi-ticket"></i> Kho Voucher</a>
                     </div>
                     <div class="menuMyAccount ms-3">
                         <a class="aNofication" href="#"><i class="bi bi-chat-square-text"></i> Thông báo </a>
