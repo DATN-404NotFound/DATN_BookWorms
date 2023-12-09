@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import com.poly.DATN_BookWorms.entities.Books;
+import com.poly.DATN_BookWorms.entities.Typebooks;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,7 +21,7 @@ public class TypeBookServiceImp implements TypeBookService {
 	
 	@Autowired
 	TypebooksRepo typebooksRepo;
-	
+
 	@Override
 	public List<Categories> getCategoriesWithShop(Integer shopid) {
 		 logger.info("get list categories with shopid :{}", shopid);
@@ -27,4 +29,12 @@ public class TypeBookServiceImp implements TypeBookService {
 		return typebooksRepo.listCategoriesByType(shopid);
 	}
 
+	@Override
+	public Typebooks create(Books books, Categories categories) {
+		Typebooks typebooks = new Typebooks();
+		typebooks.setBookid(books.getBookid().intValue());
+		typebooks.setCategories(categories);
+		typebooks.setBooks(books);
+		return typebooksRepo.save(typebooks);
+	}
 }

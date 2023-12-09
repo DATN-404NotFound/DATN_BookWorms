@@ -4,10 +4,12 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.Collectors;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -61,11 +63,12 @@ public class BookingServiceImp implements BookingService{
 			ObjectMapper mapper = new ObjectMapper();
 			mapper.configure(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY, true);
 			Bookings booking = mapper.convertValue(bookingData, Bookings.class);
+			int a = ThreadLocalRandom.current().nextInt(1000,9999);
 			logger.info("have booking for create : {}",booking.toString());
 			String userid = crc32_SHA256.getCodeCRC32C(request.getRemoteUser());
 			logger.info("userid for booking : {}",userid);
 			booking.setUserid(userid);
-			booking.setBookingid(crc32_SHA256.getCodeCRC32C(booking.getUserid()+booking.getCreateat()+ booking.getBookingid()));
+			booking.setBookingid(crc32_SHA256.getCodeCRC32C(booking.getUserid()+booking.getCreateat()+ booking.getBookingid()+a));
 			booking.getAccount().setUserid(userid);
 			System.out.println("IN booking "+ booking.toString());
 			bookingRepo.save(booking);
@@ -89,7 +92,7 @@ public class BookingServiceImp implements BookingService{
 								
 								d.setBookingid(booking.getBookingid());
 								 d.setBookings(booking);
-								 d.setDbid(crc32_SHA256.getCodeCRC32C(userid+d.getBookid()));
+								 d.setDbid(crc32_SHA256.getCodeCRC32C(userid+d.getBookingid()));
 								 logger.info("Detailbooking for create : {}", d.toString());
 								 detailRepo.save(d);
 								 booksRepo.save(books);
@@ -159,15 +162,23 @@ public class BookingServiceImp implements BookingService{
 	}
 
 
+//	@Override
+//	public List<Bookings> findAllByUserId(String userId) {
+//		return bookingRepo.findByuserid(userId);
+//	}
+//	@Override
+//	public List<Bookings> findByUserIdAndOrderStatusId(String userId, Integer orderStatusId) {
+//		List<Bookings> allByUserId = findAllByUserId(userId);
+//
+//		return allByUserId.stream()
+//				.filter(booking -> booking.getOrderstatusid().equals(orderStatusId))
+//				.collect(Collectors.toList());
+//	}
 	@Override
-	public List<Bookings> findAllByUserId(String userId) {
-		return bookingRepo.findByuserid(userId);
-	}
-	@Override
-	public List<Bookings> findByUserIdAndOrderStatusId(String userId, Integer orderStatusId) {
-		List<Bookings> allByUserId = findAllByUserId(userId);
+	public List<Bookings> findBookingsByShopIdAndOrderStatusID(Integer shopId, Integer orderStatusId) {
+		List<Bookings> allBookings =bookingRepo.findBookingsByShopId(shopId);
 
-		return allByUserId.stream()
+		return allBookings.stream()
 				.filter(booking -> booking.getOrderstatusid().equals(orderStatusId))
 				.collect(Collectors.toList());
 	}
@@ -251,7 +262,25 @@ public class BookingServiceImp implements BookingService{
 	@Override
 	public Bookings byBookingUserId(String bookingUserId) {
 		// TODO Auto-generated method stub
-		return bookingRepo.findById(bookingUserId).get();
+		return bookingRepo.findById(bookingUserId).get();	
 	}
 
+	@Override
+	public List<Bookings> findBookingsByShopId(Integer shopId) {
+		return bookingRepo.findBookingsByShopId(shopId);
+	}
+//	@Override
+//	public List<Bookings> findByShopIdAndOrderStatusId(Integer shopId, Integer orderStatusId) {
+//		return bookingRepo.findBookingsByShopIdAndOrderStatusId(shopId, orderStatusId);
+//	}
+
+	@Override
+	@Transactional
+	public void updateOrderStatus(String bookingId) {
+		Bookings booking = bookingRepo.findById(bookingId).orElse(null);
+		if (booking != null) {
+			booking.setOrderstatusid(4);
+			bookingRepo.save(booking);
+		}
+	}
 }

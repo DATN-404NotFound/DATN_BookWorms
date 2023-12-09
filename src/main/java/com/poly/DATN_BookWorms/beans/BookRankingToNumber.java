@@ -11,4 +11,6 @@ import lombok.NoArgsConstructor;
 public class BookRankingToNumber {
     private Books book;
     private int numbers;
+    
+    
 }

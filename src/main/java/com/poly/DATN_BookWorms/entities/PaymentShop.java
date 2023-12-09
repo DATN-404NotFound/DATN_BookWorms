@@ -26,29 +26,83 @@ import java.io.Serializable;
  * @author Telosys
  */
 
-@NoArgsConstructor
-@AllArgsConstructor
+
 @Data
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "Paymentshop")
 public class PaymentShop implements Serializable {
-
-
-
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "paymentshopid", nullable = false)
-	private Long paymentshopid;
+	public Long paymentshopid;
 	
 	@Temporal(TemporalType.DATE)
-    private Date       createat ;
+	public Date       createat ;
 	
-	private boolean status;
+	public boolean status;
 	
-	private long valuepayment;
+	public long valuepayment;
 	
 	@ManyToOne
     @JoinColumn(name="Shopid", referencedColumnName="ShopId", insertable=false, updatable=false)
-    private Shoponlines shoponlines ;
+	public Shoponlines shoponlines ;
+	
+	public boolean isdelete;
+
+	public Long getPaymentshopid() {
+		return paymentshopid;
+	}
+
+	public void setPaymentshopid(Long paymentshopid) {
+		this.paymentshopid = paymentshopid;
+	}
+
+	public Date getCreateat() {
+		return createat;
+	}
+
+	public void setCreateat(Date createat) {
+		this.createat = createat;
+	}
+
+	public boolean isStatus() {
+		return status;
+	}
+
+	public void setStatus(boolean status) {
+		this.status = status;
+	}
+
+	public long getValuepayment() {
+		return valuepayment;
+	}
+
+	public void setValuepayment(long valuepayment) {
+		this.valuepayment = valuepayment;
+	}
+
+	public Shoponlines getShoponlines() {
+		return shoponlines;
+	}
+
+	public void setShoponlines(Shoponlines shoponlines) {
+		this.shoponlines = shoponlines;
+	}
+
+	public boolean isIsdelete() {
+		return isdelete;
+	}
+
+	public void setIsdelete(boolean isdelete) {
+		this.isdelete = isdelete;
+	}
+
+
+
+
+	
+
 }
 

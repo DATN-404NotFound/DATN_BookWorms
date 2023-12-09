@@ -32,14 +32,17 @@ public class Authorities implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id 
-	private String authorityid;
+	public String authorityid;
 
 	@ManyToOne @JoinColumn(name = "userid")
-	private Account account;
+	public Account account;
 
 	// TODO Auto-generated method stub
 	@ManyToOne  @JoinColumn(name = "roleid")
-	private Roles roles;
+	public Roles roles;
+
+
+	
 
 
 		

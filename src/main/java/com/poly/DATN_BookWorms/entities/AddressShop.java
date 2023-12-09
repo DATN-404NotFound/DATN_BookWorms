@@ -30,85 +30,31 @@ public class AddressShop implements Serializable {
 
     private String phonenumber;
 
+    private Boolean isdelete;
+
     @ManyToOne
     @JoinColumn(name = "Shopid", referencedColumnName="ShopId")
     private Shoponlines shoponlines ;
-
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append(addressshopid);
+        sb.append(this.shoponlines);
         sb.append("|");
-        sb.append(namereceiver);
+        sb.append(this.address);
         sb.append("|");
-        sb.append(address);
+        sb.append(this.namereceiver);
         sb.append("|");
-        sb.append(phonenumber);
+        sb.append(this.phonenumber);
         sb.append("|");
-        sb.append(createat);
+        sb.append(this.isactive);
         sb.append("|");
-        sb.append(isactive);
+        sb.append(this.addressshopid);
         sb.append("|");
-        sb.append(shoponlines);
+        sb.append(this.createat);
+        sb.append("|");
+        sb.append(this.isdelete);
+        sb.append("|");
         return sb.toString();
     }
-
-	public Integer getAddressshopid() {
-		return addressshopid;
-	}
-
-	public void setAddressshopid(Integer addressshopid) {
-		this.addressshopid = addressshopid;
-	}
-
-	public String getNamereceiver() {
-		return namereceiver;
-	}
-
-	public void setNamereceiver(String namereceiver) {
-		this.namereceiver = namereceiver;
-	}
-
-	public String getAddress() {
-		return address;
-	}
-
-	public void setAddress(String address) {
-		this.address = address;
-	}
-
-	public Date getCreateat() {
-		return createat;
-	}
-
-	public void setCreateat(Date createat) {
-		this.createat = createat;
-	}
-
-	public Boolean getIsactive() {
-		return isactive;
-	}
-
-	public void setIsactive(Boolean isactive) {
-		this.isactive = isactive;
-	}
-
-	public String getPhonenumber() {
-		return phonenumber;
-	}
-
-	public void setPhonenumber(String phonenumber) {
-		this.phonenumber = phonenumber;
-	}
-
-	public Shoponlines getShoponlines() {
-		return shoponlines;
-	}
-
-	public void setShoponlines(Shoponlines shoponlines) {
-		this.shoponlines = shoponlines;
-	}
-
-
 
 }

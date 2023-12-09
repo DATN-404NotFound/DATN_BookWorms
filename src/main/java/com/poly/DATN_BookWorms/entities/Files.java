@@ -63,6 +63,50 @@ public class Files implements Serializable {
         sb.append("|");
         sb.append(shopid);
         return sb.toString(); 
-    } 
+    }
+
+	public Integer getFileid() {
+		return fileid;
+	}
+
+	public void setFileid(Integer fileid) {
+		this.fileid = fileid;
+	}
+
+	public String getFilename() {
+		return filename;
+	}
+
+	public void setFilename(String filename) {
+		this.filename = filename;
+	}
+
+	public String getTypefile() {
+		return typefile;
+	}
+
+	public void setTypefile(String typefile) {
+		this.typefile = typefile;
+	}
+
+	public Integer getShopid() {
+		return shopid;
+	}
+
+	public void setShopid(Integer shopid) {
+		this.shopid = shopid;
+	}
+
+	public Shoponlines getShoponlines() {
+		return shoponlines;
+	}
+
+	public void setShoponlines(Shoponlines shoponlines) {
+		this.shoponlines = shoponlines;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	} 
 
 }

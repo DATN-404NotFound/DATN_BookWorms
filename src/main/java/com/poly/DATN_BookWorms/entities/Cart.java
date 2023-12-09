@@ -78,53 +78,6 @@ public class Cart implements Serializable {
         return sb.toString(); 
     }
 
-	public Long getCartid() {
-		return cartid;
-	}
-
-	public void setCartid(Long cartid) {
-		this.cartid = cartid;
-	}
-
-	public String getUserid() {
-		return userid;
-	}
-
-	public void setUserid(String userid) {
-		this.userid = userid;
-	}
-
-	public Integer getBookid() {
-		return bookid;
-	}
-
-	public void setBookid(Integer bookid) {
-		this.bookid = bookid;
-	}
-
-	public Integer getQuantity() {
-		return quantity;
-	}
-
-	public void setQuantity(Integer quantity) {
-		this.quantity = quantity;
-	}
-
-	public Account getAccount() {
-		return account;
-	}
-
-	public void setAccount(Account account) {
-		this.account = account;
-	}
-
-	public Books getBooks() {
-		return books;
-	}
-
-	public void setBooks(Books books) {
-		this.books = books;
-	}
 
 
 

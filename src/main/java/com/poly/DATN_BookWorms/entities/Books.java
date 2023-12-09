@@ -44,38 +44,38 @@ public class Books implements Serializable {
     //--- ENTITY DATA FIELDS 
     public String bookname;
 
-    @Column(name = "language", length = 20)
     public String language;
 
-    @Column(name = "size", length = 20)
+
     public String size;
 
-    @Column(name = "weight")
+
     public Double weight;
 
     public Integer totalpage;
 
     public Integer publishingyear;
 
-    @Column(name = "price")
+
     public Double price;
 
-    @Column(name = "quantity")
+
     public Integer quantity;
 
-    @Column(name = "statues", length = 20)
     public String statues;
 
     public Integer publishingcompanyid;
 
     public Boolean isactive;
+    public Boolean isdelete;
+
 
     public Integer quantitysold;
 
     public Integer shopid;
 
-//    @Column(name= "ProductViews")
-//    public Integer productviews;
+
+    public Integer productviews;
 
 
 
@@ -111,7 +111,6 @@ public class Books implements Serializable {
     public List<Writers> listOfWriters;
 
     @ManyToOne
-
     @JoinColumn(name = "Publishingcompanyid", referencedColumnName = "PCId", insertable = false, updatable = false)
     public Publishingcompanies publishingcompanies;
 
@@ -119,45 +118,47 @@ public class Books implements Serializable {
     @JsonIgnore
     public List<Hassales> listOfHassales;
 
-    public Integer productviews;
 
+
+  //--- toString specific method
 
     //--- toString specific method
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append(bookid);
+        sb.append(this.bookid);
         sb.append("|");
-        sb.append(bookname);
+        sb.append(this.statues);
         sb.append("|");
-        sb.append(language);
+        sb.append(this.size);
         sb.append("|");
-        sb.append(size);
+        sb.append(this.bookname);
         sb.append("|");
-        sb.append(weight);
+        sb.append(this.productviews);
         sb.append("|");
-        sb.append(totalpage);
+        sb.append(this.publishingcompanyid);
         sb.append("|");
-        sb.append(publishingyear);
+        sb.append(this.quantitysold);
         sb.append("|");
-        sb.append(price);
+        sb.append(this.shopid);
         sb.append("|");
-        sb.append(quantity);
+        sb.append(this.isactive);
         sb.append("|");
-        sb.append(statues);
+        sb.append(this.isdelete);
         sb.append("|");
-        sb.append(publishingcompanyid);
+        sb.append(this.quantity);
         sb.append("|");
-        sb.append(isactive);
+        sb.append(this.language);
         sb.append("|");
-        sb.append(quantitysold);
+        sb.append(this.price);
         sb.append("|");
-        sb.append(shopid);
+        sb.append(this.totalpage);
+        sb.append("|");
+        sb.append(this.publishingyear);
+        sb.append("|");
+        sb.append(this.weight);
+        sb.append("|");
         return sb.toString();
     }
-
-
-
-
 
 }

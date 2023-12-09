@@ -19,4 +19,6 @@ public class Sales {
 
     private double  salesPerOrder;
 
+
+    
 }

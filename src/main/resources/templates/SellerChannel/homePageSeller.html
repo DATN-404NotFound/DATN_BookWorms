@@ -66,29 +66,30 @@
                                     <br><br><br><br><br>
                                 </div>
                                 <div class="col-6 col-lg-2 text-center py-4">
-                                    <p class="mb-1 small text-muted">Access times</p>
-                                    <span class="h3">$2600</span><br/>
-                                    <span class="small text-muted">+20%</span>
+                                    <p class="mb-1 small text-muted">Monthly Sales</p>
+                                    <span class="h3">{{salesAnalysisNow[0].monthlySales | currency:'VND'}}</span><br/>
+                                    <span class="small text-muted">+{{growthIncreases(salesAnalysisNow[0].monthlySales, salesAnalysisNow[1].monthlySales)}}%</span>
                                     <span class="fe fe-arrow-up text-success fe-12"></span>
                                 </div>
                                 <div class="col-6 col-lg-2 text-center py-4 mb-2">
-                                    <p class="mb-1 small text-muted">Views</p>
-                                    <span class="h3">$260</span><br/>
-                                    <span class="small text-muted">+6%</span>
-                                    <span class="fe fe-arrow-up text-success fe-12"></span>
-                                </div>
-                                <div class="col-6 col-lg-2 text-center py-4">
                                     <p class="mb-1 small text-muted">Orders</p>
-                                    <span class="h3">26</span><br/>
-                                    <span class="small text-muted">+20%</span>
+                                    <span class="h3">{{salesAnalysisNow[0].orders}}</span><br/>
+                                    <span class="small text-muted">+{{growthIncreases(salesAnalysisNow[0].orders, salesAnalysisNow[1].orders)}}%</span>
                                     <span class="fe fe-arrow-up text-success fe-12"></span>
                                 </div>
                                 <div class="col-6 col-lg-2 text-center py-4">
                                     <p class="mb-1 small text-muted">Conversion rate</p>
-                                    <span class="h3">6%</span><br/>
-                                    <span class="small text-muted">-2%</span>
+                                    <span class="h3">{{salesAnalysisNow[0].conversionRate}}%</span><br/>
+                                    <span class="small text-muted">+{{growthIncreases(salesAnalysisNow[0].conversionRate, salesAnalysisNow[1].conversionRate)}}%</span>
+                                    <span class="fe fe-arrow-up text-success fe-12"></span>
+                                </div>
+                                <div class="col-6 col-lg-2 text-center py-4">
+                                    <p class="mb-1 small text-muted">Pages views</p>
+                                    <span class="h3">{{salesAnalysisNow[0].pagesViews}}</span><br/>
+                                    <span class="small text-muted">+{{growthIncreases(salesAnalysisNow[0].pagesViews, salesAnalysisNow[1].pagesViews)}}%</span>
                                     <span class="fe fe-arrow-down text-danger fe-12"></span>
                                 </div>
+
                             </div>
                             <div class="chartbox mr-4">
                                 <div id="areaChart"></div>

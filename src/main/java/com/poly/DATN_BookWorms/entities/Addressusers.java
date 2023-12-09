@@ -79,6 +79,6 @@ public class Addressusers implements Serializable {
         sb.append("|");
         sb.append(statusaddress);
         return sb.toString(); 
-    } 
+    }
 
 }
