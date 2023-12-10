@@ -536,6 +536,20 @@ app.controller('transportController', function($scope, $routeParams, $route, $ht
     $scope.getPages = function () {
         return new Array($scope.totalPages).fill().map((_, index) => index + 1);
     };
+    $scope.search = function (item) {
+        if ($scope.searchText == undefined) {
+            return true;
+        }
+        else {
+            if (item.bookingid.toLowerCase().indexOf($scope.searchText.toLowerCase()) != -1 ||
+                item.createat.toLowerCase().indexOf($scope.searchText.toLowerCase()) != -1) {
+                return true;
+            }
+        }
+        return false;
+    };
+
+
     $scope.checkboxes = [];
 
     $scope.hasCheckedCheckbox = function() {
@@ -630,37 +644,100 @@ app.controller('voucherController', function($scope, $routeParams, $route, $http
     $scope.getPages = function () {
         return new Array($scope.totalPages).fill().map((_, index) => index + 1);
     };
+    $scope.search = function (item) {
+        if ($scope.searchText == undefined) {
+            return true;
+        }
+        else {
+            if (item.promotionname.toLowerCase().indexOf($scope.searchText.toLowerCase()) != -1 ||
+                item.couoponcode.toLowerCase().indexOf($scope.searchText.toLowerCase()) != -1) {
+                return true;
+            }
+        }
+        return false;
+    };
 
 
    //Find
-    $scope.pageSizev2 = 5; // Number of items per page
-    $scope.currentPagev2 = 1; // Current page
-    $scope.totalPagesv2 = 1
-    $scope.findByOrderStatusIdv2 = function(orderstatusid) {
-        $scope.booksselect = [];
-        $http.get('/rest/sale/findByCouponCode/' + orderstatusid)
+
+
+
+
+});
+app.controller('voucherController', function($scope, $routeParams, $route, $http, $rootScope) {
+    $scope.pageSize = 5; // Number of items per page
+    $scope.currentPage = 1; // Current page
+    $scope.totalPages = 1
+    $scope.findByOrderStatusId = function(orderstatusid) {
+        $scope.voucher = [];
+        $http.get('/rest/sale/listvoucher/' + orderstatusid)
             .then(function(response) {
-                $scope.booksselect = response.data;
-                $scope.totalPagesv2 = Math.ceil($scope.booksselect.length / $scope.pageSizev2);
+                $scope.voucher = response.data;
+                $scope.totalPages = Math.ceil($scope.voucher.length / $scope.pageSize);
                 $scope.setPage(1); // Set initial page
             });
     };
-    $scope.findByOrderStatusIdv2();
-    $scope.setPagev2 = function (page) {
+    $scope.findByOrderStatusId();
+    $scope.setPage = function (page) {
+        console.log('Current Page:', $scope.currentPage);
+        console.log('Total Pages:', $scope.totalPages);
+        if (page < 1 || page > $scope.totalPages) {
+            return;
+        }
+        $scope.currentPage = page;
+        var startIndex = (page - 1) * $scope.pageSize;
+        var endIndex = startIndex + $scope.pageSize;
+        $scope.paginatedBooks = $scope.voucher.slice(startIndex, endIndex);
+        console.log('setPage called with page:', page);
+        // ... (rest of the code)
 
+        console.log('currentPage:', $scope.currentPage);
+        console.log('paginatedBooks:', $scope.paginatedBooks);
+    };
+    $scope.getPages = function () {
+        return new Array($scope.totalPages).fill().map((_, index) => index + 1);
+    };
+
+
+    //Find
+    $scope.pageSizev2 = 5; // Number of items per page
+    $scope.currentPagev2 = 1; // Current page
+    $scope.totalPagesv2 = 1
+    $scope.initInfoProductv2 = function () {
+        $scope.books = [];
+        $http.get('/rest/books/ab')
+            .then(function(response) {
+                $scope.books = response.data;
+                $scope.totalPagesv2 = Math.ceil($scope.books.length / $scope.pageSizev2);
+                $scope.setPage(1); // Set initial page
+
+            })
+            .catch(function(error) {
+                console.error('Error fetching data:', error);
+            });
+
+    }
+    $scope.initInfoProductv2();
+    $scope.setPagev2 = function (page) {
+        console.log('Current Page:', $scope.currentPagev2);
+        console.log('Total Pages:', $scope.totalPagesv2);
         if (page < 1 || page > $scope.totalPagesv2) {
             return;
         }
         $scope.currentPagev2 = page;
         var startIndex = (page - 1) * $scope.pageSizev2;
         var endIndex = startIndex + $scope.pageSizev2;
-        $scope.paginatedBooksv2 = $scope.booksselect.slice(startIndex, endIndex);
+        $scope.paginatedBooksv2 = $scope.books.slice(startIndex, endIndex);
+        console.log('setPage called with page:', page);
+        // ... (rest of the code)
 
+        console.log('currentPage:', $scope.currentPage);
+        console.log('paginatedBooks:', $scope.paginatedBooks);
     };
+
     $scope.getPagesv2 = function () {
         return new Array($scope.totalPagesv2).fill().map((_, index) => index + 1);
     };
-    $scope.checkboxes = [];
 
 
 
@@ -735,7 +812,20 @@ app.controller('reviewController', function($scope, $routeParams, $route, $http,
             });
     };
 
+
     $scope.initInfoProduct();
+    $scope.search = function (item) {
+        if ($scope.searchText == undefined) {
+            return true;
+        }
+        else {
+            if (item.evaluatedate.toLowerCase().indexOf($scope.searchText.toLowerCase()) != -1 ||
+                item.evaluateid.toLowerCase().indexOf($scope.searchText.toLowerCase()) != -1) {
+                return true;
+            }
+        }
+        return false;
+    };
 });
 
 //////////////sales
@@ -777,6 +867,18 @@ app.controller('salesOrderManagementController', function($scope, $http) {
 
     $scope.getPages = function () {
         return new Array($scope.totalPages).fill().map((_, index) => index + 1);
+    };
+    $scope.search = function (item) {
+        if ($scope.searchText == undefined) {
+            return true;
+        }
+        else {
+            if (item.bookname.toLowerCase().indexOf($scope.searchText.toLowerCase()) != -1 ||
+                item.bookid.toLowerCase().indexOf($scope.searchText.toLowerCase()) != -1) {
+                return true;
+            }
+        }
+        return false;
     };
 
 

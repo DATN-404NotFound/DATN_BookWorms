@@ -55,35 +55,16 @@
                       <div class="row">
                         <div class="col-md-6">
                           <div class="form-group">
-                            <label for="date-input1">Date Range</label>
-                            <input type="text" name="datetimes" class="form-control datetimes" />
-                          </div>
-                          <div class="form-group">
-                            <label for="reportrange">Predefined Date Ranges</label>
-                            <div id="reportrange" class="border px-2 py-2 bg-light">
-                              <i class="fe fe-calendar fe-16 mx-2"></i>
-                              <span></span>
-                            </div>
+                            <input type="text" class="form-control" ng-model="searchText.couoponcode" placeholder="Search Voucher ID"/>
                           </div>
                         </div>
                         <div class="col-md-6">
                           <div class="form-group">
-                            <label for="date-input1">Search</label>
                             <form class="mb-3">
-                              <input class="form-control text-muted" type="search" placeholder="Type something..." aria-label="Search">
+                              <input class="form-control text-muted" placeholder="Promotion name..." aria-label="Search" ng-model="searchText.promotionname">
                               <br>
                             </form>
                           </div>
-                          <div class="form-group mt-4">
-                            <button type="button" class="btn mb-2 btn-outline-secondary"><span class="fe fe-arrow-down fe-16 mr-2"></span>Export as Excel</button>
-                          </div>
-                        </div>
-                        <div class="col-md-12">
-                          <div class="form-group mt-4">
-                            <button type="button" class="btn mb-2 btn-primary">Search</button>
-                            <button type="button" class="btn mb-2 btn-primary ml-3">Reset</button>
-                          </div>
-
                         </div>
                       </div>
                     </div>
@@ -112,25 +93,18 @@
                                       <table class="table datatables" id="dataTable-1">
                                         <thead>
                                         <tr>
-                                          <th></th>
-                                          <th>Booking ID</th>
-                                          <th>Create At</th>
+                                          <th>Couopon code</th>
+                                          <th>Name Couopon code</th>
                                           <th>Cost</th>
+                                          <th>Create At</th>
                                           <th>Shipping Unit</th>
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        <tr ng-repeat="vouchers in voucher">
-                                          <td>
-                                            <div class="custom-control custom-checkbox">
-                                              <input type="checkbox" class="custom-control-input">
-                                              <label class="custom-control-label"></label>
-                                            </div>
-                                          </td>
-
+                                        <tr ng-repeat="vouchers in voucher | filter: searchText">
                                           <td>{{ vouchers.couoponcode }}</td>
                                           <td>{{ vouchers.promotionname }}</td>
-                                          <td>{{ vouchers.cost }}</td>
+                                          <td>{{ vouchers.cost}}</td>
                                           <td>{{ vouchers.createat }}</td>
                                           <td>{{ vouchers.descriptions }}</td>
                                           <td><button class="btn btn-sm dropdown-toggle more-horizontal" type="button"
@@ -193,10 +167,10 @@
                                                           </tr>
                                                           </thead>
                                                           <tbody>
-                                                          <tr ng-repeat="booksselects in booksselect">
-                                                            <td>{{ booksselect.bookid }}</td>
-                                                            <td>{{ booksselect.bookname }}</td>
-                                                            <td>{{ booksselect.language }}</td>
+                                                          <tr ng-repeat="book in paginatedBooksv2">
+                                                            <td>{{ book.bookid }}</td>
+                                                            <td>{{ book.bookname }}</td>
+                                                            <td>{{ book.language }}</td>
                                                             <td>
                                                               <div class="custom-control custom-switch">
                                                                 <input type="checkbox" class="custom-control-input" id="c{{$index + 1}}">
@@ -212,14 +186,14 @@
 
                                                           <nav aria-label="Page navigation example">
                                                             <ul class="pagination">
-                                                              <li class="page-item" ng-class="{disabled: currentPage === 1}">
-                                                                <a class="page-link" ng-click="setPage(currentPage - 1)">Previous</a>
+                                                              <li class="page-item" ng-class="{disabled: currentPagev2 === 1}">
+                                                                <a class="page-link" ng-click="setPagev2(currentPagev2 - 1)">Previous</a>
                                                               </li>
-                                                              <li class="page-item" ng-repeat="page in getPages()" ng-class="{active: currentPage === page}">
-                                                                <a class="page-link" ng-click="setPage(page)">{{ page }}</a>
+                                                              <li class="page-item" ng-repeat="page in getPagesv2()" ng-class="{active: currentPagev2 === page}">
+                                                                <a class="page-link" ng-click="setPagev2(page)">{{ page }}</a>
                                                               </li>
-                                                              <li class="page-item" ng-class="{disabled: currentPage === totalPages}">
-                                                                <a class="page-link" ng-click="setPage(currentPage + 1)">Next</a>
+                                                              <li class="page-item" ng-class="{disabled: currentPagev2 === totalPagesv2}">
+                                                                <a class="page-link" ng-click="setPagev2(currentPagev2 + 1)">Next</a>
                                                               </li>
                                                             </ul>
                                                           </nav>
