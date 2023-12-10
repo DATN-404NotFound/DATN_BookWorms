@@ -233,7 +233,7 @@ app.controller("revenueFinanceController", function ($scope, $routeParams, $rout
 
         }).catch(error => {
             console.log("Error", error)
-            $window.alert("Send request payment false!!!");
+            $window.alert("You must enter an amount greater than 0 and less than the value you currently own !!!");
         });
     }
     $scope.getRevenueFinance();
