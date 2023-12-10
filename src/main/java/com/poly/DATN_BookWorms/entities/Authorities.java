@@ -43,15 +43,15 @@ public class Authorities implements Serializable {
 
 	
 	
-	public Authorities() {
+	// public Authorities() {
 
-	}
+	// }
 
-	public Authorities(String authorityid, Account account, Roles roles) {
-		this.authorityid = authorityid;
-		this.account = account;
-		this.roles = roles;
-	}
+	// public Authorities(String authorityid, Account account, Roles roles) {
+	// 	this.authorityid = authorityid;
+	// 	this.account = account;
+	// 	this.roles = roles;
+	// }
 
 	public String getAuthorityid() {
 		return authorityid;

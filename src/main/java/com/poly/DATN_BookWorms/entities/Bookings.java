@@ -59,6 +59,13 @@ public class Bookings {
     @Column(name="Note")
     private String note;
 
+	@Temporal(TemporalType.DATE)
+    @Column(name="timefinish")
+    public Date       timefinish ;
+
+	public Double     costvoucher ;
+
+	public Double     costship ;
 
     //--- ENTITY LINKS ( RELATIONSHIP )
     @OneToMany(mappedBy="bookings")

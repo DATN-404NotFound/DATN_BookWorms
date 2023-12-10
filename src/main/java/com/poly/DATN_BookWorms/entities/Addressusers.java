@@ -42,8 +42,14 @@ public class Addressusers implements Serializable {
     //--- ENTITY DATA FIELDS 
     private String     userid ;
 
-    @Column(name="address", nullable=false, length=100)
-    public String     address ;
+
+    public String     detailhome ;
+
+	public String     Ward ;
+
+	public String     district ;
+
+	public String    province ;
 
     @Column(name="fullname", nullable=false, length=50)
     public String     fullname ;
@@ -71,7 +77,13 @@ public class Addressusers implements Serializable {
         sb.append("|");
         sb.append(userid);
         sb.append("|");
-        sb.append(address);
+		sb.append(detailhome);
+        sb.append("|");
+		sb.append(Ward);
+        sb.append("|");
+        sb.append(district);
+        sb.append("|");
+		sb.append(province);
         sb.append("|");
         sb.append(fullname);
         sb.append("|");
@@ -97,13 +109,6 @@ public class Addressusers implements Serializable {
 		this.userid = userid;
 	}
 
-	public String getAddress() {
-		return address;
-	}
-
-	public void setAddress(String address) {
-		this.address = address;
-	}
 
 	public String getFullname() {
 		return fullname;

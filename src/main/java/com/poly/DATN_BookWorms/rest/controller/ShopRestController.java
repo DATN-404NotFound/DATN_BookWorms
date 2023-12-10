@@ -70,7 +70,7 @@ public class ShopRestController {
 
     @PostMapping(value = "/save/profile", consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public void saveProfileChange(@RequestParam(value = "fileImage") Optional<MultipartFile> multipartFile, @RequestParam("shopId") String shopId) throws Exception {
-        if (multipartFile.isEmpty()) {
+        if (!multipartFile.isPresent()) {
             Shoponlines shoponlines = shopService.findById(Integer.parseInt(shopId));
             shopService.save(shoponlines);
         } else {

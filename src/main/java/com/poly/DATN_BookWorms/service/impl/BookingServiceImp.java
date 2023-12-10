@@ -63,13 +63,14 @@ public class BookingServiceImp implements BookingService{
 			mapper.configure(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY, true);
 			Bookings booking = mapper.convertValue(bookingData, Bookings.class);
 			int a = ThreadLocalRandom.current().nextInt(1000,9999);
+			
 			logger.info("have booking for create : {}",booking.toString());
 			String userid = crc32_SHA256.getCodeCRC32C(request.getRemoteUser());
 			logger.info("userid for booking : {}",userid);
 			booking.setUserid(userid);
 			booking.setBookingid(crc32_SHA256.getCodeCRC32C(booking.getUserid()+booking.getCreateat()+ booking.getBookingid()+a));
 			booking.getAccount().setUserid(userid);
-			System.out.println("IN booking "+ booking.toString());
+			
 			bookingRepo.save(booking);
 			logger.info("Create booking is successful with booking : {}", booking);
 			TypeReference<List<Detailbookings>> type = new TypeReference<List<Detailbookings>>() {};
@@ -77,8 +78,7 @@ public class BookingServiceImp implements BookingService{
 			List<Detailbookings> details = mapper.convertValue(bookingData.get("listOfDetailbookings"), type);
 			logger.info("list detalbooking in booking have size : {}", details.size());
 			logger.info("list detalbooking start.... ");
-						details.stream().peek(d ->{
-							
+						details.stream().peek(d ->{	
 							if(d == null) { 
 								
 							}

@@ -33,15 +33,15 @@ public class CategoryRanking {
 		this.orderNumbers = orderNumbers;
 	}
 
-	public CategoryRanking(Categories categories, int orderNumbers) {
+	// public CategoryRanking(Categories categories, int orderNumbers) {
 	
-		this.categories = categories;
-		this.orderNumbers = orderNumbers;
-	}
+	// 	this.categories = categories;
+	// 	this.orderNumbers = orderNumbers;
+	// }
 
-	public CategoryRanking() {
+	// public CategoryRanking() {
 
-	}
+	// }
     
     
     

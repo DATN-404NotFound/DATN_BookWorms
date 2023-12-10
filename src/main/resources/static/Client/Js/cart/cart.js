@@ -1066,7 +1066,7 @@ app.controller("address_ctrl", function ($scope, $http) {
 
 	}
 
-	$scope.callModel = function (bookingId) {
+	$scope.callModel2 = function (bookingId) {
 		console.log(bookingId)
 		$http.get("/rest/bookings/" + bookingId).then(resp => {
 			console.log(bookingId)
@@ -1083,6 +1083,82 @@ app.controller("address_ctrl", function ($scope, $http) {
 		})
 	}
 });
+
+
+    const hosts = "https://provinces.open-api.vn/api/";
+function callAp (){ 
+	callAPI('https://provinces.open-api.vn/api/?depth=1');
+}
+var callAPI = (api) => {
+	console.log("1090")
+    return axios.get(api)
+        .then((response) => {
+            renderData(response.data, "city");
+        });
+}
+
+var callApiDistrict = (api) => {
+    return axios.get(api)
+        .then((response) => {
+            renderData(response.data.districts, "district");
+        });
+}
+var callApiWard = (api) => {
+    return axios.get(api)
+        .then((response) => {
+            renderData(response.data.wards, "ward");
+        });
+}
+
+var renderData = (array, select) => {
+    let row = ' <option disable value="">Chọn</option>';
+    array.forEach(element => {
+        row += `<option data-id="${element.code}" value="${element.name}">${element.name}</option>`
+    });
+    document.querySelector("#" + select).innerHTML = row
+}
+
+function citychange(){ 
+	console.log("1122")
+    callApiDistrict(hosts + "p/" + $("#city").find(':selected').data('id') + "?depth=2");
+    printResult();
+}
+
+function districtchange(){ 
+	callApiWard(hosts + "d/" + $("#district").find(':selected').data('id') + "?depth=2");
+    printResult();
+}
+
+
+function wardchange(){ 
+	//callApiWard(hosts + "d/" + $("#district").find(':selected').data('id') + "?depth=2");
+    printResult();
+}
+
+// $("#city").change(() => {
+// 	console.log("1122")
+//     callApiDistrict(hosts + "p/" + $("#city").find(':selected').data('id') + "?depth=2");
+//     printResult();
+// });
+// $("#district").change(() => {
+//     callApiWard(hosts + "d/" + $("#district").find(':selected').data('id') + "?depth=2");
+//     printResult();
+// });
+// $("#ward").change(() => {
+//     printResult();
+// })
+
+var printResult = () => {
+    if ($("#district").find(':selected').data('id') != "" && $("#city").find(':selected').data('id') != "" &&
+        $("#ward").find(':selected').data('id') != "") {
+        let result = $("#city option:selected").text() +
+            " | " + $("#district option:selected").text() + " | " +
+            $("#ward option:selected").text();
+        $("#result").text(result)
+    }
+
+}
+
 
 
 

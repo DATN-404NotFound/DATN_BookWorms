@@ -1,53 +1,73 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Javascript Example</title>
-    </head>
-    <body>
-        <h2>Lấy giá trị của checkbox bằng Javascript</h2>
-        <p>Hãy viết chương trình khi click vào button thì in ra danh sách sở thích mà người dùng đã chọn.</p>
-        <input type="checkbox" id="checkall" value="Đi chơi"/> <label>All</label> <br/>
-        <input type="checkbox" name="hobby" value="Đi chơi"/> <label>Đi chơi</label> <br/>
-        <input type="checkbox" name="hobby" value="Đi du lịch"/> <label>Đi du lịch</label> <br/>
-        <input type="checkbox" name="hobby" value="Đi ăn"/> <label>Đi ăn</label> <br/>
-        <input type="checkbox" name="hobby" value="Đi siêu thị"/> <label>Đi siêu thị</label> <br/>
-        <input type="checkbox" name="hobby" value="học lập trình"/> <label>học lập trình</label> <br/>
-        <input type="checkbox" name="hobby" value="Lướt freetuts.net"/> <label>Lướt freetuts.net</label> 
-            <br/> <br/>
-         
-        <input type="button" id="btn" value="Xem kết quả"/>
-         
-        <script language="javascript">
-            document.getElementById("checkall").onclick = function(e){ 
-                var checkbox = document.getElementsByName('hobby');
-                if(this.checked){ 
-                    for (var i = 0; i < checkbox.length; i++){
-                    checkbox[i].checked = true;
-                }
-                }
-                else{ 
-                    for (var i = 0; i < checkbox.length; i++){
-                    checkbox[i].checked = false;
-                }
-            }
-        };
-            document.getElementById('btn').onclick = function()
-            {
-                // Khai báo tham số
-                var checkbox = document.getElementsByName('hobby');
-                var result = "";
-                 
-                // Lặp qua từng checkbox để lấy giá trị
-                for (var i = 0; i < checkbox.length; i++){
-                    if (checkbox[i].checked === true){
-                        result += ' [' + checkbox[i].value + ']';
-                    }
-                }  
-                // In ra kết quả
-                alert("Sở thích là: " + result);
-            };
+<div>
+    <select id="city">
+    <option value="" selected>Chọn tỉnh thành</option>           
+    </select>
+              
+    <select id="district">
+    <option value="" selected>Chọn quận huyện</option>
+    </select>
+    
+    <select id="ward">
+    <option value="" selected>Chọn phường xã</option>
+    </select>
+     </div> 
+    
+    
+            <h2 id="result"></h2>
+    
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" referrerpolicy="no-referrer"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
+        <script>
+        const host = "https://provinces.open-api.vn/api/";
+    var callAPI = (api) => {
+        return axios.get(api)
+            .then((response) => {
+                renderData(response.data, "city");
+            });
+    }
+    callAPI('https://provinces.open-api.vn/api/?depth=1');
+    var callApiDistrict = (api) => {
+        return axios.get(api)
+            .then((response) => {
+                renderData(response.data.districts, "district");
+            });
+    }
+    var callApiWard = (api) => {
+        return axios.get(api)
+            .then((response) => {
+                renderData(response.data.wards, "ward");
+            });
+    }
+    
+    var renderData = (array, select) => {
+        let row = ' <option disable value="">Chọn</option>';
+        array.forEach(element => {
+            row += `<option data-id="${element.code}" value="${element.name}">${element.name}</option>`
+        });
+        document.querySelector("#" + select).innerHTML = row
+    }
+    
+    $("#city").change(() => {
+        callApiDistrict(host + "p/" + $("#city").find(':selected').data('id') + "?depth=2");
+        printResult();
+    });
+    $("#district").change(() => {
+        callApiWard(host + "d/" + $("#district").find(':selected').data('id') + "?depth=2");
+        printResult();
+    });
+    $("#ward").change(() => {
+        printResult();
+    })
+    
+    var printResult = () => {
+        if ($("#district").find(':selected').data('id') != "" && $("#city").find(':selected').data('id') != "" &&
+            $("#ward").find(':selected').data('id') != "") {
+            let result = $("#city option:selected").text() +
+                " | " + $("#district option:selected").text() + " | " +
+                $("#ward option:selected").text();
+            $("#result").text(result)
+        }
+    
+    }
         </script>
-    </body>
-</html>
