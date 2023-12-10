@@ -375,12 +375,12 @@ app.controller("addressSettingController", function ($scope, $routeParams, $rout
 //************************************************************************Tung dev seller (Dep trai vai lone)
 
     //Create Product
-app.controller('createProductController', function($scope, BookService, $http, $window) {
+app.controller('createProductController', function($scope, BookService, $http, $window,$timeout) {
     let host = "http://localhost:8080/rest/books/";
     $scope.categoryToBook= '';
     $scope.listCategoryToBook = [];
     $scope.book={};
-    $scope.company={};
+    $scope.publishingcompanyid='';
     $scope.imageBook=[];
 
     // Lấy tên các danh mục
@@ -396,6 +396,14 @@ app.controller('createProductController', function($scope, BookService, $http, $
     }, function(error) {
         console.error('Lỗi khi lấy tên nhà xuất bản:', error);
     });
+
+    //Lâ tên tác giả
+    BookService.getWriters().then(function(response) {
+        $scope.writers = response.data;
+    }, function(error) {
+        console.error('Lỗi khi lấy tên các tác gỉa:', error);
+    });
+
    $scope.getToListCategoryAddBook = function (category) {
         $scope.categoryToBook = '';
        for(let i = 0; i< $scope.listCategoryToBook.length;i++){
@@ -429,6 +437,8 @@ app.controller('createProductController', function($scope, BookService, $http, $
     };
 
    $scope.createBook = function () {
+       $scope.book.publishingcompanyid = $scope.publishingcompanyid;
+       $scope.book.w = $scope.publishingcompanyid;
        let url = `${host}createBook`;
        const headers = {
            'Content-Type': "application/json",
@@ -436,49 +446,49 @@ app.controller('createProductController', function($scope, BookService, $http, $
        };
 
        $http.post(url, JSON.stringify($scope.book), {headers: headers}).then(resp => {
-           console.log("Save book success")
+           $scope.book = resp.data;
+           console.log("Save book success!!!",$scope.book)
        }).catch(error => {
-           console.log("Save book false")
+           console.log("Save book false!!!")
        });
 
-       $http.get("http://localhost:8080/rest/books/getNewBook").then(resp => {
-           $scope.book = resp.data;
-           console.log("bookNew",$scope.book)
-       }).catch(error => {
-           console.log("Save book false")
-       });
    }
 
+    $scope.createTypeBook = function () {
+        let url = `${host}createTypeBook`;
+
+       for (let i = 0 ; i < $scope.listCategoryToBook.length; ++i){
+           var typebook = {};
+
+           typebook.categoryid = $scope.listCategoryToBook[i].categoryid;
+           typebook.bookid = $scope.book.bookid;
+
+           const headers = {
+               'Content-Type': "application/json",
+               transformRequest: angular.identity
+           };
+
+           $http.post(url, JSON.stringify(typebook), {headers: headers}).then(resp => {
+               console.log("Save typebook success!!!")
+           }).catch(error => {
+               console.log("Save typebook false!!!")
+           });
+       }
+
+    }
+
    $scope.saveBook = function (){
-       console.log("company",$scope.company);
+       console.log("company",$scope.publishingcompanyid);
        console.log("book",$scope.book);
        console.log("categories",$scope.listCategoryToBook);
        console.log("image",$scope.imageBook);
 
        $scope.createBook();
+       $timeout(function() {
+           $scope.createTypeBook();
+       }, 1000);
 
-       // let formData;
-       // formData = new FormData();
-       // if ($scope.imageBook != null) {
-       //     formData.append('fileImage', $scope.imageBook);
-       // }
-       // formData.append('book', $scope.book)
-       // formData.append('company', $scope.company)
-       // formData.append('categories', $scope.listCategoryToBook)
-       // formData.append("reportProgress", true);
-       // const headers = {
-       //     'Content-Type': undefined,
-       //     transformRequest: angular.identity
-       // };
-       // let url = `${host}saveBook`;
-       // $http.post(url, formData, {headers: headers}).then(resp => {
-       //
-       //     console.log("Save book success!!!")
-       //     $window.alert("Save book success!!!");
-       // }).catch(error => {
-       //     console.log("Save book false", error)
-       //     $window.alert("Save book false!!!");
-       // });
+
    }
 
 
@@ -492,6 +502,11 @@ app.service('BookService', function($http) {
     // Dịch vụ để lấy tên các nhà xuất bản
     this.getPublishingCompanies = function() {
         return $http.get('/rest/books/publishingcompany');
+    };
+
+    // Dịch vụ để lấy tên các tác giả
+    this.getWriters = function() {
+        return $http.get('/rest/books/writers');
     };
 });
                     //Add
