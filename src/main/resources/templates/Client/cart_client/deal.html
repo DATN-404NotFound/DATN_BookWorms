@@ -33,7 +33,7 @@
                                 <span style="font-size: 22px;">{{l.shopname}}</span></a>
                         </div>
                         <div style="float: right;" class="mt-2">
-                            <p>x<strong>{{shopItem.length}}</strong></p>
+                            <!-- <p>x<strong>{{shopItem.length}}</strong></p> -->
                         </div>
                         <hr style="clear: both;">
                         <table class="table-hover" style="background: none;">
@@ -64,11 +64,15 @@
                         </table>
                         <hr style="clear: both; border: 1px solid #666;">
 
-                        <div class="float-end m-3" ng-repeat="s in salesItem">
+                        <div class="float-end m-3" ng-repeat="s in salesItem" ng-if="salesItem.length >0">
                             <p style="font-size: 22px;" ng-if="s.sales.shopid == l.shopid">Giảm : <strong
                                     id="sale{{l.shopid}}" style="color: #C93F04;">{{s.sales.discountpercentage *100}}
                                     %</strong></p>
+                                    <p style="font-size: 22px;" ng-if="s.sales.shopid != l.shopid">Giảm : <strong
+                                        id="sale{{l.shopid}}" style="color: #C93F04;">0
+                                        %</strong></p>
                         </div>
+                        
                         <div class="float-end m-3" ng-repeat="s in salesItem">
                             <p style="font-size: 20px ;" ng-if="s.sales.shopid == l.shopid">Voucher : <strong
                                     id="coup{{l.shopid}}" class="btn btn-primary">{{s.sales.couoponcode}}</strong></p>
@@ -81,7 +85,7 @@
                                         th:text="${u.name}"></option>
                                 </select>
                             </div>
-
+                            <p>Phí ship : <span id="shipShopPrivate{{l.shopid}}">30000</span></p>
                             <div class=""> <textarea class="float-end form-control" name="" id="noteBooking{{l.shopid}}" cols="60"
                                     rows="2" placeholder="Ghi chú..."></textarea>
                             </div>

@@ -429,6 +429,7 @@ a:hover{
 /* order detail */
 
 .boxOrderDetail-top{
+
     width: 988.75px;
     height: 360px;
     margin-left: 30.125px;
@@ -478,7 +479,8 @@ a:hover{
     width: 344px;
     height: 95px;
 }
-.icon-orderIsConfirm{
+.icons-orderIsConfirm{
+    display: none !important;
     background-color: #F25019;
     width: 58.75px;
     height: 58.75px;
@@ -486,7 +488,7 @@ a:hover{
     padding: 7.8px 0 0 16.5px;
     margin: auto;
 }
-.icon-orderIsConfirm i{
+.icons-orderIsConfirm i{
     font-size: 27px;
     color: white;
 }
@@ -501,7 +503,7 @@ a:hover{
     width: 172px;
     height: 95px;
 }
-.icon-orderIsShipping{
+.icons-orderIsShipping{
     width: 58.75px;
     height: 58.75px;
     background-color: #F25019;
@@ -509,7 +511,7 @@ a:hover{
     padding: 7.8px 0 0 16.5px;
     margin: auto;
 }
-.icon-orderIsShipping i{
+.icons-orderIsShipping i{
     font-size: 27px;
     color: white;
 }
@@ -524,7 +526,7 @@ a:hover{
     width: 344px;
     height: 95px;
 }
-.icon-orderHasBeanDelivered{
+.icons-orderHasBeanDelivered{
     width: 58.75px;
     height: 58.75px;
     background-color: #F25019;
@@ -532,7 +534,7 @@ a:hover{
     padding: 7.8px 0 0 16.5px;
     margin: auto;
 }
-.icon-orderHasBeanDelivered i{
+.icons-orderHasBeanDelivered i{
     font-size: 27px;
     color: white;
 }

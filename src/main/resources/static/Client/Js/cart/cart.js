@@ -658,7 +658,9 @@ app.controller("cart_ctrl", function ($scope, $http, $timeout) {
 	}
 	$scope.cart.load();
 	$scope.detailBook = function (bookid) {
+		
 		location.href = "/product/detail/" + bookid;
+
 	}
 
 
@@ -679,6 +681,19 @@ app.controller("cart_ctrl", function ($scope, $http, $timeout) {
 		})
 	}
 
+
+	$scope.SoldQuan = function(shopid){
+		$http.get("/rest/books/shop?shopid="+shopid).then(resp =>{ 
+			$scope.shopSoldBook = resp.data;
+			document.getElementById('soldBook'+shopid).innerText = $scope.shopSoldBook.length;
+			var sum = 0;
+			angular.forEach($scope.shopSoldBook, function(value, key){
+				sum += Number(value.quantitysold);
+			  });
+			  document.getElementById('soldQuan'+shopid).innerText = sum
+
+		})
+	}
 	$scope.addDiscount = function (couoponcode) {
 		try {
 			$scope.discountAdd = {
@@ -708,6 +723,18 @@ app.controller("cart_ctrl", function ($scope, $http, $timeout) {
 		$scope.ListBookOfShop = JSON.parse(localStorage.getItem('productShop'));
 	});
 
+
+	$scope.calcRate = function(r,e) {
+		const f = ~~r,//Tương tự Math.floor(r)
+		id = 'sstar' + f + (r % f ? 'half' : '')+e
+		console.log("check start = "+ id+ (document.getElementById(id).checked = !0))
+		document.getElementById(id).checked = !0
+
+	   }
+
+	  
+	   
+	   
 	$scope.getAllshop();
 
 	///////////////////////// Cart Page
@@ -874,6 +901,7 @@ function loadWin() {
 	console.log("books s " + c);
 	console.log("books sa " + d);
 	var totalPriceAll = 0;
+	var totalship = 0;
 	if (c != null) {
 		c.forEach(m => {
 			var priceItem = 0;
@@ -892,11 +920,15 @@ function loadWin() {
 			}
 			document.getElementById('priceItem' + m.shopid).innerText = formatNumber(priceItem, ".", ",");;
 			totalPriceAll += priceItem;
+			console.log("923"+ totalship)
+			totalship += Number($('#shipShopPrivate' + m.shopid).text());
+			//console.log("923"+ totalship)
 
 
 		})
 	}
 	document.getElementById('totalPriceAll').innerText = formatNumber(totalPriceAll, ".", ",");
+	document.getElementById('shippingPrice').innerText = formatNumber(totalship, ".", ",");
 	calculatorPrice();
 }
 
@@ -916,6 +948,7 @@ function calculatorPrice() {
 
 app.controller("order_ctrl", function ($scope, $http, $timeout) {
 
+	
 	/////////////// Deal Page
 	$scope.bookItem = [];
 	$scope.dealItem = [];
@@ -955,6 +988,8 @@ app.controller("order_ctrl", function ($scope, $http, $timeout) {
 		localStorage.clear();
 
 	}
+
+	
 
 	$scope.paymentCart = function () {
 		var payone =  Number($('#pay').children("option:selected").val());
@@ -1009,30 +1044,57 @@ app.controller("order_ctrl", function ($scope, $http, $timeout) {
 	
 						})
 					},
+					costship: Number($('#shipShopPrivate' + i.shopid).text()),
+					costvoucher:( Number($('#sale' + i.shopid).text())/100), 
+					timefinish: new Date()
 				}
 				var booking = angular.copy($scope.bookings);
 				console.log("ind " + JSON.stringify($scope.bookings))
 	
-				$http.post(`/rest/bookings`, booking).then(resp => {
-	
-					$scope.deleteDeal();
-					$http.delete("http://localhost:8080/rest/discount/" + vouchero.discountcodeid).then(resp => {
+				if(Number($('#pay').children("option:selected").val()) == 1){ 
+					$http.get(`/api/payment/create_payment/1&17000`).then(resp => {
+						console.log("1053 : "+ JSON.stringify(resp.data))
+						$scope.deleteDeal();
+						$http.delete("http://localhost:8080/rest/discount/" + vouchero.discountcodeid).then(resp => {
+						})
+						console.log("900")
+						$('#dhmodal').show();
+						$('#iconModels').html('<i  style="font-size: 50px;color: green;" class="bi bi-check-circle"></i> ')
+						$('#buttonClose').hide();
+						$('#descrptionInfors').text("Đặt hàng thành công!");
+						$('#modalbutton').show();
+					}).catch(error => {
+						console.log("1064")
+						$('#dhmodal').show();
+						$('#iconModels').html('<i  style="font-size: 50px;color: red;" class="bi bi-x-circle"></i> ')
+						$('#descrptionInfors').text("Đặt hàng thất bại! Vui lòng thử lại");
+						$('#buttonClose').hide();
+						$('#modalbutton').show();
+						console.log(error)
 					})
-					console.log("949")
-					$('#dhmodal').show();
-					$('#iconModels').html('<i  style="font-size: 50px;color: green;" class="bi bi-check-circle"></i> ')
-					$('#buttonClose').hide();
-					$('#descrptionInfors').text("Đặt hàng thành công!");
-					$('#modalbutton').show();
-				}).catch(error => {
-					console.log("954")
-					$('#dhmodal').show();
-					$('#iconModels').html('<i  style="font-size: 50px;color: red;" class="bi bi-x-circle"></i> ')
-					$('#descrptionInfors').text("Đặt hàng thất bại! Vui lòng thử lại");
-					$('#buttonClose').hide();
-					$('#modalbutton').show();
-					console.log(error)
-				})
+				}
+				else{ 
+					$http.post(`/rest/bookings`, booking).then(resp => {
+						console.log("1047 : "+ JSON.stringify(resp.data))
+						$scope.deleteDeal();
+						$http.delete("http://localhost:8080/rest/discount/" + vouchero.discountcodeid).then(resp => {
+						})
+						console.log("949")
+						$('#dhmodal').show();
+						$('#iconModels').html('<i  style="font-size: 50px;color: green;" class="bi bi-check-circle"></i> ')
+						$('#buttonClose').hide();
+						$('#descrptionInfors').text("Đặt hàng thành công!");
+						$('#modalbutton').show();
+					}).catch(error => {
+						console.log("954")
+						$('#dhmodal').show();
+						$('#iconModels').html('<i  style="font-size: 50px;color: red;" class="bi bi-x-circle"></i> ')
+						$('#descrptionInfors').text("Đặt hàng thất bại! Vui lòng thử lại");
+						$('#buttonClose').hide();
+						$('#modalbutton').show();
+						console.log(error)
+					})
+				}
 			});
 		}
 	
@@ -1046,6 +1108,7 @@ app.controller("address_ctrl", function ($scope, $http) {
 		$http.get("/rest/address/" + addressid).then(resp => {
 			console.log("resp = " + JSON.stringify(resp.data));
 			$scope.add = resp.data;
+			callAp();
 
 		})
 	}
@@ -1094,6 +1157,7 @@ var callAPI = (api) => {
     return axios.get(api)
         .then((response) => {
             renderData(response.data, "city");
+			renderData(response.data, "city1");
         });
 }
 
@@ -1101,12 +1165,14 @@ var callApiDistrict = (api) => {
     return axios.get(api)
         .then((response) => {
             renderData(response.data.districts, "district");
+			renderData(response.data.districts, "district1");
         });
 }
 var callApiWard = (api) => {
     return axios.get(api)
         .then((response) => {
             renderData(response.data.wards, "ward");
+			renderData(response.data.wards, "ward1");
         });
 }
 
@@ -1121,11 +1187,13 @@ var renderData = (array, select) => {
 function citychange(){ 
 	console.log("1122")
     callApiDistrict(hosts + "p/" + $("#city").find(':selected').data('id') + "?depth=2");
+	callApiDistrict(hosts + "p/" + $("#city1").find(':selected').data('id') + "?depth=2");
     printResult();
 }
 
 function districtchange(){ 
 	callApiWard(hosts + "d/" + $("#district").find(':selected').data('id') + "?depth=2");
+	callApiWard(hosts + "d/" + $("#district1").find(':selected').data('id') + "?depth=2");
     printResult();
 }
 
@@ -1156,8 +1224,17 @@ var printResult = () => {
             $("#ward option:selected").text();
         $("#result").text(result)
     }
+	if ($("#district1").find(':selected').data('id') != "" && $("#city1").find(':selected').data('id') != "" &&
+        $("#ward1").find(':selected').data('id') != "") {
+        let result = $("#city1 option:selected").text() +
+            " | " + $("#district1 option:selected").text() + " | " +
+            $("#ward1 option:selected").text();
+        $("#result").text(result)
+    }
 
 }
+
+
 
 
 

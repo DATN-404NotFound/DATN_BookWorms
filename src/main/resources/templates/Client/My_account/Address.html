@@ -26,7 +26,7 @@
                     <p class="pAddressDetail" th:text="${adu.detailhome}+', '+${adu.Ward}+', '+${adu.district}+', '+${adu.province}"></p>
                 </div>
                 <div class="col-3">
-                    <a class="float-end btnEditAddress" data-bs-toggle="modal" th:attr="ng-click=@{|callModel('${adu.addressuserid}')|}" data-bs-target="#exampleModal1"><i class="bi bi-pencil"></i></a><br>
+                    <a class="float-end btnEditAddress" data-bs-toggle="modal" th:attr="ng-click=@{|callModel('${adu.addressuserid}')|}"  data-bs-target="#exampleModal1"><i class="bi bi-pencil"></i></a><br>
                     <div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                         <div class="modal-dialog" >
                             <div class="modal-content boxNewAddress">
@@ -47,15 +47,15 @@
                                         <div class="mb-3">
                                             <!-- <input  type="text" class="form-control" id="province-newAddress" name="provinceEditAddress"
                                                 placeholder="Province"> -->
-                                                <select id="ward" ng-model="add.province" class="form-select" onchange="wardchange()" name="ward">
+                                                <select  id="city1" name="province" ng-model="add.province" class="form-select" onchange="citychange()">
                                                     <option value="" selected>Chọn phường xã</option>
                                                     </select>
                                         </div>
                                         <div class="mb-3">
                                             <!-- <input ng-model="add.district" type="text" class="form-control" id="district-newAddress" name="districtEditAddress"
                                                 placeholder="District"> -->
-                                                <select id="district" ng-model="add.district" name="district" class="form-select" onchange="districtchange()">
-                                               
+                                                <select id="district1" ng-model="add.district" name="district" class="form-select" onchange="districtchange()">
+                                                    <option value="" ng-bind="add.district" selected></option>
                                                     </select>
                                                     
                                         </div>
@@ -63,8 +63,8 @@
                                         
                                             <!-- <input ng-model="add.Ward" type="text" class="form-control" id="ward-newAddress" name="wardEditAddress"
                                                 placeholder="Ward"> -->
-                                           <select id="ward" ng-model="add.Ward" class="form-select" onchange="wardchange()" name="ward">
-                                                
+                                           <select id="ward1" ng-model="add.Ward" class="form-select" onchange="wardchange()" name="ward">
+                                            <option value="" ng-bind="add.Ward" selected>{{add.Ward}}</option>
                                                     </select>
                                         </div>
                                         <div class="mb-3">

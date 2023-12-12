@@ -21,6 +21,7 @@ import org.springframework.security.web.DefaultRedirectStrategy;
 import org.springframework.security.web.RedirectStrategy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
 
 import java.io.IOException;
 
@@ -40,7 +41,7 @@ public class SecurityConfig {
 				.requestMatchers("/shop/**").permitAll()
 				.requestMatchers("/Ibook/index","/Ibook/about","/Ibook/shop").permitAll()
 				.requestMatchers("/Client/**", "/product/**").permitAll().requestMatchers("/rest/**")
-				.permitAll().requestMatchers("static/Client/**").permitAll().requestMatchers("admin/**", "api/payment/**").hasAuthority("ADMIN")
+				.permitAll().requestMatchers("static/Client/**").permitAll().requestMatchers("admin/**", "api/payment/**").hasAnyAuthority("ADMIN","SELLER","GUEST")
 				.requestMatchers("/seller/**").hasAuthority("SELLER").anyRequest().authenticated())
 
 				.formLogin(form -> form.loginPage("/account/login").defaultSuccessUrl("/product/dashboard").permitAll())
@@ -61,7 +62,8 @@ public class SecurityConfig {
 				.logoutSuccessUrl("/account/login")
 				.permitAll());
 
-		http.cors().disable().csrf().disable();
+		http.cors();
+		http.csrf().disable();
 		return http.build();
 	}
 	//	Phân quyền sử dụng

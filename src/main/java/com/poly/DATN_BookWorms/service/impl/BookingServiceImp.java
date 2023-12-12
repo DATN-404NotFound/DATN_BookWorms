@@ -2,6 +2,7 @@ package com.poly.DATN_BookWorms.service.impl;
 
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.ThreadLocalRandom;
@@ -70,7 +71,15 @@ public class BookingServiceImp implements BookingService{
 			booking.setUserid(userid);
 			booking.setBookingid(crc32_SHA256.getCodeCRC32C(booking.getUserid()+booking.getCreateat()+ booking.getBookingid()+a));
 			booking.getAccount().setUserid(userid);
-			
+		
+			if(booking.getCostvoucher() == null || (booking.getCostvoucher() <= 0)){
+				booking.setCostvoucher(0.00);
+			}
+			booking.setCostvoucher(booking.getCostvoucher()* booking.getCost());
+			Calendar c = Calendar.getInstance();
+			c.add(Calendar.DAY_OF_MONTH,3); 
+			booking.setTimefinish(c.getTime());
+		
 			bookingRepo.save(booking);
 			logger.info("Create booking is successful with booking : {}", booking);
 			TypeReference<List<Detailbookings>> type = new TypeReference<List<Detailbookings>>() {};
@@ -94,7 +103,7 @@ public class BookingServiceImp implements BookingService{
 								}
 								d.setBookingid(booking.getBookingid());
 								 d.setBookings(booking);
-								 d.setDbid(crc32_SHA256.getCodeCRC32C(userid+d.getBookid()));
+								 d.setDbid(crc32_SHA256.getCodeCRC32C(userid+d.bookingid+d.bookid));
 								 logger.info("Detailbooking for create : {}", d.toString());
 								 detailRepo.save(d);
 								 booksRepo.save(books);

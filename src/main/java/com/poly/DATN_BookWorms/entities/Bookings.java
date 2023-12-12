@@ -105,6 +105,12 @@ public class Bookings {
         sb.append(shippingunitid);
         sb.append("|");
         sb.append(note);
+		sb.append("|");
+        sb.append(costvoucher);
+		sb.append("|");
+        sb.append(costvoucher);
+		sb.append("|");
+        sb.append(timefinish);
         return sb.toString(); 
     }
 
