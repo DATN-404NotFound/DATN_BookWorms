@@ -20,7 +20,13 @@ public class AddressShop implements Serializable {
 
     private String namereceiver;
 
-    private String address;
+    private String detailhome;
+
+    private String ward;
+
+    private  String district;
+
+    private  String province;
 
     @Temporal(TemporalType.DATE)
     @Column(name="createat")
@@ -40,7 +46,7 @@ public class AddressShop implements Serializable {
         StringBuilder sb = new StringBuilder();
         sb.append(this.shoponlines);
         sb.append("|");
-        sb.append(this.address);
+        sb.append(this.detailhome);
         sb.append("|");
         sb.append(this.namereceiver);
         sb.append("|");

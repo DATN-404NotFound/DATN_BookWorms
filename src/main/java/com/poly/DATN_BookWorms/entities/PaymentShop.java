@@ -34,7 +34,7 @@ import java.io.Serializable;
 @Table(name = "Paymentshop")
 public class PaymentShop implements Serializable {
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "paymentshopid", nullable = false)
 	public Long paymentshopid;
 	
@@ -44,6 +44,8 @@ public class PaymentShop implements Serializable {
 	public boolean status;
 	
 	public long valuepayment;
+
+	public boolean isdelete;
 	
 	@ManyToOne
     @JoinColumn(name="Shopid", referencedColumnName="ShopId", insertable=false, updatable=false)
