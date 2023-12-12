@@ -375,15 +375,15 @@ app.controller("cart_ctrl", function ($scope, $http, $timeout) {
 
 
 	$scope.filterAll = function (b) {
-		
+
 		$scope.searchfilter = localStorage.getItem("searchfilter");
-	
+
 		if ($scope.searchfilter == null) {
-			
+
 			return (JSON.stringify(angular.lowercase(b.bookname)).indexOf($scope.searchfilter) == -1 || JSON.stringify(b.price).indexOf($scope.searchfilter) == -1);
 		}
 		else {
-	
+
 			return (JSON.stringify(angular.lowercase(b.bookname)).indexOf($scope.searchfilter) != -1 || JSON.stringify(b.price).indexOf($scope.searchfilter) != -1);
 		}
 	}
@@ -613,11 +613,14 @@ app.controller("cart_ctrl", function ($scope, $http, $timeout) {
 	///////////////////////// Shop Page 
 	$scope.ListBookOfShop = []
 	$scope.toShopDetail = function (shopid) {
+
 		$http.get("http://localhost:8080/rest/books/shop?shopid=" + shopid).then(resp => {
 			localStorage.setItem('productShop', JSON.stringify(resp.data));
 			//location.href = "/shop/" + shopid
 		})
 	}
+
+
 
 	$scope.shopAll = [];
 	$scope.getAllshop = function () {
@@ -716,27 +719,27 @@ $(document).ready(function () {
 
 function voucherSelected(shopid) {
 	var vou = $('#voucher' + shopid).children("option:selected").val();
-try {
-	$.get("http://localhost:8080/rest/discount/" + vou, function (data, status) {
-		if (!data || data.value === null || vou == undefined) {
-			localStorage.setItem('sales', JSON.stringify(salevoucher));
-			console.log("vouchernull : ")
-		}
-		else {
-			var v = salevoucher.find(i => i.saleid == vou);
-			if (v) {
+	try {
+		$.get("http://localhost:8080/rest/discount/" + vou, function (data, status) {
+			if (!data || data.value === null || vou == undefined) {
+				localStorage.setItem('sales', JSON.stringify(salevoucher));
+				console.log("vouchernull : ")
 			}
 			else {
-				salevoucher.push(data);
-				localStorage.setItem('sales', JSON.stringify(salevoucher));
-				console.log("voucher : "+ salevoucher.length)
+				var v = salevoucher.find(i => i.saleid == vou);
+				if (v) {
+				}
+				else {
+					salevoucher.push(data);
+					localStorage.setItem('sales', JSON.stringify(salevoucher));
+					console.log("voucher : " + salevoucher.length)
+				}
 			}
-		}
-	});
-} catch (error) {
-	console.log('error : '+ error)
-	
-}
+		});
+	} catch (error) {
+		console.log('error : ' + error)
+
+	}
 }
 
 function selectShop(item) {
@@ -756,7 +759,7 @@ function findBook(item) {
 	$.get("http://localhost:8080/rest/books/" + item.bookid, function (data, status) {
 		books.push(data);
 		localStorage.setItem('books', JSON.stringify(books));
-		console.log(" 755: "+ books.length)
+		console.log(" 755: " + books.length)
 		selectShop(data.shoponlines.shopid);
 	})
 }
@@ -765,7 +768,7 @@ function findCart(item) {
 	$.get("http://localhost:8080/rest/cart/" + item, function (data, status) {
 		deal.push(data);
 		localStorage.setItem('deal', JSON.stringify(deal));
-		console.log(" 763 : "+ deal.length)
+		console.log(" 763 : " + deal.length)
 		findBook(data);
 	})
 }
@@ -788,19 +791,19 @@ function deals() {
 	purchase.forEach(item => {
 		findCart(item);
 		localStorage.setItem('deal', JSON.stringify(deal));
-	
-		
+
+
 
 	})
 	setTimeout(greeting, 100);
 }
 
 
-function greeting(){
+function greeting() {
 	location.href = "/order"
-  }
-  
-  
+}
+
+
 
 $(document).ready(function () {
 	loadWin();
@@ -814,10 +817,10 @@ function loadWin() {
 	var b = JSON.parse(localStorage.getItem('deal'));
 	var c = JSON.parse(localStorage.getItem('shoponline'));
 	var d = JSON.parse(localStorage.getItem('sales'));
-	console.log("books L "+ a);
-	console.log("books d "+ b);
-	console.log("books s "+ c);
-	console.log("books sa "+ d);
+	console.log("books L " + a);
+	console.log("books d " + b);
+	console.log("books s " + c);
+	console.log("books sa " + d);
 	var totalPriceAll = 0;
 	if (c != null) {
 		c.forEach(m => {
@@ -861,7 +864,7 @@ function calculatorPrice() {
 
 app.controller("order_ctrl", function ($scope, $http, $timeout) {
 
-/////////////// Deal Page
+	/////////////// Deal Page
 	$scope.bookItem = [];
 	$scope.dealItem = [];
 	$scope.shopItem = [];
@@ -896,22 +899,22 @@ app.controller("order_ctrl", function ($scope, $http, $timeout) {
 		})
 	}
 
-	$scope.clearLocal = function(){ 
+	$scope.clearLocal = function () {
 		localStorage.clear();
 
 	}
 
 	$scope.paymentCart = function () {
-		var payone =  Number($('#pay').children("option:selected").val());
-		
-		if(payone == -1){ 
+		var payone = Number($('#pay').children("option:selected").val());
+
+		if (payone == -1) {
 			$('#messPay').text("Vui lòng chọn hình thức thanh toán")
 		}
 		// if(shiper == 0){
 		// 	$('#messShip').text("Vui lòng chọn hình thức vận chuyển");
 		//
 		// }
-		else{ 
+		else {
 			var timeoutTimer = 0;
 			$scope.shopItem.forEach(i => {
 				var a = document.getElementById('priceItem' + i.shopid).innerText;
@@ -932,7 +935,7 @@ app.controller("order_ctrl", function ($scope, $http, $timeout) {
 							type: Number($('#pay').children("option:selected").val()),
 							addressuserid: $('#addressship').children("option:selected").val(),
 							addressusers: { addressuserid: $('#addressship').children("option:selected").val() },
-	
+
 						}
 					},
 					orderstatuses: { orderstatusid: 1 },
@@ -951,29 +954,29 @@ app.controller("order_ctrl", function ($scope, $http, $timeout) {
 								console.log("khác shop" + item.books.shopid)
 								return;
 							}
-	
+
 						})
 					},
 				}
 				var booking = angular.copy($scope.bookings);
 				console.log("ind " + JSON.stringify($scope.bookings))
-			
+
 				$http.post(`/rest/bookings`, booking).then(resp => {
-					
+
 					$scope.deleteDeal();
 					$http.delete("http://localhost:8080/rest/discount/" + vouchero.discountcodeid).then(resp => {
 					})
 					console.log("949")
 					$('#dhmodal').show();
 					$('#iconModels').html('<i  style="font-size: 50px;color: green;" class="bi bi-check-circle"></i> ')
-				
-					 $('#descrptionInfors').text("Đặt hàng thành công!")
+
+					$('#descrptionInfors').text("Đặt hàng thành công!")
 				}).catch(error => {
 					console.log("954")
 					$('#dhmodal').show();
 					$('#iconModels').html('<i  style="font-size: 50px;color: red;" class="bi bi-x-circle"></i> ')
 					$('#descrptionInfors').text("Đặt hàng thất bại! Vui lòng thử lại")
-					
+
 				})
 			});
 		}
@@ -984,44 +987,141 @@ app.controller("order_ctrl", function ($scope, $http, $timeout) {
 
 app.controller("address_ctrl", function ($scope, $http) {
 
-    $scope.callModel = function(addressid){
-        $http.get("/rest/address/"+ addressid).then(resp=>{ 
-            console.log("resp = "+ JSON.stringify(resp.data));
-            $scope.add = resp.data;
+	$scope.voucherUser = function () {
+		console.log("9888")
+		try {
+			$http.get("http://localhost:8080/rest/discount/findbyUser").then(resp => {
+				$scope.voucherByUser = resp.data;
+				console.log("998 " + $scope.voucherByUser.length)
+			})
+		} catch (error) {
+			console.log("9995" + error)
+		}
+	}
+	$scope.voucherUser();
 
-        })
-    }
+	$scope.callModel = function (addressid) {
+		$http.get("/rest/address/" + addressid).then(resp => {
+			console.log("resp = " + JSON.stringify(resp.data));
+			$scope.add = resp.data;
 
-    $scope.updateAdd = function(){ 
-        var ad = angular.copy($scope.add);
-        $http.post("/rest/address", ad).then(resp =>{ 
-            location.href="/myAccount/address";
-        })
-    }
+		})
+	}
 
-    $scope.deleteAdd = function(addressid){ 
-        console.log(addressid)
-        $http.delete("/rest/address/"+ addressid).then(resp =>{ 
-            console.log("lsklf")           
-            location.href="/myAccount/address";
-        })
-    
-    }
+	$scope.updateAdd = function () {
+		var ad = angular.copy($scope.add);
+		$http.post("/rest/address", ad).then(resp => {
+			location.href = "/myAccount/address";
+		})
+	}
+	$scope.setShop = function (ds, shopId) {
+		console.log("a ", shopId)
+		let url = `http://localhost:8080/rest/files/` + shopId;
+		$http.get(url).then(resp => {
+			var a = [];
+			a = (resp.data);
+			document.getElementById('shopimage' + ds + shopId).src = "/Client/images/" + a[0].filename;
+			document.getElementById('shopimage1' + ds + shopId).src = "/Client/images/" + a[0].filename
+		}).catch(error => {
+			console.log("Error", error)
+		});;
+	}
 
-	$scope.callModel2 = function(bookingId){
-        console.log(bookingId)
-        $http.get("/rest/bookings/"+ bookingId).then(resp=>{ 
-            console.log(bookingId)
-            console.log("resp = "+ JSON.stringify(resp.data));
-            $scope.add = resp.data;
+	$scope.setImage6 = function (bookId) {
+		console.log("jdkf09")
+		console.log("c", bookId)
+		let url = `http://localhost:8080/rest/imagebook/` + bookId;
+		$http.get(url).then(resp => {
+			var a = [];
+			console.log("c", bookId)
+			a = (resp.data);
+			document.getElementById('imgb' + bookId).src = "/Client/images/" + a[0].name
+		}).catch(error => {
+			console.log("Error", error)
+		});
+	}
+	$scope.deleteAdd = function (addressid) {
+		console.log(addressid)
+		$http.delete("/rest/address/" + addressid).then(resp => {
+			console.log("lsklf")
+			location.href = "/myAccount/address";
+		})
 
-        })
-    }
+	}
 
-    $scope.updateBooking = function(){ 
-        var ad = angular.copy($scope.add);
-        $http.post("/rest/bookings/update", ad).then(resp =>{ 
-            location.href="/myAccount/orderMyAccount";
-        })
-    }
+	$scope.callModel2 = function (bookingId) {
+		console.log(bookingId)
+		$http.get("/rest/bookings/" + bookingId).then(resp => {
+			console.log(bookingId)
+			console.log("resp = " + JSON.stringify(resp.data));
+			$scope.add = resp.data;
+
+		})
+	}
+
+	$scope.updateBooking = function () {
+		var ad = angular.copy($scope.add);
+		$http.post("/rest/bookings/update", ad).then(resp => {
+			location.href = "/myAccount/orderMyAccount";
+		})
+	}
+	$scope.toShopDetails = function (shopid) {
+		console.log("616")
+		location.href = "/shop/" + shopid
+
+	}
+	$scope.callDetailBooking = function (dbId) {
+		console.log(dbId)
+		$http.get("/rest/detailBooking/" + dbId).then(resp => {
+			console.log('aaa' + dbId)
+			console.log("resp = " + JSON.stringify(resp.data));
+			$scope.add = resp.data;
+			$scope.dbIdForEvaluate = dbId;
+			$scope.setImage6($scope.add.books.bookid)
+		})
+	}
+
+	$scope.evaluate = {}; // Khởi tạo đối tượng để lưu trữ dữ liệu đánh giá
+
+    $scope.postEvaluate = function () {
+        // Lấy dữ liệu cho Evaluate từ $scope.evaluate và $scope.dbIdForEvaluate
+        var evaluateData = {
+            dbid: $scope.dbIdForEvaluate,
+            rating: parseFloat(document.querySelector('input[name="rating"]:checked').value),
+            reviewtext: $scope.evaluate.reviewtext,
+            evaluatedate: new Date()
+        };
+		console.log(evaluateData)
+        // Gửi yêu cầu POST để tạo Evaluate
+        $http.post("/api/evaluates/save", evaluateData).then(resp => {
+			//$('#idRating-orderDetail').text("Mua lại")
+            console.log("Evaluate created:", resp.data);
+			location.href = "/myAccount/orderDetailMyAccount/"+ $scope.add.bookingid;
+            alert("Đánh giá thành công")
+			
+        }).catch(error => {
+            console.error("Error creating Evaluate:", error);
+			alert("Thất bại")
+            // Xử lý lỗi nếu cần
+        });
+    };
+
+
+	// voucher MyAccount
+	$scope.callVoucherMA = function (discountcodeid) {
+		console.log(discountcodeid)
+		$http.get("/rest/discount/view/" + discountcodeid).then(resp => {
+			console.log('aaa' + discountcodeid)
+			console.log("resp = " + JSON.stringify(resp.data));
+			$scope.discount = resp.data;
+
+		})
+	}
+
 });
+
+
+function ab(id) {
+
+	console.log("va " + document.getElementById(id).value)
+}

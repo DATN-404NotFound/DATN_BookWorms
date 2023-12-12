@@ -49,7 +49,7 @@
                                 th:text="${b.listOfDetailbookings.get(0).books.shoponlines.shopname}"></p>
                         </span>
                         <button class="btn btnChat">Chat</button>
-                        <button class="btn btnReport">Báo cáo</button>
+                        <button class="btn btnViewShop" th:attr="ng-click=@{|toShopDetails(${b.listOfDetailbookings.get(0).books.shoponlines.shopid})|}">Xem Shop</button>
                         <p id="pStatus">Trạng thái: <span th:text="${b.orderstatuses.statusname}"></span></p>
                     </div>
                     <div class="cardBody">
@@ -66,13 +66,7 @@
                         <p class="total">Thành tiền: <span th:text="${b.cost}"></span></p>
                         <button class="btn btnCancelled" th:if="${b.orderstatuses.statusname} == 'Chờ xác nhận'"
                             type="button" data-bs-toggle="modal" data-bs-target="#exampleModal1"
-                            th:attr="ng-click=@{|callModel('${b.bookingid}')|}">Hủy đơn</button>
-
-                        <button th:if="${b.orderstatuses.statusname} == 'Hoàn thành'" type="button"
-                            class="btn btnRating" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                            Đánh giá
-                        </button>
-
+                            th:attr="ng-click=@{|callModel2('${b.bookingid}')|}">Hủy đơn</button>
                         <form action="">
                             <button class="btn btnDetail-order"
                                 th:formaction="@{|/myAccount/orderDetailMyAccount/${b.bookingid}|}">Chi tiết</button>
@@ -82,7 +76,7 @@
             </div>
             <div id="tabPendingPayment" class="tab-pane fade">
                 <!-- <div class="img-notOrder"
-                    th:if="${booking == null or booking.size() == 0 or booking[0].orderstatuses.statusname != 'Chưa thanh toán'}">
+                    th:if="${booking == null or booking.size() == 0 or booking.get(0).orderstatuses.statusname != 'Chưa thanh toán'}">
                     <img th:src="@{|/Client/images/not-order.png|}" alt="">
                     <p class="mt-4">Không có đơn hàng</p>
                 </div> -->
@@ -96,7 +90,7 @@
                                 th:text="${b.listOfDetailbookings.get(0).books.shoponlines.shopname}"></p>
                         </span>
                         <button class="btn btnChat">Chat</button>
-                        <button class="btn btnReport">Báo cáo</button>
+                        <button class="btn btnViewShop">Xem Shop</button>
                         <p id="pStatus">Trạng thái: <span th:text="${b.orderstatuses.statusname}"></span></p>
                     </div>
                     <div class="cardBody">
@@ -112,10 +106,7 @@
                     <div class="cardFooter">
                         <p class="total">Thành tiền: <span th:text="${b.cost}"></span></p>
                         <!-- <button class="btn btnRating">Rating</button> -->
-                        <button th:if="${b.orderstatuses.statusname} == 'Hoàn thành'" type="button"
-                            class="btn btnRating" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                            Đánh giá
-                        </button>
+                        
 
                         <form action="">
                             <button class="btn btnDetail-order"
@@ -126,7 +117,7 @@
             </div>
             <div id="tabPendingConfirmation" class="tab-pane fade">
                 <!-- <div class="img-notOrder"
-                    th:if="${booking == null or booking.size() == 0 or booking[0].orderstatuses.statusname != 'Chờ xác nhận'}">
+                    th:if="${booking == null or booking.size() == 0 or booking.get(0).orderstatuses.statusname != 'Chờ xác nhận'}">
                     <img th:src="@{|/Client/images/not-order.png|}" alt="">
                     <p class="mt-4">Không có đơn hàng</p>
                 </div> -->
@@ -140,7 +131,7 @@
                                 th:text="${b.listOfDetailbookings.get(0).books.shoponlines.shopname}"></p>
                         </span>
                         <button class="btn btnChat">Chat</button>
-                        <button class="btn btnReport">Báo cáo</button>
+                        <button class="btn btnViewShop">Xem Shop</button>
                         <p id="pStatus">Trạng thái: <span th:text="${b.orderstatuses.statusname}"></span></p>
                     </div>
                     <div class="cardBody">
@@ -159,10 +150,7 @@
                             type="button" data-bs-toggle="modal" data-bs-target="#exampleModal1"
                             th:attr="ng-click=@{|callModel2('${b.bookingid}')|}">Hủy đơn</button>
 
-                        <button th:if="${b.orderstatuses.statusname} == 'Hoàn thành'" type="button"
-                            class="btn btnRating" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                            Đánh giá
-                        </button>
+                        
 
                         <form action="">
                             <button class="btn btnDetail-order"
@@ -173,7 +161,7 @@
             </div>
             <div id="tabTransprot" class="tab-pane fade">
                 <!-- <div class="img-notOrder"
-                    th:if="${booking == null or booking.size() == 0 or booking[0].orderstatuses.statusname != 'Đang vận chuyển'}">
+                    th:if="${booking == null or booking.size() == 0 or booking.get(0).orderstatuses.statusname != 'Đang vận chuyển'}">
                     <img th:src="@{|/Client/images/not-order.png|}" alt="">
                     <p class="mt-4">Không có đơn hàng</p>
                 </div> -->
@@ -187,7 +175,7 @@
                                 th:text="${b.listOfDetailbookings.get(0).books.shoponlines.shopname}"></p>
                         </span>
                         <button class="btn btnChat">Chat</button>
-                        <button class="btn btnReport">Báo cáo</button>
+                        <button class="btn btnViewShop">Xem Shop</button>
                         <p id="pStatus">Trạng thái: <span th:text="${b.orderstatuses.statusname}"></span></p>
                     </div>
                     <div class="cardBody">
@@ -203,10 +191,7 @@
                     <div class="cardFooter">
                         <p class="total">Thành tiền: <span th:text="${b.cost}"></span></p>
                         <!-- <button class="btn btnRating">Rating</button> -->
-                        <button th:if="${b.orderstatuses.statusname} == 'Hoàn thành'" type="button"
-                            class="btn btnRating" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                            Đánh giá
-                        </button>
+                        
                         <form action="">
                             <button class="btn btnDetail-order"
                                 th:formaction="@{|/myAccount/orderDetailMyAccount/${b.bookingid}|}">Chi tiết</button>
@@ -216,7 +201,7 @@
             </div>
             <div id="tabSuccess" class="tab-pane fade">
                 <!-- <div class="img-notOrder"
-                    th:if="${booking == null or booking.size() == 0 or booking[0].orderstatuses.statusname != 'Hoàn thành'}">
+                    th:if="${booking == null or booking.size() == 0 or booking.get(0).orderstatuses.statusname != 'Hoàn thành'}">
                     <img th:src="@{|/Client/images/not-order.png|}" alt="">
                     <p class="mt-4">Không có đơn hàng</p>
                 </div> -->
@@ -230,7 +215,7 @@
                                 th:text="${b.listOfDetailbookings.get(0).books.shoponlines.shopname}"></p>
                         </span>
                         <button class="btn btnChat">Chat</button>
-                        <button class="btn btnReport">Báo cáo</button>
+                        <button class="btn btnViewShop">Xem Shop</button>
                         <p id="pStatus">Trạng thái: <span th:text="${b.orderstatuses.statusname}"></span></p>
                     </div>
                     <div class="cardBody">
@@ -246,10 +231,7 @@
                     <div class="cardFooter">
                         <p class="total">Thành tiền: <span th:text="${b.cost}"></span></p>
                         <!-- <button class="btn btnRating">Rating</button> -->
-                        <button th:if="${b.orderstatuses.statusname} == 'Hoàn thành'" type="button"
-                            class="btn btnRating" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                            Đánh giá
-                        </button>
+                        
 
                         <form action="">
                             <button class="btn btnDetail-order"
@@ -259,15 +241,11 @@
                 </div>
             </div>
             <div id="tabOrderCancelled" class="tab-pane fade">
-                <!-- <div th:if="${booking != null and booking.size() > 0}">
-                    <div th:text="${#lists.exists(booking, #statusCheck.contains('Đơn Huỷ'))}"></div>
-                </div> -->
                 <!-- <div class="img-notOrder"
-                    th:if="${booking == null or booking.size() == 0 or booking[0].orderstatuses.statusname != 'Đơn Huỷ'}">
+                    th:if="${booking == null or booking.size() == 0 or booking.get(0).orderstatuses.statusname != 'Đơn Huỷ'}">
                     <img th:src="@{|/Client/images/not-order.png|}" alt="">
                     <p class="mt-4">Không có đơn hàng</p>
                 </div> -->
-
                 <div class="order" th:each="b : ${booking}" th:if="${b.orderstatuses.statusname} == 'Đơn Huỷ'">
                     <div class="cardHeader">
                         <span>
@@ -278,7 +256,7 @@
                                 th:text="${b.listOfDetailbookings.get(0).books.shoponlines.shopname}"></p>
                         </span>
                         <button class="btn btnChat">Chat</button>
-                        <button class="btn btnReport">Báo cáo</button>
+                        <button class="btn btnViewShop">Xem Shop</button>
                         <p id="pStatus">Trạng thái: <span th:text="${b.orderstatuses.statusname}"></span></p>
                     </div>
                     <div class="cardBody">
@@ -294,10 +272,7 @@
                     <div class="cardFooter">
                         <p class="total">Thành tiền: <span th:text="${b.cost}"></span></p>
                         <!-- <button class="btn btnRating">Rating</button> -->
-                        <button th:if="${b.orderstatuses.statusname} == 'Hoàn thành'" type="button"
-                            class="btn btnRating" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                            Đánh giá
-                        </button>
+                        
 
                         <form action="">
                             <button class="btn btnDetail-order"
@@ -308,7 +283,7 @@
             </div>
             <div id="tabReturnRefund" class="tab-pane fade">
                 <!-- <div class="img-notOrder"
-                    th:if="${booking == null or booking[0].orderstatuses.statusname != 'Trả hang/ hoàn tiền'}">
+                    th:if="${booking == null or booking.size() == 0 or booking.get(0).orderstatuses.statusname != 'Trả hang/ hoàn tiền'}">
                     <img th:src="@{|/Client/images/not-order.png|}" alt="">
                     <p class="mt-4">Không có đơn hàng</p>
                 </div> -->
@@ -323,7 +298,7 @@
                                 th:text="${b.listOfDetailbookings.get(0).books.shoponlines.shopname}">tungle1204</p>
                         </span>
                         <button class="btn btnChat">Chat</button>
-                        <button class="btn btnReport">Báo cáo</button>
+                        <button class="btn btnViewShop">Xem Shop</button>
                         <p id="pStatus">Trạng thái: <span th:text="${b.orderstatuses.statusname}"></span></p>
                     </div>
                     <div class="cardBody">
@@ -339,54 +314,12 @@
                     <div class="cardFooter">
                         <p class="total">Thành tiền: <span th:text="${b.cost}"></span></p>
                         <!-- <button class="btn btnRating">Rating</button> -->
-                        <button th:if="${b.orderstatuses.statusname} == 'Hoàn thành'" type="button"
-                            class="btn btnRating" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                            Đánh giá
-                        </button>
+                        
 
                         <form action="">
                             <button class="btn btnDetail-order"
                                 th:formaction="@{|/myAccount/orderDetailMyAccount/${b.bookingid}|}">Chi tiết</button>
                         </form>
-                    </div>
-                </div>
-            </div>
-            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-                aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content boxRateProduct">
-                        <div class="modal-header" style="border: none;">
-                            <h3 class="modal-title" id="exampleModalLabel">Đánh giá sản phẩm</h3>
-                        </div>
-                        <div class="modal-body">
-                            <div class="rateProduct mb-5">
-                                <img class="imgProductRate" src="../../../static/Client/images/but-ky-nguoi-di-san.jpg"
-                                    alt="">
-                                <p class="nameProductRate">Bút Ký Người Đi Săn</p> <br> <br>
-                                <button class="btn btnChooseImageRate">Choose image</button>
-                                <p class="star-rate"><i class="bi bi-star"></i><i class="bi bi-star"></i><i
-                                        class="bi bi-star"></i><i class="bi bi-star"></i><i class="bi bi-star"></i>
-                                </p>
-                                <textarea name="" id="" cols="80" rows="5"
-                                    placeholder="Share everything you like product !"></textarea>
-                            </div>
-                            <div class="rateProduct">
-                                <img class="imgProductRate" src="../../../static/Client/images/but-ky-nguoi-di-san.jpg"
-                                    alt="">
-                                <p class="nameProductRate">Bút Ký Người Đi Săn</p> <br> <br>
-                                <button class="btn btnChooseImageRate">Chọn ảnh</button>
-                                <p class="star-rate"><i class="bi bi-star"></i><i class="bi bi-star"></i><i
-                                        class="bi bi-star"></i><i class="bi bi-star"></i><i class="bi bi-star"></i>
-                                </p>
-                                <textarea name="" id="" cols="80" rows="5"
-                                    placeholder="Share everything you like product !"></textarea>
-                            </div>
-                        </div>
-                        <div class="modal-footer" style="border: none;">
-                            <button type="button" class="btn btnFinish-rateProduct">Hoàn thành</button>
-                            <button type="button" class="btn btnCancel-rateProduct"
-                                data-bs-dismiss="modal">Hủy</button>
-                        </div>
                     </div>
                 </div>
             </div>

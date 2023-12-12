@@ -10,7 +10,7 @@ import com.poly.DATN_BookWorms.entities.Evaluates;
 @Service
 public interface EvaluateService {
 
-	Evaluates create(JsonNode evaluate);
+	Evaluates create(Evaluates evaluate);
 
 
 

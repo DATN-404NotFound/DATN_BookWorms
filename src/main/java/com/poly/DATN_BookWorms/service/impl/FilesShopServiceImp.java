@@ -25,5 +25,10 @@ public class FilesShopServiceImp implements FileShopService {
 		logger.info("find list Files of Shop by shopid : {} ",shopid);
 		return filesRepo.getFilesByShopID(shopid) ;
 	}
+	@Override
+	public List<Files> findAll() {
+		// TODO Auto-generated method stub
+		return filesRepo.findAll();
+	}
 
 }

@@ -43,9 +43,6 @@ public class Shoponlines implements Serializable {
 
     private String phonenumber;
 
-    @Column(name="logo", length=50)
-    private  String     logo ;
-
     @Column(name = "total")
     private Double total;
 

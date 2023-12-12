@@ -28,9 +28,9 @@ public class EvaluateServiceImp implements EvaluateService{
 	@Autowired
 	BooksRepo booksRepo;
 	@Override
-	public Evaluates create(JsonNode evaluate) {
+	public Evaluates create(Evaluates evaluate) {
 		// TODO Auto-generated method stub
-		return null;
+		return evaluateRepo.save(evaluate);
 	}
 	@Override
 	public List<Evaluates> findEvaluatesByShopId(Integer shopId) {

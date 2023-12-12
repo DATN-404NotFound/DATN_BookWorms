@@ -43,7 +43,7 @@ public class Evaluates implements Serializable {
 
     //--- ENTITY PRIMARY KEY 
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     public Integer    evaluateid ;
 
     //--- ENTITY DATA FIELDS 

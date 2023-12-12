@@ -6,6 +6,7 @@ import com.poly.DATN_BookWorms.service.AddressService;
 import com.poly.DATN_BookWorms.service.BookingService;
 import com.poly.DATN_BookWorms.service.DetailBookingService;
 import com.poly.DATN_BookWorms.service.DiscountCodeService;
+import com.poly.DATN_BookWorms.service.FileShopService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -68,6 +69,9 @@ public class MyAccountController {
     
     @Autowired
     DiscountCodeService discountCodeService;
+    
+    @Autowired
+    FileShopService fileShopService;
 
     @GetMapping ("/myPersonal")
     public String  myPersonal(Model model){
@@ -250,9 +254,10 @@ public class MyAccountController {
         Account account = sessionService.get("user");
         model.addAttribute("account", account);
         Shoponlines shop = new Shoponlines();
-        model.addAttribute("shop", shop);
-        com.poly.DATN_BookWorms.entities.Files files = new com.poly.DATN_BookWorms.entities.Files();
-        model.addAttribute("files", files);
+        model.addAttribute("shop", shop); 
+        List<com.poly.DATN_BookWorms.entities.Files> listFile= fileShopService.findAll();
+        //com.poly.DATN_BookWorms.entities.Files files = new com.poly.DATN_BookWorms.entities.Files();
+        model.addAttribute("files", listFile);
         System.out.println("sucsess");
         List<Discountcodes> discountcodes = discountCodeService.findDisountByUserId(account.getUserid());
         model.addAttribute("discount", discountcodes);

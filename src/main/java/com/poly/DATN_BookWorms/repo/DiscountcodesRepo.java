@@ -6,7 +6,6 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
-import com.poly.DATN_BookWorms.entities.Discountcodebyuserid;
 import com.poly.DATN_BookWorms.entities.Discountcodes;
 
 public interface DiscountcodesRepo extends JpaRepository<Discountcodes, Integer>{
