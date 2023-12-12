@@ -12,4 +12,6 @@ public interface ImagesBookService {
 
 
     List<Imagebooks> create(MultipartFile[] images, Books books);
+
+    void save(Imagebooks imagebooks);
 }

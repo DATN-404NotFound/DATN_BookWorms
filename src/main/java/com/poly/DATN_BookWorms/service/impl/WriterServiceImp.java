@@ -2,6 +2,7 @@ package com.poly.DATN_BookWorms.service.impl;
 
 import java.util.List;
 
+import com.poly.DATN_BookWorms.entities.Writers;
 import com.poly.DATN_BookWorms.repo.WrittingmastersRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,6 +13,9 @@ import com.poly.DATN_BookWorms.service.WriterService;
 
 @Service
 public class WriterServiceImp implements WriterService{
+	@Autowired
+	WritersRepo writersRepo;
+
 	@Autowired
 	WrittingmastersRepo writtingmastersRepo;
 	
@@ -25,5 +29,10 @@ public class WriterServiceImp implements WriterService{
 	public List<Writtingmasters> getWrittingWithSHop(Integer shopid) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public Writers save(Writers writers) {
+		return writersRepo.save(writers);
 	}
 }
