@@ -66,9 +66,9 @@ public class DiscountCodeServiceImp implements DiscountCodeService {
 	}
 
 	@Override
-	public List<Discountcodes> findDisountOfShopWithUser(String userid, int shopid) {
+	public List<Discountcodes> findDisountOfShopWithUser(String intendfor, String userid, int shopid) {
 		// TODO Auto-generated method stub
-		return discountcodesRepo.findDisountOfShopWithUser(userid, shopid);
+		return discountcodesRepo.findDisountOfShopWithUser(intendfor, userid, shopid);
 	}
 
 

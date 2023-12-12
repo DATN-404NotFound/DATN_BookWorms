@@ -23,10 +23,10 @@
             <div class="row address1" th:each="adu : ${ad}" >
                 <div class="col-9">
                     <p class="NamePhone"><span th:text="${adu.fullname}"></span> | <span th:text="${adu.phonenumber}"></span></p>
-                    <p class="pAddressDetail" th:text="${adu.address}"></p>
+                    <p class="pAddressDetail" th:text="${adu.detailhome}+', '+${adu.Ward}+', '+${adu.district}+', '+${adu.province}"></p>
                 </div>
                 <div class="col-3">
-                    <a class="float-end btnEditAddress" data-bs-toggle="modal" th:attr="ng-click=@{|callModel('${adu.addressuserid}')|}" data-bs-target="#exampleModal1"><i class="bi bi-pencil"></i></a><br>
+                    <a class="float-end btnEditAddress" data-bs-toggle="modal" th:attr="ng-click=@{|callModel('${adu.addressuserid}')|}"  data-bs-target="#exampleModal1"><i class="bi bi-pencil"></i></a><br>
                     <div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                         <div class="modal-dialog" >
                             <div class="modal-content boxNewAddress">
@@ -45,19 +45,30 @@
                                                 placeholder="Number phone">
                                         </div>
                                         <div class="mb-3">
-                                            <input ng-model="add.address" type="text" class="form-control" id="province-newAddress" name="provinceEditAddress"
-                                                placeholder="Province">
+                                            <!-- <input  type="text" class="form-control" id="province-newAddress" name="provinceEditAddress"
+                                                placeholder="Province"> -->
+                                                <select  id="city1" name="province" ng-model="add.province" class="form-select" onchange="citychange()">
+                                                    <option value="" selected>Chọn phường xã</option>
+                                                    </select>
                                         </div>
                                         <div class="mb-3">
-                                            <input ng-model="add.address" type="text" class="form-control" id="district-newAddress" name="districtEditAddress"
-                                                placeholder="District">
+                                            <!-- <input ng-model="add.district" type="text" class="form-control" id="district-newAddress" name="districtEditAddress"
+                                                placeholder="District"> -->
+                                                <select id="district1" ng-model="add.district" name="district" class="form-select" onchange="districtchange()">
+                                                    <option value="" ng-bind="add.district" selected></option>
+                                                    </select>
+                                                    
                                         </div>
                                         <div class="mb-3">
-                                            <input ng-model="add.address" type="text" class="form-control" id="ward-newAddress" name="wardEditAddress"
-                                                placeholder="Ward">
+                                        
+                                            <!-- <input ng-model="add.Ward" type="text" class="form-control" id="ward-newAddress" name="wardEditAddress"
+                                                placeholder="Ward"> -->
+                                           <select id="ward1" ng-model="add.Ward" class="form-select" onchange="wardchange()" name="ward">
+                                            <option value="" ng-bind="add.Ward" selected>{{add.Ward}}</option>
+                                                    </select>
                                         </div>
                                         <div class="mb-3">
-                                            <input ng-model="add.address" type="text" class="form-control" id="specificAddress-newAddress" name="specificAddressEditAddress"
+                                            <input ng-model="add.detailhome" type="text" class="form-control" id="specificAddress-newAddress" name="specificAddressEditAddress"
                                                 placeholder="Specific Address">
                                         </div>
                                         <div class="mb-5">
@@ -82,14 +93,14 @@
                 </div>
             </div>
         </div>
-        <button type="button" class="btn btnNewAddress" data-bs-toggle="modal" data-bs-target="#exampleModal2">
+        <button type="button" class="btn btnNewAddress" onclick="callAp()" data-bs-toggle="modal" data-bs-target="#exampleModal2">
             New address
         </button>
         <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content boxNewAddress">
                     <div class="modal-header" style="border: none;">
-                        <h3 class="modal-title" id="exampleModalLabel">New Address</h3>
+                        <h3 class="modal-title" id="exampleModalLabel"  >New Address</h3>
                     </div>
                     <div class="modal-body">
                         <form id="formNewAddress" class="row" th:object="${adr}" action="">
@@ -101,24 +112,37 @@
                                     placeholder="Number phone">
                             </div>
                             <div class="mb-3">
-                                <input type="text" class="form-control" id="province-newAddress" name="province"
-                                    placeholder="Province">
+                                <!-- <input type="text" class="form-control" id="province-newAddress" name="province"
+                                    placeholder="Province"> -->
                                 <!-- <select name="" class="form-select" id="province-newAddress">
                                     <option value="">Province/City</option>
                                     <option value="">Ho Chi Minh</option>
                                 </select> -->
+                                <select id="city" name="province" class="form-select" onchange="citychange()">
+                                    <option value="" selected>Chọn tỉnh thành</option>           
+                                    </select>
+                                              
+                                  
                             </div>
                             <div class="mb-3">
-                                <input type="text" class="form-control" id="district-newAddress" name="district"
-                                    placeholder="District">
+                                <!-- <input type="text" class="form-control" id="district-newAddress" name="district"
+                                    placeholder="District"> -->
+                                    <select id="district" name="district" class="form-select" onchange="districtchange()">
+                                        <option value="" selected>Chọn quận huyện</option>
+                                        </select>
+                                        
+                                   
                                 <!-- <select name="" class="form-select" id="district-newAddress">
                                     <option value="">District</option>
                                     <option value="">12 District</option>
                                 </select> -->
                             </div>
                             <div class="mb-3">
-                                <input type="text" class="form-control" id="ward-newAddress" name="ward"
-                                    placeholder="Ward">
+                                <!-- <input type="text" class="form-control" id="ward-newAddress" name="ward"
+                                    placeholder="Ward"> -->
+                                    <select id="ward" class="form-select" onchange="wardchange()" name="ward">
+                                        <option value="" selected>Chọn phường xã</option>
+                                        </select>
                                 <!-- <select name="" class="form-select" id="ward-newAddress">
                                     <option value="">Ward</option>
                                     <option value="">Tan Thoi Hiep ward</option>
@@ -143,7 +167,7 @@
                 </div>
             </div>
         </div>
-        <script src="../../../static/Client/Js/MyAccount/address.js"></script>
+           <script src="../../../static/Client/Js/MyAccount/address.js"></script>
         <script th:src="@{/Client/Js/MyAccount/address.js}"></script>
         <script src="../../../static/Client/Js/MyAccount/address.js"></script>
         <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js "
@@ -155,6 +179,9 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
             crossorigin="anonymous"></script>
+        
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" referrerpolicy="no-referrer"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
     </div>
 </body>
 

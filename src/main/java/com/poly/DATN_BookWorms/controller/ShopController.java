@@ -67,6 +67,8 @@ public class ShopController {
     
     @Autowired
     CRC32_SHA256 crc32_SHA256;
+    
+    
    
     
     @GetMapping("/{id}")
@@ -90,6 +92,20 @@ public class ShopController {
         model.addAttribute("listCateogories", listCateogories);     
         List<Publishingcompanies> plcm = bookService.getPCWithShop(id);
         model.addAttribute("plcm", plcm);
+        
+        if(req.getRemoteUser() == null) { 
+            List<Sales> saleByShopAndByIntendFor = null;
+            model.addAttribute("listSaleOfshop", saleByShopAndByIntendFor);
+            List<Discountcodes> findDisountOfShopWithUser =null;
+            model.addAttribute("dis", findDisountOfShopWithUser);
+        }
+        else { 
+            List<Sales> saleByShopAndByIntendFor = saleService.saleByShopAndByIntendFor(id, "D");
+            model.addAttribute("listSaleOfshop", saleByShopAndByIntendFor);
+            List<Discountcodes> findDisountOfShopWithUser = discountCodeService.findDisountOfShopWithUser( "D", crc32_SHA256.getCodeCRC32C(req.getRemoteUser()), id);
+            model.addAttribute("dis", findDisountOfShopWithUser);
+        }
+        
         return "Client/Product_page/product_shop_list";
     }
 }

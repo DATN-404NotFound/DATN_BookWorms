@@ -90,7 +90,6 @@ public class HomeController {
         if (user !=null){
             model.addAttribute("image", user.getImage());
             model.addAttribute("name", user.getFullname());
-
             Roles roles = roleService.findSellerByRoleId("SELLER");
 
             Shoponlines shoponlines = shopService.findUserId(user.getUserid());

@@ -14,8 +14,8 @@
                             </div>
                             <div class="pt-4 ps-4 flex-fill">
                                 <a href="/shop/{{s.shopid}}"><strong style="font-size: 25px;" id="{{s.shopid}}" ng-click="toShopDetail(s.shopid)">{{s.shopname}}</strong></a>
-                                <p>
-                                    <span>Sản phẩm : </span>  <span>100</span> <span class="ms-4" >SL Bán : </span>  <span >100</span>
+                                <p ng-init="SoldQuan(s.shopid)">
+                                    <span>Sản phẩm : </span>  <span id="soldBook{{s.shopid}}"> </span> <span class="ms-4" >SL Bán : </span>  <span id="soldQuan{{s.shopid}}"></span>
                                 </p>
                                 <p style="width: 400px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;" >
                                    <span>{{s.description}}</span>

@@ -69,7 +69,6 @@ public class MyAccountController {
     public String  myPersonal(Model model){
         Account account = sessionService.get("user");
         model.addAttribute("account", account);
-        System.out.println(account.toString());
         return "Client/My_account/MyPersonal";
     }
 
@@ -77,19 +76,15 @@ public class MyAccountController {
     public String changePassword(Model model, @PathVariable String username,@RequestParam String OldPassword,
                                  @RequestParam String NewPassword,
                                  @RequestParam String confirmNewPassword) {
-    	System.out.println("MMMMMMMMMMMMMMMMMMMMMMMMM");
         Account user = sessionService.get("user");
-        System.out.println(passwordEncoder.matches(OldPassword, user.getPassword()));
         if (passwordEncoder.matches(OldPassword, user.getPassword())){
 //            if (!NewPassword.equals(confirmNewPassword) || confirmNewPassword!=null) {
 //                model.addAttribute("messageChangePassword", "New Password and Confirm Password do not match");
 //            model.addAttribute("messageChangePassword", "Error");
-        	System.out.println("ll "+NewPassword +"lsd"+confirmNewPassword );
             if(NewPassword.equals(confirmNewPassword) && confirmNewPassword!= "") {
                 user.setPassword(passwordEncoder.encode(NewPassword));
                 accountService.update(user);
                 model.addAttribute("notiChangePassword", "Password changed successfully");
-                System.out.println("update1");
                 return "redirect:/account/logout";
             }else{
                 model.addAttribute("notiChangePassword", "New password and ConfirmPassword not confirm");
@@ -97,7 +92,6 @@ public class MyAccountController {
             }
         }else{
             model.addAttribute("notiChangePassword", "Old password is incorrect");
-            System.out.println("update3");
             return "forward:/myAccount/changePassword";
         }
        
@@ -126,7 +120,7 @@ public class MyAccountController {
                     user.setAge(accountUpdate.getAge());
                 }
                 System.out.println("file" +multipartFile);
-            }if (!multipartFile.isEmpty()) {
+            }if (multipartFile.isPresent()) {
                 MultipartFile file = multipartFile.get();
             
                 String fileName = StringUtils.cleanPath(Objects.requireNonNull(file.getOriginalFilename()));
@@ -188,7 +182,11 @@ public class MyAccountController {
     		addressusers.setFullname(fullNameNewAddress);
     		addressusers.setPhonenumber(numberPhoneNewAddress);
     		System.out.println(specificAddressNewAddress + ", " + ward + ", " + district + ", " + province);
-    		addressusers.setAddress(specificAddressNewAddress + ", " + ward + ", " + district + ", " + province);
+            addressusers.setDetailhome(specificAddressNewAddress);
+            addressusers.setWard(ward);
+            addressusers.setDistrict(district);
+            addressusers.setProvince(province);
+    		//addressusers.setAddress(specificAddressNewAddress + ", " + ward + ", " + district + ", " + province);
     		addressusers.setStatusaddress(addressSave.getStatusaddress());
     		addressusers.setAddressuserid(crc.getCodeCRC32C(addressusers.toString()+ new Date()));
     		addressService.create(addressusers);

@@ -5,6 +5,8 @@ import com.poly.DATN_BookWorms.service.BookService;
 import com.poly.DATN_BookWorms.service.CategoryService;
 import com.poly.DATN_BookWorms.service.EvaluatesService;
 import com.poly.DATN_BookWorms.service.PublishingCompanyService;
+import com.poly.DATN_BookWorms.service.ShopOnlineService;
+import com.poly.DATN_BookWorms.service.ShopOnlinesService;
 import com.poly.DATN_BookWorms.service.TypeBookService;
 import com.poly.DATN_BookWorms.service.WriterMasterService;
 import com.poly.DATN_BookWorms.service.WriterService;
@@ -64,6 +66,13 @@ public class ProductController {
 	
 	@Autowired
 	HttpServletResponse resp;
+	
+
+	@Autowired
+	EvaluatesService evaluatesService;
+
+	@Autowired
+	ShopOnlinesService shopOnlinesService;
 
 
 	@GetMapping("/list")
@@ -123,10 +132,17 @@ public class ProductController {
 //		List<String> images = imagebookService.findByBookId(id);
 //		System.out.print(images);
 //		model.addAttribute("images", images);
+Shoponlines list1 = shopOnlinesService.findById(item.shopid);
+Integer total = evaluatesService.sumDbidByEvaluateId(item.shopid);
+model.addAttribute("total", total);
+model.addAttribute("profile", list1);
+System.out.println("139 : "+ list1.listOfBooks.size());
 		model.addAttribute("item", item);
 		model.addAttribute("eva", eva_list);
 		model.addAttribute("books", b);
 		model.addAttribute("userid", crc.getCodeCRC32C(request.getRemoteUser()));
+		
+    //    model.addAttribute("total", total);
 		// System.out.println("ll"+ item.getListOfImagebooks().get(0).getName());
 		return "Client/Product_page/detail_product";
 	}

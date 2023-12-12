@@ -83,7 +83,7 @@ public class Books implements Serializable {
 
     @OneToMany(mappedBy="books", fetch = FetchType.EAGER)
     @JsonIgnore
-    private List<Cart> listOfCart ; 
+    public List<Cart> listOfCart ; 
 
 
     @ManyToOne

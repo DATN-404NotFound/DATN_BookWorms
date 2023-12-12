@@ -18,4 +18,35 @@ public class CategoryRanking {
 
 	
 	
+    public CategoryRanking(Optional<Categories> byId, int orderNumbers) {
+    }
+
+	public Categories getCategories() {
+		return categories;
+	}
+
+	public void setCategories(Categories categories) {
+		this.categories = categories;
+	}
+
+	public int getOrderNumbers() {
+		return orderNumbers;
+	}
+
+	public void setOrderNumbers(int orderNumbers) {
+		this.orderNumbers = orderNumbers;
+	}
+
+	// public CategoryRanking(Categories categories, int orderNumbers) {
+	
+	// 	this.categories = categories;
+	// 	this.orderNumbers = orderNumbers;
+	// }
+
+	// public CategoryRanking() {
+
+	// }
+    
+    
+    
 }

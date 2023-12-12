@@ -50,13 +50,16 @@ public class Evaluates implements Serializable {
     public String     dbid ;
 
     @Column(name="rating")
-    public Integer    rating ;
+    public float    rating ;
 
     public String     reviewtext ;
 
     @Temporal(TemporalType.DATE)
     public Date       evaluatedate ;
 
+    @OneToMany(mappedBy="evaluates")
+    @JsonIgnore
+    public List<Imageevaluates> listImageEva ; 
 
     //--- ENTITY LINKS ( RELATIONSHIP )
     @ManyToOne

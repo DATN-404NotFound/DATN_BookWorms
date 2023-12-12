@@ -59,6 +59,13 @@ public class Bookings {
     @Column(name="Note")
     private String note;
 
+	@Temporal(TemporalType.DATE)
+    @Column(name="timefinish")
+    public Date       timefinish ;
+
+	public Double     costvoucher ;
+
+	public Double     costship ;
 
     //--- ENTITY LINKS ( RELATIONSHIP )
     @OneToMany(mappedBy="bookings")
@@ -98,6 +105,12 @@ public class Bookings {
         sb.append(shippingunitid);
         sb.append("|");
         sb.append(note);
+		sb.append("|");
+        sb.append(costvoucher);
+		sb.append("|");
+        sb.append(costvoucher);
+		sb.append("|");
+        sb.append(timefinish);
         return sb.toString(); 
     }
 

@@ -1,13 +1,9 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" th:replace="~{/Client/index::dynamic(~{::main})}">
 <body>
-     <main ng-controller="cart_ctrl">
+     <main  ng-controller="cart_ctrl">
         <div style="width: 85%; margin: auto; margin-top: 100px;" id="user1">
             <div class="mx-5" >
-                <h4>Your Cart</h4>
-                <div id="username">
-                    <h1 th:text="${requestusername}"></h1>
-                </div>
             </div>
             <!-- sử dụng lặp shop -->
             <div th:each="l:${cartshoplist}" style="border: 1px solid #C93F04; border-radius: 10px; margin-top: 50px;" th:id="shop+${l.shopid}" >
@@ -33,9 +29,10 @@
                             </tr>
                         </thead>
                         <tbody  th:id="cart+${l.shopid}">
-                            <tr th:each="b:${cartuserList}" th:if="${b.books.shoponlines.shopid == l.shopid}" th:id="cart+${b.cartid}">
+                            <tr th:each="b:${cartuserList}" th:if="${b.books.shoponlines.shopid == l.shopid}" th:id="cart+${b.cartid}" >
                                 <td>
-                                    <input type="checkbox" th:value="${b.cartid}"   onclick="selectOne(id)"  class="form-check-input"  th:id="${b.cartid}" name="carttest">
+                                    <label th:if="${b.books.quantity == 0} OR  ${b.books.quantity < b.quantity} " for=""></label>
+                                    <input th:if="${b.books.quantity >0} AND  ${b.books.quantity >= b.quantity} "  type="checkbox" th:value="${b.cartid}"   onclick="selectOne(id)"  class="form-check-input"  th:id="${b.cartid}" name="carttest">
                                 </td>
                                 <td>
                                     <div>
@@ -45,14 +42,20 @@
                                 <td ><a th:href="@{|/product/detail/${b.books.bookid}|}" th:text="${b.books.bookname}"></a></td>
                                 <td th:text ="${#numbers.formatDecimal(b.books.price,0,'COMMA',2,'POINT')}"></td>
                                 <td>
-                                    <input type="number"  th:id="quantity+${b.cartid}"  th:attr="onclick=@{|Active(${b.cartid},'PUT')|}" class="form-control" style="width: 100px;" min="1" step="1" th:value="${b.quantity}" >
+                                    <label th:if="${b.books.quantity == 0} OR  ${b.books.quantity < b.quantity} " for="">Hết hàng</label>
+                                    <input type="number" th:if="${b.books.quantity >0} AND  ${b.books.quantity >= b.quantity} "  th:id="quantity+${b.cartid}"  th:attr="onclick=@{|Active(${b.cartid},'PUT')|}" class="form-control" style="width: 100px;" min="1" step="1" th:value="${b.quantity}" >
+                                   <label for="" th:id="messageCart+${b.cartid}"></label>
                                 </td>
                                 <!-- th:attr="ng-click=@{|changequantity(${b.quantity},${b.cartid})|}" -->  
-                                <td class="total_pro"  th:id="cartid+${b.cartid}" th:text ="${#numbers.formatDecimal(b.books.price * b.quantity,0,'COMMA',2,'POINT')}"></td>
+                                <td>
+                                    <p  class="total_pro" th:if="${b.books.quantity == 0} OR  ${b.books.quantity < b.quantity} ">0.00</p>
+                                    <p  class="total_pro" th:if="${b.books.quantity >0} AND  ${b.books.quantity >= b.quantity} " th:id="cartid+${b.cartid}" th:text ="${#numbers.formatDecimal(b.books.price * b.quantity,0,'COMMA',2,'POINT')}"></p>
+                                </td>
                                 <td><a  th:id="${b.cartid}"  href="#" th:attr="onclick=@{|Active(${b.cartid},'DELETE')|}" style="color: #000;"><i style="font-size: 30px;" class="bi bi-trash"></i></a></td>
                             </tr>
                         </tbody>
                     </table>
+                 
                     <hr style="clear: both; border: 1px solid black;">
                 <div class="float-start m-3">
                     <input type="text" width="300px" class="form-control" placeholder="Tìm kiếm mã giảm" name="" id="">

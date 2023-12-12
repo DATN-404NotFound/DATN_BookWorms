@@ -55,6 +55,8 @@ public class AddressShop implements Serializable {
         sb.append(this.isdelete);
         sb.append("|");
         return sb.toString();
-    }
+	}
+
+
 
 }
