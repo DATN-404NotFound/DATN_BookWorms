@@ -21,10 +21,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.time.LocalDateTime;
-import java.util.Date;
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
 
 @CrossOrigin("*")
 @RestController
@@ -76,6 +73,7 @@ public class ShopRestController {
         } else {
             MultipartFile file = multipartFile.get();
             String fileName = StringUtils.cleanPath(Objects.requireNonNull(file.getOriginalFilename()));
+
             String uploadDir = "D:/DATN/DATN_BookWorms/src/main/resources/static/SellerChannel/images/";
             Path uploadPath = Paths.get(uploadDir);
             if (!Files.exists(uploadPath)) {
@@ -83,12 +81,14 @@ public class ShopRestController {
             }
             try {
                 InputStream inputStream = file.getInputStream();
-                Path filePath = uploadPath.resolve(fileName);
+                String uniqueFileName = UUID.randomUUID().toString() + "-" + file.getOriginalFilename();
+
+                Path filePath = uploadPath.resolve(uniqueFileName);
                 Files.copy(inputStream, filePath, StandardCopyOption.REPLACE_EXISTING);
                 //save change profile
                 Shoponlines shoponlines = shopService.findById(Integer.parseInt(shopId));
                 
-                //shoponlines.setLogo(fileName);
+                shoponlines.setLogo(uniqueFileName);
                 shopService.save(shoponlines);
             } catch (IOException e) {
                 throw new IOException("Could not  save uploaded file: " + fileName);
