@@ -1,6 +1,7 @@
 package com.poly.DATN_BookWorms.rest.controller;
 
 import com.poly.DATN_BookWorms.entities.Account;
+import com.poly.DATN_BookWorms.entities.Cart;
 import com.poly.DATN_BookWorms.entities.Evaluates;
 import com.poly.DATN_BookWorms.entities.Shoponlines;
 import com.poly.DATN_BookWorms.service.EvaluateService;
@@ -10,6 +11,8 @@ import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -31,5 +34,17 @@ public class EvaluateRestController {
         System.out.println(shoponlines.getShopid());
         return evaluateService.findEvaluatesByShopId(shoponlines.getShopid());
     }
+    
+    @PostMapping("/save")
+	public Evaluates postEvaluates(@RequestBody Evaluates evaluateData) { 
+    	System.out.println("success 2222222");
+		try {
+			return evaluateService.create(evaluateData);
+		} catch (Exception e) {
+			System.out.println("errr"+ e);
+			return null;
+			// TODO: handle exception
+		}
+	}
 
 }

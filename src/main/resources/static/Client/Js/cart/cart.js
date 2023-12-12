@@ -667,11 +667,14 @@ app.controller("cart_ctrl", function ($scope, $http, $timeout) {
 	///////////////////////// Shop Page 
 	$scope.ListBookOfShop = []
 	$scope.toShopDetail = function (shopid) {
+
 		$http.get("http://localhost:8080/rest/books/shop?shopid=" + shopid).then(resp => {
 			localStorage.setItem('productShop', JSON.stringify(resp.data));
 			//location.href = "/shop/" + shopid
 		})
 	}
+
+
 
 	$scope.shopAll = [];
 	$scope.getAllshop = function () {
@@ -992,9 +995,9 @@ app.controller("order_ctrl", function ($scope, $http, $timeout) {
 	
 
 	$scope.paymentCart = function () {
-		var payone =  Number($('#pay').children("option:selected").val());
-		
-		if(payone == -1){ 
+		var payone = Number($('#pay').children("option:selected").val());
+
+		if (payone == -1) {
 			$('#messPay').text("Vui lòng chọn hình thức thanh toán")
 			$('#dhmodal').show();
 			$('#iconModels').html('<i  style="font-size: 50px;color: red;" class="bi bi-x-circle"></i> ')
@@ -1022,7 +1025,7 @@ app.controller("order_ctrl", function ($scope, $http, $timeout) {
 							type: Number($('#pay').children("option:selected").val()),
 							addressuserid: $('#addressship').children("option:selected").val(),
 							addressusers: { addressuserid: $('#addressship').children("option:selected").val() },
-	
+
 						}
 					},
 					orderstatuses: { orderstatusid: 1 },
@@ -1041,7 +1044,7 @@ app.controller("order_ctrl", function ($scope, $http, $timeout) {
 								console.log("khác shop" + item.books.shopid)
 								return;
 							}
-	
+
 						})
 					},
 					costship: Number($('#shipShopPrivate' + i.shopid).text()),
