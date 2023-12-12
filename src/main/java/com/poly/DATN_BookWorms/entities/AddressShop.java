@@ -20,7 +20,14 @@ public class AddressShop implements Serializable {
 
     private String namereceiver;
 
-    private String address;
+    private String detailhome;
+
+	private  String ward;
+
+	private  String district;
+
+	private  String  province;
+
 
     @Temporal(TemporalType.DATE)
     @Column(name="createat")
@@ -41,8 +48,14 @@ public class AddressShop implements Serializable {
         sb.append("|");
         sb.append(namereceiver);
         sb.append("|");
-        sb.append(address);
+        sb.append(detailhome);
         sb.append("|");
+		sb.append(ward);
+		sb.append("|");
+		sb.append(district);
+		sb.append("|");
+		sb.append(province);
+		sb.append("|");
         sb.append(phonenumber);
         sb.append("|");
         sb.append(createat);
@@ -52,63 +65,5 @@ public class AddressShop implements Serializable {
         sb.append(shoponlines);
         return sb.toString();
     }
-
-	public Integer getAddressshopid() {
-		return addressshopid;
-	}
-
-	public void setAddressshopid(Integer addressshopid) {
-		this.addressshopid = addressshopid;
-	}
-
-	public String getNamereceiver() {
-		return namereceiver;
-	}
-
-	public void setNamereceiver(String namereceiver) {
-		this.namereceiver = namereceiver;
-	}
-
-	public String getAddress() {
-		return address;
-	}
-
-	public void setAddress(String address) {
-		this.address = address;
-	}
-
-	public Date getCreateat() {
-		return createat;
-	}
-
-	public void setCreateat(Date createat) {
-		this.createat = createat;
-	}
-
-	public Boolean getIsactive() {
-		return isactive;
-	}
-
-	public void setIsactive(Boolean isactive) {
-		this.isactive = isactive;
-	}
-
-	public String getPhonenumber() {
-		return phonenumber;
-	}
-
-	public void setPhonenumber(String phonenumber) {
-		this.phonenumber = phonenumber;
-	}
-
-	public Shoponlines getShoponlines() {
-		return shoponlines;
-	}
-
-	public void setShoponlines(Shoponlines shoponlines) {
-		this.shoponlines = shoponlines;
-	}
-
-
 
 }
