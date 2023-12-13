@@ -1,33 +1,24 @@
 package com.poly.DATN_BookWorms.rest.controller;
 
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
+import java.awt.print.Book;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
+import java.util.Optional;
 
 import com.poly.DATN_BookWorms.entities.*;
 import com.poly.DATN_BookWorms.service.*;
 import com.poly.DATN_BookWorms.utils.SessionService;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
 
 @CrossOrigin("*")
-@Slf4j
 @RestController
 @RequestMapping("/rest/books")
 public class BookRestController {
@@ -52,9 +43,6 @@ public class BookRestController {
     @Autowired
     ShopService shopService;
 
-    @Autowired
-    ImagesBookService imagesBookService;
-
 
     @GetMapping
     public List<Books> getAll() {
@@ -64,6 +52,7 @@ public class BookRestController {
     @GetMapping("/ab")
     public List<Books> getAllById() {
         Account account = service.get("user");
+
         return bookService.findByshopidv2(account.getListOfShoponlines().get(0).getShopid());
     }
 
@@ -93,7 +82,7 @@ public class BookRestController {
     }
 
     //	@GetMapping("/list/{id}")
-//	public List<Shoponlines> listshopDeal(@PathVariable("id") Long id){
+//	public List<Shoponlines> listshopDeal(@PathVariable("id") Long id){ 
 //		System.out.println("listshopBooks "+ bookService.list_shopId_deal(id));
 //		return bookService.list_shopId_deal(id);
 //	}
@@ -141,50 +130,10 @@ public class BookRestController {
         return ResponseEntity.ok(typebook);
     }
 
-    @PostMapping(value = "/createWriter")
-    public ResponseEntity<Writers> createTypeBooks(@RequestBody @Valid Writers writers) {
-        Writers writer = writerService.save(writers);
-        return ResponseEntity.ok(writer);
-    }
+    @PostMapping(value = "/saveBook", consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public void saveProfileChange(@RequestParam(value = "fileImage") Optional<MultipartFile> multipartFile, @RequestParam("book") Book book, @RequestParam("company") Publishingcompanies publishingcompanies, @RequestParam("categories") List<Categories> categories) throws Exception {
 
-    @PostMapping(value = "/uploadImages", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<Map<String, String>> handleFileUploadForm(
-            @RequestPart("file") MultipartFile file,
-            @RequestParam("bookId") String bookId) throws IOException {
 
-        log.info("Handling request parts: {}", file);
-
-        try {
-            File f = new ClassPathResource("").getFile();
-            String uploadDir = "D:/DATN/DATN_BookWorms/src/main/resources/static/SellerChannel/images/";
-            Path uploadPath = Paths.get(uploadDir);
-
-            if (!java.nio.file.Files.exists(uploadPath)) java.nio.file.Files.createDirectories(uploadPath);
-
-            String uniqueFileName = UUID.randomUUID().toString() + "-" + file.getOriginalFilename();
-
-            Path filePath = uploadPath.resolve(uniqueFileName);
-            Files.copy(file.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
-
-            String fileUri = ServletUriComponentsBuilder.fromCurrentContextPath()
-                    .path(uniqueFileName)
-                    .toUriString();
-
-            var result = Map.of(
-                    "filename", uniqueFileName,
-                    "fileUri", fileUri
-            );
-            Imagebooks imagebooks = new Imagebooks();
-            imagebooks.setBookid(Integer.valueOf(bookId));
-            imagebooks.setName(uniqueFileName);
-            imagebooks.setTypefile("image");
-            imagesBookService.save(imagebooks);
-            return ResponseEntity.ok().body(result);
-
-        } catch (IOException e) {
-            log.error(e.getMessage());
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
     }
 
     @PutMapping("/updateIsActive/{bookId}")

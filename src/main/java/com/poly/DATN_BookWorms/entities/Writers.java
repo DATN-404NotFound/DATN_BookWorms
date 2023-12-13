@@ -36,7 +36,7 @@ public class Writers implements Serializable {
 
     //--- ENTITY PRIMARY KEY 
     @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @GeneratedValue(strategy=GenerationType.AUTO)
     public Integer    writeid ;
 
     //--- ENTITY DATA FIELDS 

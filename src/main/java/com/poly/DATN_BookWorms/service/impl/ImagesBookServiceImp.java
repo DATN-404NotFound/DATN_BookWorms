@@ -52,9 +52,4 @@ public class ImagesBookServiceImp implements ImagesBookService {
 return savedImagebooks;
 	}
 
-	@Override
-	public void save(Imagebooks imagebooks) {
-        imagebooksRepo.save(imagebooks);
-    }
-
 }

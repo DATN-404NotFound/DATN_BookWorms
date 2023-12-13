@@ -4,7 +4,6 @@ import java.util.List;
 
 import com.poly.DATN_BookWorms.entities.Books;
 import com.poly.DATN_BookWorms.entities.Typebooks;
-import com.poly.DATN_BookWorms.entities.Writers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -37,5 +36,4 @@ public class TypeBookServiceImp implements TypeBookService {
 	public Typebooks save(Typebooks typebooks) {
 		return typebooksRepo.save(typebooks);
 	}
-
 }
