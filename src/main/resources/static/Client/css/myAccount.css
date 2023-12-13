@@ -513,8 +513,6 @@ a {
 
 /* order detail */
 
-.boxOrderDetail-top{
-
 .boxOrderDetail-top {
     width: 988.75px;
     height: 360px;
@@ -572,8 +570,6 @@ a {
     width: 344px;
     height: 95px;
 }
-.icons-orderIsConfirm{
-    display: none !important;
 
 .icons-orderIsConfirm {
     background-color: #F25019;
