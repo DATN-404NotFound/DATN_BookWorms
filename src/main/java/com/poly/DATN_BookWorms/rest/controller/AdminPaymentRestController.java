@@ -27,15 +27,18 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.view.RedirectView;
 
+import com.poly.DATN_BookWorms.beans.MailInformation;
 import com.poly.DATN_BookWorms.config.PaymentConfig;
 import com.poly.DATN_BookWorms.entities.Bookings;
 import com.poly.DATN_BookWorms.entities.PaymentShop;
 import com.poly.DATN_BookWorms.entities.Shoponlines;
 import com.poly.DATN_BookWorms.repo.PaymentShopRepo;
 import com.poly.DATN_BookWorms.repo.ShoponlinesRepo;
+import com.poly.DATN_BookWorms.service.impl.MailServiceImp;
 import com.poly.DATN_BookWorms.service.BookingService;
 import com.poly.DATN_BookWorms.utils.SessionService;
 
+import jakarta.mail.MessagingException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
@@ -48,6 +51,8 @@ public class AdminPaymentRestController {
 	PaymentShopRepo paymentShopRepo;
 	@Autowired
 	ShoponlinesRepo shopOnlinesRepo;
+	@Autowired
+	MailServiceImp mailer;
 
 	@Autowired
 	BookingService bookingService;
@@ -57,7 +62,8 @@ public class AdminPaymentRestController {
 
 	@GetMapping("/payment-callback")
 	public void paymentCallback(@RequestParam Map<String, String> queryParams, HttpServletResponse response)
-			throws IOException, NumberFormatException, NotFoundException {
+			throws IOException, NumberFormatException, NotFoundException, MessagingException {
+		MailInformation mailInfo = new MailInformation();
 		String vnp_ResponseCode = queryParams.get("vnp_ResponseCode");
 		String paymentShopId = queryParams.get("paymentshopid");
 		String cart = queryParams.get("cart");
@@ -65,16 +71,28 @@ public class AdminPaymentRestController {
 			if ("00".equals(vnp_ResponseCode)) {
 				// Giao dịch thành công
 				// Thực hiện các xử lý cần thiết, ví dụ: cập nhật CSDL
-				PaymentShop paymentShop = paymentShopRepo.findById(Long.parseLong(queryParams.get("paymentshopid")))
+				PaymentShop paymentShop = paymentShopRepo.findById(Integer.parseInt(queryParams.get("paymentshopid")))
 						.orElseThrow(() -> new NotFoundException());
 				paymentShop.setStatus(true);
 				Shoponlines shopOnlines = paymentShopRepo.findShopId(paymentShop.getShoponlines().getShopid());
 
 				System.out.println("hi " + paymentShop.getShoponlines().getTotal());
+				String vnp_TxnRef = queryParams.get("vnp_TxnRef");
+	            String vnp_Amount = queryParams.get("vnp_Amount");
+	            String vnp_OrderInfo = queryParams.get("vnp_OrderInfo");
+				System.out.println("hi1 " + vnp_TxnRef);
+				System.out.println("hi2 " + vnp_Amount);
+				System.out.println("hi3 " + vnp_OrderInfo);
+
 				shopOnlines.setTotal(shopOnlines.getTotal() - paymentShop.getValuepayment());
 				shopOnlinesRepo.save(shopOnlines);
 				paymentShopRepo.save(paymentShop);
-				response.sendRedirect("http://localhost:8080/api/payment/callpayment");
+				mailInfo.setTo(paymentShop.getShoponlines().getAccount().getEmail());
+				mailInfo.setSubject("IBook chào bạn! Yêu cầu thanh toán của bạn đã được xử lý");
+				String body = "VNPay_TxnRef: " + vnp_TxnRef + " VNPay_Amount: " + vnp_Amount + " VNPay_OrderInfo: " + vnp_OrderInfo;
+				mailInfo.setBody(body);
+				mailer.send(mailInfo);
+				response.sendRedirect("http://localhost:8080/admin/index");
 			} else {
 				// Giao dịch thất bại
 				// Thực hiện các xử lý cần thiết, ví dụ: không cập nhật CSDL\

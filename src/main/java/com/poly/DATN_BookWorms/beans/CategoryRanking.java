@@ -13,7 +13,11 @@ import java.util.Optional;
 public class CategoryRanking {
     private Categories categories;
     private int orderNumbers;
+    
+    
 
+	
+	
     public CategoryRanking(Optional<Categories> byId, int orderNumbers) {
     }
 

@@ -19,6 +19,8 @@ public class Sales {
 
     private double  salesPerOrder;
 
+
+    
 	public double getMonthlySales() {
 		return monthlySales;
 	}

@@ -113,4 +113,8 @@ public class Categories implements Serializable {
 		this.listOfTypebooks = listOfTypebooks;
 	}
 
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
 }

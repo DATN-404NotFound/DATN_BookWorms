@@ -218,9 +218,13 @@ public class MyAccountController {
         System.out.println("you "+ account.getUserid());
         List<Bookings> booking = bookingService.findByUserId(account.getUserid());
         System.out.println("list"+ booking.get(0).listOfDetailbookings.get(0).books.shoponlines.listOfFiles.get(0).filename);
-        model.addAttribute("booking", booking);
+        model.addAttribute("booking", booking );
 //        List<Bookings> booking_StatusId = bookingService.findByStatusId(tab);
 //        model.addAttribute("bs", booking_StatusId);
+      for (Bookings bookings : booking) {
+    	  System.out.println("listsize : "+ booking.size());
+    	  System.out.println(" 74 order "+ bookings.toString() +"--- img = "+ bookings.listOfDetailbookings.get(0).books.shoponlines.listOfFiles.get(0).filename );
+	}
         return "Client/My_account/Order";
     }
 

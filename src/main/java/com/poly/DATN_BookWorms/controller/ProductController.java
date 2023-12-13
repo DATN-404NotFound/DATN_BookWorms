@@ -48,8 +48,7 @@ public class ProductController {
 	@Autowired
 	BookService bookService;
 	
-	@Autowired
-	EvaluatesService evaluateService;
+
 	
 	@Autowired
 	CategoryService categoryService;
@@ -128,7 +127,7 @@ public class ProductController {
 		bookService.update(item);
 		System.out.println("lkjlskjlajssf" + id);
 		List<Books> b = bookService.getBooksByCategoryID(item.getListOfTypebooks().get(0).categories.categoryid);
-		List<Evaluates> eva_list = evaluateService.getEvaByBookid(id);
+		List<Evaluates> eva_list = evaluatesService.getEvaByBookid(id);
 //		List<String> images = imagebookService.findByBookId(id);
 //		System.out.print(images);
 //		model.addAttribute("images", images);

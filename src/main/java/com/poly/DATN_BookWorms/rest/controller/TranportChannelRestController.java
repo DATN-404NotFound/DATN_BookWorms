@@ -22,13 +22,16 @@ public class TranportChannelRestController {
     @GetMapping("/{orderstatusid}")
     public List<Bookings> findByOrderstatusid(@PathVariable Integer orderstatusid) {
         Account account = service.get("user");
-        return bookingService.findByUserIdAndOrderStatusId(account.getUserid(),orderstatusid);
+        return bookingService.findBookingsByShopIdAndOrderStatusID(account.getListOfShoponlines().get(0).getShopid(), orderstatusid);
     }
     @GetMapping("/all")
     public List<Bookings> findAll() {
         Account account = service.get("user");
-        return bookingService.findAllByUserId(account.getUserid());
+        return bookingService.findBookingsByShopId(account.getListOfShoponlines().get(0).getShopid());
     }
-
+    @PutMapping("/{bookingId}/updateOrderStatus")
+    public void updateOrderStatus(@PathVariable String bookingId) {
+        bookingService.updateOrderStatus(bookingId);
+    }
 
 }

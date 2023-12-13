@@ -10,6 +10,7 @@ import java.util.stream.Collectors;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -173,15 +174,23 @@ public class BookingServiceImp implements BookingService{
 	}
 
 
+//	@Override
+//	public List<Bookings> findAllByUserId(String userId) {
+//		return bookingRepo.findByuserid(userId);
+//	}
+//	@Override
+//	public List<Bookings> findByUserIdAndOrderStatusId(String userId, Integer orderStatusId) {
+//		List<Bookings> allByUserId = findAllByUserId(userId);
+//
+//		return allByUserId.stream()
+//				.filter(booking -> booking.getOrderstatusid().equals(orderStatusId))
+//				.collect(Collectors.toList());
+//	}
 	@Override
-	public List<Bookings> findAllByUserId(String userId) {
-		return bookingRepo.findByuserid(userId);
-	}
-	@Override
-	public List<Bookings> findByUserIdAndOrderStatusId(String userId, Integer orderStatusId) {
-		List<Bookings> allByUserId = findAllByUserId(userId);
+	public List<Bookings> findBookingsByShopIdAndOrderStatusID(Integer shopId, Integer orderStatusId) {
+		List<Bookings> allBookings =bookingRepo.findBookingsByShopId(shopId);
 
-		return allByUserId.stream()
+		return allBookings.stream()
 				.filter(booking -> booking.getOrderstatusid().equals(orderStatusId))
 				.collect(Collectors.toList());
 	}
@@ -265,7 +274,25 @@ public class BookingServiceImp implements BookingService{
 	@Override
 	public Bookings byBookingUserId(String bookingUserId) {
 		// TODO Auto-generated method stub
-		return bookingRepo.findById(bookingUserId).get();
+		return bookingRepo.findById(bookingUserId).get();	
 	}
 
+	@Override
+	public List<Bookings> findBookingsByShopId(Integer shopId) {
+		return bookingRepo.findBookingsByShopId(shopId);
+	}
+//	@Override
+//	public List<Bookings> findByShopIdAndOrderStatusId(Integer shopId, Integer orderStatusId) {
+//		return bookingRepo.findBookingsByShopIdAndOrderStatusId(shopId, orderStatusId);
+//	}
+
+	@Override
+	@Transactional
+	public void updateOrderStatus(String bookingId) {
+		Bookings booking = bookingRepo.findById(bookingId).orElse(null);
+		if (booking != null) {
+			booking.setOrderstatusid(4);
+			bookingRepo.save(booking);
+		}
+	}
 }

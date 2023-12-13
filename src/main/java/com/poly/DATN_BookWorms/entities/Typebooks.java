@@ -94,4 +94,8 @@ public class Typebooks implements Serializable {
 		this.categories = categories;
 	}
 
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
 }

@@ -50,8 +50,9 @@ public class Discountcodes implements Serializable {
     @Temporal(TemporalType.DATE)
     public Date       startdiscount ;
 
+    @Column(name = "Enddiscount")
     @Temporal(TemporalType.DATE)
-    public Date       enddiscount ;
+    public Date       enddiscount;
 
     public Boolean    isdelete ;
 
@@ -88,6 +89,7 @@ public class Discountcodes implements Serializable {
         sb.append("|");
         sb.append(status);
         return sb.toString(); 
-    } 
+    }
+
 
 }

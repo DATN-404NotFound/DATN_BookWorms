@@ -28,9 +28,10 @@ public interface AccountService {
 	void delete(String username);
 
 	void save(AccountDTO accountDTO);
-	
 
-	
+    void save(Account user);
+
+
 //	public void loginFromOAuth2(OAuth2AuthenticationToken oauth2);
 	
 }

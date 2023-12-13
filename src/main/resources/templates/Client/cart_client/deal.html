@@ -213,6 +213,9 @@
                         <form action="" style="float: left;">
                             <button class="btn btn-danger" th:formaction="@{|/cart|}" ng-click="clearLocal()" th:method="GET">Huỷ</button>
                         </form>
+                        <form action="" style="float: left;">
+                            <button class="btn btn-danger" th:formaction="@{|/api/payment/create_payment/1&170000|}"  th:formmethod="GET">OK</button>
+                        </form>
                        
                         <button class="btn btn-success float-end" style="float: right;"  ng-click="paymentCart()"data-bs-toggle="modal" data-bs-target="#dhmodal" >Đặt hàng</button>
                         <div class="modal fade"  id="dhmodal">
