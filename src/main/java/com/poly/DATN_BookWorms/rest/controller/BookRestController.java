@@ -52,7 +52,6 @@ public class BookRestController {
     @GetMapping("/ab")
     public List<Books> getAllById() {
         Account account = service.get("user");
-
         return bookService.findByshopidv2(account.getListOfShoponlines().get(0).getShopid());
     }
 

@@ -112,7 +112,7 @@
                                             <span class="text-muted sr-only">Action</span>
                                           </button>
                                             <div class="dropdown-menu dropdown-menu-right">
-                                              <a class="dropdown-item" data-toggle="modal" data-target=".bd-example-modal-xl">Edit</a>
+                                              <a class="dropdown-item" data-toggle="modal" data-target=".bd-example-modal-xl" ng-click="setCheckboxHassale(vouchers.couoponcode)">Edit</a>
                                               <a class="dropdown-item" href="#">Remove</a>
                                               <a class="dropdown-item" href="#">Assign</a>
                                             </div>
@@ -173,7 +173,7 @@
                                                             <td>{{ book.language }}</td>
                                                             <td>
                                                               <div class="custom-control custom-switch">
-                                                                <input type="checkbox" class="custom-control-input" id="c{{$index + 1}}">
+                                                                <input type="checkbox" ng-model="itemChecked[book.name]" class="custom-control-input" id="c{{$index + 1}}">
                                                                 <label class="custom-control-label" for="c{{$index + 1}}"></label>
                                                               </div>
                                                             </td>

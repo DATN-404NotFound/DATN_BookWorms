@@ -11,4 +11,6 @@ import java.util.List;
 public interface HassalesRepo extends JpaRepository<Hassales, Integer>{
     @Query("SELECT h FROM Hassales h WHERE h.saleid = :couponCode")
     List<Hassales> findAllByCouponCode(@Param("couponCode") String couponCode);
+
+    List<Hassales> findAllBysaleid(String saleId);
 }
