@@ -3,8 +3,7 @@ package com.poly.DATN_BookWorms.repo;
 
 
 
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -57,4 +56,6 @@ public interface BookingsRepo extends JpaRepository<Bookings, String>{
 			"INNER JOIN Books bk ON db.bookid = bk.bookid " +
 			"WHERE bk.shopid = :shopid")
 	List<Bookings> findBookingsByShopId(@Param("shopid") Integer shopId);
+
+	Bookings findBybookingid(String bookingId);
 }

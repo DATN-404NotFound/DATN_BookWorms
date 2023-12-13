@@ -107,7 +107,10 @@ public class BookingServiceImp implements BookingService{
 	public List<Bookings> findByStatusId(String orderStatusId) {
 		return bookingRepo.ListBookings_Status(orderStatusId);
 	}
-
+	@Override
+	public Bookings findByBookingId(String bookingId) {
+		return bookingRepo.findBybookingid(bookingId);
+	}
 
 //	@Override
 //	public List<Bookings> findAllByUserId(String userId) {
@@ -140,10 +143,10 @@ public class BookingServiceImp implements BookingService{
 
 	@Override
 	@Transactional
-	public void updateOrderStatus(String bookingId) {
+	public void updateOrderStatus(String bookingId, Integer status) {
 		Bookings booking = bookingRepo.findById(bookingId).orElse(null);
 		if (booking != null) {
-			booking.setOrderstatusid(4);
+			booking.setOrderstatusid(status);
 			bookingRepo.save(booking);
 		}
 	}

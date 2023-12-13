@@ -19,7 +19,7 @@ public interface BookingService {
 	public List<Bookings> findByStatusId(String orderStatusId);
 
 
-
+	Bookings findByBookingId(String bookingId);
 
 	//	@Override
 	//	public List<Bookings> findByUserIdAndOrderStatusId(String userId, Integer orderStatusId) {
@@ -33,6 +33,8 @@ public interface BookingService {
 
 	List<Bookings> findBookingsByShopId(Integer shopId);
 
+
+
 	@Transactional
-    void updateOrderStatus(String bookingId);
+	void updateOrderStatus(String bookingId, Integer status);
 }

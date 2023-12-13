@@ -583,7 +583,7 @@ app.controller('transportController', function($scope, $routeParams, $route, $ht
     // show confilm
 
     // Thêm hàm confirmSelectedBookings vào controller
-    $scope.confirmSelectedBookings = function() {
+    $scope.confirmSelectedBookings = function(status) {
         var selectedBookings = [];
 
         // Lặp qua mảng checkboxes để lấy các booking đã chọn
@@ -597,15 +597,25 @@ app.controller('transportController', function($scope, $routeParams, $route, $ht
         selectedBookings.forEach(function(booking) {
             // Gọi API để cập nhật trạng thái
             // Sử dụng $http service hoặc $resource để thực hiện yêu cầu API
-            $http.put('/rest/tranportChannel/' + booking.bookingid + '/updateOrderStatus')
+            $http.put('/rest/tranportChannel/' + booking.bookingid + '/'+status+'/updateOrderStatus')
                 .then(function(response) {
                     // Xử lý kết quả nếu cần
-                    $scope.findByOrderStatusId();
+                    $scope.findByOrderStatusId(3);
+
                 })
                 .catch(function(error) {
                     // Xử lý lỗi nếu có
 
                 });
+        });
+    };
+    //Undefied checkbox
+
+
+    // Function để unchecked tất cả các checkbox
+    $scope.uncheckAll = function() {
+        angular.forEach($scope.checkboxes, function(checkbox, index) {
+            $scope.checkboxes[index] = false;
         });
     };
     //Check Tab
@@ -621,6 +631,62 @@ app.controller('transportController', function($scope, $routeParams, $route, $ht
         }
     };
 
+    //show detail
+    $scope.initInfoDetailBooking = function (dbid) {
+
+        $http.get('/rest/bookings/findByBookingId/'+dbid)
+            .then(function(response) {
+                $scope.details = response.data;
+                console.log('Evaluates:', $scope.detail);
+            })
+            .catch(function(error) {
+                console.error('Error fetching data:', error);
+            });
+    };
+    //show detail booking
+    $scope.initInfoDetailBookingDetail = function (dbid) {
+
+        $http.get('/rest/bookings/findByBookingIdDetail/'+dbid)
+            .then(function(response) {
+                $scope.detailsbk = response.data;
+                console.log('Evaluates:', $scope.detailsbk);
+            })
+            .catch(function(error) {
+                console.error('Error fetching data:', error);
+            });
+    };
+    //image
+    $scope.setImage = function (bookId) {
+        let url = `http://localhost:8080/rest/imagebook/` + bookId;
+        $http.get(url).then(resp => {
+            var a = [];
+            a = (resp.data);
+            console.log("fff"+JSON.stringify(resp.data));
+            document.getElementById('img' + bookId).src = "/Client/images/" + a[0].name
+        }).catch(error => {
+            console.log("Error", error)
+        });
+    }
+/// print in pdf
+    $scope.generatePdf = function(bookingId) {
+        // Gửi yêu cầu AJAX đến REST API để tạo và tải file PDF
+        $http({
+            method: 'GET',
+            url: '/rest/bookings/generate/'+bookingId,
+            responseType: 'arraybuffer'
+        }).then(function(response) {
+            var blob = new Blob([response.data], { type: 'application/pdf' });
+            var url = window.URL.createObjectURL(blob);
+            var a = document.createElement('a');
+            a.href = url;
+            a.download = 'example.pdf';
+            document.body.appendChild(a);
+            a.click();
+            window.URL.revokeObjectURL(url);
+        }, function(error) {
+            console.log('Failed to generate PDF');
+        });
+    };
 });
 
 
@@ -868,8 +934,6 @@ app.controller('reviewController', function($scope, $routeParams, $route, $http,
                 console.error('Error fetching data:', error);
             });
     };
-
-
     $scope.initInfoProduct();
     $scope.search = function (item) {
         if ($scope.searchText == undefined) {
