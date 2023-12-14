@@ -612,13 +612,13 @@ app.controller("addressSettingController", function ($scope, $routeParams, $rout
 });
 //************************************************************************Tung dev seller (Dep trai vai lone)
 
-    //Create Product
-app.controller('createProductController', function($scope, BookService, $http, $window) {
+//Create Product
+app.controller('createProductController', function($scope, BookService, $http, $window,$timeout) {
     let host = "http://localhost:8080/rest/books/";
     $scope.categoryToBook= '';
     $scope.listCategoryToBook = [];
     $scope.book={};
-    $scope.company={};
+    $scope.publishingcompanyid='';
     $scope.imageBook=[];
 
     // Lấy tên các danh mục
@@ -634,31 +634,39 @@ app.controller('createProductController', function($scope, BookService, $http, $
     }, function(error) {
         console.error('Lỗi khi lấy tên nhà xuất bản:', error);
     });
-   $scope.getToListCategoryAddBook = function (category) {
-        $scope.categoryToBook = '';
-       for(let i = 0; i< $scope.listCategoryToBook.length;i++){
-           if ($scope.listCategoryToBook[i].categoryid  == category.categoryid){
-               $scope.listCategoryToBook.splice(i, 1);
 
-               //display category to book
-               for(let i = 0; i< $scope.listCategoryToBook.length;i++){
-                   $scope.categoryToBook += $scope.listCategoryToBook[i].name + ',';
-               }
-               return
-           }
-       }
+    //Lâ tên tác giả
+    BookService.getWriters().then(function(response) {
+        $scope.writers = response.data;
+    }, function(error) {
+        console.error('Lỗi khi lấy tên các tác gỉa:', error);
+    });
+
+    $scope.getToListCategoryAddBook = function (category) {
+        $scope.categoryToBook = '';
+        for(let i = 0; i< $scope.listCategoryToBook.length;i++){
+            if ($scope.listCategoryToBook[i].categoryid  == category.categoryid){
+                $scope.listCategoryToBook.splice(i, 1);
+
+                //display category to book
+                for(let i = 0; i< $scope.listCategoryToBook.length;i++){
+                    $scope.categoryToBook += $scope.listCategoryToBook[i].name + ',';
+                }
+                return
+            }
+        }
         $scope.listCategoryToBook.push(category);
-       for(let i = 0; i< $scope.listCategoryToBook.length;i++){
-           $scope.categoryToBook += $scope.listCategoryToBook[i].name + ',';
-       }
-   }
+        for(let i = 0; i< $scope.listCategoryToBook.length;i++){
+            $scope.categoryToBook += $scope.listCategoryToBook[i].name + ',';
+        }
+    }
     $scope.uploadImage = function(input) {
         if (input.files && input.files[0]) {
             var reader = new FileReader();
             reader.onload = function (e) {
                 $scope.$apply(function() {
                     $scope.imagePreview = e.target.result;
-                   $scope.imageBook.push($scope.imagePreview);
+                    $scope.imageBook.push($scope.imagePreview);
 
                 });
             };
@@ -666,58 +674,60 @@ app.controller('createProductController', function($scope, BookService, $http, $
         }
     };
 
-   $scope.createBook = function () {
-       let url = `${host}createBook`;
-       const headers = {
-           'Content-Type': "application/json",
-           transformRequest: angular.identity
-       };
+    $scope.createBook = function () {
+        $scope.book.publishingcompanyid = $scope.publishingcompanyid;
+        $scope.book.w = $scope.publishingcompanyid;
+        let url = `${host}createBook`;
+        const headers = {
+            'Content-Type': "application/json",
+            transformRequest: angular.identity
+        };
 
-       $http.post(url, JSON.stringify($scope.book), {headers: headers}).then(resp => {
-           console.log("Save book success")
-       }).catch(error => {
-           console.log("Save book false")
-       });
+        $http.post(url, JSON.stringify($scope.book), {headers: headers}).then(resp => {
+            $scope.book = resp.data;
+            console.log("Save book success!!!",$scope.book)
+        }).catch(error => {
+            console.log("Save book false!!!")
+        });
 
-       $http.get("http://localhost:8080/rest/books/getNewBook").then(resp => {
-           $scope.book = resp.data;
-           console.log("bookNew",$scope.book)
-       }).catch(error => {
-           console.log("Save book false")
-       });
-   }
+    }
 
-   $scope.saveBook = function (){
-       console.log("company",$scope.company);
-       console.log("book",$scope.book);
-       console.log("categories",$scope.listCategoryToBook);
-       console.log("image",$scope.imageBook);
+    $scope.createTypeBook = function () {
+        let url = `${host}createTypeBook`;
 
-       $scope.createBook();
+        for (let i = 0 ; i < $scope.listCategoryToBook.length; ++i){
+            var typebook = {};
 
-       // let formData;
-       // formData = new FormData();
-       // if ($scope.imageBook != null) {
-       //     formData.append('fileImage', $scope.imageBook);
-       // }
-       // formData.append('book', $scope.book)
-       // formData.append('company', $scope.company)
-       // formData.append('categories', $scope.listCategoryToBook)
-       // formData.append("reportProgress", true);
-       // const headers = {
-       //     'Content-Type': undefined,
-       //     transformRequest: angular.identity
-       // };
-       // let url = `${host}saveBook`;
-       // $http.post(url, formData, {headers: headers}).then(resp => {
-       //
-       //     console.log("Save book success!!!")
-       //     $window.alert("Save book success!!!");
-       // }).catch(error => {
-       //     console.log("Save book false", error)
-       //     $window.alert("Save book false!!!");
-       // });
-   }
+            typebook.categoryid = $scope.listCategoryToBook[i].categoryid;
+            typebook.bookid = $scope.book.bookid;
+
+            const headers = {
+                'Content-Type': "application/json",
+                transformRequest: angular.identity
+            };
+
+            $http.post(url, JSON.stringify(typebook), {headers: headers}).then(resp => {
+                console.log("Save typebook success!!!")
+            }).catch(error => {
+                console.log("Save typebook false!!!")
+            });
+        }
+
+    }
+
+    $scope.saveBook = function (){
+        console.log("company",$scope.publishingcompanyid);
+        console.log("book",$scope.book);
+        console.log("categories",$scope.listCategoryToBook);
+        console.log("image",$scope.imageBook);
+
+        $scope.createBook();
+        $timeout(function() {
+            $scope.createTypeBook();
+        }, 1000);
+
+
+    }
 
 
 });
@@ -731,8 +741,13 @@ app.service('BookService', function($http) {
     this.getPublishingCompanies = function() {
         return $http.get('/rest/books/publishingcompany');
     };
+
+    // Dịch vụ để lấy tên các tác giả
+    this.getWriters = function() {
+        return $http.get('/rest/books/writers');
+    };
 });
-                    //Add
+//Add
 //Tranport
 app.controller('transportController', function($scope, $routeParams, $route, $http, $rootScope) {
     $scope.pageSize = 15; // Number of items per page
@@ -774,6 +789,20 @@ app.controller('transportController', function($scope, $routeParams, $route, $ht
     $scope.getPages = function () {
         return new Array($scope.totalPages).fill().map((_, index) => index + 1);
     };
+    $scope.search = function (item) {
+        if ($scope.searchText == undefined) {
+            return true;
+        }
+        else {
+            if (item.bookingid.toLowerCase().indexOf($scope.searchText.toLowerCase()) != -1 ||
+                item.createat.toLowerCase().indexOf($scope.searchText.toLowerCase()) != -1) {
+                return true;
+            }
+        }
+        return false;
+    };
+
+
     $scope.checkboxes = [];
 
     $scope.hasCheckedCheckbox = function() {
@@ -792,7 +821,7 @@ app.controller('transportController', function($scope, $routeParams, $route, $ht
     // show confilm
 
     // Thêm hàm confirmSelectedBookings vào controller
-    $scope.confirmSelectedBookings = function() {
+    $scope.confirmSelectedBookings = function(status) {
         var selectedBookings = [];
 
         // Lặp qua mảng checkboxes để lấy các booking đã chọn
@@ -806,16 +835,25 @@ app.controller('transportController', function($scope, $routeParams, $route, $ht
         selectedBookings.forEach(function(booking) {
             // Gọi API để cập nhật trạng thái
             // Sử dụng $http service hoặc $resource để thực hiện yêu cầu API
-            $http.put('/rest/tranportChannel/' + booking.bookingid + '/updateOrderStatus')
+            $http.put('/rest/tranportChannel/' + booking.bookingid + '/'+status+'/updateOrderStatus')
                 .then(function(response) {
                     // Xử lý kết quả nếu cần
+                    $scope.findByOrderStatusId(3);
 
-                    $scope.findByOrderStatusId();
                 })
                 .catch(function(error) {
                     // Xử lý lỗi nếu có
 
                 });
+        });
+    };
+    //Undefied checkbox
+
+
+    // Function để unchecked tất cả các checkbox
+    $scope.uncheckAll = function() {
+        angular.forEach($scope.checkboxes, function(checkbox, index) {
+            $scope.checkboxes[index] = false;
         });
     };
     //Check Tab
@@ -831,10 +869,119 @@ app.controller('transportController', function($scope, $routeParams, $route, $ht
         }
     };
 
+    //show detail
+    $scope.initInfoDetailBooking = function (dbid) {
+
+        $http.get('/rest/bookings/findByBookingId/'+dbid)
+            .then(function(response) {
+                $scope.details = response.data;
+                console.log('Evaluates:', $scope.detail);
+            })
+            .catch(function(error) {
+                console.error('Error fetching data:', error);
+            });
+    };
+    //show detail booking
+    $scope.initInfoDetailBookingDetail = function (dbid) {
+
+        $http.get('/rest/bookings/findByBookingIdDetail/'+dbid)
+            .then(function(response) {
+                $scope.detailsbk = response.data;
+                console.log('Evaluates:', $scope.detailsbk);
+            })
+            .catch(function(error) {
+                console.error('Error fetching data:', error);
+            });
+    };
+    //image
+    $scope.setImage = function (bookId) {
+        let url = `http://localhost:8080/rest/imagebook/` + bookId;
+        $http.get(url).then(resp => {
+            var a = [];
+            a = (resp.data);
+            console.log("fff"+JSON.stringify(resp.data));
+            document.getElementById('img' + bookId).src = "/Client/images/" + a[0].name
+        }).catch(error => {
+            console.log("Error", error)
+        });
+    }
+/// print in pdf
+    $scope.generatePdf = function(bookingId) {
+        // Gửi yêu cầu AJAX đến REST API để tạo và tải file PDF
+        $http({
+            method: 'GET',
+            url: '/rest/bookings/generate/'+bookingId,
+            responseType: 'arraybuffer'
+        }).then(function(response) {
+            var blob = new Blob([response.data], { type: 'application/pdf' });
+            var url = window.URL.createObjectURL(blob);
+            var a = document.createElement('a');
+            a.href = url;
+            a.download = 'example.pdf';
+            document.body.appendChild(a);
+            a.click();
+            window.URL.revokeObjectURL(url);
+        }, function(error) {
+            console.log('Failed to generate PDF');
+        });
+    };
 });
 
 
-    //Voucher
+//Voucher
+app.controller('voucherController', function($scope, $routeParams, $route, $http, $rootScope) {
+    $scope.pageSize = 5; // Number of items per page
+    $scope.currentPage = 1; // Current page
+    $scope.totalPages = 1
+    $scope.findByOrderStatusId = function(orderstatusid) {
+        $scope.voucher = [];
+        $http.get('/rest/sale/listvoucher/' + orderstatusid)
+            .then(function(response) {
+                $scope.voucher = response.data;
+                $scope.totalPages = Math.ceil($scope.voucher.length / $scope.pageSize);
+                $scope.setPage(1); // Set initial page
+            });
+    };
+    $scope.findByOrderStatusId();
+    $scope.setPage = function (page) {
+        console.log('Current Page:', $scope.currentPage);
+        console.log('Total Pages:', $scope.totalPages);
+        if (page < 1 || page > $scope.totalPages) {
+            return;
+        }
+        $scope.currentPage = page;
+        var startIndex = (page - 1) * $scope.pageSize;
+        var endIndex = startIndex + $scope.pageSize;
+        $scope.paginatedBooks = $scope.voucher.slice(startIndex, endIndex);
+        console.log('setPage called with page:', page);
+        // ... (rest of the code)
+
+        console.log('currentPage:', $scope.currentPage);
+        console.log('paginatedBooks:', $scope.paginatedBooks);
+    };
+    $scope.getPages = function () {
+        return new Array($scope.totalPages).fill().map((_, index) => index + 1);
+    };
+    $scope.search = function (item) {
+        if ($scope.searchText == undefined) {
+            return true;
+        }
+        else {
+            if (item.promotionname.toLowerCase().indexOf($scope.searchText.toLowerCase()) != -1 ||
+                item.couoponcode.toLowerCase().indexOf($scope.searchText.toLowerCase()) != -1) {
+                return true;
+            }
+        }
+        return false;
+    };
+
+
+    //Find
+
+
+
+
+});
 app.controller('voucherController', function($scope, $routeParams, $route, $http, $rootScope) {
     $scope.pageSize = 5; // Number of items per page
     $scope.currentPage = 1; // Current page
@@ -870,40 +1017,97 @@ app.controller('voucherController', function($scope, $routeParams, $route, $http
     };
 
 
-   //Find
+    //Find
     $scope.pageSizev2 = 5; // Number of items per page
     $scope.currentPagev2 = 1; // Current page
     $scope.totalPagesv2 = 1
-    $scope.findByOrderStatusIdv2 = function(orderstatusid) {
-        $scope.booksselect = [];
-        $http.get('/rest/sale/findByCouponCode/' + orderstatusid)
+    $scope.initInfoProductv2 = function () {
+        $scope.books = [];
+        $http.get('/rest/books/ab')
             .then(function(response) {
-                $scope.booksselect = response.data;
-                $scope.totalPagesv2 = Math.ceil($scope.booksselect.length / $scope.pageSizev2);
+                $scope.books = response.data;
+                $scope.totalPagesv2 = Math.ceil($scope.books.length / $scope.pageSizev2);
                 $scope.setPage(1); // Set initial page
-            });
-    };
-    $scope.findByOrderStatusIdv2();
-    $scope.setPagev2 = function (page) {
 
+            })
+            .catch(function(error) {
+                console.error('Error fetching data:', error);
+            });
+
+    }
+    $scope.initInfoProductv2();
+    $scope.setPagev2 = function (page) {
+        console.log('Current Page:', $scope.currentPagev2);
+        console.log('Total Pages:', $scope.totalPagesv2);
         if (page < 1 || page > $scope.totalPagesv2) {
             return;
         }
         $scope.currentPagev2 = page;
         var startIndex = (page - 1) * $scope.pageSizev2;
         var endIndex = startIndex + $scope.pageSizev2;
-        $scope.paginatedBooksv2 = $scope.booksselect.slice(startIndex, endIndex);
+        $scope.paginatedBooksv2 = $scope.books.slice(startIndex, endIndex);
+        console.log('setPage called with page:', page);
+        // ... (rest of the code)
 
+        console.log('currentPage:', $scope.currentPage);
+        console.log('paginatedBooks:', $scope.paginatedBooks);
     };
+
     $scope.getPagesv2 = function () {
         return new Array($scope.totalPagesv2).fill().map((_, index) => index + 1);
     };
-    $scope.checkboxes = [];
 
+    // get has sales
+    $scope.setCheckboxHassale = function (hasSaleID) {
+        $scope.hassales = [];
+        $http.get('/rest/sale/findAllBySaleId/' + hasSaleID)
+            .then(function (response) {
+                $scope.hassales = response.data;
+                console.log("Data from setCheckboxHassale:", $scope.hassales);
+            })
+            .catch(function (error) {
+                console.error('Error fetching data:', error);
+            });
+    }
+    // $scope.compareBooksWithSales = function () {
+    //     $scope.paginatedBooksv2.forEach(function (book) {
+    //         var hasSale = $scope.hassales.some(function (sale) {
+    //             return sale.bookid === book.bookid;
+    //         });
+    //
+    //         $scope.itemChecked[book.name] = hasSale;
+    //     });
+    // };
+    $scope.search = function (item) {
+        if ($scope.searchText == undefined) {
+            return true;
+        } else {
+            if (item.promotionname.toLowerCase().indexOf($scope.searchText.toLowerCase()) != -1 ||
+                item.couoponcode.toLowerCase().indexOf($scope.searchText.toLowerCase()) != -1) {
+                return true;
+            }
+        }
+        return false;
+    };
+    $scope.createhassale = {};
+    $scope.createHassale = function () {
+        const headers = {
+            'Content-Type': "application/json",
+            transformRequest: angular.identity
+        };
+        $http.post('/rest/sale/createHassale', JSON.stringify($scope.createhassale), {headers: headers})
+            .then(function (response) {
+                // Handle success
+                $window.alert("Tạo voucher thành công")
+            })
+            .catch(function (error) {
+                console.error(error);
+            });
+    };
 
 
 });
-    //Create Voucher
+//Create Voucher
 app.controller('createVoucherController', function($scope, $http, $window) {
     $scope.createvoucher ={};
     $scope.createSales = function () {
@@ -915,19 +1119,15 @@ app.controller('createVoucherController', function($scope, $http, $window) {
             .then(function (response) {
                 // Handle success
                 $window.alert("Tạo voucher thành công")
-
-                // Optionally, you can redirect to another page or show a success message
             })
             .catch(function (error) {
-                // Handle error
                 console.error(error);
-                // Optionally, you can display an error message to the user
             });
     };
     $scope.isFormValid = function () {
         var check = true;
         if (!$scope.createvoucher.promotionname.length>0 || !$scope.createvoucher.intendfor.length>0 || !$scope.createvoucher.discountpercentage>0 || !$scope.createvoucher.statuses.length>0 || !$scope.createvoucher.descriptions.length>0){
-           check = false;
+            check = false;
         }
         return check ;
     };
@@ -944,7 +1144,7 @@ app.controller('createVoucherController', function($scope, $http, $window) {
 });
 
 
-    //Review
+//Review
 app.controller('reviewController', function($scope, $routeParams, $route, $http, $rootScope) {
     $scope.evaluates = [];
     $scope.filteredReviews = [];
@@ -972,8 +1172,19 @@ app.controller('reviewController', function($scope, $routeParams, $route, $http,
                 console.error('Error fetching data:', error);
             });
     };
-
     $scope.initInfoProduct();
+    $scope.search = function (item) {
+        if ($scope.searchText == undefined) {
+            return true;
+        }
+        else {
+            if (item.evaluatedate.toLowerCase().indexOf($scope.searchText.toLowerCase()) != -1 ||
+                item.evaluateid.toLowerCase().indexOf($scope.searchText.toLowerCase()) != -1) {
+                return true;
+            }
+        }
+        return false;
+    };
 });
 
 //////////////sales
@@ -1016,6 +1227,18 @@ app.controller('salesOrderManagementController', function($scope, $http) {
     $scope.getPages = function () {
         return new Array($scope.totalPages).fill().map((_, index) => index + 1);
     };
+    $scope.search = function (item) {
+        if ($scope.searchText == undefined) {
+            return true;
+        }
+        else {
+            if (item.bookname.toLowerCase().indexOf($scope.searchText.toLowerCase()) != -1 ||
+                item.bookid.toLowerCase().indexOf($scope.searchText.toLowerCase()) != -1) {
+                return true;
+            }
+        }
+        return false;
+    };
 
 
     $scope.setImage = function (bookId) {
@@ -1054,10 +1277,8 @@ app.controller('salesOrderManagementController', function($scope, $http) {
             })
             .catch(function(error) {
                 console.error('Lỗi khi cập nhật: ', error);
-                // Nếu có lỗi, bạn có thể khám phá các cách xử lý lỗi phù hợp với ứng dụng của bạn
             });
     };
 
 });
-
 

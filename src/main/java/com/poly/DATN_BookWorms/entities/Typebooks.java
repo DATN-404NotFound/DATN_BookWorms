@@ -36,7 +36,7 @@ public class Typebooks implements Serializable {
 
 	// --- ENTITY PRIMARY KEY
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public Integer typebookid;
 
 	// --- ENTITY DATA FIELDS

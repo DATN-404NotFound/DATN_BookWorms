@@ -55,22 +55,9 @@
                 <div class="card-body">
 
                   <div class="tab-content mb-1" id="pills-tabContent">
-                    <div class="tab-pane fade show active" id="pills-All" role="tabpanel" aria-labelledby="pills-All-tab"> 
+                    <div class="tab-pane fade show active" id="pills-All" role="tabpanel" aria-labelledby="pills-All-tab">
                       <div class="row">
                         <div class="col-md-6 mt-1">
-                          <div class="form-group">
-                            <label for="date-input1">Date Range</label>
-                            <input type="text" name="datetimes" class="form-control datetimes" />
-                          </div>
-                          <div class="form-group">
-                            <label for="date-input1">Product’s name:</label>
-                            <input type="text" name="name" class="form-control" />
-                          </div>
-                          <div class="form-group">
-                            <label for="date-input1">Product 
-                              classification</label>
-                            <input type="text" name="name" class="form-control" />
-                          </div>
 
                           <ul class="nav nav-pills nav-fill mb-3" id="pills-tab" role="tablist">
                             <li class="nav-item">
@@ -81,180 +68,26 @@
                             </li>
                           </ul>
                         </div>
-                        <div class="col-md-6">
-                          <div class="form-group">
-                            <label for="reportrange">Predefined Date Ranges</label>
-                            <div id="reportrange" class="border px-2 py-2 bg-light">
-                              <i class="fe fe-calendar fe-16 mx-2"></i>
-                              <span></span>
-                            </div>
-                          </div>
-                          <div class="form-group">
-                            <label for="date-input1">Buyer</label>
-                            <input type="text" name="name" class="form-control" />
-                          </div>
-                          <div class="form-group">
-                            <label for="date-input1">Search</label>
-                            <form class="mb-3">
-                              <input class="form-control text-muted" type="search" placeholder="Type something..." aria-label="Search">
-                              <br>
-                            </form>
-                          </div>
-                      
-                        </div>
-                          <div class="col-md-12">
-                            <div class="form-group mt-4">                        
-                              <button type="button" class="btn mb-2 btn-primary">Search</button>
-                              <button type="button" class="btn mb-2 btn-primary ml-3">Reset</button>
-                            </div>        
-                                
-                          </div>   
-                      </div>    
+
+                      </div>
                     </div>
-                    <div class="tab-pane fade" id="pills-Waitforconfirmation" role="tabpanel" aria-labelledby="pills-Waitforconfirmation-tab">  
-                      <div class="row">
-                        <div class="col-md-6">
-                          <div class="form-group">
-                            <label for="date-input1">Date Range</label>
-                            <input type="text" name="datetimes" class="form-control datetimes" />
-                          </div>
-                          <div class="form-group">
-                            <label for="reportrange">Predefined Date Ranges</label>
-                            <div id="reportrange" class="border px-2 py-2 bg-light">
-                              <i class="fe fe-calendar fe-16 mx-2"></i>
-                              <span></span>
-                            </div>
-                          </div>
+<hr>
+
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <input type="text" class="form-control" ng-model="searchText.evaluateid" placeholder="Search ID"/>
                         </div>
-                        <div class="col-md-6">
-                          <div class="form-group">
-                            <label for="date-input1">Search</label>
-                            <form class="mb-3">
-                              <input class="form-control text-muted" type="search" placeholder="Type something..." aria-label="Search">
-                              <br>
-                            </form>
-                          </div>
-                          <div class="form-group mt-4">
-                            <button type="button" class="btn mb-2 btn-outline-secondary"><span class="fe fe-arrow-down fe-16 mr-2"></span>Export as Excel</button>
-                          </div>
-                        </div>                    
-                      </div> 
-                    </div>
-                    <div class="tab-pane fade" id="pills-Delivered" role="tabpanel" aria-labelledby="pills-Delivered-tab">  
-                      <div class="row">
-                        <div class="col-md-6">
-                          <div class="form-group">
-                            <label for="date-input1">Date Range</label>
-                            <input type="text" name="datetimes" class="form-control datetimes" />
-                          </div>
-                          <div class="form-group">
-                            <label for="reportrange">Predefined Date Ranges</label>
-                            <div id="reportrange" class="border px-2 py-2 bg-light">
-                              <i class="fe fe-calendar fe-16 mx-2"></i>
-                              <span></span>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="col-md-6">
-                          <div class="form-group">
-                            <label for="date-input1">Search</label>
-                            <form class="mb-3">
-                              <input class="form-control text-muted" type="search" placeholder="Type something..." aria-label="Search">
-                              <br>
-                            </form>
-                          </div>
-                          <div class="form-group mt-4">
-                            <button type="button" class="btn mb-2 btn-outline-secondary"><span class="fe fe-arrow-down fe-16 mr-2"></span>Export as Excel</button>
-                          </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <form class="mb-3">
+                            <input class="form-control text-muted" placeholder="Evaluate Date" aria-label="Search" ng-model="searchText.evaluatedate">
+                            <br>
+                          </form>
                         </div>
                       </div>
                     </div>
-                    <div class="tab-pane fade" id="pills-Cancellation" role="tabpanel" aria-labelledby="pills-Cancellation-tab">  
-                      <div class="row">
-                        <div class="col-md-6">
-                          <div class="form-group">
-                            <label for="date-input1">Date Range</label>
-                            <input type="text" name="datetimes" class="form-control datetimes" />
-                          </div>
-                          <div class="form-group">
-                            <label for="reportrange">Predefined Date Ranges</label>
-                            <div id="reportrange" class="border px-2 py-2 bg-light">
-                              <i class="fe fe-calendar fe-16 mx-2"></i>
-                              <span></span>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="col-md-6">
-                          <div class="form-group">
-                            <label for="date-input1">Search</label>
-                            <form class="mb-3">
-                              <input class="form-control text-muted" type="search" placeholder="Type something..." aria-label="Search">
-                              <br>
-                            </form>
-                          </div>
-                          <div class="form-group mt-4">
-                            <button type="button" class="btn mb-2 btn-outline-secondary"><span class="fe fe-arrow-down fe-16 mr-2"></span>Export as Excel</button>
-                          </div>
-                        </div>                     
-                      </div>
-                    </div>
-                    <div class="tab-pane fade" id="pills-ReturnRefund" role="tabpanel" aria-labelledby="pills-ReturnRefund-tab">  
-                      <div class="row">
-                        <div class="col-md-6">
-                          <div class="form-group">
-                            <label for="date-input1">Date Range</label>
-                            <input type="text" name="datetimes" class="form-control datetimes" />
-                          </div>
-                          <div class="form-group">
-                            <label for="reportrange">Predefined Date Ranges</label>
-                            <div id="reportrange" class="border px-2 py-2 bg-light">
-                              <i class="fe fe-calendar fe-16 mx-2"></i>
-                              <span></span>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="col-md-6">
-                          <div class="form-group">
-                            <label for="date-input1">Search</label>
-                            <form class="mb-3">
-                              <input class="form-control text-muted" type="search" placeholder="Type something..." aria-label="Search">
-                              <br>
-                            </form>
-                          </div>
-                          <div class="form-group mt-4">
-                            <button type="button" class="btn mb-2 btn-outline-secondary"><span class="fe fe-arrow-down fe-16 mr-2"></span>Export as Excel</button>
-                          </div>
-                        </div>  
-                      </div>
-                    </div>
-                    <div class="tab-pane fade" id="pills-Deliveryfailed" role="tabpanel" aria-labelledby="pills-Deliveryfailed-tab">  
-                      <div class="row">
-                        <div class="col-md-6">
-                          <div class="form-group">
-                            <label for="date-input1">Date Range</label>
-                            <input type="text" name="datetimes" class="form-control datetimes" />
-                          </div>
-                          <div class="form-group">
-                            <label for="reportrange">Predefined Date Ranges</label>
-                            <div id="reportrange" class="border px-2 py-2 bg-light">
-                              <i class="fe fe-calendar fe-16 mx-2"></i>
-                              <span></span>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="col-md-6">
-                          <div class="form-group">
-                            <label for="date-input1">Search</label>
-                            <form class="mb-3">
-                              <input class="form-control text-muted" type="search" placeholder="Type something..." aria-label="Search">
-                              <br>
-                            </form>
-                          </div>
-                          <div class="form-group mt-4">
-                            <button type="button" class="btn mb-2 btn-outline-secondary"><span class="fe fe-arrow-down fe-16 mr-2"></span>Export as Excel</button>
-                          </div>
-                        </div>  
-                      </div>                
                     </div>
                 </div>
               </div>
@@ -286,7 +119,7 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr ng-repeat="evaluate in filteredReviews">
+                                    <tr ng-repeat="evaluate in filteredReviews | filter: searchText">
                                       <!--                                        <td>-->
                                       <!--                                          <div class="custom-control custom-checkbox">-->
                                       <!--                                            <input type="checkbox" class="custom-control-input">-->

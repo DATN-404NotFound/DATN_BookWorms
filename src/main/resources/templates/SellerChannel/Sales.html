@@ -24,29 +24,18 @@
                         <div class="row">
                           <div class="col-md-6">
                             <div class="form-group">
-                              <label for="date-input1">Date Ranges</label>
-                              <input type="text" name="datetimes" class="form-control datetimes" />
-                            </div>
-                            <div class="form-group">
-                              <label for="reportrange">Predefined Date Ranges</label>
-                              <div id="reportrange" class="border px-2 py-2 bg-light">
-                                <i class="fe fe-calendar fe-16 mx-2"></i>
-                                <span></span>
-                              </div>
+                              <input type="text" class="form-control" ng-model="searchText.bookid" placeholder="Search by ID"/>
                             </div>
                           </div>
                           <div class="col-md-6">
                             <div class="form-group">
-                              <label for="date-input1">Search</label>
                               <form class="mb-3">
-                                <input class="form-control text-muted" type="search" placeholder="Type something..." aria-label="Search">
+                                <input class="form-control text-muted" placeholder="Type bookname..." aria-label="Search" ng-model="searchText.bookname">
                                 <br>
                               </form>
                             </div>
-                            <div class="form-group mt-4">
-                              <button type="button" class="btn mb-2 btn-primary"><span class="fe fe-arrow-down fe-16 mr-2"></span>Search </button>
                             </div>
-                          </div>                     
+                          </div>
                         </div>    
                       </div>
 
@@ -85,7 +74,7 @@
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        <tr ng-repeat="book in paginatedBooks">
+                                        <tr ng-repeat="book in paginatedBooks | filter: searchText">
                                           <td>{{ book.bookid }}</td>
                                           <td>{{ book.bookname }}</td>
                                           <td><img style="height: 50px" class="img-fluid" ng-init="setImage(book.bookid)" id="img{{book.bookid}}"></td>

@@ -45,11 +45,11 @@ public class Addressusers implements Serializable {
 
     public String     detailhome ;
 
-	public String     Ward ;
+    public String     ward ;
 
-	public String     district ;
+    public String     district ;
 
-	public String    province ;
+    public String    province ;
 
     @Column(name="fullname", nullable=false, length=50)
     public String     fullname ;
@@ -61,36 +61,36 @@ public class Addressusers implements Serializable {
 
     //--- ENTITY LINKS ( RELATIONSHIP )
     @ManyToOne
-   
+
     @JoinColumn(name="Userid", referencedColumnName="Userid", insertable=false, updatable=false)
-    public Account    account ; 
+    public Account    account ;
 
     @OneToMany(mappedBy="addressusers")
     @JsonIgnore
-    public List<Payments> listOfPayments ; 
+    public List<Payments> listOfPayments ;
 
     //--- toString specific method
-	@Override
-    public String toString() { 
-        StringBuilder sb = new StringBuilder(); 
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
         sb.append(addressuserid);
         sb.append("|");
         sb.append(userid);
         sb.append("|");
-		sb.append(detailhome);
+        sb.append(detailhome);
         sb.append("|");
-		sb.append(Ward);
+        sb.append(Ward);
         sb.append("|");
         sb.append(district);
         sb.append("|");
-		sb.append(province);
+        sb.append(province);
         sb.append("|");
         sb.append(fullname);
         sb.append("|");
         sb.append(phonenumber);
         sb.append("|");
         sb.append(statusaddress);
-        return sb.toString(); 
+        return sb.toString();
     }
 
 }

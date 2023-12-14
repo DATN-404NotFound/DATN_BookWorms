@@ -37,4 +37,9 @@ public class TypeBookServiceImp implements TypeBookService {
 		typebooks.setBooks(books);
 		return typebooksRepo.save(typebooks);
 	}
+
+	@Override
+	public Typebooks save(Typebooks typebooks) {
+		return typebooksRepo.save(typebooks);
+	}
 }

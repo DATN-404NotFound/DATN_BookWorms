@@ -47,8 +47,6 @@ public class SaleRestController {
 
 	@PostMapping(value = "/create", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Sales> createSales(@RequestBody Sales sales) {
-
-//		Sales createdSale = saleService.create(promotionname, createat, descriptions, discountpercentage, statuses, intendfor);
 		Sales createdSale = saleService.create(sales);
 		return ResponseEntity.ok(createdSale);
 	}
@@ -60,6 +58,20 @@ public class SaleRestController {
 	@GetMapping("/findByCouponCode/{couponCode}")
 	public List<Hassales> findAllByCouponCode(@PathVariable("couponCode") String couponCode) {
 		return hasSaleService.findAllByCouponCode(couponCode);
+	}
+	@PostMapping(value = "/createHassale", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Hassales> createHassales(@RequestBody Hassales hassales) {
+		Hassales createdHassale = hasSaleService.saveHassales(hassales);
+		return ResponseEntity.ok(createdHassale);
+	}
+	@GetMapping("/findAllBySaleId/{saleId}")
+	public ResponseEntity<List<Hassales>> findAllBySaleId(@PathVariable String saleId) {
+		List<Hassales> hassalesList = hasSaleService.findAllBysaleid(saleId);
+		if (!hassalesList.isEmpty()) {
+			return new ResponseEntity<>(hassalesList, HttpStatus.OK);
+		} else {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
 	}
 
 }

@@ -242,7 +242,7 @@
 </header>
 
 
-<script th:src="@{/SellerChannel/js/jquery.min.js}"></script>
+
 <script th:src="@{/SellerChannel/js/popper.min.js}"></script>
 <script th:src="@{/SellerChannel/js/moment.min.js}"></script>
 <script th:src="@{/SellerChannel/js/bootstrap.min.js}"></script>
@@ -318,7 +318,6 @@
     function cb(start, end) {
         $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
     }
-
     $('#reportrange').daterangepicker(
         {
             startDate: start,
