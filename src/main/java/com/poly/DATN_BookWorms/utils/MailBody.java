@@ -158,7 +158,7 @@ public class MailBody {
 		return mailhuy;
 	}
 
-	public String mailSuccess(String personCancle, Bookings bookings, String status) { 
+	public String mailSuccess(String persionre,String personCancle, Bookings bookings, String status, int count) { 
 		String str = "<!DOCTYPE html>\r\n"
 				+ "<html lang=\"en\">\r\n"
 				+ "\r\n"
@@ -178,7 +178,7 @@ public class MailBody {
 				+ "<body>\r\n"
 				+ "    <div style=\" width:100%;\">\r\n"
 				+ "\r\n"
-				+ "        <p>Chào bạn : <b></b> .</p>\r\n"
+				+ "        <p>Chào bạn : <b>"+persionre+"</b> .</p>\r\n"
 				+ "        <br>\r\n"
 				+ "        <div class=\"mt-4 p-5\" style=\"border: 1px solid rgb(187, 187, 186); width: 95%; margin: auto;\">\r\n"
 				+ "            <p style=\"font-size: 20px;\">Thông báo :<span><strong> ĐẶT HÀNG THÀNH CÔNG</strong></span></p>\r\n"
@@ -190,7 +190,7 @@ public class MailBody {
 				+ "    Mã đơn hàng             :      <b>"+bookings.bookingid+"</b>\r\n"
 				+ "    Thời gian đặt hàng      :      <b>"+new SimpleDateFormat("dd-MM-yyyy").format(bookings.getCreateat())+"</b>\r\n"
 				+ "    Tổng tiền đơn hàng      :      <b>"+bookings.getCost()+"</b>\r\n"
-				+ "    Số lượng sản phẩm       :      <b>"+bookings.getListOfDetailbookings().size()+"</b>\r\n"
+				+ "    Số lượng sản phẩm       :      <b>"+count+"</b>\r\n"
 				+ "\r\n"
 				+ "</pre>\r\n"
 				+ "            <p>Bạn vui lòng truy cập vào website của chúng tôi để xem thông tin chi tiết. </p>\r\n"

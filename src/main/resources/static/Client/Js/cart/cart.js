@@ -1070,7 +1070,7 @@ app.controller("order_ctrl", function ($scope, $http, $timeout) {
 					
 						if (Number($('#pay').children("option:selected").val()) == 1) {
 							localStorage.setItem("bookingAll", JSON.stringify($scope.bookings));
-							
+						
 						}
 						else {
 							$http.post(`/rest/bookings`, booking).then(resp => {

@@ -70,10 +70,16 @@ public class BookingServiceImp implements BookingService{
 
 	@Autowired
 	MailService mailService;
+
 	
+	String email = "";
+	String shopname = "";
+
 	
+	int countdetal =0;
 	@Override
 	public Bookings create(JsonNode bookingData) {
+		
 		logger.info("create bookings start.....");
 		logger.info("input JsonNode with bookingData : {}",bookingData.toString());
 		try {
@@ -123,6 +129,9 @@ public class BookingServiceImp implements BookingService{
 								 d.setDbid(crc32_SHA256.getCodeCRC32C(userid+d.bookingid+d.bookid));
 								 logger.info("Detailbooking for create : {}", d.toString());
 								 detailRepo.save(d);
+							email = d.getDbid();
+							
+								// shopname =  d.getBooks().getShoponlines().getShopname();
 								 booksRepo.save(books);
 								 logger.info("Detailbooking for create is success full : {}", d.toString());
 							}
@@ -156,8 +165,10 @@ public class BookingServiceImp implements BookingService{
 					}).collect(Collectors.toList());
 			logger.info("list Payment in booking have size : {}", payment.size());
 			paymentService.saveAll(payment);
+			System.out.println("now detailkflds;");
+	
+			sendMailSuccess(booking,countdetal, email);
 			logger.info("Create bookings, detailbookings, payments is successfully");
-			sendMailSuccess(booking);
 			return booking;
 		} catch (Exception e) {
 			logger.error("Create bookings, detailbookings, payments is failed with error : {}", e);
@@ -167,14 +178,19 @@ public class BookingServiceImp implements BookingService{
 	}
 
 	 
-	public void sendMailSuccess(Bookings bookings) throws MessagingException{ 
+	public void sendMailSuccess(Bookings bookings,int count , String email) throws MessagingException{ 
+		Bookings booking = bookingRepo.findById(bookings.bookingid).get();
+		System.out.println("email");
+		Detailbookings detailbookings = detailRepo.findById(email).get();
+		System.out.println("in detlkdd"+ detailbookings.toString());
 		String subject ="THÔNG BÁO ĐẶT ĐƠN THÀNH CÔNG";
-		String personCancle = bookings.account.fullname;
+		String personCancle = booking.account.fullname;
 		
-		String buyer = mailBody.mailHuyDon(bookings.account.getFullname(), personCancle, bookings, "Đặt hàng thành công");
-		String shoper = mailBody.mailSuccess(personCancle,bookings, "Đặt hàng thành công");
-	  mailService.send(bookings.account.getEmail(),subject, buyer);
-	  mailService.send(bookings.getListOfDetailbookings().get(0).books.shoponlines.account.getEmail(),subject, shoper);
+		String buyer = mailBody.mailSuccess(personCancle,personCancle, booking, "Đặt hàng thành công",count);
+		String shoper = mailBody.mailSuccess(detailbookings.getBooks().getShoponlines().getShopname(),personCancle,booking, "Đặt hàng thành công",count);
+	  mailService.send(booking.account.getEmail(),subject, buyer);
+	 mailService.send(detailbookings.getBooks().getShoponlines().getAccount().getEmail(),subject, shoper);
+	  System.out.println("thành công ");
 	}
 	@Override
 	public Optional<Bookings> findById(String id) {
