@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.poly.DATN_BookWorms.entities.Bookings;
 import com.poly.DATN_BookWorms.entities.Discountcodes;
 import com.poly.DATN_BookWorms.service.DiscountCodeService;
 import com.poly.DATN_BookWorms.utils.CRC32_SHA256;
@@ -57,6 +58,14 @@ public class DiscountCodeRestController {
 		return discountCodeService.findSalesId(saleid, userid);
 	}
 	
+	
+
+	@GetMapping("/findbyUser")
+	public List<Discountcodes> findbyUser() { 
+		
+		return discountCodeService.findDisountByUserId(crc32_SHA256.getCodeCRC32C(request.getRemoteUser()));
+	}
+	
 	@GetMapping
 	public List<Discountcodes> findAll(){ 
 		return  discountCodeService.findAll();
@@ -72,5 +81,13 @@ public class DiscountCodeRestController {
 		String userid = crc32_SHA256.getCodeCRC32C(request.getRemoteUser());
 		Discountcodes dis = discountCodeService.findSalesId(sa, userid);
 		 discountCodeService.delete(dis.discountcodeid);
+	}
+	
+	@GetMapping("/view/{discountcodeid}")
+	public Discountcodes getBookingId(@PathVariable Integer discountcodeid ) {
+		System.out.println("discountcodeid: " + discountcodeid);
+//		Discountcodes d = discountCodeService.findById(discountcodeid);
+//		System.out.println(d.sales.promotionname);
+		return discountCodeService.findById(discountcodeid);
 	}
 }

@@ -11,4 +11,8 @@ import com.poly.DATN_BookWorms.repo.FilesRepo;
 public interface FileShopService {
 	
 	public List<Files> getFileByShop(Integer shopid);
+	
+	public List<Files> findAll();
+	
+	
 }

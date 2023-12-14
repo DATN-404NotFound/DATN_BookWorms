@@ -230,6 +230,25 @@ public class BookingServiceImp implements BookingService{
 //				.filter(booking -> booking.getOrderstatusid().equals(orderStatusId))
 //				.collect(Collectors.toList());
 //	}
+
+
+	@Override
+	public Bookings findByBookingId(String bookingId) {
+		return bookingRepo.findBybookingid(bookingId);
+	}
+
+//	@Override
+//	public List<Bookings> findAllByUserId(String userId) {
+//		return bookingRepo.findByuserid(userId);
+//	}
+//	@Override
+//	public List<Bookings> findByUserIdAndOrderStatusId(String userId, Integer orderStatusId) {
+//		List<Bookings> allByUserId = findAllByUserId(userId);
+//
+//		return allByUserId.stream()
+//				.filter(booking -> booking.getOrderstatusid().equals(orderStatusId))
+//				.collect(Collectors.toList());
+//	}
 	@Override
 	public List<Bookings> findBookingsByShopIdAndOrderStatusID(Integer shopId, Integer orderStatusId) {
 		List<Bookings> allBookings =bookingRepo.findBookingsByShopId(shopId);
@@ -332,10 +351,10 @@ public class BookingServiceImp implements BookingService{
 
 	@Override
 	@Transactional
-	public void updateOrderStatus(String bookingId) {
+	public void updateOrderStatus(String bookingId, Integer status) {
 		Bookings booking = bookingRepo.findById(bookingId).orElse(null);
 		if (booking != null) {
-			booking.setOrderstatusid(4);
+			booking.setOrderstatusid(status);
 			bookingRepo.save(booking);
 		}
 	}

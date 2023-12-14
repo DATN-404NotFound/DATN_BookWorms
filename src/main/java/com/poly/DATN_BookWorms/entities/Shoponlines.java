@@ -43,7 +43,6 @@ public class Shoponlines implements Serializable {
 
     private String phonenumber;
 
-
     @Column(name = "total")
     private Double total;
 

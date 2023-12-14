@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" ng-app="myApp">
 
 <head>
 <meta charset="utf-8">
@@ -36,12 +36,12 @@
 	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.3/angular.min.js"></script>
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/angular-route/1.8.3/angular-route.min.js"></script>
-<script th:src="@{/Admin/Js/angularJs/homePageAdminAngularJS.js}"></script>
+<script th:src="@{/Admin/Js/angularJs/homePageAdminAngularJS.jsa}"></script>
 </head>
 
-<body class="vertical  light  " ng-app="statistical" ng-controller="myCtrl">
+<body class="vertical  light  ">
 	<div class="wrapper">
-		
+	
 		<main role="main" class="main-content">
 			<div class="container-fluid">
 				<div class="row justify-content-center">
@@ -261,57 +261,11 @@
 								<!-- / .card -->
 							</div>
 							<!-- / .col-md-6 -->
-							
-							<!-- Striped rows -->
-							<div class="col-md-12 col-lg-8" >
-							<select ng-model="select" ng-change="changeOrder()">
-								<option ng-value="bestSeller">Best Seller</option>
-								<option ng-value="inventory">Inventory</option>
-							</select>
-								<div class="card shadow">
-									<div class="card-header">
-										<strong class="card-title">Best Seller</strong> <a
-											class="float-right small text-muted" href="#!">View all</a>
-									</div>
-									<div class="card-body my-n2" data-simplebar
-										style="height: 371px; overflow-y: auto; overflow-x: hidden;">
-										<table
-											class="table table-striped table-hover table-borderless">
-											<thead>
-												<tr>
-													<th>Name</th>
-													<th>Quantity Sold</th>
-												</tr>
-											</thead>
-											<tbody>
-												<tr th:each="item : ${item}">
-													<td th:text="${item.bookname}"></td>
-													<th scope="col" th:text="${item.quantitysold} + ' cuốn'"></th>
-												</tr>
-											</tbody>
-										</table>
-										<nav aria-label="Page navigation example">
-											<ul class="pagination">
-												<li class="page-item"><a class="page-link" href="#"
-													aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
-												</a></li>
-												<li class="page-item"><a class="page-link" href="#">1</a></li>
-												<li class="page-item"><a class="page-link" href="#">2</a></li>
-												<li class="page-item"><a class="page-link" href="#">3</a></li>
-												<li class="page-item"><a class="page-link" href="#"
-													aria-label="Next"> <span aria-hidden="true">&raquo;</span>
-												</a></li>
-											</ul>
-										</nav>
-									</div>
-								</div>
-							</div>
-							<!-- Striped rows -->
 							<!-- Striped rows -->
 							<div class="col-md-12 col-lg-8">
 								<div class="card shadow">
 									<div class="card-header">
-										<strong class="card-title">Inventory</strong> <a
+										<strong class="card-title">Operational efficiency</strong> <a
 											class="float-right small text-muted" href="#!">View all</a>
 									</div>
 									<div class="card-body my-n2" data-simplebar
@@ -320,14 +274,38 @@
 											class="table table-striped table-hover table-borderless">
 											<thead>
 												<tr>
+													<th>ID</th>
 													<th>Name</th>
-													<th>Quantity Sold</th>
+													<th>Address</th>
+													<th>Cost</th>
+													<th>Order Status</th>
+													<th>Shipping</th>
+													<th>Action</th>
 												</tr>
 											</thead>
 											<tbody>
-												<tr th:each="item : ${item1}">
-													<td th:text="${item.bookname}"></td>
-													<th scope="col" th:text="${item.quantitysold} + ' cuốn'"></th>
+												 <tr th:each="item : ${item}">
+													<td th:text="${item.bookingid}"></td>
+													<th scope="col" th:text="${item.account.fullname}"></th>
+													<td th:text="${item.createat}"></td>
+													<td th:text="${item.cost}"></td>
+													<td th:text="${item.orderstatuses.statusname}"></td>
+													<td th:text="${item.shippingunits.name}"></td>
+													<td>
+														<div class="dropdown">
+															<button class="btn btn-sm dropdown-toggle more-vertical"
+																type="button" id="dr1" data-toggle="dropdown"
+																aria-haspopup="true" aria-expanded="false">
+																<span class="text-muted sr-only">Action</span>
+															</button>
+															<div class="dropdown-menu dropdown-menu-right"
+																aria-labelledby="dr1">
+																<a class="dropdown-item" href="#">Edit</a> <a
+																	class="dropdown-item" href="#">Remove</a> <a
+																	class="dropdown-item" href="#">Assign</a>
+															</div>
+														</div>
+													</td>
 												</tr>
 											</tbody>
 										</table>

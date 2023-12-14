@@ -5,7 +5,6 @@ import com.poly.DATN_BookWorms.service.BookService;
 import com.poly.DATN_BookWorms.service.CategoryService;
 import com.poly.DATN_BookWorms.service.EvaluatesService;
 import com.poly.DATN_BookWorms.service.PublishingCompanyService;
-import com.poly.DATN_BookWorms.service.ShopOnlineService;
 import com.poly.DATN_BookWorms.service.ShopOnlinesService;
 import com.poly.DATN_BookWorms.service.TypeBookService;
 import com.poly.DATN_BookWorms.service.WriterMasterService;
@@ -48,6 +47,8 @@ public class ProductController {
 	@Autowired
 	BookService bookService;
 	
+	@Autowired
+	EvaluatesService evaluatesService;
 
 	
 	@Autowired
@@ -65,10 +66,6 @@ public class ProductController {
 	
 	@Autowired
 	HttpServletResponse resp;
-	
-
-	@Autowired
-	EvaluatesService evaluatesService;
 
 	@Autowired
 	ShopOnlinesService shopOnlinesService;

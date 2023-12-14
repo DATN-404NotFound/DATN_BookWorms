@@ -674,11 +674,14 @@ app.controller("cart_ctrl", function ($scope, $http, $timeout) {
 	///////////////////////// Shop Page 
 	$scope.ListBookOfShop = []
 	$scope.toShopDetail = function (shopid) {
+
 		$http.get("http://localhost:8080/rest/books/shop?shopid=" + shopid).then(resp => {
 			localStorage.setItem('productShop', JSON.stringify(resp.data));
 			//location.href = "/shop/" + shopid
 		})
 	}
+
+
 
 	$scope.shopAll = [];
 	$scope.getAllshop = function () {
@@ -988,7 +991,7 @@ app.controller("order_ctrl", function ($scope, $http, $timeout) {
 			document.getElementById('img' + bookId).src = "Client/images/" + a[0].name
 		}).catch(error => {
 			console.log("Error", error)
-		});;
+		});
 	}
 
 	$scope.deleteDeal = function () {

@@ -64,12 +64,12 @@ public class AdminPaymentRestController {
 	public void paymentCallback(@RequestParam Map<String, String> queryParams, HttpServletResponse response)
 			throws IOException, NumberFormatException, NotFoundException, MessagingException {
 		MailInformation mailInfo = new MailInformation();
-
 		String vnp_ResponseCode = queryParams.get("vnp_ResponseCode");
 		String paymentShopId = queryParams.get("paymentshopid");
 		if (paymentShopId != null && !paymentShopId.equals("")) {
 			if ("00".equals(vnp_ResponseCode)) {
-
+				// Giao dịch thành công
+				// Thực hiện các xử lý cần thiết, ví dụ: cập nhật CSDL
 				PaymentShop paymentShop = paymentShopRepo.findById(Integer.parseInt(queryParams.get("paymentshopid")))
 						.orElseThrow(() -> new NotFoundException());
 				paymentShop.setStatus(true);
@@ -91,7 +91,7 @@ public class AdminPaymentRestController {
 				String body = "VNPay_TxnRef: " + vnp_TxnRef + " VNPay_Amount: " + vnp_Amount + " VNPay_OrderInfo: " + vnp_OrderInfo;
 				mailInfo.setBody(body);
 				mailer.send(mailInfo);
-				response.sendRedirect("http://localhost:8080/order");
+				response.sendRedirect("http://localhost:8080/admin/index");
 			} else {
 				// Giao dịch thất bại
 				// Thực hiện các xử lý cần thiết, ví dụ: không cập nhật CSDL\

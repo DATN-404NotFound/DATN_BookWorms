@@ -25,6 +25,7 @@ public interface DiscountCodeService {
 	
 	public Discountcodes update(Discountcodes discountid);
 	
+	public List<Discountcodes> findDisountByUserId(String userid);
 	
 	
 	

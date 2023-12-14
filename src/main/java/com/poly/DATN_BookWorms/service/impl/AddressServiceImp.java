@@ -40,17 +40,6 @@ public class AddressServiceImp implements AddressService {
 		return addressusersRepo.save(addressusers);
 	}
 
-//	@Override
-//	public String generateNewAddressId() {
-//		Integer maxFirstPart = addressusersRepo.findMaxFirstPartOfId();
-//        if (maxFirstPart == null) {
-//            maxFirstPart = 0;
-//        }
-//        Random random = new Random();
-//        int randomID = random.nextInt(20) + 1;
-//        return "AD" + (maxFirstPart + 1) + "UID" + String.valueOf(randomID);
-//	}
-
 	@Override
 	public Addressusers byAddressUserId(String addressusersId) {
 		// TODO Auto-generated method stub

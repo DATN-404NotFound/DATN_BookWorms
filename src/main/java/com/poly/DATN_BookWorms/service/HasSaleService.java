@@ -8,4 +8,8 @@ import java.util.List;
 @Service
 public interface HasSaleService {
     List<Hassales> findAllByCouponCode(String couponCode);
+
+    Hassales saveHassales(Hassales hassales);
+
+    List<Hassales> findAllBysaleid(String saleId);
 }

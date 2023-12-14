@@ -15,4 +15,6 @@ public interface EvaluatesRepo extends JpaRepository<Evaluates, Integer>{
     Integer sumDbidByEvaluateId(Integer id);
     @Query("Select e from Evaluates e where e.dbid in (Select d.dbid from Detailbookings d where d.books.bookid = ?1)")
     List<Evaluates> getEvaByBookid(Long bookid);
+    
+    
 }

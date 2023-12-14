@@ -37,7 +37,7 @@ public class DiscountCodeServiceImp implements DiscountCodeService {
 	@Override
 	public Discountcodes findById(Integer discountid) {
 		// TODO Auto-generated method stub
-		return null;
+		return discountcodesRepo.findById(discountid).get();
 	}
 
 	@Override
@@ -70,6 +70,13 @@ public class DiscountCodeServiceImp implements DiscountCodeService {
 		// TODO Auto-generated method stub
 		return discountcodesRepo.findDisountOfShopWithUser(intendfor, userid, shopid);
 	}
+
+	@Override
+	public List<Discountcodes> findDisountByUserId(String userid) {
+		// TODO Auto-generated method stub
+		return discountcodesRepo.findDisountByUserId(userid);
+	}
+
 
 
 }

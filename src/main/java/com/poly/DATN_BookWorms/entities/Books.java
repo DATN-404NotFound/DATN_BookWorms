@@ -38,7 +38,7 @@ public class Books implements Serializable {
 
     //--- ENTITY PRIMARY KEY 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Long bookid;
 
     //--- ENTITY DATA FIELDS 

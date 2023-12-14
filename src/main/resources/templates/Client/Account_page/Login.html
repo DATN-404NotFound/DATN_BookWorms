@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="">
+<html xmlns:th="http://www.thymeleaf.org" lang="vi">
   <head>
-    <meta charset="ISO-8859-1" />
+    <meta charset="utf-8"   />
     <title>Login</title>
     <link rel="stylesheet" th:href="@{/Client/Css/loginPage.css}"  />
     <link
@@ -20,28 +20,29 @@
                     method="post"
                     role="form"
                     th:action="@{/account/login}">
-          <label id="titleLogin">Login</label>
+          <label id="titleLogin">Đăng nhập</label>
           <img id="logoWebsite"  th:src="@{/Client/images/LOGO_Website1.png}" alt="">
           <div th:if="${param.error}">
-                <div class="alert alert-danger">Invalid Username or Password !!!</div>
+                <div class="alert alert-danger">Tài khoản hoặc mật khẩu chưa chính xác !!!</div>
            </div>
            <div th:if="${param.logout}">
                <div class="alert alert-success">You have been logged out !!!</div>
            </div>
           <div class="mb-4 mt-3">
-            <label for="exampleInputEmail1" class="form-label">Username</label>
-            <input type="text" class="form-control inputEmail" id="exampleInputEmail1" placeholder="Username" aria-describedby="emailHelp" name="username">
+            <label for="exampleInputEmail1" class="form-label">Tên đăng nhập</label>
+            <input type="text" class="form-control inputEmail" id="exampleInputEmail1" placeholder="Nhập tên đăng nhập của bạn" aria-describedby="emailHelp" name="username">
           </div>
           <div class="mb-4">
-            <label class="form-label">Password</label>
-
-
-            <input type="password" class="form-control" id="exampleInputPassword1 inputPassword" placeholder="password" name="password">
-            <div id="fogotPassword" class="mt-2"><a href="/account/forgotPassword">Fogot Password?</a></div>
+            <label class="form-label">Mật khẩu</label>
+            <input type="password" class="form-control" id="inputPassword" placeholder="Nhập mật khẩu của bạn" name="password">
           </div>
-          <button type="submit" class="btn btnSignin mt-3">Sign in</button>
+          <div class="mb-4">
+              <input type="checkbox" onclick="myFunction()" class="form-check-input"> Hiện mật khẩu
+            <div id="fogotPassword" class="mt-2 float-end pb-2  " ><a href="/account/forgotPassword" class="text-decoration-none " style="font-size: small;color: darkred; font-weight: bold  ">Fogot Password?</a></div>
+          </div>
+          <button type="submit" class="btn btnSignin mt-3">Đăng nhập</button>
         </form>
-          <p class="text-center mt-4 pOrContinueWith">or continue with</p>
+          <p class="text-center mt-4 pOrContinueWith">Hoặc bằng tài khoản</p>
 
           <div class="row">
             <div class="col-sm-6 col-md-6">
@@ -58,9 +59,19 @@
             </div>
           </div>
 
-        <p class="text-center mt-4 pRegister">Don't have an account yet? <a th:href="@{/account/registration}">Register for free</a></p>
+        <p class="text-center mt-4 pRegister">Bạn chưa có tài khoản? <a th:href="@{/account/registration}">Đăng ký tài khoản mới</a></p>
 
       </div>
     </div>
+    <script>
+      function myFunction() {
+        var x = document.getElementById("inputPassword");
+        if (x.type === "password") {
+          x.type = "text";
+        } else {
+          x.type = "password";
+        }
+      }
+    </script>
   </body>
 </html>
