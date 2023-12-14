@@ -52,6 +52,8 @@ public class Shippingunits implements Serializable {
     @Column(name="address", length=100)
     public String     address ;
 
+    public float cod;
+
 
     //--- ENTITY LINKS ( RELATIONSHIP )
     @OneToMany(mappedBy="shippingunits")

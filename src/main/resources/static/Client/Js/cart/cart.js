@@ -178,12 +178,16 @@ function formatNumber(nStr, decSeperate, groupSeperate) {
 function checkAll() {
 	this.tong = 0;
 	for (var i = 0; i < purchase.length; i++) {
+		console.log("purchase ", document.getElementById('cartid' + purchase[i]).innerText )
 		var strprice = document.getElementById('cartid' + purchase[i]).innerText;
-		var reply = strprice.replace(',', '');
+	
+		console.log("jdlkfjsprice "+ strprice)
+		var reply = strprice.replaceAll(',', '');
 		this.tong += Number(reply);
 	}
 	document.getElementById("allPrice").innerText = formatNumber(this.tong, ".", ",");
 }
+
 
 
 function check2(e) {
@@ -931,7 +935,10 @@ function loadWin() {
 			document.getElementById('priceItem' + m.shopid).innerText = formatNumber(priceItem, ".", ",");;
 			totalPriceAll += priceItem;
 			console.log("923" + totalship)
-			totalship += Number($('#shipShopPrivate' + m.shopid).text());
+			var s = 	$('#shippunit'+m.shopid).children("option:selected").text();
+		var ship1 = s.slice(s.indexOf(': ')+2);
+			console.log("ship1 "+ ship1)
+			totalship += Number(ship1);
 			//console.log("923"+ totalship)
 
 
@@ -942,15 +949,27 @@ function loadWin() {
 	calculatorPrice();
 }
 
+// function changeShipping(id){ 
+// 	var totalPriceAll = 0;
+// 	var totalship = 0;
+// 	c.forEach(m => {
+// 		var s = 	$('#shippunit'+m.shopid).children("option:selected").text();
+// 		var ship1 = s.slice(s.indexOf(': ')+2);
+// 		var c = JSON.parse(localStorage.getItem('shoponline'));
+// 	});
+// 	document.getElementById('totalPriceAll').innerText = formatNumber(totalPriceAll, ".", ",");
+// 	document.getElementById('shippingPrice').innerText = formatNumber(totalship, ".", ",");
+// 	calculatorPrice();
+// }
 
 
 function calculatorPrice() {
 	var a = document.getElementById('totalPriceAll').innerText.replaceAll(',', '');
 	var b = document.getElementById('shippingPrice').innerText.replaceAll(',', '');
 	var c = document.getElementById('totalSales').innerText.replaceAll(',', '');
-	var d = document.getElementById('totalFreeShip').innerText.replaceAll(',', '').replaceAll('-', '');
+//	var d = document.getElementById('totalFreeShip').innerText.replaceAll(',', '').replaceAll('-', '');
 	var e = document.getElementById('totalFinal');
-	var f = Number(a) + Number(b) - Number(c) - Number(d);
+	var f = Number(a) + Number(b) - Number(c);
 	e.value = formatNumber(f, ".", ",");
 }
 
@@ -1168,6 +1187,27 @@ app.controller("address_ctrl", function ($scope, $http) {
 		$http.post("/rest/bookings/update", ad).then(resp => {
 			location.href = "/myAccount/orderMyAccount";
 		})
+	}
+
+	$scope.printOrder = function(bookingid){ 
+		$http({
+            method: 'GET',
+            url: '/rest/bookings/generate/' + bookingid,
+            responseType: 'arraybuffer'
+        }).then(function (response) {
+            var blob = new Blob([response.data], {type: 'application/pdf'});
+            var url = window.URL.createObjectURL(blob);
+            var a = document.createElement('a');
+            a.href = url;
+            a.download = 'example.pdf';
+            document.body.appendChild(a);
+            a.click();
+            window.URL.revokeObjectURL(url);
+        }, function (error) {
+            console.log('Failed to generate PDF');
+        });
+    
+		
 	}
 });
 

@@ -67,6 +67,12 @@ ShopService shopService;
 	
 
 
+	@GetMapping("/shop")
+	public List<Books> getShop(@RequestParam("shopid") Integer shopid) {
+		
+		return  bookService.findByShopList(shopid);
+	}
+	
 
 
 
