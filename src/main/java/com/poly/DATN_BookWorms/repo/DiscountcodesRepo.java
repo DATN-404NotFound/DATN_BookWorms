@@ -19,4 +19,6 @@ public interface DiscountcodesRepo extends JpaRepository<Discountcodes, Integer>
 	@Query("Select d from Discountcodes d where d.sales.intendfor = 'D' and d.sales.statuses = 'PH'  and d.account.userid like ?1 and d.sales.shopid like ?2  ")
 	public List<Discountcodes> findDisountOfShopWithUser(String userid, int shopid);
 	
+	@Query("SELECT s.logo FROM Discountcodes d JOIN Account a ON d.userid = a.userid JOIN Shoponlines s ON a.userid = s.userid WHERE d.userid = ?1 OR ?1 IS NULL")
+	public Discountcodes findImageShopFromUserId(String id);
 }

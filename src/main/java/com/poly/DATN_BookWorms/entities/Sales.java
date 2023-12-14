@@ -8,6 +8,8 @@ import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Column;
@@ -39,15 +41,17 @@ public class Sales implements Serializable {
 
     //--- ENTITY PRIMARY KEY 
     @Id
-    public String     couoponcode ;
+    private String     couoponcode ;
 
     //--- ENTITY DATA FIELDS 
     public String     promotionname ;
 
     @Temporal(TemporalType.DATE)
+	@DateTimeFormat(pattern ="yyyy-MM-dd")
     public Date       createat ;
     
     @Temporal(TemporalType.DATE)
+	@DateTimeFormat(pattern ="yyyy-MM-dd")
     public Date       enddiscount ;
 
     @Column(name="descriptions", length=255)
@@ -63,6 +67,7 @@ public class Sales implements Serializable {
     public Integer    shopid ;
     
     public Double     minprice ;
+    
 
 
     //--- ENTITY LINKS ( RELATIONSHIP )

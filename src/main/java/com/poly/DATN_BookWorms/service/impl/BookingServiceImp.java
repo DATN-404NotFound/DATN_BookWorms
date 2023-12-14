@@ -241,4 +241,11 @@ public class BookingServiceImp implements BookingService{
 	public long countRefund() {
         return bookingRepo.countRefund();
     }
+
+	@Override
+	public long countBooking() {
+		// TODO Auto-generated method stub
+		return bookingRepo.count();
+	}
+
 }

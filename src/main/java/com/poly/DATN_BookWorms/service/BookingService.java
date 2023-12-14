@@ -11,6 +11,7 @@ public interface BookingService {
 	Bookings create(JsonNode bookingData);
 
 	Optional<Bookings> findById(String id);
+	
 
 	public List<Bookings> findByUserId(String userId);
 
@@ -31,6 +32,8 @@ public interface BookingService {
 	long countCancel();
 
 	long countRefund();
+	
+	long countBooking();
 
 	List<Bookings> unpaid();
 
