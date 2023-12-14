@@ -18,7 +18,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
+import com.poly.DATN_BookWorms.entities.Account;
 import com.poly.DATN_BookWorms.entities.Bookings;
 import com.poly.DATN_BookWorms.entities.Books;
 import com.poly.DATN_BookWorms.entities.Detailbookings;
@@ -26,10 +26,14 @@ import com.poly.DATN_BookWorms.entities.Payments;
 import com.poly.DATN_BookWorms.repo.BookingsRepo;
 import com.poly.DATN_BookWorms.repo.BooksRepo;
 import com.poly.DATN_BookWorms.repo.DetailbookingsRepo;
+import com.poly.DATN_BookWorms.service.AccountService;
 import com.poly.DATN_BookWorms.service.BookingService;
+import com.poly.DATN_BookWorms.service.MailService;
 import com.poly.DATN_BookWorms.service.PaymentService;
 import com.poly.DATN_BookWorms.utils.CRC32_SHA256;
+import com.poly.DATN_BookWorms.utils.MailBody;
 
+import jakarta.mail.MessagingException;
 import jakarta.servlet.http.HttpServletRequest;
 
 @Service
@@ -54,6 +58,18 @@ public class BookingServiceImp implements BookingService{
 	
 	@Autowired
 	CRC32_SHA256 crc32_SHA256;
+
+	@Autowired
+	AccountService accountService;
+
+	@Autowired
+	HttpServletRequest httpServletRequest;
+
+	@Autowired
+	MailBody mailBody;
+
+	@Autowired
+	MailService mailService;
 	
 	
 	@Override
@@ -141,6 +157,7 @@ public class BookingServiceImp implements BookingService{
 			logger.info("list Payment in booking have size : {}", payment.size());
 			paymentService.saveAll(payment);
 			logger.info("Create bookings, detailbookings, payments is successfully");
+			sendMailSuccess(booking);
 			return booking;
 		} catch (Exception e) {
 			logger.error("Create bookings, detailbookings, payments is failed with error : {}", e);
@@ -149,11 +166,22 @@ public class BookingServiceImp implements BookingService{
 		}
 	}
 
+	 
+	public void sendMailSuccess(Bookings bookings) throws MessagingException{ 
+		String subject ="THÔNG BÁO ĐẶT ĐƠN THÀNH CÔNG";
+		String personCancle = bookings.account.fullname;
+		
+		String buyer = mailBody.mailHuyDon(bookings.account.getFullname(), personCancle, bookings, "Đặt hàng thành công");
+		String shoper = mailBody.mailSuccess(personCancle,bookings, "Đặt hàng thành công");
+	  mailService.send(bookings.account.getEmail(),subject, buyer);
+	  mailService.send(bookings.getListOfDetailbookings().get(0).books.shoponlines.account.getEmail(),subject, shoper);
+	}
 	@Override
 	public Optional<Bookings> findById(String id) {
 		// TODO Auto-generated method stub
 		return  bookingRepo.findById(id);
 	}
+	
 
 	@Override
 	public List<Bookings> findByUserId(String userId) {

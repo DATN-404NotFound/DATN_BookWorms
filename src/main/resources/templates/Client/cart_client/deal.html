@@ -19,14 +19,15 @@
     <script th:src="@{/Client/Js/MyAccount/address.js}"></script>
 
 </head>
+
 <body>
-    <main  ng-controller="order_ctrl" style="clear: both;">
+    <main ng-controller="order_ctrl" style="clear: both;">
         <div style="width:93%; margin: auto; background-color: #C93F04; margin-top: 50px; ">
 
             <div style="width: 70%; float: left; margin-bottom: 150px;">
                 <div ng-repeat="l in shopItem" class="mt-4 border-sec"
                     style="width: 100%; background-color: rgb(255, 255, 255);  border-radius: 10px; clear: both;">
-                    <div  class="my-2 pt-5" style="width: 90%; margin: auto;">
+                    <div class="my-2 pt-5" style="width: 90%; margin: auto;">
                         <div class="float-start">
                             <a href="#" style="text-decoration: none; color: #080808;"><span><i style="font-size: 30px;"
                                         class="bi bi-person-circle mx-3"></i></span>
@@ -68,11 +69,11 @@
                             <p style="font-size: 22px;" ng-if="s.sales.shopid == l.shopid">Giảm : <strong
                                     id="sale{{l.shopid}}" style="color: #C93F04;">{{s.sales.discountpercentage *100}}
                                     %</strong></p>
-                                    <p style="font-size: 22px;" ng-if="s.sales.shopid != l.shopid">Giảm : <strong
-                                        id="sale{{l.shopid}}" style="color: #C93F04;">0
-                                        %</strong></p>
+                            <p style="font-size: 22px;" ng-if="s.sales.shopid != l.shopid">Giảm : <strong
+                                    id="sale{{l.shopid}}" style="color: #C93F04;">0
+                                    %</strong></p>
                         </div>
-                        
+
                         <div class="float-end m-3" ng-repeat="s in salesItem">
                             <p style="font-size: 20px ;" ng-if="s.sales.shopid == l.shopid">Voucher : <strong
                                     id="coup{{l.shopid}}" class="btn btn-primary">{{s.sales.couoponcode}}</strong></p>
@@ -80,14 +81,14 @@
                         <div class="d-flex justify-content-around mt-2" style="clear: both;">
                             <div style="width: 40%;">
                                 <select class="form-select float-start h-100" id="shippunit{{l.shopid}}">
-                                
+
                                     <option th:each="u : ${shippingunit}" th:value="${u.shippingunitid}"
                                         th:text="${u.name}"></option>
                                 </select>
                             </div>
                             <p>Phí ship : <span id="shipShopPrivate{{l.shopid}}">30000</span></p>
-                            <div class=""> <textarea class="float-end form-control" name="" id="noteBooking{{l.shopid}}" cols="60"
-                                    rows="2" placeholder="Ghi chú..."></textarea>
+                            <div class=""> <textarea class="float-end form-control" name="" id="noteBooking{{l.shopid}}"
+                                    cols="60" rows="2" placeholder="Ghi chú..."></textarea>
                             </div>
                         </div>
                         <hr style="clear: both; border: 1px solid #666;">
@@ -111,12 +112,14 @@
                                 <h5 class="mt-3">Shipping address</h5>
                                 <select class="form-select" style="height: 50px;" id="addressship">
                                     <option th:each="a : ${addressusser}" th:value="${a.addressuserid}"
-                                    th:text="${a.detailhome}+','+${a.Ward}+','+${a.district}+','+${a.province}"></option>
+                                        th:text="${a.detailhome}+','+${a.Ward}+','+${a.district}+','+${a.province}">
+                                    </option>
                                 </select>
-                                <h5 class="mt-3">Payment <span style="color: red;">*  </span><span style="color: red;" id="messPay"></span> </h5>
-                               
-                                <select class="form-select" id="pay" style="height: 50px;">
-                                    <option hidden value="-1">Chọn phương thức thanh toán</option>
+                                <h5 class="mt-3">Payment <span style="color: red;">* </span><span style="color: red;"
+                                        id="messPay"></span> </h5>
+
+                                <select ng-model="paymenttype" class="form-select" id="pay" style="height: 50px;">
+                                    <option selected value="-1">Chọn phương thức thanh toán</option>
                                     <option value="0">Thanh toán sau khi nhận được hàng</option>
                                     <option value="1">Thanh toán bằng tài khoản ngân hàng</option>
                                 </select>
@@ -136,7 +139,7 @@
                                     <option hidden>Chọn mã giảm giá đơn hàng</option>
                                     <option th:each="c : ${discountcode}" th:value="${c.sales.couoponcode}"
                                         th:text="${c.sales.promotionname}"></option>
-                                        <option th:if="${discountcode.isEmpty()}">Hiện không có mã giảm nào</option>
+                                    <option th:if="${discountcode.isEmpty()}">Hiện không có mã giảm nào</option>
                                 </select>
                                 <h5 class="mt-3">Free Shipping</h5>
                                 <select class="form-select" style="height: 50px;">
@@ -150,104 +153,110 @@
                         </div>
 
                     </div>
-
-                    <div style="width: 100%; margin: auto;  border-radius: 5px;" class="border-orange mt-2">
-                        <div style="width: 90%; margin: auto;">
-                            <div>
-                                <h4 class="orange-text my-3">CHI PHÍ TỔNG</h4>
-                            </div>
-                            <div>
-                                <hr>
-                                <div style="clear: both;">
-                                    <div class="float-start me-5" style="width: 45%;">
-                                        <p>Số lượng :</p>
-                                    </div>
-                                    <div class="float-start"><strong style="text-align: left;"
-                                            id="totalQuantity">{{totalQuantity}}</strong></div>
+                    <form action="" style="float: left;">
+                        <div style="width: 100%; margin: auto;  border-radius: 5px;" class="border-orange mt-2">
+                            <div style="width: 90%; margin: auto;">
+                                <div>
+                                    <h4 class="orange-text my-3">CHI PHÍ TỔNG</h4>
                                 </div>
-                                <div style="clear: both;">
-                                    <div class="float-start me-5" style="width: 45%;">
-                                        <p>Tổng tiền :</p>
+                                <div>
+                                    <hr>
+                                    <div style="clear: both;">
+                                        <div class="float-start me-5" style="width: 45%;">
+                                            <p>Số lượng :</p>
+                                        </div>
+                                        <div class="float-start"><strong style="text-align: left;"
+                                                id="totalQuantity">{{totalQuantity}}</strong></div>
                                     </div>
-                                    <div class="float-start"><strong style="text-align: left;"
-                                            id="totalPriceAll">1,000,000.00</strong>
+                                    <div style="clear: both;">
+                                        <div class="float-start me-5" style="width: 45%;">
+                                            <p>Tổng tiền :</p>
+                                        </div>
+                                        <div class="float-start"><strong style="text-align: left;"
+                                                id="totalPriceAll">1,000,000.00</strong>
+                                        </div>
                                     </div>
+                                    <div style="clear: both;">
+                                        <div class="float-start me-5" style="width: 45%;">
+                                            <p>Phí Ship :</p>
+                                        </div>
+                                        <div class="float-start"><strong style="text-align: left;"
+                                                id="shippingPrice">60,000.00</strong></div>
+                                    </div>
+                                    <div style="clear: both;">
+                                        <div class="float-start me-5" style="width: 45%;">
+                                            <p>Voucher</p>
+                                        </div>
+                                        <div class="float-start"><strong style="text-align: left;"
+                                                id="totalSales">0.00</strong>
+                                        </div>
+                                    </div>
+                                    <div style="clear: both;">
+                                        <div class="float-start me-5" style="width: 45%;">
+                                            <p>Freeship:</p>
+                                        </div>
+                                        <div class="float-start"><strong style="text-align: left;" id="totalFreeShip">
+                                                -15,000.00</strong>
+                                        </div>
+                                    </div>
+                                    <hr style="clear: both;">
+                                    <div style="clear: both;">
+                                        <div class="float-start me-5" style="width: 45%;">
+                                            <p style="font-weight: 500;">Thanh toán:</p>
+                                        </div>
+                                        <div class="float-start orange-text"><strong style="text-align: left;"></strong>
+                                        </div>
+                                        <input class="float-start orange-text" style="text-align: left;" readonly
+                                            name="totalAllFinalprice" id="totalFinal" type="text">
+                                        <!-- <input type="text" name="totalAllFinalprice"> -->
+                                    </div>
+                                    <hr style="clear: both;">
                                 </div>
-                                <div style="clear: both;">
-                                    <div class="float-start me-5" style="width: 45%;">
-                                        <p>Phí Ship :</p>
-                                    </div>
-                                    <div class="float-start"><strong style="text-align: left;"
-                                            id="shippingPrice">60,000.00</strong></div>
-                                </div>
-                                <div style="clear: both;">
-                                    <div class="float-start me-5" style="width: 45%;">
-                                        <p>Voucher</p>
-                                    </div>
-                                    <div class="float-start"><strong style="text-align: left;"
-                                            id="totalSales">0.00</strong>
-                                    </div>
-                                </div>
-                                <div style="clear: both;">
-                                    <div class="float-start me-5" style="width: 45%;">
-                                        <p>Freeship:</p>
-                                    </div>
-                                    <div class="float-start"><strong style="text-align: left;" id="totalFreeShip">
-                                            -15,000.00</strong>
-                                    </div>
-                                </div>
-                                <hr style="clear: both;">
-                                <div style="clear: both;">
-                                    <div class="float-start me-5" style="width: 45%;">
-                                        <p style="font-weight: 500;">Thanh toán:</p>
-                                    </div>
-                                    <div class="float-start orange-text"><strong style="text-align: left;"
-                                            id="totalFinal"></strong>
-                                    </div>
-                                </div>
-                                <hr style="clear: both;">
                             </div>
                         </div>
-                    </div>
-                    <div class="mt-3 mx-3">
-                        <form action="" style="float: left;">
-                            <button class="btn btn-danger" th:formaction="@{|/cart|}" ng-click="clearLocal()" th:method="GET">Huỷ</button>
-                        </form>
-                        <form action="" style="float: left;">
-                            <button class="btn btn-danger" th:formaction="@{|/api/payment/create_payment/1&170000|}"  th:formmethod="GET">OK</button>
-                        </form>
-                       
-                        <button class="btn btn-success float-end" style="float: right;"  ng-click="paymentCart()"data-bs-toggle="modal" data-bs-target="#dhmodal" >Đặt hàng</button>
-                        <div class="modal fade"  id="dhmodal">
-                            <div class="modal-dialog modal-lg" style="margin-top: 300px; height: 400px;">
-                              <div class="modal-content">
-                          
+                        <div class="mt-3 mx-3">
+                            <button class="btn btn-danger" th:formaction="@{|/cart|}" ng-click="clearLocal()"
+                                th:method="GET">Huỷ</button>
+
+                            <button class="btn btn-success float-end" style="float: right;" ng-if="paymenttype == 1"
+                                ng-click="paymentCart(1)" th:formaction="@{|/api/payment/create_payment2|}"
+                                th:formmethod="GET">Đặt hàng</button>
+                    </form>
+
+                    <button class="btn btn-success float-end" style="float: right;" ng-if="paymenttype ==0 "
+                        ng-click="paymentCart(1)" data-bs-toggle="modal" data-bs-target="#dhmodal">Đặt hàng</button>
+                    <div class="modal fade" id="dhmodal">
+                        <div class="modal-dialog modal-lg" style="margin-top: 300px; height: 400px;">
+                            <div class="modal-content">
+
                                 <!-- Modal Header -->
                                 <div class="modal-header">
-                                  <h4 class="modal-title" id="descrptionTitles">Thông Báo</h4>
-                                  <button type="button" class="btn-close" id="buttonClose" data-bs-dismiss="modal"></button>
+                                    <h4 class="modal-title" id="descrptionTitles">Thông Báo</h4>
+                                    <button type="button" class="btn-close" id="buttonClose"
+                                        data-bs-dismiss="modal"></button>
                                 </div>
-                          
+
                                 <!-- Modal body -->
-                                <div class="modal-body text-center" >
+                                <div class="modal-body text-center">
                                     <p id="iconModels"></p>
                                     <div id="descrptionInfors"></div>
                                 </div>
-                          
+
                                 <!-- Modal footer -->
                                 <div class="modal-footer">
                                     <form action="">
-                                        <button class="btn btn-danger" id="modalbutton" th:formaction="@{|/cart|}" th:method="GET">Đóng</button>
+                                        <button class="btn btn-danger" id="modalbutton" th:formaction="@{|/cart|}"
+                                            th:method="GET">Đóng</button>
                                     </form>
                                 </div>
-                          
-                              </div>
-                            </div>
-                          </div>
 
+                            </div>
+                        </div>
                     </div>
-                </aside>
+
             </div>
+            </aside>
+        </div>
 
         </div>
         <script th:src="@{/Client/Js/cart/cart.js}"></script>

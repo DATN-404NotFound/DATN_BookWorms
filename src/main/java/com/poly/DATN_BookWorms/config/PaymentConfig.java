@@ -21,6 +21,7 @@ public class PaymentConfig {
 
 	public static String vnp_PayUrl = "http://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
     public static String vnp_ReturnUrl = "http://localhost:8080/api/payment/payment-callback";
+    public static String vnp_ReturnUrl2 = "http://localhost:8080/api/payment/payment-callback2";
     public static String vnp_TmnCode = "ZQFYSSLJ";
     public static String secretKey = "UGFVRFWXMDHMJOZFIVRQRPUJZZANYQWB";
     public static String vnp_ApiUrl = "http://sandbox.vnpayment.vn/merchant_webapi/api/transaction";
