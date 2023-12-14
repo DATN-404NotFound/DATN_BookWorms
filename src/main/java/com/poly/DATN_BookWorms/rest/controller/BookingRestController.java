@@ -1,19 +1,15 @@
 package com.poly.DATN_BookWorms.rest.controller;
 
-
 import com.itextpdf.text.*;
 import com.itextpdf.text.pdf.BaseFont;
 import com.itextpdf.text.pdf.PdfWriter;
 import com.poly.DATN_BookWorms.entities.Detailbookings;
-import com.poly.DATN_BookWorms.service.BookingService;
-import com.poly.DATN_BookWorms.service.DetailBookingService;
+import com.poly.DATN_BookWorms.service.*;
 import com.poly.DATN_BookWorms.utils.CRC32_SHA256;
 import com.poly.DATN_BookWorms.utils.MailBody;
-import com.poly.DATN_BookWorms.utils.SessionService;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -23,7 +19,6 @@ import org.springframework.web.bind.annotation.*;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.poly.DATN_BookWorms.entities.Account;
 import com.poly.DATN_BookWorms.entities.Bookings;
-import com.poly.DATN_BookWorms.service.AccountService;
 import com.poly.DATN_BookWorms.service.BookingService;
 
 import jakarta.mail.MessagingException;
@@ -33,10 +28,14 @@ import java.io.ByteArrayOutputStream;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 @CrossOrigin("*")
 @RestController
 @RequestMapping("/rest/bookings")
 public class BookingRestController {
+    Logger logger = LogManager.getLogger(Example.class);
     @Autowired
     BookingService bookingService;
 
@@ -49,6 +48,12 @@ public class BookingRestController {
     DetailBookingService detailBookingService;
     @Autowired
     CRC32_SHA256 crc;
+
+    @Autowired
+    MailBody mailBody;
+
+    @Autowired
+    MailService mailService;
 
     @PostMapping()
     public Bookings create(@RequestBody JsonNode bookingData, HttpServletRequest request) {

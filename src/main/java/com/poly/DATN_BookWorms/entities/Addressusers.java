@@ -79,7 +79,7 @@ public class Addressusers implements Serializable {
         sb.append("|");
         sb.append(detailhome);
         sb.append("|");
-        sb.append(Ward);
+        sb.append(ward);
         sb.append("|");
         sb.append(district);
         sb.append("|");
