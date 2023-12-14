@@ -16,26 +16,27 @@
     <div class="modal" id="myModal">
 
         <div class="modal-dialog modal-md" style="margin-top: 20px; height: 400px;">
-            <div class="modal-content">
+            <div class="modal-content" style="background-color: #ab3002">
 
                 <!-- Modal Header -->
-                <div class="modal-header" style="height: 40px; background-color: #FF7F00">
+                <div class="modal-header" style="height: 40px;">
                     <h4 class="modal-title fs-6 text-light" id="descrptionTitle">Xin chào</h4>
                     <button type="button" class="btn btn-close" aria-label="Close" data-dismiss="modal"
-                            aria-hidden="true">
+                            aria-hidden="true" hidden>
                     </button>
                 </div>
 
                 <!-- Modal body -->
-                <div class="modal-body text-left p-2">
-                    <div id="descriptionInfor" class="fs-6 " style="height: 40px; background-color: #FF7F00" > Welcome <span th:text="${user.getFullname()}"></span> ,
+                <div class="modal-body text-center p-2">
+                    <div id="descriptionInfor" class="fs-6 " style="height: 50px;color: white"> Welcome
+                        <span th:text="${user.getFullname()}"></span> ,
                         <span>Hope you have a great time
                             shopping on IBook </span></div>
                 </div>
 
             </div>
         </div>
-
+    </div>
     </div>
     <br>
     <div class="artical_index">
