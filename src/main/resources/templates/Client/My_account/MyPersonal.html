@@ -15,7 +15,7 @@
 
 <body>
     <div th:fragment="maccount">
-        <p class="mt-4 ms-5" id="titleMyPersonal">My personal</p>
+        <p class="mt-4 ms-5" id="titleMyPersonal">Tài Khoản Của Tôi</p>
         <form th:object="${account}" action="" enctype="multipart/form-data">
             <table class="table tableMyPersonal">
                 <tbody>
@@ -25,7 +25,7 @@
                         <td></td>
                     </tr>
                     <tr>
-                        <th>Họ Tên</th>
+                        <th>Họ tên</th>
                         <td><input id="textName" th:field="${account.fullname}" th:value="${account.fullname}"
                                 type="text" disabled><a href="#" onclick="inputFullname()"><i
                                     class="bi bi-pencil"></i></a>

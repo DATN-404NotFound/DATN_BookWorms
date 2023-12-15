@@ -5,6 +5,10 @@ import com.itextpdf.text.pdf.BaseFont;
 import com.itextpdf.text.pdf.PdfWriter;
 import com.poly.DATN_BookWorms.entities.Detailbookings;
 import com.poly.DATN_BookWorms.service.*;
+
+import com.poly.DATN_BookWorms.service.BookingService;
+import com.poly.DATN_BookWorms.service.CartService;
+import com.poly.DATN_BookWorms.service.MailService;
 import com.poly.DATN_BookWorms.utils.CRC32_SHA256;
 import com.poly.DATN_BookWorms.utils.MailBody;
 
@@ -19,6 +23,8 @@ import org.springframework.web.bind.annotation.*;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.poly.DATN_BookWorms.entities.Account;
 import com.poly.DATN_BookWorms.entities.Bookings;
+import com.poly.DATN_BookWorms.entities.Detailbookings;
+import com.poly.DATN_BookWorms.service.AccountService;
 import com.poly.DATN_BookWorms.service.BookingService;
 
 import jakarta.mail.MessagingException;
@@ -58,18 +64,20 @@ public class BookingRestController {
     @PostMapping()
     public Bookings create(@RequestBody JsonNode bookingData, HttpServletRequest request) {
         return bookingService.create(bookingData);
-
     }
+	
+
+
+	@PostMapping()
+	public Bookings create(@RequestBody JsonNode bookingData, HttpServletRequest request) {
+		return bookingService.create(bookingData);
+	
+	}
 
     @GetMapping("")
     public List<Bookings> getAll() {
         return bookingService.findAll();
     }
-    // @GetMapping
-    // public List<Bookings> getAll(){
-
-    // 	return bookingService.findAll();
-    // }
     @GetMapping("/user")
     public List<Bookings> booking() {
 
@@ -162,9 +170,10 @@ public class BookingRestController {
 
 
 	@GetMapping("/{bookingId}")
-	public Bookings getBookingId(@PathVariable String bookingId ) {
-		System.out.println(bookingId);
-		return bookingService.byBookingUserId(bookingId);
+	public List<Detailbookings> getBookingId(@PathVariable String bookingId ) {
+		Bookings b = bookingService.findById(bookingId).get();
+	List<Detailbookings> d = b.getListOfDetailbookings();
+		return d;
 	}
 	
 	@PostMapping("/update")
