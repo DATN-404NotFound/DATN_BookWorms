@@ -69,36 +69,7 @@
 								</form>
 							</div>
 						</div>
-						<div class="mb-2 align-items-center">
-							<div class="card shadow mb-4">
-								<div class="card-body">
-									<div class="row mt-1 align-items-center">
-										<div class="col-12 col-lg-4 text-left pl-4">
-											<p class="mb-1 small text-muted">SALES ANALYSIS</p>
-											<br> <br> <br> <br> <br>
-										</div>
-										
-										<div class="col-6 col-lg-2 text-center py-4 mb-2">
-											<p class="mb-1 small text-muted">Views</p>
-											<span class="h3" th:text="${viewCount}"></span><br /> 
-										</div>
-										<div class="col-6 col-lg-2 text-center py-4">
-											<p class="mb-1 small text-muted">Orders</p>
-											<span class="h3" th:text="${countBooking}"></span><br />  
-										</div>
-										<div class="col-6 col-lg-2 text-center py-4">
-											<p class="mb-1 small text-muted">Conversion rate</p>
-											<span class="h3" th:text="${#numbers.formatDecimal((countBooking * 100 / viewCount),0,'COMMA',2,'POINT')} + '%'"></span><br /> 
-										</div>
-									</div>
-									<div class="chartbox mr-4">
-										<div id="areaChart"></div>
-									</div>
-								</div>
-								<!-- .card-body -->
-							</div>
-							<!-- .card -->
-						</div>
+						
 
 						
 						<div class="row">
@@ -108,7 +79,7 @@
 								<option value="bestSeller">Best Seller</option>
 								<option value="inventory">Inventory</option>
 							</select>
-								<div class="card shadow" style="width: 1400px">
+								<div class="card shadow" style="width: 1400px;height: 600px">
 									<div class="card-header">
 										<strong class="card-title">Top 5</strong> <a
 											class="float-right small text-muted" href="#!">View all</a>
