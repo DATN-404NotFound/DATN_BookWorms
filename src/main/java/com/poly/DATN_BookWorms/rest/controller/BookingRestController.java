@@ -4,6 +4,7 @@ import com.itextpdf.text.*;
 import com.itextpdf.text.pdf.BaseFont;
 import com.itextpdf.text.pdf.PdfWriter;
 import com.poly.DATN_BookWorms.entities.Detailbookings;
+import com.poly.DATN_BookWorms.entities.Payments;
 import com.poly.DATN_BookWorms.service.*;
 
 import com.poly.DATN_BookWorms.service.BookingService;
@@ -22,6 +23,7 @@ import org.springframework.web.bind.annotation.*;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.poly.DATN_BookWorms.entities.Account;
+import com.poly.DATN_BookWorms.entities.Addressusers;
 import com.poly.DATN_BookWorms.entities.Bookings;
 import com.poly.DATN_BookWorms.entities.Detailbookings;
 import com.poly.DATN_BookWorms.service.AccountService;
@@ -31,6 +33,7 @@ import jakarta.mail.MessagingException;
 import jakarta.servlet.http.HttpServletRequest;
 
 import java.io.ByteArrayOutputStream;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -121,18 +124,14 @@ public class BookingRestController {
 
             document.add(new Paragraph("    ------------------------------------------------------------------    ", contentFont));
             String inputString = "    ------------------------------------------------------------------    ";
-
+            Addressusers adduser = bookings.listOfPayments.get(0).getAddressusers();
             System.out.println("Số lượng dấu gạch ngang: " + inputString.length());
-            document.add(new Paragraph("    Ngày: " + new Date(), contentFont));
+            document.add(new Paragraph("    Ngày: " + new SimpleDateFormat("dd-MM-yyyy  HH:mm:ss").format(new Date()), contentFont));
             document.add(new Paragraph("    Mã hóa đơn: " + bookings.getBookingid(), contentFont));
             document.add(new Paragraph("    ------------------------------------------------------------------    ", contentFont));
-            document.add(new Paragraph("    Địa chỉ: Phường Nhà Mát, Thành phố Bạc Liêu", contentFont));
-            document.add(new Paragraph("    Bạc Liêu", contentFont));
-            document.add(new Paragraph("    Số điện thoại: 0378977287", contentFont));
-            document.add(new Paragraph("    ------------------------------------------------------------------    ", contentFont));
-            document.add(new Paragraph("    Địa chỉ: Phường Nhà Mát, Thành phố Bạc Liêu", contentFont));
-            document.add(new Paragraph("    Bạc Liêu", contentFont));
-            document.add(new Paragraph("    Số điện thoại: 0378977287", contentFont));
+            document.add(new Paragraph("    Người mua: "+ adduser.fullname, contentFont));
+            document.add(new Paragraph("    Địa chỉ: "+adduser.getDetailhome()+", "+adduser.getWard()+", "+adduser.getDistrict()+", "+adduser.getProvince(), contentFont));
+            document.add(new Paragraph("    Số điện thoại: "+ adduser.getPhonenumber(), contentFont));
             document.add(new Paragraph("    ------------------------------------------------------------------    ", contentFont));
 
             // Center-align the product details table
@@ -161,8 +160,10 @@ public class BookingRestController {
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.parseMediaType("application/pdf"));
             headers.setContentDispositionFormData("inline", "example.pdf");
+            System.out.println("jkldsjfdllllllllll");
             return new ResponseEntity<>(pdfContents, headers, HttpStatus.OK);
         } catch (Exception e) {
+            
             e.printStackTrace();
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }

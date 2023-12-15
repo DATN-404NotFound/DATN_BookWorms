@@ -66,7 +66,6 @@ public class AdminPaymentRestController {
 		MailInformation mailInfo = new MailInformation();
 		String vnp_ResponseCode = queryParams.get("vnp_ResponseCode");
 		String paymentShopId = queryParams.get("paymentshopid");
-		String cart = queryParams.get("cart");
 		if (paymentShopId != null && !paymentShopId.equals("")) {
 			if ("00".equals(vnp_ResponseCode)) {
 				// Giao dịch thành công
@@ -100,20 +99,15 @@ public class AdminPaymentRestController {
 
 			}
 		}
-		if(cart != null && !cart.equals("")){
-			if ("00".equals(vnp_ResponseCode)) {
-				// Giao dịch thành công
-				// Thực hiện các xử lý cần thiết, ví dụ: cập nhật CSDL
-				JsonNode booking = session.get("b");
-				create(booking);
-				response.sendRedirect("http://localhost:8080/api/payment/callpayment");
-			} else {
-				// Giao dịch thất bại
-				// Thực hiện các xử lý cần thiết, ví dụ: không cập nhật CSDL\
-				response.sendRedirect("http://localhost:4200/payment-failed");
 
-			}
-		}
+	}
+
+	@GetMapping("/payment-callback2")
+	public void paymentCallback2(@RequestParam Map<String, String> queryParams, HttpServletResponse response)
+	throws IOException, NumberFormatException, NotFoundException, MessagingException {
+				System.out.println("ọidkfjklsfjl");
+	
+	response.sendRedirect("http://localhost:8080/order/success");
 	}
 
 	@GetMapping("/create_payment/{paymentshopid}&{valuepayment}")
@@ -192,21 +186,14 @@ public class AdminPaymentRestController {
 		return redirectView;
 	}
 
-// @GetMapping("/create_payment")
-// public String createPaymentUser(){
-
-// 	return "redirectView";
-// }
-	@GetMapping("/create_payment/user/1/{valuepayment}")
-	public RedirectView createPaymentUser(
-			@PathVariable("valuepayment") long valuepayment, HttpServletRequest request)
-			throws UnsupportedEncodingException {
-
+	@GetMapping("/create_payment2")
+	public RedirectView createPaymentUser( @RequestParam("totalAllFinalprice") String str,HttpServletRequest request, HttpServletResponse response)
+	throws UnsupportedEncodingException {
+		long price = Long.parseLong(str.replaceAll(",", "").replace(".00", ""));
 		String vnp_Version = "2.1.0";
 		String vnp_Command = "pay";
 		String orderType = "other";
-
-		long amount = valuepayment * 100;
+		long amount = price * 100;
 		String bankCode = "NCB";
 
 		String vnp_TxnRef = PaymentConfig.getRandomNumber(8);
@@ -227,7 +214,7 @@ public class AdminPaymentRestController {
 		vnp_Params.put("vnp_OrderType", orderType);
 
 		vnp_Params.put("vnp_Locale", "vn");
-		vnp_Params.put("vnp_ReturnUrl", PaymentConfig.vnp_ReturnUrl + "?cart=1&&paymentshopid=" );
+		vnp_Params.put("vnp_ReturnUrl", PaymentConfig.vnp_ReturnUrl2 );
 		vnp_Params.put("vnp_IpAddr", vnp_IpAddr);
 
 		Calendar cld = Calendar.getInstance(TimeZone.getTimeZone("Etc/GMT+7"));
@@ -238,7 +225,7 @@ public class AdminPaymentRestController {
 		cld.add(Calendar.MINUTE, 15);
 		String vnp_ExpireDate = formatter.format(cld.getTime());
 		vnp_Params.put("vnp_ExpireDate", vnp_ExpireDate);
-
+		System.out.println("122121222222222222222aSsff22222222222222222222222");
 		List fieldNames = new ArrayList(vnp_Params.keySet());
 		Collections.sort(fieldNames);
 		StringBuilder hashData = new StringBuilder();
@@ -262,17 +249,18 @@ public class AdminPaymentRestController {
 				}
 			}
 		}
+		System.out.println("122222aaaa22222222222aSsff22222222222222222222222");
 		String queryUrl = query.toString();
 		String vnp_SecureHash = PaymentConfig.hmacSHA512(PaymentConfig.secretKey, hashData.toString());
 		queryUrl += "&vnp_SecureHash=" + vnp_SecureHash;
 		String paymentUrl = PaymentConfig.vnp_PayUrl + "?" + queryUrl;
-		// fin(booking);
 		RedirectView redirectView = new RedirectView();
 		redirectView.setUrl(paymentUrl);
-
+		System.out.println("1111112222222222222222aSsff22222222222222222222222"+ redirectView);
 		return redirectView;
 	}
-
+	
+	
 	public void fin(JsonNode json){ 
 		session.set("b", json);
 	}

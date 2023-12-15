@@ -32,11 +32,11 @@ public class TranportChannelRestController {
         Account account = service.get("user");
         return bookingService.findBookingsByShopId(account.getListOfShoponlines().get(0).getShopid());
     }
+
     @PutMapping("/{bookingId}/{status}/updateOrderStatus")
     public void updateOrderStatus(@PathVariable String bookingId, @PathVariable Integer status) {
         bookingService.updateOrderStatus(bookingId, status);
     }
-
 
 
 }

@@ -81,4 +81,9 @@ public class OrderController {
 	public String OrderPayment(Model model) {
 		return "redirect:/cart";
 	}
+
+	@GetMapping("/success")
+	public String success(Model model){ 
+		return "Client/cart_client/success";
+	}
 }

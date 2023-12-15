@@ -46,10 +46,9 @@
                                     <input type="number" th:if="${b.books.quantity >0} AND  ${b.books.quantity >= b.quantity} "  th:id="quantity+${b.cartid}"  th:attr="onclick=@{|Active(${b.cartid},'PUT')|}" class="form-control" style="width: 100px;" min="1" step="1" th:value="${b.quantity}" >
                                    <label for="" th:id="messageCart+${b.cartid}"></label>
                                 </td>
-                                <!-- th:attr="ng-click=@{|changequantity(${b.quantity},${b.cartid})|}" -->  
-                                <td>
-                                    <p  class="total_pro" th:if="${b.books.quantity == 0} OR  ${b.books.quantity < b.quantity} ">0.00</p>
-                                    <p  class="total_pro" th:if="${b.books.quantity >0} AND  ${b.books.quantity >= b.quantity} " th:id="cartid+${b.cartid}" th:text ="${#numbers.formatDecimal(b.books.price * b.quantity,0,'COMMA',2,'POINT')}"></p>
+                                <!-- th:attr="ng-click=@{|changequantity(${b.quantity},${b.cartid})|}" -->
+                                <td  class="total_pro" th:if="${b.books.quantity == 0} OR  ${b.books.quantity < b.quantity} ">0.00</td>  
+                                <td  class="total_pro" th:if="${b.books.quantity >0} AND  ${b.books.quantity >= b.quantity} " th:id="cartid+${b.cartid}" th:text ="${#numbers.formatDecimal(b.books.price * b.quantity,0,'COMMA',2,'POINT')}">
                                 </td>
                                 <td><a  th:id="${b.cartid}"  href="#" th:attr="onclick=@{|Active(${b.cartid},'DELETE')|}" style="color: #000;"><i style="font-size: 30px;" class="bi bi-trash"></i></a></td>
                             </tr>

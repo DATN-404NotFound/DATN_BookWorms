@@ -8,7 +8,12 @@ import java.util.Map;
 import java.util.Optional;
 
 import com.poly.DATN_BookWorms.entities.*;
-import com.poly.DATN_BookWorms.service.*;
+import com.poly.DATN_BookWorms.service.BookService;
+import com.poly.DATN_BookWorms.service.CategoryService;
+import com.poly.DATN_BookWorms.service.PublishingCompanyService;
+import com.poly.DATN_BookWorms.service.ShopService;
+import com.poly.DATN_BookWorms.service.TypeBookService;
+import com.poly.DATN_BookWorms.service.WriterService;
 import com.poly.DATN_BookWorms.utils.SessionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -27,43 +32,50 @@ public class BookRestController {
     @Autowired
     BookService bookService;
 
-    @Autowired
-    CategoryService categoryService;
-
-    @Autowired
-    PublishingCompanyService publishingCompanyService;
-
-    @Autowired
-    SessionService service;
-
-    @Autowired
-    TypeBookService typeBookService;
+	
+@Autowired
+ShopService shopService;
 
 	@Autowired
-	WriterService writerService;
+	CategoryService categoryService;
+	@Autowired
+	PublishingCompanyService publishingCompanyService;
+	@Autowired
+	SessionService service;
+	@Autowired
+	TypeBookService typeBookService;
 
     @Autowired
-    ShopService shopService;
+    WriterService writerService;
+	@GetMapping
+	public List<Books> getAll() {
+		return bookService.findAll();
+	}
+	@GetMapping("/ab")
+	public List<Books> getAllById() {
+		Account account = service.get("user");
+
+		return bookService.findByshopidv2(account.getListOfShoponlines().get(0).getShopid());
+	}
+
+	
+	@GetMapping("/cate/{id}")
+	public List<Books> getAll5(@PathVariable("id") Integer id) {
+		
+		return  bookService.getBooksByCategoryID(id);
+	}
+	
 
 
-    @GetMapping
-    public List<Books> getAll() {
-        return bookService.findAll();
-    }
-
-    @GetMapping("/ab")
-    public List<Books> getAllById() {
-        Account account = service.get("user");
-
-        return bookService.findByshopidv2(account.getListOfShoponlines().get(0).getShopid());
-    }
+	@GetMapping("/shop")
+	public List<Books> getShop(@RequestParam("shopid") Integer shopid) {
+		
+		return  bookService.findByShopList(shopid);
+	}
+	
 
 
-    @GetMapping("/cate/{id}")
-    public List<Books> getAll5(@PathVariable("id") Integer id) {
 
-        return bookService.getBooksByCategoryID(id);
-    }
 
 
     @PutMapping("{id}")
