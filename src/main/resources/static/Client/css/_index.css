@@ -591,13 +591,13 @@ a:hover {
 .active .mm {
     background-color: #666;
 }
-.nav-link div {
+.nav-link .casualMainPage {
     display: flex;
     align-items: center; /* Căn giữa theo trục Y */
     justify-content: center; /* Căn giữa theo trục X */
     color: black;
 }
-.active div{
+.active .casualMainPage{
     color: white;
 }
 .nav-item .active:focus {
@@ -608,7 +608,7 @@ a:hover {
     color: #fff;
 }
 
-.nav-item .active:focus div {
+.nav-item .active:focus .casualMainPage {
     color: white;
 }
 

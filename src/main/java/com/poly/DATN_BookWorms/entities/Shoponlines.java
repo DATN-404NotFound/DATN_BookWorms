@@ -97,8 +97,6 @@ public class Shoponlines implements Serializable {
         sb.append(total);
         sb.append("|");
         sb.append(description);
-        sb.append("|");
-        sb.append(listOfAddressShop);
         sb.append(userid);
         sb.append("|");
         sb.append(paycount);
