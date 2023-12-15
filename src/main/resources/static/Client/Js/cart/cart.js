@@ -2,16 +2,16 @@ var purchase = [];
 var tong = 0;
 var json = [];
 
-$(document).ready(function() {
+$(document).ready(function () {
 	console.log('6')
 	var cartAllUser = [];
 	try {
-		$.get("/rest/cart/user", function(resp, status) {
+		$.get("/rest/cart/user", function (resp, status) {
 			cartAllUser = resp;
 			$('#cartUser').text(cartAllUser.length)
 		});
 	} catch (error) {
-		console.log("error cartUser "+ error)
+		console.log("error cartUser " + error)
 		$('#cartUser').hide();
 	}
 });
@@ -92,36 +92,36 @@ function Active(cartid, action) {
 	var e = document.getElementById("quantity" + cartid).value;
 	$.get("http://localhost:8080/rest/cart/" + cartid, function (data, status) {
 		json = data;
-		
-				json.quantity = e;
-				var shop = json.books.shopid;
-				switch (action) {
-					case 'PUT': {
-						$.get("/rest/books/" + json.bookid, function(resp, status) {
-							var bookQuant = resp;
-							console.log("87 : "+ json.quantity)
-							console.log("88 : "+ bookQuant.quantity)
-						
-							if ( bookQuant.quantity < json.quantity) {
-								document.getElementById('messageCart'+cartid).innerText = "Số lượng trong kho không đủ!!"
-								console.log("89 : "+ bookQuant.quantity)
-							}
-							else {
-								document.getElementById('messageCart'+cartid).innerText = "";
-								console.log("90 : "+ bookQuant.quantity)
-								updateCart(cartid, json);
-						
-							}
-						});
-						break;
+
+		json.quantity = e;
+		var shop = json.books.shopid;
+		switch (action) {
+			case 'PUT': {
+				$.get("/rest/books/" + json.bookid, function (resp, status) {
+					var bookQuant = resp;
+					console.log("87 : " + json.quantity)
+					console.log("88 : " + bookQuant.quantity)
+
+					if (bookQuant.quantity < json.quantity) {
+						document.getElementById('messageCart' + cartid).innerText = "Số lượng trong kho không đủ!!"
+						console.log("89 : " + bookQuant.quantity)
 					}
-					case 'DELETE': {
-						deleteCart(cartid, shop);
-						break;
+					else {
+						document.getElementById('messageCart' + cartid).innerText = "";
+						console.log("90 : " + bookQuant.quantity)
+						updateCart(cartid, json);
+
 					}
-				}
-			
-		});
+				});
+				break;
+			}
+			case 'DELETE': {
+				deleteCart(cartid, shop);
+				break;
+			}
+		}
+
+	});
 
 
 
@@ -154,7 +154,7 @@ function deleteCart(id, shop) {
 	$("#cart" + id).remove();
 	var index = purchase.findIndex(item => item == id);
 	purchase.splice(index, 1);
-	$('#cartUser').text(Number($('#cartUser').text())-1)
+	$('#cartUser').text(Number($('#cartUser').text()) - 1)
 	var chi = $("#cart" + shop).children();
 	if (chi.length == 0) {
 		$("#shop" + shop).remove();
@@ -611,7 +611,7 @@ app.controller("cart_ctrl", function ($scope, $http, $timeout) {
 				var item = this.items.find(item => item.books.bookid == id);
 				if (item) {
 					item.quantity += $scope.quantityPro;
-					if ( bookQuan.quantity < item.quantity) {
+					if (bookQuan.quantity < item.quantity) {
 						$scope.messageBook = "Số lượng sách trong kho không đủ"
 					}
 					else {
@@ -641,7 +641,7 @@ app.controller("cart_ctrl", function ($scope, $http, $timeout) {
 							$http.post(`/rest/cart`, addc).then(resp => {
 								this.items.push(resp.data);
 								$scope.cart.load();
-								$('#cartUser').text(Number($('#cartUser').text())+1)
+								$('#cartUser').text(Number($('#cartUser').text()) + 1)
 							})
 						})
 					}
@@ -658,7 +658,7 @@ app.controller("cart_ctrl", function ($scope, $http, $timeout) {
 	}
 	$scope.cart.load();
 	$scope.detailBook = function (bookid) {
-		
+
 		location.href = "/product/detail/" + bookid;
 
 	}
@@ -685,15 +685,15 @@ app.controller("cart_ctrl", function ($scope, $http, $timeout) {
 	}
 
 
-	$scope.SoldQuan = function(shopid){
-		$http.get("/rest/books/shop?shopid="+shopid).then(resp =>{ 
+	$scope.SoldQuan = function (shopid) {
+		$http.get("/rest/books/shop?shopid=" + shopid).then(resp => {
 			$scope.shopSoldBook = resp.data;
-			document.getElementById('soldBook'+shopid).innerText = $scope.shopSoldBook.length;
+			document.getElementById('soldBook' + shopid).innerText = $scope.shopSoldBook.length;
 			var sum = 0;
-			angular.forEach($scope.shopSoldBook, function(value, key){
+			angular.forEach($scope.shopSoldBook, function (value, key) {
 				sum += Number(value.quantitysold);
-			  });
-			  document.getElementById('soldQuan'+shopid).innerText = sum
+			});
+			document.getElementById('soldQuan' + shopid).innerText = sum
 
 		})
 	}
@@ -727,17 +727,17 @@ app.controller("cart_ctrl", function ($scope, $http, $timeout) {
 	});
 
 
-	$scope.calcRate = function(r,e) {
+	$scope.calcRate = function (r, e) {
 		const f = ~~r,//Tương tự Math.floor(r)
-		id = 'sstar' + f + (r % f ? 'half' : '')+e
-		console.log("check start = "+ id+ (document.getElementById(id).checked = !0))
+			id = 'sstar' + f + (r % f ? 'half' : '') + e
+		console.log("check start = " + id + (document.getElementById(id).checked = !0))
 		document.getElementById(id).checked = !0
 
-	   }
+	}
 
-	  
-	   
-	   
+
+
+
 	$scope.getAllshop();
 
 	///////////////////////// Cart Page
@@ -867,17 +867,17 @@ function deals() {
 	salevoucher = [];
 	books = [];
 	deal = [];
-	if(purchase.length == 0){ 
+	if (purchase.length == 0) {
 		location.href = "/cart"
 	}
-	else{ 
+	else {
 		purchase.forEach(item => {
 			findCart(item);
 			localStorage.setItem('deal', JSON.stringify(deal));
 			setTimeout(greeting, 100);
 		})
 	}
-	
+
 }
 
 
@@ -923,7 +923,7 @@ function loadWin() {
 			}
 			document.getElementById('priceItem' + m.shopid).innerText = formatNumber(priceItem, ".", ",");;
 			totalPriceAll += priceItem;
-			console.log("923"+ totalship)
+			console.log("923" + totalship)
 			totalship += Number($('#shipShopPrivate' + m.shopid).text());
 			//console.log("923"+ totalship)
 
@@ -951,7 +951,7 @@ function calculatorPrice() {
 
 app.controller("order_ctrl", function ($scope, $http, $timeout) {
 
-	
+
 	/////////////// Deal Page
 	$scope.bookItem = [];
 	$scope.dealItem = [];
@@ -992,7 +992,7 @@ app.controller("order_ctrl", function ($scope, $http, $timeout) {
 
 	}
 
-	
+
 
 	$scope.paymentCart = function () {
 		var payone = Number($('#pay').children("option:selected").val());
@@ -1004,7 +1004,7 @@ app.controller("order_ctrl", function ($scope, $http, $timeout) {
 			$('#descrptionInfors').text("Vui lòng kiểm tra chính xác thông tin!!");
 			$('#modalbutton').hide();
 		}
-		else{
+		else {
 			var timeoutTimer = 0;
 			$scope.shopItem.forEach(i => {
 				var a = document.getElementById('priceItem' + i.shopid).innerText;
@@ -1048,15 +1048,15 @@ app.controller("order_ctrl", function ($scope, $http, $timeout) {
 						})
 					},
 					costship: Number($('#shipShopPrivate' + i.shopid).text()),
-					costvoucher:( Number($('#sale' + i.shopid).text())/100), 
+					costvoucher: (Number($('#sale' + i.shopid).text()) / 100),
 					timefinish: new Date()
 				}
 				var booking = angular.copy($scope.bookings);
 				console.log("ind " + JSON.stringify($scope.bookings))
-	
-				if(Number($('#pay').children("option:selected").val()) == 1){ 
+
+				if (Number($('#pay').children("option:selected").val()) == 1) {
 					$http.get(`/api/payment/create_payment/1&17000`).then(resp => {
-						console.log("1053 : "+ JSON.stringify(resp.data))
+						console.log("1053 : " + JSON.stringify(resp.data))
 						$scope.deleteDeal();
 						$http.delete("http://localhost:8080/rest/discount/" + vouchero.discountcodeid).then(resp => {
 						})
@@ -1076,9 +1076,9 @@ app.controller("order_ctrl", function ($scope, $http, $timeout) {
 						console.log(error)
 					})
 				}
-				else{ 
+				else {
 					$http.post(`/rest/bookings`, booking).then(resp => {
-						console.log("1047 : "+ JSON.stringify(resp.data))
+						console.log("1047 : " + JSON.stringify(resp.data))
 						$scope.deleteDeal();
 						$http.delete("http://localhost:8080/rest/discount/" + vouchero.discountcodeid).then(resp => {
 						})
@@ -1100,12 +1100,25 @@ app.controller("order_ctrl", function ($scope, $http, $timeout) {
 				}
 			});
 		}
-	
+
 	}
 });
 
 
 app.controller("address_ctrl", function ($scope, $http) {
+
+	$scope.voucherUser = function () {
+		console.log("9888")
+		try {
+			$http.get("http://localhost:8080/rest/discount/findbyUser").then(resp => {
+				$scope.voucherByUser = resp.data;
+				console.log("998 " + $scope.voucherByUser.length)
+			})
+		} catch (error) {
+			console.log("9995" + error)
+		}
+	}
+	$scope.voucherUser();
 
 	$scope.callModel = function (addressid) {
 		$http.get("/rest/address/" + addressid).then(resp => {
@@ -1118,11 +1131,40 @@ app.controller("address_ctrl", function ($scope, $http) {
 
 	$scope.updateAdd = function () {
 		var ad = angular.copy($scope.add);
+		ad.province = document.getElementById('city1').value;
+		ad.district = document.getElementById('district1').value;
+		ad.ward = document.getElementById('ward1').value;
+		console.log(ad.ward + ', ' + ad.district + ', ' + ad.province)
 		$http.post("/rest/address", ad).then(resp => {
 			location.href = "/myAccount/address";
 		})
 	}
+	$scope.setShop = function (ds, shopId) {
+		console.log("a ", shopId)
+		let url = `http://localhost:8080/rest/files/` + shopId;
+		$http.get(url).then(resp => {
+			var a = [];
+			a = (resp.data);
+			document.getElementById('shopimage' + ds + shopId).src = "/Client/images/" + a[0].filename;
+			document.getElementById('shopimage1' + ds + shopId).src = "/Client/images/" + a[0].filename
+		}).catch(error => {
+			console.log("Error", error)
+		});;
+	}
 
+	$scope.setImage6 = function (bookId) {
+		console.log("jdkf09")
+		console.log("c", bookId)
+		let url = `http://localhost:8080/rest/imagebook/` + bookId;
+		$http.get(url).then(resp => {
+			var a = [];
+			console.log("c", bookId)
+			a = (resp.data);
+			document.getElementById('imgb' + bookId).src = "/Client/images/" + a[0].name
+		}).catch(error => {
+			console.log("Error", error)
+		});
+	}
 	$scope.deleteAdd = function (addressid) {
 		console.log(addressid)
 		$http.delete("/rest/address/" + addressid).then(resp => {
@@ -1148,92 +1190,206 @@ app.controller("address_ctrl", function ($scope, $http) {
 			location.href = "/myAccount/orderMyAccount";
 		})
 	}
+	$scope.toShopDetails = function (shopid) {
+		console.log("616")
+		location.href = "/shop/" + shopid
+
+	}
+	$scope.callDetailBooking = function (dbId) {
+		console.log(dbId)
+		$http.get("/rest/detailBooking/" + dbId).then(resp => {
+			console.log('aaa' + dbId)
+			console.log("resp = " + JSON.stringify(resp.data));
+			$scope.add = resp.data;
+			$scope.dbIdForEvaluate = dbId;
+			$scope.setImage6($scope.add.books.bookid)
+		})
+	}
+
+	$scope.evaluate = {}; // Khởi tạo đối tượng để lưu trữ dữ liệu đánh giá
+
+	$scope.postEvaluate = function () {
+		// Lấy dữ liệu cho Evaluate từ $scope.evaluate và $scope.dbIdForEvaluate
+		var evaluateData = {
+			dbid: $scope.dbIdForEvaluate,
+			rating: parseFloat(document.querySelector('input[name="rating"]:checked').value),
+			reviewtext: $scope.evaluate.reviewtext,
+			evaluatedate: new Date()
+		};
+		console.log(evaluateData)
+		// Gửi yêu cầu POST để tạo Evaluate
+		$http.post("/api/evaluates/save", evaluateData).then(resp => {
+			//$('#idRating-orderDetail').text("Mua lại")
+			console.log("Evaluate created:", resp.data);
+			location.href = "/myAccount/orderDetailMyAccount/" + $scope.add.bookingid;
+			alert("Đánh giá thành công")
+
+		}).catch(error => {
+			console.error("Error creating Evaluate:", error);
+			alert("Thất bại")
+			// Xử lý lỗi nếu cần
+		});
+	};
+
+
+	// voucher MyAccount
+	$scope.callVoucherMA = function (discountcodeid) {
+		console.log(discountcodeid)
+		$http.get("/rest/discount/view/" + discountcodeid).then(resp => {
+			console.log('aaa' + discountcodeid)
+			console.log("resp = " + JSON.stringify(resp.data));
+			$scope.discount = resp.data;
+
+		})
+	}
+
+	$scope.cart = {
+		items: [],
+		add(id) {
+			$http.get("/rest/books/" + id).then(resp => {
+				var bookQuan = resp.data;
+				var item = this.items.find(item => item.books.bookid == id);
+				if (item) {
+					item.quantity += $scope.quantityPro;
+					if (bookQuan.quantity < item.quantity) {
+						$scope.messageBook = "Số lượng sách trong kho không đủ"
+					}
+					else {
+						console.log("12jjdfkls")
+						$scope.messageBook = "";
+						var updatecart = `${host}`;
+						var cartupdate = angular.copy(item);
+						$http.put(updatecart, cartupdate).then(resp => {
+							$scope.cart.load();
+						})
+					}
+
+				} else {
+					console.log("jssssjdfkls")
+					if (bookQuan.quantity < $scope.quantityPro) {
+						$scope.messageBook = "Số lượng sách trong kho không đủ"
+					}
+					else {
+						console.log("jjdfkls")
+						$scope.messageBook = "";
+						$http.get(`/rest/books/` + id).then(resp => {
+							var s = resp.data;
+							$scope.cartss = {
+								cartid: "",
+								userid: "",
+								bookid: s.bookid,
+								quantity: 1
+							}
+							var addc = angular.copy($scope.cartss)
+							$http.post(`/rest/cart`, addc).then(resp => {
+								this.items.push(resp.data);
+								$scope.cart.load();
+								$('#cartUser').text(Number($('#cartUser').text()) + 1);
+								location.href='/cart'
+							})
+						})
+					}
+				}
+			});
+
+		},
+		repurchase(bookingid) {
+			// Sử dụng API để lấy thông tin đơn hàng cần mua lại
+			console.log("mua lại" + bookingid)
+			$http.get("/rest/bookings/" + bookingid).then(resp => {
+				var de = resp.data;
+				de.forEach(i =>{ 
+					
+					$scope.cart.add(i.books.bookid)
+				})
+			});
+		},
+		load() {
+			var url = `${host}/user`
+			$http.get(url).then(resp => {
+				this.items = resp.data;
+			});
+		},
+	}
+
 });
 
 
-    const hosts = "https://provinces.open-api.vn/api/";
-function callAp (){ 
+function ab(id) {
+	console.log("va " + document.getElementById(id).value)
+}
+
+const hosts = "https://provinces.open-api.vn/api/";
+function callAp() {
 	callAPI('https://provinces.open-api.vn/api/?depth=1');
 }
 var callAPI = (api) => {
 	console.log("1090")
-    return axios.get(api)
-        .then((response) => {
-            renderData(response.data, "city");
+	return axios.get(api)
+		.then((response) => {
+			renderData(response.data, "city");
 			renderData(response.data, "city1");
-        });
+		});
 }
 
 var callApiDistrict = (api) => {
-    return axios.get(api)
-        .then((response) => {
-            renderData(response.data.districts, "district");
+	return axios.get(api)
+		.then((response) => {
+			renderData(response.data.districts, "district");
 			renderData(response.data.districts, "district1");
-        });
+		});
 }
 var callApiWard = (api) => {
-    return axios.get(api)
-        .then((response) => {
-            renderData(response.data.wards, "ward");
+	return axios.get(api)
+		.then((response) => {
+			renderData(response.data.wards, "ward");
 			renderData(response.data.wards, "ward1");
-        });
+		});
 }
 
 var renderData = (array, select) => {
-    let row = ' <option disable value="">Chọn</option>';
-    array.forEach(element => {
-        row += `<option data-id="${element.code}" value="${element.name}">${element.name}</option>`
-    });
-    document.querySelector("#" + select).innerHTML = row
+	let row = ' <option disable value="">Chọn</option>';
+	array.forEach(element => {
+		row += `<option data-id="${element.code}" value="${element.name}">${element.name}</option>`
+	});
+	document.querySelector("#" + select).innerHTML = row
 }
 
-function citychange(){ 
+function citychange() {
 	console.log("1122")
-    callApiDistrict(hosts + "p/" + $("#city").find(':selected').data('id') + "?depth=2");
+	callApiDistrict(hosts + "p/" + $("#city").find(':selected').data('id') + "?depth=2");
 	callApiDistrict(hosts + "p/" + $("#city1").find(':selected').data('id') + "?depth=2");
-    printResult();
+	printResult();
 }
 
-function districtchange(){ 
+function districtchange() {
 	callApiWard(hosts + "d/" + $("#district").find(':selected').data('id') + "?depth=2");
 	callApiWard(hosts + "d/" + $("#district1").find(':selected').data('id') + "?depth=2");
-    printResult();
+	printResult();
 }
 
 
-function wardchange(){ 
+function wardchange() {
 	//callApiWard(hosts + "d/" + $("#district").find(':selected').data('id') + "?depth=2");
-    printResult();
+	printResult();
 }
 
-// $("#city").change(() => {
-// 	console.log("1122")
-//     callApiDistrict(hosts + "p/" + $("#city").find(':selected').data('id') + "?depth=2");
-//     printResult();
-// });
-// $("#district").change(() => {
-//     callApiWard(hosts + "d/" + $("#district").find(':selected').data('id') + "?depth=2");
-//     printResult();
-// });
-// $("#ward").change(() => {
-//     printResult();
-// })
 
 var printResult = () => {
-    if ($("#district").find(':selected').data('id') != "" && $("#city").find(':selected').data('id') != "" &&
-        $("#ward").find(':selected').data('id') != "") {
-        let result = $("#city option:selected").text() +
-            " | " + $("#district option:selected").text() + " | " +
-            $("#ward option:selected").text();
-        $("#result").text(result)
-    }
+	if ($("#district").find(':selected').data('id') != "" && $("#city").find(':selected').data('id') != "" &&
+		$("#ward").find(':selected').data('id') != "") {
+		let result = $("#city option:selected").text() +
+			" | " + $("#district option:selected").text() + " | " +
+			$("#ward option:selected").text();
+		$("#result").text(result)
+	}
 	if ($("#district1").find(':selected').data('id') != "" && $("#city1").find(':selected').data('id') != "" &&
-        $("#ward1").find(':selected').data('id') != "") {
-        let result = $("#city1 option:selected").text() +
-            " | " + $("#district1 option:selected").text() + " | " +
-            $("#ward1 option:selected").text();
-        $("#result").text(result)
-    }
+		$("#ward1").find(':selected').data('id') != "") {
+		let result = $("#city1 option:selected").text() +
+			" | " + $("#district1 option:selected").text() + " | " +
+			$("#ward1 option:selected").text();
+		$("#result").text(result)
+	}
 
 }
 

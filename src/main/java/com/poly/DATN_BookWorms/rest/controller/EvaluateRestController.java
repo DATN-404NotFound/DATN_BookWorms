@@ -2,8 +2,10 @@ package com.poly.DATN_BookWorms.rest.controller;
 
 import com.poly.DATN_BookWorms.entities.Account;
 import com.poly.DATN_BookWorms.entities.Cart;
+import com.poly.DATN_BookWorms.entities.Detailbookings;
 import com.poly.DATN_BookWorms.entities.Evaluates;
 import com.poly.DATN_BookWorms.entities.Shoponlines;
+import com.poly.DATN_BookWorms.service.DetailBookingService;
 import com.poly.DATN_BookWorms.service.EvaluateService;
 import com.poly.DATN_BookWorms.service.ShopOnlinesService;
 import com.poly.DATN_BookWorms.utils.SessionService;
@@ -27,6 +29,8 @@ public class EvaluateRestController {
     SessionService sessionService;
     @Autowired
     ShopOnlinesService shopOnlinesService;
+    @Autowired
+    DetailBookingService detailBookingService;
     @GetMapping
     public List<Evaluates> findAll() {
         Account account = sessionService.get("user");
@@ -38,7 +42,14 @@ public class EvaluateRestController {
     @PostMapping("/save")
 	public Evaluates postEvaluates(@RequestBody Evaluates evaluateData) { 
     	System.out.println("success 2222222");
+    	System.out.println("1234"+ evaluateData.getDbid());
+    	Detailbookings d = detailBookingService.dtb(evaluateData.getDbid());
+    	if(d.bookings.orderstatusid != 8) {
+    		System.out.println("tt" + d.bookings.getOrderstatusid());
+    		d.bookings.setOrderstatusid(8);
+    	}
 		try {
+			
 			return evaluateService.create(evaluateData);
 		} catch (Exception e) {
 			System.out.println("errr"+ e);

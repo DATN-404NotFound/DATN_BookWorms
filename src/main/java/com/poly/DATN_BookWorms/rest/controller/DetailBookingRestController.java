@@ -23,7 +23,6 @@ public class DetailBookingRestController {
 
     @GetMapping("/{id}")
     public Detailbookings detailbooking(@PathVariable("id")  String a){
-
         return detailBookingService.dtb(a);
     }
 
