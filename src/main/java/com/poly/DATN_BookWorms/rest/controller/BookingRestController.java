@@ -161,42 +161,43 @@ public class BookingRestController {
     }
 
 
-	@GetMapping("/{bookingId}")
-	public Bookings getBookingId(@PathVariable String bookingId ) {
-		System.out.println(bookingId);
-		return bookingService.byBookingUserId(bookingId);
-	}
-	
-	@PostMapping("/update")
-	public Bookings updateStatusBooking(@RequestBody Bookings json) throws MessagingException{
-		logger.info("huỷ starty...");
-		System.out.println("huỷ hoá đơn2");
-		 Bookings b = bookingService.findById(json.getBookingid()).get();
-		b.setOrderstatusid(6);
-		try {
-			logger.info("huỷ starty...1");
-			System.out.println("huỷ hoá đơn1");
-			Account account = accountService.findByUserId(crc.getCodeCRC32C(httpServletRequest.getRemoteUser()));
-			  String subject ="THÔNG BÁO XÁC NHẬN HUỶ ĐƠN HÀNG";
-			  String personCancle = "";
-			  if(json.userid.equals(account.userid)) { 
-				  personCancle = "Người mua";
-			  }
-			  else { 
-				  personCancle = "Người bán";
-			  }
-			  String buyer = mailBody.mailHuyDon(b.account.getFullname(), personCancle, b, "Huỷ Thành Công");
-			  String shoper = mailBody.mailHuyDon(b.getListOfDetailbookings().get(0).books.shoponlines.getShopname(),personCancle,b, "Huỷ Thành Công");
-			  bookingService.update(b);
-			mailService.send(b.account.getEmail(),subject, buyer);
-			mailService.send(b.getListOfDetailbookings().get(0).books.shoponlines.account.getEmail(),subject, shoper);
-			System.out.println("huỷ hoá đơn");
-		} catch (Exception e) {
-			System.out.println("lỗi không huỷ đơn đc : "+ e);
-			logger.info("huỷ end...1");
-			// TODO: handle exception
-		}
-		return json;
-	}
+    @GetMapping("/{bookingId}")
+    public Bookings getBookingId(@PathVariable String bookingId) {
+        System.out.println(bookingId);
+        return bookingService.byBookingUserId(bookingId);
+    }
+
+    @PostMapping("/update")
+    public Bookings updateStatusBooking(@RequestBody Bookings json) throws MessagingException {
+        logger.info("huỷ starty...");
+        System.out.println("huỷ hoá đơn2");
+        System.out.println("IN ra " + json.toString());
+        Bookings b = bookingService.findById(json.getBookingid()).get();
+
+        try {
+            logger.info("huỷ starty...1");
+            System.out.println("huỷ hoá đơn1");
+            Account account = accountService.findByUserId(crc.getCodeCRC32C(httpServletRequest.getRemoteUser()));
+            String subject = "THÔNG BÁO XÁC NHẬN HUỶ ĐƠN HÀNG";
+            String personCancle = "";
+
+            if (json.userid.equals(account.userid)) {
+                personCancle = "Người mua";
+            } else {
+                personCancle = "Người bán";
+            }
+            String buyer = mailBody.mailHuyDon(b.account.getFullname(), personCancle, b, "Huỷ Thành Công");
+            String shoper = mailBody.mailHuyDon(b.getListOfDetailbookings().get(0).books.shoponlines.getShopname(), personCancle, b, "Huỷ Thành Công");
+            bookingService.update(b);
+            mailService.send(b.account.getEmail(), subject, buyer);
+            mailService.send(b.getListOfDetailbookings().get(0).books.shoponlines.account.getEmail(), subject, shoper);
+            System.out.println("huỷ hoá đơn");
+        } catch (Exception e) {
+            System.out.println("lỗi không huỷ đơn đc : " + e);
+            logger.info("huỷ end...1");
+            // TODO: handle exception
+        }
+        return json;
+    }
 
 }

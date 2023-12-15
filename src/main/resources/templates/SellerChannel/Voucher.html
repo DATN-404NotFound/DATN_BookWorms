@@ -139,6 +139,7 @@
                                     <div class="form-group col-md-2 mt-1">
 
                                       <div class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+
                                         <div class="modal-dialog modal-xl" role="document">
                                           <div class="modal-content">
                                             <div class="modal-content">
@@ -148,12 +149,53 @@
                                                   <span aria-hidden="true">&times;</span>
                                                 </button>
                                               </div>
+                                              <div class="modal fade modal-right modal-slide" tabindex="-1" role="dialog" aria-labelledby="defaultModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog modal-sm" role="document">
+                                                  <div class="modal-content">
+                                                    <div class="modal-header">
+                                                      <h5 class="modal-title" id="defaultModalLabel">Modal title</h5>
+                                                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                      </button>
+                                                    </div>
+                                                    <div class="form-group">
+                                                      <label for="recipient-name" class="col-form-label">Start Voucher</label>
+                                                      <input type="text" class="form-control" id="recipient-name">
+                                                    </div>
+                                                    <div class="form-group">
+                                                      <label for="recipient-name" class="col-form-label">End Voucher</label>
+                                                      <input type="text" class="form-control" id="recipient-name">
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                      <button type="button" class="btn mb-2 btn-secondary" data-dismiss="modal">Close</button>
+                                                      <button type="button" class="btn mb-2 btn-primary">Save changes</button>
+                                                    </div>
+                                                  </div>
+                                                </div>
+                                              </div>
                                               <div class="modal-body">
+                                                <div class="modal fade modal-full" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+                                                  <button aria-label="" type="button" class="close px-2" data-dismiss="modal" aria-hidden="true">
+                                                    <span aria-hidden="true">×</span>
+                                                  </button>
+                                                  <div class="modal-dialog modal-dialog-centered" role="document">
+                                                    <div class="modal-content">
+                                                      <div class="modal-body text-center">
+                                                        <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit. </p>
+                                                        <form class="form-inline justify-content-center">
+                                                          <input class="form-control form-control-lg mr-sm-2 bg-transparent" type="search" placeholder="Search" aria-label="Search">
+                                                          <button class="btn btn-primary btn-lg mb-2 my-2 my-sm-0" type="submit">Search</button>
+                                                        </form>
+                                                      </div>
+                                                    </div>
+                                                  </div>
+                                                </div> <!-- small modal -->
                                                 <form>
                                                   <div class="form-group">
                                                     <div class="card shadow">
                                                       <div class="card-body">
                                                         <h5 class="card-title">Choose books add voucher</h5>
+                                                        <button type="button" class="btn mb-2 btn-primary" data-toggle="modal" data-target=".modal-right">Slide Right</button>
                                                         <p class="card-text">You choose Active if you want add voucher to book</p>
                                                         <table class="table table-bordered table-hover mb-0">
                                                           <thead>
@@ -167,13 +209,13 @@
                                                           </tr>
                                                           </thead>
                                                           <tbody>
-                                                          <tr ng-repeat="book in paginatedBooksv2">
+                                                          <tr ng-repeat="book in paginatedBooksv2 | orderBy:'-itemExistsInItems2'">
                                                             <td>{{ book.bookid }}</td>
                                                             <td>{{ book.bookname }}</td>
                                                             <td>{{ book.language }}</td>
                                                             <td>
                                                               <div class="custom-control custom-switch">
-                                                                <input type="checkbox" ng-model="itemChecked[book.name]" class="custom-control-input" id="c{{$index + 1}}">
+                                                                <input type="checkbox" class="custom-control-input" ng-checked="itemExistsInItems2(book)" id="c{{$index + 1}}">
                                                                 <label class="custom-control-label" for="c{{$index + 1}}"></label>
                                                               </div>
                                                             </td>
@@ -490,275 +532,6 @@
     </main> <!-- main -->
 
   </div> <!-- .wrapper -->
-  <script src='SellerChannel/js/daterangepicker.js'></script>
 
-
-
-
-  <script src='SellerChannel/js/select2.min.js'></script>
-
-  <script src='SellerChannel/js/jquery.timepicker.js'></script>
-  <script src="SellerChannel/js/jquery.min.js"></script>
-  <script src="SellerChannel/js/popper.min.js"></script>
-  <script src="SellerChannel/js/moment.min.js"></script>
-  <script src="SellerChannel/js/bootstrap.min.js"></script>
-  <script src="SellerChannel/js/simplebar.min.js"></script>
-  <script src='SellerChannel/js/daterangepicker.js'></script>
-  <script src='SellerChannel/js/jquery.stickOnScroll.js'></script>
-  <script src="SellerChannel/js/tinycolor-min.js"></script>
-  <script src="SellerChannel/js/config.js"></script>
-  <script src="SellerChannel/js/d3.min.js"></script>
-  <script src="SellerChannel/js/topojson.min.js"></script>
-  <script src="SellerChannel/js/datamaps.all.min.js"></script>
-  <script src="SellerChannel/js/datamaps-zoomto.js"></script>
-  <script src="SellerChannel/js/datamaps.custom.js"></script>
-  <script src="SellerChannel/js/Chart.min.js"></script>
-  <script>
-    /* defind global options */
-    Chart.defaults.global.defaultFontFamily = base.defaultFontFamily;
-    Chart.defaults.global.defaultFontColor = colors.mutedColor;
-  </script>
-  <script src="SellerChannel/js/gauge.min.js"></script>
-  <script src="SellerChannel/js/jquery.sparkline.min.js"></script>
-  <script src="SellerChannel/js/apexcharts.min.js"></script>
-  <script src="SellerChannel/js/apexcharts.custom.js"></script>
-  <script src='SellerChannel/js/jquery.mask.min.js'></script>
-  <script src='SellerChannel/js/select2.min.js'></script>
-  <script src='SellerChannel/js/jquery.steps.min.js'></script>
-  <script src='SellerChannel/js/jquery.validate.min.js'></script>
-  <script src='SellerChannel/js/jquery.timepicker.js'></script>
-  <script src='SellerChannel/js/dropzone.min.js'></script>
-  <script src='SellerChannel/js/uppy.min.js'></script>
-  <script src='SellerChannel/js/quill.min.js'></script>
-  <script>
-    $('.select2').select2(
-            {
-              theme: 'bootstrap4',
-            });
-    $('.select2-multi').select2(
-            {
-              multiple: true,
-              theme: 'bootstrap4',
-            });
-    $('.drgpicker').daterangepicker(
-            {
-              singleDatePicker: true,
-              timePicker: false,
-              showDropdowns: true,
-              locale:
-                      {
-                        format: 'MM/DD/YYYY'
-                      }
-            });
-    $('.time-input').timepicker(
-            {
-              'scrollDefault': 'now',
-              'zindex': '9999' /* fix modal open */
-            });
-    /** date range picker */
-    if ($('.datetimes').length) {
-      $('.datetimes').daterangepicker(
-              {
-                timePicker: true,
-                startDate: moment().startOf('hour'),
-                endDate: moment().startOf('hour').add(32, 'hour'),
-                locale:
-                        {
-                          format: 'M/DD hh:mm A'
-                        }
-              });
-    }
-    var start = moment().subtract(29, 'days');
-    var end = moment();
-
-    function cb(start, end) {
-      $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
-    }
-    $('#reportrange').daterangepicker(
-            {
-              startDate: start,
-              endDate: end,
-              ranges:
-                      {
-                        'Today': [moment(), moment()],
-                        'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
-                        'Last 7 Days': [moment().subtract(6, 'days'), moment()],
-                        'Last 30 Days': [moment().subtract(29, 'days'), moment()],
-                        'This Month': [moment().startOf('month'), moment().endOf('month')],
-                        'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
-                      }
-            }, cb);
-    cb(start, end);
-    $('.input-placeholder').mask("00/00/0000",
-            {
-              placeholder: "__/__/____"
-            });
-    $('.input-zip').mask('00000-000',
-            {
-              placeholder: "____-___"
-            });
-    $('.input-money').mask("#.##0,00",
-            {
-              reverse: true
-            });
-    $('.input-phoneus').mask('(000) 000-0000');
-    $('.input-mixed').mask('AAA 000-S0S');
-    $('.input-ip').mask('0ZZ.0ZZ.0ZZ.0ZZ',
-            {
-              translation:
-                      {
-                        'Z':
-                                {
-                                  pattern: /[0-9]/,
-                                  optional: true
-                                }
-                      },
-              placeholder: "___.___.___.___"
-            });
-    // editor
-    var editor = document.getElementById('editor');
-    if (editor) {
-      var toolbarOptions = [
-        [
-          {
-            'font': []
-          }],
-        [
-          {
-            'header': [1, 2, 3, 4, 5, 6, false]
-          }],
-        ['bold', 'italic', 'underline', 'strike'],
-        ['blockquote', 'code-block'],
-        [
-          {
-            'header': 1
-          },
-          {
-            'header': 2
-          }],
-        [
-          {
-            'list': 'ordered'
-          },
-          {
-            'list': 'bullet'
-          }],
-        [
-          {
-            'script': 'sub'
-          },
-          {
-            'script': 'super'
-          }],
-        [
-          {
-            'indent': '-1'
-          },
-          {
-            'indent': '+1'
-          }], // outdent/indent
-        [
-          {
-            'direction': 'rtl'
-          }], // text direction
-        [
-          {
-            'color': []
-          },
-          {
-            'background': []
-          }], // dropdown with defaults from theme
-        [
-          {
-            'align': []
-          }],
-        ['clean'] // remove formatting button
-      ];
-      var quill = new Quill(editor,
-              {
-                modules:
-                        {
-                          toolbar: toolbarOptions
-                        },
-                theme: 'snow'
-              });
-    }
-    // Example starter JavaScript for disabling form submissions if there are invalid fields
-    (function () {
-      'use strict';
-      window.addEventListener('load', function () {
-        // Fetch all the forms we want to apply custom Bootstrap validation styles to
-        var forms = document.getElementsByClassName('needs-validation');
-        // Loop over them and prevent submission
-        var validation = Array.prototype.filter.call(forms, function (form) {
-          form.addEventListener('submit', function (event) {
-            if (form.checkValidity() === false) {
-              event.preventDefault();
-              event.stopPropagation();
-            }
-            form.classList.add('was-validated');
-          }, false);
-        });
-      }, false);
-    })();
-  </script>
-  <script>
-    var uptarg = document.getElementById('drag-drop-area');
-    if (uptarg) {
-      var uppy = Uppy.Core().use(Uppy.Dashboard,
-              {
-                inline: true,
-                target: uptarg,
-                proudlyDisplayPoweredByUppy: false,
-                theme: 'dark',
-                width: 770,
-                height: 210,
-                plugins: ['Webcam']
-              }).use(Uppy.Tus,
-              {
-                endpoint: 'https://master.tus.io/files/'
-              });
-      uppy.on('complete', (result) => {
-        console.log('Upload complete! We’ve uploaded these files:', result.successful)
-      });
-    }
-  </script>
-  <script src="SellerChannel/js/apps.js"></script>
-  <!-- Global site tag (gtag.js) - Google Analytics -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-56159088-1"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-
-    function gtag() {
-      dataLayer.push(arguments);
-    }
-    gtag('js', new Date());
-    gtag('config', 'UA-56159088-1');
-  </script>
-  <script src='SellerChannel/js/jquery.dataTables.min.js'></script>
-  <script src='SellerChannel/js/dataTables.bootstrap4.min.js'></script>
-  <script>
-    $('#dataTable-1').DataTable(
-            {
-              autoWidth: true,
-              "lengthMenu": [
-                [16, 32, 64, -1],
-                [16, 32, 64, "All"]
-              ]
-            });
-  </script>
-  <script src="SellerChannel/js/apps.js"></script>
-  <!-- Global site tag (gtag.js) - Google Analytics -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-56159088-1"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-
-    function gtag()
-    {
-      dataLayer.push(arguments);
-    }
-    gtag('js', new Date());
-    gtag('config', 'UA-56159088-1');
-  </script>
   </body>
 </html>

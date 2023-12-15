@@ -90,13 +90,13 @@ public class SaleServiceImp implements SaleService{
 	}
 
 
-    public List<Sales> findAllByShopid(String intendfor, Integer shopid) {
+	public List<Sales> findAllByShopid(String intendfor, Integer shopid) {
 		List<Sales> allSales = saleRepo.findAllByshopid(shopid);
-        List<Sales> filteredSales = allSales.stream()
-                .filter(sale -> sale.getIntendfor().equals(intendfor))
-                .collect(Collectors.toList());
+		List<Sales> filteredSales = allSales.stream()
+				.filter(sale -> sale.getIntendfor().equals(intendfor) && sale.isIsdelete())
+				.collect(Collectors.toList());
 
-        return filteredSales;
-    }
+		return filteredSales;
+	}
 
 }
