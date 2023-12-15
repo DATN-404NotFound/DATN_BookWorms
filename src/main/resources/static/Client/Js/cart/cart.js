@@ -1249,13 +1249,15 @@ app.controller("address_ctrl", function ($scope, $http) {
 			$http.get("/rest/books/" + id).then(resp => {
 				var bookQuan = resp.data;
 				var item = this.items.find(item => item.books.bookid == id);
+				console.log("1258 "+ item)
 				if (item) {
-					item.quantity += $scope.quantityPro;
+					console.log("1253");
+					item.quantity += 1;
 					if (bookQuan.quantity < item.quantity) {
 						$scope.messageBook = "Số lượng sách trong kho không đủ"
 					}
 					else {
-						console.log("12jjdfkls")
+					
 						$scope.messageBook = "";
 						var updatecart = `${host}`;
 						var cartupdate = angular.copy(item);
@@ -1265,12 +1267,12 @@ app.controller("address_ctrl", function ($scope, $http) {
 					}
 
 				} else {
-					console.log("jssssjdfkls")
-					if (bookQuan.quantity < $scope.quantityPro) {
+					console.log("1269")
+					if (bookQuan.quantity < 1) {
 						$scope.messageBook = "Số lượng sách trong kho không đủ"
 					}
 					else {
-						console.log("jjdfkls")
+						console.log("1273")
 						$scope.messageBook = "";
 						$http.get(`/rest/books/` + id).then(resp => {
 							var s = resp.data;
@@ -1285,11 +1287,12 @@ app.controller("address_ctrl", function ($scope, $http) {
 								this.items.push(resp.data);
 								$scope.cart.load();
 								$('#cartUser').text(Number($('#cartUser').text()) + 1);
-								location.href='/cart'
+							
 							})
 						})
 					}
 				}
+				location.href='/cart'
 			});
 
 		},
@@ -1309,10 +1312,16 @@ app.controller("address_ctrl", function ($scope, $http) {
 			$http.get(url).then(resp => {
 				this.items = resp.data;
 			});
-		},
+		}
+		
+
+
 	}
+	$scope.cart.load();
 
 });
+
+
 
 
 function ab(id) {
