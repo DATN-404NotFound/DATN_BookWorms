@@ -449,7 +449,8 @@ app.controller("cart_ctrl", function ($scope, $http, $timeout) {
 			return ($scope.filterValueCate.indexOf(b.bookid) == -1);
 		}
 		else {
-			return ($scope.filterValueCate.indexOf(b.bookid) !== -1);
+			console.log("djfk "+b)
+			return ($scope.filterValueCate.indexOf(b.bookid) != -1);
 		}
 	};
 
@@ -459,7 +460,7 @@ app.controller("cart_ctrl", function ($scope, $http, $timeout) {
 			return ($scope.filterValueWrite.indexOf(b.bookid) == -1);
 		}
 		else {
-			return ($scope.filterValueWrite.indexOf(b.bookid) !== -1);
+			return ($scope.filterValueWrite.indexOf(b.bookid) != -1);
 		}
 	};
 
@@ -468,7 +469,7 @@ app.controller("cart_ctrl", function ($scope, $http, $timeout) {
 			return ($scope.filterValueRatting.indexOf(b.bookid) == -1);
 		}
 		else {
-			return ($scope.filterValueRatting.indexOf(b.bookid) !== -1);
+			return ($scope.filterValueRatting.indexOf(b.bookid) != -1);
 		}
 	};
 
@@ -1200,7 +1201,26 @@ app.controller("address_ctrl", function ($scope, $http) {
 
 		})
 	}
-
+	$scope.printOrder = function(bookingid){ 
+		$http({
+            method: 'GET',
+            url: '/rest/bookings/generate/' + bookingid,
+            responseType: 'arraybuffer'
+        }).then(function (response) {
+            var blob = new Blob([response.data], {type: 'application/pdf'});
+            var url = window.URL.createObjectURL(blob);
+            var a = document.createElement('a');
+            a.href = url;
+            a.download = 'example.pdf';
+            document.body.appendChild(a);
+            a.click();
+            window.URL.revokeObjectURL(url);
+        }, function (error) {
+            console.log('Failed to generate PDF');
+        });
+    
+		
+	}
 	$scope.updateBooking = function () {
 		var ad = angular.copy($scope.add);
 		$http.post("/rest/bookings/update", ad).then(resp => {

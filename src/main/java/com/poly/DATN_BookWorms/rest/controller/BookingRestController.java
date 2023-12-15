@@ -71,11 +71,11 @@ public class BookingRestController {
 	
 
 
-	@PostMapping()
-	public Bookings create(@RequestBody JsonNode bookingData, HttpServletRequest request) {
-		return bookingService.create(bookingData);
+	// @PostMapping()
+	// public Bookings create(@RequestBody JsonNode bookingData, HttpServletRequest request) {
+	// 	return bookingService.create(bookingData);
 	
-	}
+	// }
 
     @GetMapping("")
     public List<Bookings> getAll() {
