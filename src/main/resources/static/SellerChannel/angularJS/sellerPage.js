@@ -611,10 +611,22 @@ app.controller("addressSettingController", function ($scope, $routeParams, $rout
 //************************************************************************Tung dev seller (Dep trai vai lone)
 
 //Create Product
-app.controller('createProductController', function ($scope, BookService, $http, $window, $timeout) {
+app.directive('fileInput', ['$parse', function ($parse) {
+    return {
+        restrict: 'A',
+        link: function (scope, elm, attrs) {
+            elm.bind('change', function () {
+                $parse(attrs.fileInput).assign(scope, elm[0].files)
+                scope.$apply()
+            })
+        }
+    }
+}]).controller('createProductController', function ($scope, BookService, $http, $window, $timeout) {
     let host = "http://localhost:8080/rest/books/";
     $scope.categoryToBook = '';
     $scope.listCategoryToBook = [];
+    $scope.writersToBook = '';
+    $scope.listWriterToBook = [];
     $scope.book = {};
     $scope.publishingcompanyid = '';
     $scope.imageBook = [];
@@ -658,17 +670,46 @@ app.controller('createProductController', function ($scope, BookService, $http, 
             $scope.categoryToBook += $scope.listCategoryToBook[i].name + ',';
         }
     }
-    $scope.uploadImage = function (input) {
-        if (input.files && input.files[0]) {
-            var reader = new FileReader();
-            reader.onload = function (e) {
-                $scope.$apply(function () {
-                    $scope.imagePreview = e.target.result;
-                    $scope.imageBook.push($scope.imagePreview);
 
-                });
-            };
-            reader.readAsDataURL(input.files[0]);
+    $scope.getToListWriterAddBook = function (writer) {
+        $scope.writersToBook = '';
+        for (let i = 0; i < $scope.listWriterToBook.length; i++) {
+            if ($scope.listWriterToBook[i].writtingmasterid == writer.writtingmasterid) {
+                $scope.listWriterToBook.splice(i, 1);
+
+                //display category to book
+                for (let i = 0; i < $scope.listWriterToBook.length; i++) {
+                    $scope.writersToBook += $scope.listWriterToBook[i].namewm + ',';
+                }
+                return
+            }
+        }
+        $scope.listWriterToBook.push(writer);
+        for (let i = 0; i < $scope.listWriterToBook.length; i++) {
+            $scope.writersToBook += $scope.listWriterToBook[i].namewm + ',';
+        }
+    }
+
+    $scope.filesChanged = function (elm) {
+        $scope.files.push(elm.files);
+        $scope.$apply();
+    }
+    $scope.upload = function () {
+        let url = `${host}uploadImages`;
+        for (let i = 0; i < $scope.files.length; ++i) {
+            var fd = new FormData();
+            console.log("Lặp lại " + $scope.files.length + " lần");
+            fd.append('file', $scope.files[i]);
+            fd.append('bookId', $scope.book.bookid);
+
+            $http.post(url, fd, {
+                transformRequest: angular.identity,
+                headers: { 'Content-Type': undefined }
+            }).then(function (response) {
+                console.log(response.data);
+            }).catch(function (error) {
+                console.error(error);
+            });
         }
     };
 
@@ -694,20 +735,44 @@ app.controller('createProductController', function ($scope, BookService, $http, 
         let url = `${host}createTypeBook`;
 
         for (let i = 0; i < $scope.listCategoryToBook.length; ++i) {
-            var typebook = {};
+            var formData = new FormData();
+            formData.append("categoryid",$scope.listCategoryToBook[i].categoryid);
+            formData.append("bookid", $scope.book.bookid);
 
-            typebook.categoryid = $scope.listCategoryToBook[i].categoryid;
-            typebook.bookid = $scope.book.bookid;
+            console.log($scope.listCategoryToBook[i].categoryid)
+
+            const headers = {
+                'Content-Type': undefined,
+                transformRequest: angular.identity
+            };
+
+            $http.post(url,formData, {headers: headers}).then(resp => {
+                console.log("Save typebook success!!!")
+            }).catch(error => {
+                console.log("Save typebook false!!!")
+            });
+        }
+
+    }
+
+    $scope.createWriter = function () {
+        let url = `${host}createWriter`;
+
+        for (let i = 0; i < $scope.listWriterToBook.length; ++i) {
+            var writers = {};
+
+            writers.writtingmasterid = $scope.listWriterToBook[i].writtingmasterid;
+            writers.bookid = $scope.book.bookid;
 
             const headers = {
                 'Content-Type': "application/json",
                 transformRequest: angular.identity
             };
 
-            $http.post(url, JSON.stringify(typebook), {headers: headers}).then(resp => {
-                console.log("Save typebook success!!!")
+            $http.post(url, JSON.stringify(writers), {headers: headers}).then(resp => {
+                console.log("Save writer success!!!")
             }).catch(error => {
-                console.log("Save typebook false!!!")
+                console.log("Save writer false!!!")
             });
         }
 
@@ -724,10 +789,33 @@ app.controller('createProductController', function ($scope, BookService, $http, 
             $scope.createTypeBook();
         }, 1000);
 
+        $timeout(function () {
+            $scope.createWriter();
+        }, 1000);
+
+        $timeout(function () {
+            $scope.upload();
+        }, 1000);
 
     }
 
 
+});
+app.service('BookService', function ($http) {
+    // Dịch vụ để lấy tên các danh mục
+    this.getCategories = function () {
+        return $http.get('/rest/books/names');
+    };
+
+    // Dịch vụ để lấy tên các nhà xuất bản
+    this.getPublishingCompanies = function () {
+        return $http.get('/rest/books/publishingcompany');
+    };
+
+    // Dịch vụ để lấy tên các tác giả
+    this.getWriters = function () {
+        return $http.get('/rest/books/writers');
+    };
 });
 app.service('BookService', function ($http) {
     // Dịch vụ để lấy tên các danh mục

@@ -75,6 +75,9 @@ public class BookServiceImp implements BookService{
 			books.setIsactive(books.getIsactive());
 			books.setQuantitysold(0);
 			books.setShopid(user.getListOfShoponlines().get(0).getShopid());
+			books.setIsactive(books.getIsactive());
+			books.setProductviews(0);
+			books.setQuantitysold(books.getQuantity());
 		return bookRepo.save(books);
 
 
