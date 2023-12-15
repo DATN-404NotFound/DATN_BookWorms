@@ -52,7 +52,7 @@ public class Shippingunits implements Serializable {
     @Column(name="address", length=100)
     public String     address ;
 
-    public float cod;
+    public Float cod;
 
 
     //--- ENTITY LINKS ( RELATIONSHIP )

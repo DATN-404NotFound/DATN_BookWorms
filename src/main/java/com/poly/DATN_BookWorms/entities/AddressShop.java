@@ -44,8 +44,6 @@ public class AddressShop implements Serializable {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append(this.shoponlines);
-        sb.append("|");
         sb.append(this.detailhome);
         sb.append("|");
         sb.append(this.namereceiver);
