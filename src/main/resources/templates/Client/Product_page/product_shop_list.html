@@ -92,7 +92,7 @@
                                                 <div class="card-footer">
                                                     <div class=""><span class="" th:text="'Đã bán '+${list.quantitysold}"></span></div>
                                                     <div class="wcf-left"><span class="price" th:text="${#numbers.formatDecimal(list.price,0,'POINT',0,'COMMA')}+'đ'"></span></div>
-                                                    <div class="wcf-right"><a href="" class="buy-btn " th:attr="ng-click=cart.add(${list.bookid})" ><i class="bi bi-cart3" style="margin: auto"></i></a></div>
+                                                    <div class="wcf-right"><a href="" class="buy-btn " th:attr="ng-click=@{|cart.add(${list.bookid})|}" ><i class="bi bi-cart3" style="margin: auto"></i></a></div>
                                                 </div>
                                             </div>
                                         </div>
