@@ -12,4 +12,6 @@ public interface HasSaleService {
     Hassales saveHassales(Hassales hassales);
 
     List<Hassales> findAllBysaleid(String saleId);
+
+
 }

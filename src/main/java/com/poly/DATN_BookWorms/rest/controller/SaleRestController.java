@@ -61,7 +61,13 @@ public class SaleRestController {
 	}
 	@PostMapping(value = "/createHassale", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Hassales> createHassales(@RequestBody Hassales hassales) {
-		Hassales createdHassale = hasSaleService.saveHassales(hassales);
+
+		Hassales createdHassale = new Hassales();
+		createdHassale.setBookid(hassales.getBookid());
+		createdHassale.setSaleid(hassales.getSaleid());
+		createdHassale.setStarttime(new Date());
+		createdHassale.setEndtime(hassales.getEndtime());
+		hasSaleService.saveHassales(createdHassale);
 		return ResponseEntity.ok(createdHassale);
 	}
 	@GetMapping("/findAllBySaleId/{saleId}")
