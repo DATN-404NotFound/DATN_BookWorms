@@ -51,14 +51,7 @@ public interface BookingService {
 
 	Bookings findByBookingId(String bookingId);
 
-	//	@Override
-	//	public List<Bookings> findByUserIdAndOrderStatusId(String userId, Integer orderStatusId) {
-	//		List<Bookings> allByUserId = findAllByUserId(userId);
-	//
-	//		return allByUserId.stream()
-	//				.filter(booking -> booking.getOrderstatusid().equals(orderStatusId))
-	//				.collect(Collectors.toList());
-	//	}
+
 	List<Bookings> findBookingsByShopIdAndOrderStatusID(Integer shopId, Integer orderStatusId);
 
 	public Bookings update(Bookings bookingId);

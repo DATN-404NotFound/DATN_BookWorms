@@ -17,4 +17,8 @@ public interface TypeBookService {
     Typebooks create(Books books, Categories categories);
 
     Typebooks save(Typebooks typebooks);
+
+    Typebooks update(Typebooks typebooks);
+
+    List<Typebooks> findByBookId(Integer bookId);
 }

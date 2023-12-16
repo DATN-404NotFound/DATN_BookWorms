@@ -41,4 +41,8 @@ public class WriterServiceImp implements WriterService{
 	public Writers save(Writers writers) {
 		return writersRepo.save(writers);
 	}
+	@Override
+	public List<Writers> findByBookId(Integer bookId) {
+		return writersRepo.findBybookid(bookId);
+	}
 }

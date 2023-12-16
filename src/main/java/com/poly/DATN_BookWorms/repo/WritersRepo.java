@@ -11,4 +11,6 @@ import com.poly.DATN_BookWorms.entities.Writtingmasters;
 public interface WritersRepo extends JpaRepository<Writers, Integer>{
 	@Query("Select w.writtingmasters from Writers w where w.bookid in (Select b.bookid from Books b where b.shopid = ?1)")
     List<Writtingmasters> listWrittingByType(Integer shopid);
+
+    List<Writers> findBybookid(Integer bookId);
 }

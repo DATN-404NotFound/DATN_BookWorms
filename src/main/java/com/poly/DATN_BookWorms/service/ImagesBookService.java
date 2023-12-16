@@ -11,7 +11,11 @@ public interface ImagesBookService {
 	public List<Imagebooks> findByBookId(Long bookid);
 
 
-    List<Imagebooks> create(MultipartFile[] images, Books books);
+
 
     void save(Imagebooks imagebooks);
+
+    void deleteImagebooksByBookId(Long bookId);
+
+
 }

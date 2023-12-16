@@ -26,4 +26,5 @@ public class PublishingCompanyServiceImp implements PublishingCompanyService{
 		return pubRepo.findAll();
 	}
 
+
 }

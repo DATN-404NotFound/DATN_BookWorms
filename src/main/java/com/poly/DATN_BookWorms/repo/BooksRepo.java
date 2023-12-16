@@ -22,6 +22,7 @@ import com.poly.DATN_BookWorms.response.BookResponse;
 
 
 import java.util.List;
+import java.util.Optional;
 
 public interface BooksRepo extends JpaRepository<Books, Long> {
     @Query("Select b.publishingcompanies from Books b where b.shopid = ?1")
@@ -41,14 +42,6 @@ public interface BooksRepo extends JpaRepository<Books, Long> {
             "INNER JOIN Shoponlines SO ON bo.shopid = SO.shopid")
     Page<BookResponse> findAllBook(Pageable pageable);
 
-    @Query("SELECT new com.poly.DATN_BookWorms.response.BookResponse(bo.bookid, bo.bookname, ib.name, bo.price, SO.shopname) " +
-            "FROM Books bo " +
-            "INNER JOIN Imagebooks ib ON bo.bookid = ib.bookid " +
-            "INNER JOIN Shoponlines SO ON bo.shopid = SO.shopid " +
-            "INNER JOIN Typebooks tb ON bo.bookid = tb.bookid " +
-            "INNER JOIN Categories C ON tb.categories.categoryid = C.categoryid " +
-            "WHERE C.name like %?1%")
-    Page<BookResponse> findCategoryBook(String category, Pageable pageable);
 
 
     @Query("SELECT b FROM Books b INNER JOIN b.listOfTypebooks tb WHERE tb.categories.categoryid = :categoryID")
@@ -85,5 +78,7 @@ public interface BooksRepo extends JpaRepository<Books, Long> {
 	
 	@Query("SELECT b FROM Books b GROUP BY b ORDER BY SUM(b.quantitysold) ASC limit 5")
 	List<Books> findTop5Inventory();
+
+    Optional<Books> findBybookid(Long bookId);
 }
 

@@ -11,4 +11,6 @@ public interface WriterService {
 	 public List<Writtingmasters> getWrittingWithSHop(Integer shopid);
 
 	Writers save(Writers writers);
+
+	List<Writers> findByBookId(Integer bookId);
 }

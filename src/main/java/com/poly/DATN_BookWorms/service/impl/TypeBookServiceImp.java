@@ -42,4 +42,14 @@ public class TypeBookServiceImp implements TypeBookService {
 	public Typebooks save(Typebooks typebooks) {
 		return typebooksRepo.save(typebooks);
 	}
+	@Override
+	public Typebooks update(Typebooks typebooks) {
+		Typebooks existingTypebooks = typebooksRepo.findById(typebooks.getTypebookid())
+				.orElseThrow(() -> new RuntimeException("Typebooks not found with typebookid: " + typebooks.getTypebookid()));
+		return typebooksRepo.save(existingTypebooks);
+	}
+	@Override
+	public List<Typebooks> findByBookId(Integer bookId) {
+		return typebooksRepo.findBybookid(bookId);
+	}
 }

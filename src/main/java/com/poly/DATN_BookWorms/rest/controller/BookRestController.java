@@ -61,7 +61,6 @@ public class BookRestController {
     @GetMapping("/ab")
     public List<Books> getAllById() {
         Account account = service.get("user");
-
         return bookService.findByshopidv2(account.getListOfShoponlines().get(0).getShopid());
     }
 
@@ -126,7 +125,6 @@ public class BookRestController {
     public ResponseEntity<Books> createBook(@RequestBody @Valid Books book) {
         Account user = service.get("user");
         Shoponlines shoponlines = shopService.findUserId(user.getUserid());
-
         book.setShopid(shoponlines.getShopid());
         Books newBook = bookService.creates(book);
         return ResponseEntity.ok(newBook);
@@ -187,7 +185,77 @@ public class BookRestController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+//UPDATE
+@PostMapping(value = "/updateBook")
+public ResponseEntity<Books> updateBook(@RequestBody @Valid Books book) {
+    Account user = service.get("user");
+    Shoponlines shoponlines = shopService.findUserId(user.getUserid());
+    book.setShopid(shoponlines.getShopid());
+    book.setBookid(book.getBookid());
+    Books newBook = bookService.update(book);
+    return ResponseEntity.ok(newBook);
+}
+    @PostMapping(value = "/updateTypeBook")
+    public ResponseEntity<Typebooks> updateTypeBooks(@RequestParam("categoryid") String categoryId,@RequestParam("bookid") String bookId ) {
+        Typebooks typebook = new Typebooks();
+        typebook.setTypebookid(typebook.getTypebookid());
+        typebook.setBookid(Integer.parseInt(bookId));
+        typebook.setCategoryid(Integer.parseInt(categoryId));
+        System.out.println(typebook.getCategoryid());
+        typeBookService.update(typebook);
+        return ResponseEntity.ok(typebook);
+    }
 
+    @PostMapping(value = "/updateWriter")
+    public ResponseEntity<Writers> updateTypeBooks(@RequestBody @Valid Writers writers) {
+        Writers writer = new Writers();
+        writer.setWriteid(writer.getWriteid());
+        writerService.save(writers);
+        return ResponseEntity.ok(writer);
+    }
+    @DeleteMapping("/deleteByBookId/{bookId}")
+    public void deleteImagebooksByBookId(@PathVariable Long bookId) {
+        imagesBookService.deleteImagebooksByBookId(bookId);
+    }
+    @PostMapping(value = "/updateImages", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<Map<String, String>> handleưFileUploadForm(
+            @RequestPart("file") MultipartFile file,
+            @RequestParam("bookId") String bookId) throws IOException {
+        log.info("Handling request parts: {}", file);
+
+        try {
+            File f = new ClassPathResource("").getFile();
+            String uploadDir = "D:/DATN/DATN_BookWorms/src/main/resources/static/SellerChannel/images/";
+            Path uploadPath = Paths.get(uploadDir);
+
+            if (!java.nio.file.Files.exists(uploadPath)) java.nio.file.Files.createDirectories(uploadPath);
+
+            String uniqueFileName = UUID.randomUUID().toString() + "-" + file.getOriginalFilename();
+
+            Path filePath = uploadPath.resolve(uniqueFileName);
+            Files.copy(file.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
+
+            String fileUri = ServletUriComponentsBuilder.fromCurrentContextPath()
+                    .path(uniqueFileName)
+                    .toUriString();
+
+            var result = Map.of(
+                    "filename", uniqueFileName,
+                    "fileUri", fileUri
+            );
+
+            Imagebooks imagebooks = new Imagebooks();
+            imagebooks.setBookid(Integer.valueOf(bookId));
+            imagebooks.setName(uniqueFileName);
+            imagebooks.setTypefile("image");
+            imagesBookService.save(imagebooks);
+            return ResponseEntity.ok().body(result);
+
+        } catch (IOException e) {
+            log.error(e.getMessage());
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
     @PutMapping("/updateIsActive/{bookId}")
     public ResponseEntity<Void> updateIsActive(@PathVariable Long bookId, @RequestBody Map<String, Boolean> requestBody) {
         boolean newIsActive = requestBody.get("isactive");
@@ -200,5 +268,32 @@ public class BookRestController {
         boolean newIsActive = requestBody.get("isactive");
         bookService.deleteBook(bookId, newIsActive);
         return ResponseEntity.ok().build();
+    }
+    @GetMapping("/findbyBookId/{bookId}")
+    public ResponseEntity<Books> getBookById(@PathVariable Long bookId) {
+        Optional<Books> optionalBook = bookService.findByBookId(bookId);
+        if (optionalBook.isPresent()) {
+            return new ResponseEntity<>(optionalBook.get(), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+    @GetMapping("/findTypeBookByBookId/{bookId}")
+    public ResponseEntity<List<Typebooks>> findByBookId(@PathVariable Integer bookId) {
+        try {
+            List<Typebooks> typebooksList = typeBookService.findByBookId(bookId);
+            return ResponseEntity.ok(typebooksList);
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().build();
+        }
+    }
+    @GetMapping("/findWriterByBookId/{bookId}")
+    public ResponseEntity<List<Writers>> findByWriterId(@PathVariable Integer bookId) {
+        try {
+            List<Writers> typebooksList = writerService.findByBookId(bookId);
+            return ResponseEntity.ok(typebooksList);
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().build();
+        }
     }
 }
