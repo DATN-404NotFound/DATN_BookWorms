@@ -50,4 +50,6 @@ public class AddressServiceImp implements AddressService {
 	public void delete(String addressusers) {
 		addressusersRepo.deleteById(addressusers);
 	}
+
+
 }
