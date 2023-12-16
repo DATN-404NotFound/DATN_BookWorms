@@ -105,7 +105,7 @@
                             </div>
                         </div>
                     </div>
-                    <button th:if="${adu.statusaddress == 'Không'}" class="btn float-end me-3 mt-3 btnSetToDefault">Đặt
+                    <button th:if="${adu.statusaddress == 'Không'}" class="btn float-end me-3 mt-3 btnSetToDefault" th:attr="ng-click=@{|setDefault('${adu.addressuserid}')|}">Đặt
                         làm mặc định</button>
                 </div>
             </div>

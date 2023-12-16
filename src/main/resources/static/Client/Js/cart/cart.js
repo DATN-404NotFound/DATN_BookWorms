@@ -1417,6 +1417,13 @@ app.controller("address_ctrl", function ($scope, $http) {
 
 	}
 
+	$scope.setDefault = function(id){ 
+		$http.put("/rest/address/update",id).then(resp =>{ 
+			console.log("address "+ resp.data)
+			location.href = "/myAccount/address";
+		})
+	}
+
 });
 
 

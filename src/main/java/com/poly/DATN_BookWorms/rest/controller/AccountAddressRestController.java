@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -48,7 +49,20 @@ public class AccountAddressRestController {
 		return addressService.byAddressUserId(id);
 	}
 	
+	@PutMapping("/update")
+	public Addressusers ok(@RequestBody String id){ 
+		Addressusers add = accountAddressService.findById(id);
 	
+		String userid = crc32_SHA256.getCodeCRC32C(request.getRemoteUser());
+		List<Addressusers> as = accountAddressService.getAdressByUser(userid);
+		for (Addressusers addressusers : as) {
+			addressusers.setStatusaddress("Không");
+			accountAddressService.save(addressusers);
+		}
+		add.setStatusaddress("Mặc định");
+		accountAddressService.save(add);
+		return add ;
+	}
 	@PostMapping
 	public Addressusers postAddress(@RequestBody Addressusers json){ 
 		
