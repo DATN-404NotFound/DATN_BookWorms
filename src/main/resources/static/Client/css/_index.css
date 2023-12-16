@@ -601,8 +601,6 @@ a:hover {
     color: white;
 }
 .nav-item .active:focus {
-    background-color: #007bff;
-    border-color: #007bff;
     box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.2);
     transform: scale(1.1);
     color: #fff;
