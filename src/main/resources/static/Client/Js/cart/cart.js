@@ -1220,7 +1220,8 @@ app.controller("address_ctrl", function ($scope, $http) {
 
 	$scope.updateBooking = function () {
 		var ad = angular.copy($scope.add);
-		$http.post("/rest/bookings/update", ad).then(resp => {
+		console.log("cart 1144 "+ ad[0].bookingid)
+		$http.post("/rest/bookings/update", ad[0].bookingid).then(resp => {
 			location.href = "/myAccount/orderMyAccount";
 		})
 	}
