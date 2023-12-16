@@ -91,8 +91,8 @@ public class AdminPaymentRestController {
 				String body = "VNPay_TxnRef: " + vnp_TxnRef + " VNPay_Amount: " + vnp_Amount + " VNPay_OrderInfo: " + vnp_OrderInfo;
 				mailInfo.setBody(body);
 				mailer.send(mailInfo);
-				response.sendRedirect("http://localhost:8080/admin/index");
-			} else {
+				response.sendRedirect("http://localhost:8080/api/payment/callpayment");
+				} else {
 				// Giao dịch thất bại
 				// Thực hiện các xử lý cần thiết, ví dụ: không cập nhật CSDL\
 				response.sendRedirect("http://localhost:4200/payment-failed");
