@@ -86,11 +86,11 @@
                                         <div class="mb-5">
                                             <label class="me-3">Trạng thái:</label>
                                             <form action="" class="form-checked">
-                                                <input value="Mặc định" type="radio"
+                                                <input value="true" type="radio"
                                                     ng-checked="add.statusaddress  === 'Mặc định'"
-                                                    name="sstatusEditAddress" id="" > Mặc định
-                                                <input value="Không" type="radio"
-                                                    ng-checked="add.statusaddress === 'Không'" name="sstatusEditAddress"
+                                                    name="statusEditAddress" id=""> Mặc định
+                                                <input value="false" type="radio"
+                                                    ng-checked="add.statusaddress === 'Không'" name="statusEditAddress"
                                                     id=""> Không
                                             </form>
                                         </div>
@@ -105,8 +105,8 @@
                             </div>
                         </div>
                     </div>
-                    <button th:if="${adu.statusaddress == 'Không'}" class="btn float-end me-3 mt-3 btnSetToDefault" th:attr="ng-click=@{|setDefault('${adu.addressuserid}')|}"
-                    >Đặt mặc định</button>
+                    <button th:if="${adu.statusaddress == 'Không'}" class="btn float-end me-3 mt-3 btnSetToDefault">Đặt
+                        làm mặc định</button>
                 </div>
             </div>
         </div>
