@@ -28,4 +28,14 @@ public class AccountAddressServiceIml implements AccountAddressService{
 		return addressusersRepo.findByUserId(userid);
 	}
 
+	@Override
+	public Addressusers findById(String id){
+		return addressusersRepo.findById(id).get();
+	}
+
+
+	@Override
+	public Addressusers save(Addressusers id){
+		return addressusersRepo.save(id);
+	}
 }
