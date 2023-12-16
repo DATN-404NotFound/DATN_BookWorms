@@ -171,18 +171,18 @@ public class BookingRestController {
 	}
 	
 	@PostMapping("/update")
-	public Bookings updateStatusBooking(@RequestBody Bookings json) throws MessagingException{
+	public Bookings updateStatusBooking(@RequestBody String json) throws MessagingException{
 		logger.info("huỷ starty...");
 		System.out.println("huỷ hoá đơn2");
-		 Bookings b = bookingService.findById(json.getBookingid()).get();
+		 Bookings b = bookingService.findById(json).get();
 		b.setOrderstatusid(6);
 		try {
 			logger.info("huỷ starty...1");
-			System.out.println("huỷ hoá đơn1");
+			System.out.println("huỷ hoá đơn1" + json.toString());
 			Account account = accountService.findByUserId(crc.getCodeCRC32C(httpServletRequest.getRemoteUser()));
 			  String subject ="THÔNG BÁO XÁC NHẬN HUỶ ĐƠN HÀNG";
 			  String personCancle = "";
-			  if(json.userid.equals(account.userid)) { 
+			  if(b.userid.equals(account.userid)) { 
 				  personCancle = "Người mua";
 			  }
 			  else { 
@@ -199,7 +199,7 @@ public class BookingRestController {
 			logger.info("huỷ end...1");
 			// TODO: handle exception
 		}
-		return json;
+		return b;
 	}
 
 }
