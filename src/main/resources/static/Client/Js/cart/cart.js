@@ -314,12 +314,23 @@ app.controller("cart_ctrl", function ($scope, $http, $timeout) {
 		switch (stt) {
 			case 1: {
 				$scope.process($scope.filterCate, name);
-				$scope.getList(1, "type", "listtype", $scope.filterCate);
+				if($scope.filterCate == null || $scope.filterCate == ""){ 
+					$scope.getList(1, "type", "listtype", 0);
+				}
+				else{
+					$scope.getList(1, "type", "listtype", $scope.filterCate);
+				}
 				break;
 			}
 			case 2: {
 				$scope.process($scope.filterWrite, name);
-				$scope.getList(2, "writer", "listwriter", $scope.filterWrite);
+				//$scope.getList(2, "writer", "listwriter", $scope.filterWrite);
+				if($scope.filterWrite == null || $scope.filterWrite == ""){ 
+					$scope.getList(2, "writer", "listwriter", 0);
+				}
+				else{
+					$scope.getList(2, "writer", "listwriter", $scope.filterWrite);
+				}
 				break;
 			}
 			case 3: {
@@ -388,8 +399,15 @@ app.controller("cart_ctrl", function ($scope, $http, $timeout) {
 				break;
 			}
 			case 5: {
+				$scope.filterRatting = [];
 				$scope.process($scope.filterRatting, name);
-				$scope.getList(3, "Eva", "listeva", $scope.filterRatting);
+				//$scope.getList(3, "Eva", "listeva", $scope.filterRatting);
+				if( $scope.filterRatting == null ||  $scope.filterRatting == ""){ 
+					$scope.getList(3, "Eva", "listeva", 0);
+				}
+				else{
+					$scope.getList(3, "Eva", "listeva", $scope.filterRatting);
+				}
 				break;
 			}
 		}
@@ -430,27 +448,30 @@ app.controller("cart_ctrl", function ($scope, $http, $timeout) {
 		}
 		else {
 
-			return (JSON.stringify(angular.lowercase(b.bookname)).indexOf($scope.searchfilter) != -1 || JSON.stringify(b.price).indexOf($scope.searchfilter) != -1);
+			return (JSON.stringify(angular.lowercase(b.bookname)).indexOf($scope.searchfilter) !== -1 || JSON.stringify(b.price).indexOf($scope.searchfilter) !== -1);
 		}
 	}
 
 	$scope.filtershop = function (s) {
 		$scope.searchfilter = localStorage.getItem("searchfilter")
 		if ($scope.searchfilter == null) {
+			console.log("440 ")
 			return (JSON.stringify(angular.lowercase(s.shopname)).indexOf($scope.searchfilter) == -1);
 		}
 		else {
-			return (JSON.stringify(angular.lowercase(s.shopname)).indexOf($scope.searchfilter) != -1);
+			console.log("441 ")
+			return (JSON.stringify(angular.lowercase(s.shopname)).indexOf($scope.searchfilter) !== -1);
 		}
 	}
 
 	$scope.filterByCate = function (b) {
 		if ($scope.filterCate.length == 0) {
+			console.log("451 "+b)
 			return ($scope.filterValueCate.indexOf(b.bookid) == -1);
 		}
 		else {
 			console.log("djfk "+b)
-			return ($scope.filterValueCate.indexOf(b.bookid) != -1);
+			return ($scope.filterValueCate.indexOf(b.bookid) !== -1);
 		}
 	};
 
@@ -460,16 +481,18 @@ app.controller("cart_ctrl", function ($scope, $http, $timeout) {
 			return ($scope.filterValueWrite.indexOf(b.bookid) == -1);
 		}
 		else {
-			return ($scope.filterValueWrite.indexOf(b.bookid) != -1);
+			return ($scope.filterValueWrite.indexOf(b.bookid) !== -1);
 		}
 	};
 
 	$scope.filterByRatting = function (b) {
 		if ($scope.filterRatting.length == 0) {
+			console.log("489")
 			return ($scope.filterValueRatting.indexOf(b.bookid) == -1);
 		}
 		else {
-			return ($scope.filterValueRatting.indexOf(b.bookid) != -1);
+			console.log("492 "+ b)
+			return ($scope.filterValueRatting.indexOf(b.bookid) !== -1);
 		}
 	};
 
@@ -1218,13 +1241,16 @@ app.controller("address_ctrl", function ($scope, $http) {
         }, function (error) {
             console.log('Failed to generate PDF');
         });
-    
-		
 	}
 	$scope.updateBooking = function () {
-		var ad = angular.copy($scope.add);
-		$http.post("/rest/bookings/update", ad).then(resp => {
+		var advd = angular.copy($scope.add);
+		
+	//	var a = JSON.stringify(advd).replaceAll("[","").replaceAll("]","");
+		console.log("1249 "+ $scope.add)
+		$http.post("/rest/bookings/update",angular.copy($scope.add)).then(resp => {
 			location.href = "/myAccount/orderMyAccount";
+		}).catch(error =>{ 
+			console.log("1251" + error)
 		})
 	}
 	$scope.toShopDetails = function (shopid) {

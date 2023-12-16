@@ -10,6 +10,8 @@ import java.util.Optional;
 import com.poly.DATN_BookWorms.entities.*;
 import com.poly.DATN_BookWorms.service.BookService;
 import com.poly.DATN_BookWorms.service.CategoryService;
+import com.poly.DATN_BookWorms.service.EvaluateService;
+import com.poly.DATN_BookWorms.service.EvaluatesService;
 import com.poly.DATN_BookWorms.service.PublishingCompanyService;
 import com.poly.DATN_BookWorms.service.ShopService;
 import com.poly.DATN_BookWorms.service.TypeBookService;
@@ -47,6 +49,10 @@ ShopService shopService;
 
     @Autowired
     WriterService writerService;
+
+    @Autowired
+    EvaluatesService evaluatesService;
+
 	@GetMapping
 	public List<Books> getAll() {
 		return bookService.findAll();
@@ -75,8 +81,57 @@ ShopService shopService;
 	
 
 
+    @GetMapping("/type")
+	public List<Integer> getBookWithTypeBook(@RequestParam("listtype") String listtype){ 
+		String[] listty =listtype.split(",");
+		List<Integer> listtypes = new ArrayList<Integer>();
+		for(int i=0; i<listty.length;i++) { 
+			listtypes.add(Integer.parseInt(listty[i]));
+		}
+		
+		return bookService.getBookWithTypeBook(listtypes);
+	}
+	
+	@GetMapping("/writer")
+	public List<Integer> getBookWithWriter(@RequestParam("listwriter") String listwriter){ 
+		String[] listty =listwriter.split(",");
+		List<Integer> listtypes = new ArrayList<Integer>();
+		for(int i=0; i<listty.length;i++) { 
+			listtypes.add(Integer.parseInt(listty[i]));
+		}
+		
+		return bookService.getBookWithWriters(listtypes);
+	}
+	
+	@GetMapping("/Eva")
+	public List<Long> getBookWithEvaluate(@RequestParam("listeva") Integer listeva){ 
+		// String[] listty =listeva.split(",");
+		// List<Integer> listtypes = new ArrayList<Integer>();
+        List<Books> getalllBook = getAll();
+        List<Long> bookreturn = new ArrayList<>();
+        for (Books books : getalllBook) {
+            
+            List<Evaluates> getAllEva = evaluatesService.getEvaByBookid(books.getBookid());
+            float tong = 0;
+            for (Evaluates eva : getAllEva) {
+                tong += eva.rating;
+            }
+            tong /= getAllEva.size();
+            if(tong >= listeva){ 
+                bookreturn.add(books.bookid);
+            }
+        }
+		// for(int i=0; i<listty.length;i++) { 
+		// 	listtypes.add(Integer.parseInt(listty[i]));
+		// }
+        System.out.println("107 ok number ");
+        // System.out.println("107 ok number "+ bookService.getBookWithEvaluate(listtypes).size());
+		return bookreturn;
+	}
 
-
+    public List<Books> getAlll(){ 
+        return bookService.findAll();
+    }
 
     @PutMapping("{id}")
     public Books update(@PathVariable("id") Integer id, @RequestBody Books book) {

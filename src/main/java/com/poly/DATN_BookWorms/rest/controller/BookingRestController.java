@@ -178,8 +178,9 @@ public class BookingRestController {
 	}
 	
 	@PostMapping("/update")
-	public Bookings updateStatusBooking(@RequestBody Bookings json) throws MessagingException{
-		logger.info("huỷ starty...");
+	public Bookings updateStatusBooking(@RequestBody Bookings json){
+	try {
+        logger.info("huỷ starty...");
 		System.out.println("huỷ hoá đơn2");
 		 Bookings b = bookingService.findById(json.getBookingid()).get();
 		b.setOrderstatusid(6);
@@ -207,6 +208,11 @@ public class BookingRestController {
 			// TODO: handle exception
 		}
 		return json;
+    } catch (Exception e) {
+        System.out.println("huhuhu1222222222222222222222"+ e);
+        return null;
+        //TODO: handle exception
+    }
 	}
 
 }

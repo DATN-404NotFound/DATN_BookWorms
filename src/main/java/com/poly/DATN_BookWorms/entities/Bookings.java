@@ -67,6 +67,8 @@ public class Bookings {
 
 	public Double     costship ;
 
+  
+
     //--- ENTITY LINKS ( RELATIONSHIP )
     @OneToMany(mappedBy="bookings")
     @JsonIgnore

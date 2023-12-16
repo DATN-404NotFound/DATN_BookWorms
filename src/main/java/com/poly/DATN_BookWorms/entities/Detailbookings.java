@@ -46,8 +46,6 @@ public class Detailbookings implements Serializable {
 
     @Column(name="quantity", nullable=false)
     public Integer    quantity ;
-
-
     //--- ENTITY LINKS ( RELATIONSHIP )
     @ManyToOne
     @JoinColumn(name="Bookingid", referencedColumnName="BookingId", insertable=false, updatable=false)
