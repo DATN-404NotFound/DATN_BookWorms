@@ -34,12 +34,12 @@
         </ul>
 
         <div class=" tab-content">
-            <div id="tabAll" class="tab-pane fade show active">
+            <div id="tabAll" th:if!="${booking.isEmpty()}" class="tab-pane fade show active">
                 <div class="img-notOrder" th:if="${#lists.isEmpty(booking)}">
                     <img th:src="@{|/Client/images/not-order.png|}" alt="">
                     <p class="mt-4">Không có đơn hàng</p>
                 </div>
-                <div class="order" th:each="b : ${booking}">
+                <div class="order" th:each="b : ${booking}" >
                     <div class="cardHeader">
                         <span>
                             <img id="logoAccountOrder"
@@ -74,12 +74,12 @@
                     </div>
                 </div>
             </div>
-            <div id="tabPendingPayment" class="tab-pane fade">
-                <!-- <div class="img-notOrder"
+            <div id="tabPendingPayment" th:if!="${booking.isEmpty()}" class="tab-pane fade">
+                <div class="img-notOrder"
                     th:if="${booking == null or booking.size() == 0 or booking.get(0).orderstatuses.statusname != 'Chưa thanh toán'}">
                     <img th:src="@{|/Client/images/not-order.png|}" alt="">
                     <p class="mt-4">Không có đơn hàng</p>
-                </div> -->
+                </div>
                 <div class="order" th:each="b : ${booking}" th:if="${b.orderstatusid} == 1">
                     <div class="cardHeader">
                         <span>
@@ -106,7 +106,7 @@
                     <div class="cardFooter">
                         <p class="total">Thành tiền: <span th:text="${b.cost}"></span></p>
                         <!-- <button class="btn btnRating">Rating</button> -->
-                        
+
 
                         <form action="">
                             <button class="btn btnDetail-order"
@@ -115,12 +115,12 @@
                     </div>
                 </div>
             </div>
-            <div id="tabPendingConfirmation" class="tab-pane fade">
-                <!-- <div class="img-notOrder"
+            <div id="tabPendingConfirmation" th:if!="${booking.isEmpty()}" class="tab-pane fade">
+                <div class="img-notOrder"
                     th:if="${booking == null or booking.size() == 0 or booking.get(0).orderstatuses.statusname != 'Chờ xác nhận'}">
                     <img th:src="@{|/Client/images/not-order.png|}" alt="">
                     <p class="mt-4">Không có đơn hàng</p>
-                </div> -->
+                </div>
                 <div class="order" th:each="b : ${booking}" th:if="${b.orderstatusid} == 3">
                     <div class="cardHeader">
                         <span>
@@ -150,7 +150,7 @@
                             type="button" data-bs-toggle="modal" data-bs-target="#exampleModal1"
                             th:attr="ng-click=@{|callModel2('${b.bookingid}')|}">Hủy đơn</button>
 
-                        
+
 
                         <form action="">
                             <button class="btn btnDetail-order"
@@ -159,12 +159,12 @@
                     </div>
                 </div>
             </div>
-            <div id="tabTransprot" class="tab-pane fade">
-                <!-- <div class="img-notOrder"
+            <div id="tabTransprot" th:if!="${booking.isEmpty()}" class="tab-pane fade">
+                <div class="img-notOrder"
                     th:if="${booking == null or booking.size() == 0 or booking.get(0).orderstatuses.statusname != 'Đang vận chuyển'}">
                     <img th:src="@{|/Client/images/not-order.png|}" alt="">
                     <p class="mt-4">Không có đơn hàng</p>
-                </div> -->
+                </div>
                 <div class="order" th:each="b : ${booking}" th:if="${b.orderstatusid} == 4">
                     <div class="cardHeader">
                         <span>
@@ -191,7 +191,7 @@
                     <div class="cardFooter">
                         <p class="total">Thành tiền: <span th:text="${b.cost}"></span></p>
                         <!-- <button class="btn btnRating">Rating</button> -->
-                        
+
                         <form action="">
                             <button class="btn btnDetail-order"
                                 th:formaction="@{|/myAccount/orderDetailMyAccount/${b.bookingid}|}">Chi tiết</button>
@@ -199,12 +199,12 @@
                     </div>
                 </div>
             </div>
-            <div id="tabSuccess" class="tab-pane fade">
-                <!-- <div class="img-notOrder"
+            <div id="tabSuccess"  th:if!="${booking.isEmpty()}" class="tab-pane fade">
+                <div class="img-notOrder"
                     th:if="${booking == null or booking.size() == 0 or booking.get(0).orderstatuses.statusname != 'Hoàn thành'}">
                     <img th:src="@{|/Client/images/not-order.png|}" alt="">
                     <p class="mt-4">Không có đơn hàng</p>
-                </div> -->
+                </div>
                 <div class="order" th:each="b : ${booking}" th:if="${b.orderstatusid == 5 or b.orderstatusid == 8}">
                     <div class="cardHeader">
                         <span>
@@ -231,7 +231,7 @@
                     <div class="cardFooter">
                         <p class="total">Thành tiền: <span th:text="${b.cost}"></span></p>
                         <!-- <button class="btn btnRating">Rating</button> -->
-                        
+
 
                         <form action="">
                             <button class="btn btnDetail-order"
@@ -241,11 +241,11 @@
                 </div>
             </div>
             <div id="tabOrderCancelled" class="tab-pane fade">
-                <!-- <div class="img-notOrder"
+                <div class="img-notOrder"
                     th:if="${booking == null or booking.size() == 0 or booking.get(0).orderstatuses.statusname != 'Đơn Huỷ'}">
                     <img th:src="@{|/Client/images/not-order.png|}" alt="">
                     <p class="mt-4">Không có đơn hàng</p>
-                </div> -->
+                </div>
                 <div class="order" th:each="b : ${booking}" th:if="${b.orderstatusid} == 6">
                     <div class="cardHeader">
                         <span>
@@ -272,7 +272,7 @@
                     <div class="cardFooter">
                         <p class="total">Thành tiền: <span th:text="${b.cost}"></span></p>
                         <!-- <button class="btn btnRating">Rating</button> -->
-                        
+
 
                         <form action="">
                             <button class="btn btnDetail-order"
@@ -282,11 +282,11 @@
                 </div>
             </div>
             <div id="tabReturnRefund" class="tab-pane fade">
-                <!-- <div class="img-notOrder"
+                <div class="img-notOrder"
                     th:if="${booking == null or booking.size() == 0 or booking.get(0).orderstatuses.statusname != 'Trả hang/ hoàn tiền'}">
                     <img th:src="@{|/Client/images/not-order.png|}" alt="">
                     <p class="mt-4">Không có đơn hàng</p>
-                </div> -->
+                </div>
                 <div class="order" th:each="b : ${booking}"
                     th:if="${b.orderstatusid} == 7">
                     <div class="cardHeader">
@@ -314,7 +314,7 @@
                     <div class="cardFooter">
                         <p class="total">Thành tiền: <span th:text="${b.cost}"></span></p>
                         <!-- <button class="btn btnRating">Rating</button> -->
-                        
+
 
                         <form action="">
                             <button class="btn btnDetail-order"

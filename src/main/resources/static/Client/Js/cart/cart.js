@@ -1151,7 +1151,10 @@ app.controller("address_ctrl", function ($scope, $http) {
 		ad.province = document.getElementById('city1').value;
 		ad.district = document.getElementById('district1').value;
 		ad.ward = document.getElementById('ward1').value;
-		console.log(ad.ward + ', ' + ad.district + ', ' + ad.province)
+		console.log(ad.ward + ', ' + ad.district + ', ' + ad.province);
+		let checkedradio = $('[name="sstatusEditAddress"]:radio:checked').val();
+		ad.statusaddress = checkedradio;
+		console.log("radio "+ checkedradio )
 		$http.post("/rest/address", ad).then(resp => {
 			location.href = "/myAccount/address";
 		})
@@ -1166,7 +1169,7 @@ app.controller("address_ctrl", function ($scope, $http) {
 			document.getElementById('shopimage1' + ds + shopId).src = "/Client/images/" + a[0].filename
 		}).catch(error => {
 			console.log("Error", error)
-		});;
+		});
 	}
 
 	$scope.setImage6 = function (bookId) {
@@ -1208,6 +1211,12 @@ app.controller("address_ctrl", function ($scope, $http) {
 			location.href = "/myAccount/orderMyAccount";
 		})
 	}
+    $scope.setDefault = function(id){
+        $http.put("/rest/address/update",id).then(resp =>{
+            console.log("address "+ resp.data)
+            location.href = "/myAccount/address";
+        })
+    }
 	$scope.toShopDetails = function (shopid) {
 		console.log("616")
 		location.href = "/shop/" + shopid
@@ -1439,6 +1448,8 @@ var printResult = () => {
 	}
 
 }
+
+
 
 
 
