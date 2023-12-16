@@ -78,10 +78,10 @@
                             <div class="book_related" style="width: 90%;">
                                 <div class="row">
                                     <div class="col-md-3" th:each="list,item : ${profile.listOfBooks}" th:if="${item.index<5}">
-                                        <div class="wsk-cp-product">
-                                            <div class="wsk-cp-img btn" th:formaction="@{|/product/detail/${list.bookid}|}" th:formmethod="GET" >
+                                        <div class="wsk-cp-product" >
+                                            <a class="wsk-cp-img" th:href="@{|/product/detail/${list.bookid}|}"  >
                                                 <img  th:src="@{|/Client/images/${list.listOfImagebooks.get(0).name}|}"  alt="Product" class="img-responsive" />
-                                            </div>
+                                            </a>
                                             <div class="wsk-cp-text">
                                                 <div class="category">
                                                     <span th:text="${#strings.abbreviate(item.current.shoponlines.shopname,10)}"></span>

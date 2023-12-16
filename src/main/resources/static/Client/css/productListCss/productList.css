@@ -30,6 +30,7 @@ body{
 }
 .wsk-cp-img img{
     width:100%;
+    height: 464px;
     transition: all 0.2s ease-in-out;
     border-radius:6px;
 }
