@@ -1,6 +1,7 @@
 package com.poly.DATN_BookWorms.service;
 
 import com.poly.DATN_BookWorms.entities.Hassales;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,4 +15,6 @@ public interface HasSaleService {
     List<Hassales> findAllBysaleid(String saleId);
 
 
+    @Transactional
+    void deleteHassalesById(Integer hassaleId);
 }

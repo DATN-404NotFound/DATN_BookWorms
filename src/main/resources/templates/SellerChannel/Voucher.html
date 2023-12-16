@@ -95,8 +95,8 @@
                                         <tr>
                                           <th>Couopon code</th>
                                           <th>Name Couopon code</th>
-                                          <th>Cost</th>
                                           <th>Create At</th>
+                                          <th>End Time</th>
                                           <th>Shipping Unit</th>
                                         </tr>
                                         </thead>
@@ -104,15 +104,15 @@
                                         <tr ng-repeat="vouchers in voucher | filter: searchText">
                                           <td>{{ vouchers.couoponcode }}</td>
                                           <td>{{ vouchers.promotionname }}</td>
-                                          <td>{{ vouchers.cost}}</td>
                                           <td>{{ vouchers.createat }}</td>
+                                          <td>{{ vouchers.enddiscount }}</td>
                                           <td>{{ vouchers.descriptions }}</td>
                                           <td><button class="btn btn-sm dropdown-toggle more-horizontal" type="button"
                                                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                             <span class="text-muted sr-only">Action</span>
                                           </button>
                                             <div class="dropdown-menu dropdown-menu-right">
-                                              <a class="dropdown-item" data-toggle="modal" data-target=".bd-example-modal-xl" ng-click="setCheckboxHassale(vouchers.couoponcode)">Edit</a>
+                                              <a class="dropdown-item" data-toggle="modal" data-target=".bd-example-modal-xl" ng-click="setCheckboxHassale(vouchers.couoponcode); getdataInitHassales(vouchers)">Edit</a>
                                               <a class="dropdown-item" href="#">Remove</a>
                                               <a class="dropdown-item" href="#">Assign</a>
                                             </div>
@@ -215,16 +215,16 @@
                                                             <td>{{ book.language }}</td>
                                                             <td>
                                                               <div class="custom-control custom-switch">
-                                                                <input type="checkbox" class="custom-control-input" ng-checked="itemExistsInItems2(book)" id="c{{$index + 1}}">
+                                                                <input type="checkbox" class="custom-control-input" ng-checked="itemExistsInItems2(book)" id="c{{$index + 1}}" ng-click="handleCheckbox(book.bookid, getHassaleId(book.bookid))">
                                                                 <label class="custom-control-label" for="c{{$index + 1}}"></label>
                                                               </div>
                                                             </td>
+                                                            <!-- New column displaying hassales[i].hassaleid if checkbox is checked -->
+                                                            <td ng-if="itemExistsInItems2(book)">{{ getHassaleId(book.bookid) }}</td>
                                                           </tr>
-
-
-
-
                                                           </tbody>
+
+
 
                                                           <nav aria-label="Page navigation example">
                                                             <ul class="pagination">

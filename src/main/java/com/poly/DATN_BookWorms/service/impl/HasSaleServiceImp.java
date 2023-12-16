@@ -3,6 +3,7 @@ package com.poly.DATN_BookWorms.service.impl;
 import com.poly.DATN_BookWorms.entities.Hassales;
 import com.poly.DATN_BookWorms.repo.HassalesRepo;
 import com.poly.DATN_BookWorms.service.HasSaleService;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -32,6 +33,11 @@ public class HasSaleServiceImp implements HasSaleService {
                 .collect(Collectors.toList());
 
         return filteredSales;
+    }
+    @Override
+    @Transactional
+    public void deleteHassalesById(Integer hassaleId) {
+        hassalesRepo.deleteById(hassaleId);
     }
 
 

@@ -1138,11 +1138,21 @@ app.controller('voucherController', function ($scope, $routeParams, $route, $htt
         var exists = false;
         for (var i = 0; i < $scope.hassales.length; i++) {
             if (book.bookid === $scope.hassales[i].bookid) {
+
                 exists = true;
                 break;
             }
         }
         return exists;
+    };
+    $scope.getHassaleId = function(bookId) {
+        for (var i = 0; i < $scope.hassales.length; i++) {
+            if ($scope.hassales[i].bookid === bookId) {
+                return $scope.hassales[i].hassaleid;
+            }
+        }
+        // Trả về một giá trị mặc định hoặc null nếu không tìm thấy
+        return null;
     };
 
     // $scope.compareBooksWithSales = function () {
@@ -1166,12 +1176,18 @@ app.controller('voucherController', function ($scope, $routeParams, $route, $htt
         return false;
     };
     $scope.createhassale = {};
-    $scope.createHassale = function () {
+    $scope.getdataInitHassales = function (vouchers) {
+        $scope.createhassale = {
+            saleid: vouchers.couoponcode,
+            endtime: vouchers.enddiscount
+        };
+    };
+    $scope.createHassale = function (bookID) {
         const headers = {
             'Content-Type': "application/json",
             transformRequest: angular.identity
         };
-        $http.post('/rest/sale/createHassale', JSON.stringify($scope.createhassale), {headers: headers})
+        $http.post('/rest/sale/createHassale/'+ bookID, JSON.stringify($scope.createhassale), {headers: headers})
             .then(function (response) {
                 // Handle success
                 $window.alert("Tạo voucher thành công")
@@ -1180,7 +1196,25 @@ app.controller('voucherController', function ($scope, $routeParams, $route, $htt
                 console.error(error);
             });
     };
-
+    $scope.deleteHassales = function(hassaleId) {
+        $http({
+            method: 'DELETE',
+            url: '/rest/sale/deleteHassale/' + hassaleId
+        }).then(function(response) {
+            console.log(response.data);
+        }, function(error) {
+            console.error('Error deleting Hassales: ' + error.data);
+        });
+    };
+    //Checkbox Select
+    $scope.checkboxValue = false;
+    $scope.handleCheckbox = function(bookID, hassaleId) {
+        if ($scope.checkboxValue) {
+            $scope.createHassale(bookID);
+        } else {
+            $scope.deleteHassales(hassaleId);
+        }
+    };
 
 });
 //Create Voucher
