@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" th:replace="~{/Client/index::dynamic(~{::main})}">
-
 <body>
     <main ng-controller="cart_ctrl" style="width: 98%; height: auto; margin: auto; margin-top: 70px;">
         <div></div>
@@ -221,41 +220,31 @@
         <article>
             <div class="my-5">
                 <div class="book_center" style="width: 100%; clear: both;">
-                    <div ng-repeat="b in sp | filter: filterByPrice | filter:filterByGenres | filter:filterByCate | filter:filterByWriter | filter:filterByRatting | filter: filterAll |orderBy:or"
-                        class="book_item" style="margin-left: 1%;">
-                        <div class="book_img text-center">
-                            <img id="product{{b.bookid}}" ng-src="" alt="" ng-init="setImageBook(b.bookid)">
-
-                            <button class="btn" ng-click="detailBook(b.bookid)"
-                                style="background-color: #C93F04; color: white; font-size: 18px;">Chi
-                                tiết</button>
-
-                        </div>
-                        <div class="book_title text-center mt-3">
-                            <a ng-click="detailBook(b.bookid)">
-                                <p>{{b.bookname}}</p>
-                            </a>
-                            <p style="font-size: 18px;margin-top: 0px;  color: #666;">{{b.shoponlines.shopname}}
-                            </p>
-                            <p style="font-size: 18px;margin-top: -10px;"> Giá : <strong>{{b.price | currency : "" : 2}}
-                                    đ</strong></p>
-                        </div>
-                        <div class="d-flex justify-content-between " style="margin-top: -10px;">
-                            <div class="px-2">
-                                <p style="font-size: 18px;margin-top: 10px;"> <span>{{b.quantitysold}}</span> <span> Đã
-                                        bán</span></p>
-                            </div>
-
-                            <div class=" text-end">
-                                <div class="d-flex flex-row-reverse">
-                                    <div><a href="#" class="text-dark"><i class="bi bi-heart"
-                                                style="font-size: 25px;"></i></a></div>
-                                    <div><a ng-click="cart.add(b.bookid)" class="text-dark"> <i class="bi bi-cart3"
-                                                style="font-size: 25px;"></i></a></div>
+                    <div class="row">
+                        <div class="col-md-3" ng-repeat="b in sp | filter : filterByPrice | filter : filterByGenres | filter : filterByCate | filter : filterByWriter | filter : filterByRatting | filter : filterAll | orderBy:or">
+                            <div class="wsk-cp-product">
+                                <div class="wsk-cp-img" ng-click = "detailBook(b.bookid)">
+                                    <img  id="product{{b.bookid}}" ng-init="setImageBook(b.bookid)"  alt="Product" class="img-responsive" />
+                                </div>
+                                <div class="wsk-cp-text">
+                                    <div class="category">
+                                        <span>{{b.shoponlines.shopname}}</span>
+                                    </div>
+                                    <div class="title-product">
+                                        <h3>{{b.bookname}}</h3>
+                                    </div>
+                                    <div class="card-footer">
+                                        <div class=""><span class="">Đã bán {{b.quantitysold}}</span></div>
+                                        <div class="wcf-left"><span class="price">{{b.price | currency : "" : 0}} đ</span></div>
+                                        <div class="wcf-right"><a href="" class="buy-btn " ng-click="cart.add(b.bookid)" ><i class="bi bi-cart3" style="margin: auto"></i></a></div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-
+                    </div>
+                </div>
+                <div class="shell">
+                    <div class="container">
                     </div>
                 </div>
             </div>

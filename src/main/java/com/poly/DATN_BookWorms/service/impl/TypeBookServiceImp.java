@@ -42,4 +42,9 @@ public class TypeBookServiceImp implements TypeBookService {
 	public Typebooks save(Typebooks typebooks) {
 		return typebooksRepo.save(typebooks);
 	}
+
+	@Override
+	public List<Categories> findCateByBookId(int bookid) {
+		return typebooksRepo.findCateByBookId(bookid);
+	}
 }

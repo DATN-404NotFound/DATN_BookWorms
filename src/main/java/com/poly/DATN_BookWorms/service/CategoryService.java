@@ -9,4 +9,5 @@ import com.poly.DATN_BookWorms.entities.Categories;
 
 public interface CategoryService {
 	List<Categories> findAll();
+
 }

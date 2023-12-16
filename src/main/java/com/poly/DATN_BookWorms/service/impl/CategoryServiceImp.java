@@ -2,6 +2,8 @@ package com.poly.DATN_BookWorms.service.impl;
 
 import java.util.List;
 
+import com.poly.DATN_BookWorms.entities.Typebooks;
+import com.poly.DATN_BookWorms.service.TypeBookService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +26,5 @@ public class CategoryServiceImp implements CategoryService{
 		// TODO Auto-generated method stub
 		return cateRepo.findAll();
 	}
-	
-	
+
 }

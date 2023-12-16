@@ -7,7 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
 
-//@EnableWebSecurity
+//@EnableWebSecuritygit log
 public class DatnBookWormsApplication {
 
 	public static void main(String[] args) {

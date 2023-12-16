@@ -49,7 +49,6 @@ public class BookServiceImp implements BookService{
 
 	@Override
 	public Page<Books> findAll(Pageable pageable) {
-		logger.info("get all books  return pageable : {}", bookRepo.findAll(pageable));
 		return bookRepo.findAll(pageable);
 	}
 

@@ -51,7 +51,12 @@ public class HomeController {
 
         //get and set info home page
         Books top = bookService.findTopBookByQuantitySold();
+        List<Imagebooks> listImage = top.getListOfImagebooks();
+
         model.addAttribute("item", top);
+
+        model.addAttribute("listImage", listImage);
+
         List<Books> education = bookService.getBooksByCategoryID(2);
         List<Books> education1 = bookService.getBooksByCategoryID(4);
         List<Books> education2 = bookService.getBooksByCategoryID(7);

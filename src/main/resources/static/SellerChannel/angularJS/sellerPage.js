@@ -268,16 +268,25 @@ app.controller("salesController", function ($scope, $routeParams, $route, $http,
             $scope.salesAnalysisNow.push(resp.data[currentMonth-1]);
             $scope.salesAnalysisNow.push(resp.data[currentMonth - 2 ]);
             $timeout(function () {
+                xx
                 $scope.initDataChart(resp.data);
             }, 500);
             console.log("data", $scope.salesAnalysis)
             console.log("data", $scope.salesAnalysisNow)
+            console.log("year", $scope.year)
         }).catch(error => {
             console.log("Error", error)
         });
 
 
     }
+
+    const yearDropdown = document.getElementById("year-dropdown");
+
+    yearDropdown.addEventListener("change", function() {
+       $scope.getSalesAnalysis();
+        console.log("Selected year:", $scope.year);
+    });
     $scope.growthIncreases = function (firtsMonth, secondMonth) {
         var growth = 0;
 
