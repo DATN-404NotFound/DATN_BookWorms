@@ -358,4 +358,9 @@ public class BookingServiceImp implements BookingService{
 			bookingRepo.save(booking);
 		}
 	}
+
+	@Override
+	public List<Bookings> findByUserIdAndOrderStaturs(String userId, Integer orderstatusid) {
+		return bookingRepo.findByUserIdAndOrderStaturs(userId,orderstatusid );
+	}
 }

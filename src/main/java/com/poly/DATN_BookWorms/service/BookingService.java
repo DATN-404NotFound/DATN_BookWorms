@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import com.poly.DATN_BookWorms.entities.Account;
 import com.poly.DATN_BookWorms.entities.Bookings;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
@@ -71,4 +72,6 @@ public interface BookingService {
 
 	@Transactional
 	void updateOrderStatus(String bookingId, Integer status);
+
+    List<Bookings> findByUserIdAndOrderStaturs(String userId, Integer orderstatusid);
 }

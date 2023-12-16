@@ -100,4 +100,6 @@ public interface BookingsRepo extends JpaRepository<Bookings, String>{
 	List<Bookings> findBookingsByShopId(@Param("shopid") Integer shopId);
 
 	Bookings findBybookingid(String bookingId);
+	@Query("SELECT b FROM Bookings b WHERE b.account.userid = ?1 and b.orderstatuses.orderstatusid = ?2")
+    List<Bookings> findByUserIdAndOrderStaturs(String userId, Integer orderstatus);
 }
