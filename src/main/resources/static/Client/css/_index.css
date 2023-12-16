@@ -420,7 +420,7 @@ a :hover {
 
 .price {
     font-size: 25px;
-    margin: 30px 30px 30px 10px;
+    margin-bottom: 30px;
 }
 
 .checked, .price span {

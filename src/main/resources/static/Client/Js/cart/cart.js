@@ -529,7 +529,7 @@ app.controller("cart_ctrl", function ($scope, $http, $timeout) {
 	$scope.booksCate = [];
 	$scope.loadAll = function () {
 		$http.get("/rest/books/cate/4").then(resp => {
-			$scope.a = 4;
+			$scope.a = 2;
 			$scope.b = 0;
 			$scope.booksCate = resp.data;
 		})
@@ -561,16 +561,7 @@ app.controller("cart_ctrl", function ($scope, $http, $timeout) {
 	}
 
 
-	$scope.edu = function (id, a, b) {
-		$http.get("/rest/books/cate/" + id).then(resp => {
-			$scope.a = a;
-			$scope.b = b;
-			$scope.booksCate = resp.data;
-			$scope.booksCate.forEach(i => {
-				$scope.setImage(i.bookid, id)
-			})
-		})
-	}
+
 
 	$scope.setImage = function (bookId, cate) {
 		let url = `http://localhost:8080/rest/imagebook/` + bookId;
@@ -594,24 +585,50 @@ app.controller("cart_ctrl", function ($scope, $http, $timeout) {
 			}
 		}).catch(error => {
 			console.log("Error", error)
-		});;
+		});
 	}
 
 	$scope.loadAll();
 
+	$scope.edu = function (id, a , b) {
+		$http.get("/rest/books/cate/" + id).then(resp => {
+			$scope.a = a;
+			$scope.b = b;
+			$scope.booksCate = resp.data;
+			$scope.booksCate.forEach(i => {
+				$scope.setImage(i.bookid, id)
+			})
+		})
+	}
+
 	$scope.next = function (id, cate) {
 		$scope.b = id + 1;
-		$scope.edu(cate, 4, $scope.b)
+		$scope.edu(cate, 2, $scope.b)
 	}
 
 	$scope.prev = function (id, cate) {
 		$scope.b = id - 1;
-		$scope.edu(cate, 4, $scope.b)
+		$scope.edu(cate, 2, $scope.b)
 	}
 
 	$scope.setQuantityPro = function (id) {
 		$scope.quantityPro = 1;
 		$scope.cart.add(id);
+	}
+
+	$scope.initCateByBookId = function (bookId) {
+		var formData = new FormData();
+		formData.append("bookid", bookId)
+		const headers = {
+			'Content-Type': undefined,
+			transformRequest: angular.identity
+		};
+		$http.post("/rest/categories/cateWithBook",formData, {headers: headers}).then(resp => {
+			$scope.listCate = resp.data;
+			console.log("cate:",$scope.listCate)
+		}).catch(error => {
+			console.log("Error", error)
+		});
 	}
 
 	$scope.cart = {

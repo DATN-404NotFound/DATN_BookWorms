@@ -76,34 +76,26 @@
                         </div>
                         <div>
                             <div class="book_related" style="width: 90%;">
-                                <div th:each="list,item : ${profile.listOfBooks}" th:if="${item.index<5}"
-                                    class="book_item" style="margin-left: 1%;">
-                                    <div class="book_img text-center">
-                                        <img th:src="@{|/Client/images/${list.listOfImagebooks.get(0).name}|}" alt="">
-                                        <form action="">
-                                            <button th:formaction="@{|/product/detail/${list.bookid}|}"
-                                                th:formmethod="GET" class="btn"
-                                                style="background-color: #C93F04; color: white; font-size: 18px;">Chi
-                                                tiết</button>
-                                        </form>
-                                    </div>
-                                    <div class="book_title text-center mt-3">
-                                        <a th:href="@{|/product/detail/${list.bookid}|}">
-                                            <p th:text="${item.current.bookname}"></p>
-                                        </a>
-                                        <p style="font-size: 18px;margin-top: 0px;  color: #666;"
-                                            th:text="${#strings.abbreviate(item.current.shoponlines.shopname, 10)}"></p>
-                                        <p style="font-size: 18px;margin-top: -10px;">Giá : <strong
-                                                th:text="${#numbers.formatDecimal(list.price, 0, 'POINT', 0, 'COMMA')} +'₫'">200.00
-                                                VND</strong>
-                                        </p>
-                                    </div>
-                                    <div class="d-flex flex-row-reverse" style="height: 30px; margin-top: -20px;">
-                                        <div class="p-2"><a href="#" class="text-dark"><i class="bi bi-heart"
-                                                    style="font-size: 25px;"></i></a></div>
-                                        <div class="p-2"><a th:attr="ng-click=@{|cart.add(${list.bookid})|}"
-                                                class="text-dark"> <i class="bi bi-cart3"
-                                                    style="font-size: 25px;"></i></a></div>
+                                <div class="row">
+                                    <div class="col-md-3" th:each="list,item : ${profile.listOfBooks}" th:if="${item.index<5}">
+                                        <div class="wsk-cp-product">
+                                            <div class="wsk-cp-img btn" th:formaction="@{|/product/detail/${list.bookid}|}" th:formmethod="GET" >
+                                                <img  th:src="@{|/Client/images/${list.listOfImagebooks.get(0).name}|}"  alt="Product" class="img-responsive" />
+                                            </div>
+                                            <div class="wsk-cp-text">
+                                                <div class="category">
+                                                    <span th:text="${#strings.abbreviate(item.current.shoponlines.shopname,10)}"></span>
+                                                </div>
+                                                <a class="title-product" th:href="@{|/product/detail/${list.bookid}|}">
+                                                    <h3 th:text="${list.bookname}"></h3>
+                                                </a>
+                                                <div class="card-footer">
+                                                    <div class=""><span class="" th:text="'Đã bán '+${list.quantitysold}"></span></div>
+                                                    <div class="wcf-left"><span class="price" th:text="${#numbers.formatDecimal(list.price,0,'POINT',0,'COMMA')}+'đ'"></span></div>
+                                                    <div class="wcf-right"><a href="" class="buy-btn " th:attr="ng-click=cart.add(${list.bookid})" ><i class="bi bi-cart3" style="margin: auto"></i></a></div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                                 <div style="clear: both;">
