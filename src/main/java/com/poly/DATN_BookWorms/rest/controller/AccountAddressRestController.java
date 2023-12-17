@@ -44,7 +44,16 @@ public class AccountAddressRestController {
 	
 	@PostMapping
 	public Addressusers postAddress(@RequestBody Addressusers json){ 
-		
+		String userid = crc32_SHA256.getCodeCRC32C(request.getRemoteUser());
+		List<Addressusers> as = accountAddressService.getAdressByUser(userid);
+		if(json.getStatusaddress().equals("Mặc định")) {
+			for (Addressusers addressusers : as) {
+				if(addressusers.getStatusaddress().equals("Mặc định")) {
+					addressusers.setStatusaddress("Không");
+					accountAddressService.save(addressusers);
+				}
+			}
+		}
 		return addressService.update(json);
 	}
 	

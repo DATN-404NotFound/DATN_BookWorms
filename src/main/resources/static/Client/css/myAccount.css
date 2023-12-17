@@ -97,15 +97,16 @@ a {
 #inpDate {
     width: 40%;
     height: 100%;
-    border: none !important;
+    border: none;
     background: #F6F6F6;
 }
 
 #inpDate:focus {
     width: 40%;
     height: 100%;
-    border: none !important;
-    box-shadow: none !important;
+    border: transparent;
+    outline: none;
+    box-shadow: none;
     background: #F6F6F6;
 }
 
@@ -252,7 +253,7 @@ a {
 .boxNewAddress {
     width: 750px;
     margin-left: calc(50% - 375px);
-    margin-top: 37px;
+    margin-top: 70px;
 }
 
 .btnFinish-newAddress {
@@ -454,7 +455,6 @@ a {
 .nameBook {
     width: 350px;
     height: 76.25px;
-    font-size: 15px;
     float: left;
     margin: 24.5px 0 0 15px;
     font-weight: 500;
@@ -523,14 +523,15 @@ a {
     float: left;
     font-size: 19px;
     font-weight: 700;
+    margin-bottom: 0px;
 }
 
 #pAddressDetail {
     font-size: 14.5px;
-    color: #A7A7A7;
-    width: 384px;
+    color: #000000;
+    width: 50%;
     height: 91.25px;
-    margin: 50px 0 0 10px;
+    margin: 40px 0 0 10px;
 }
 
 #pID-orderDetail {
@@ -586,7 +587,6 @@ a {
 }
 
 .orderIsConfirm p {
-    font-size: 15px;
     font-weight: 500;
     text-align: center;
     margin-top: 15px;
@@ -613,7 +613,6 @@ a {
 }
 
 .orderIsShipping p {
-    font-size: 15px;
     font-weight: 500;
     text-align: center;
     margin-top: 15px;
@@ -640,7 +639,6 @@ a {
 }
 
 .orderHasBeanDelivered p {
-    font-size: 15px;
     font-weight: 500;
     text-align: center;
     margin-top: 15px;
@@ -842,11 +840,15 @@ a {
 
 /* rate product */
 
-.boxRateProduct,
-.boxCanceled {
+.boxRateProduct {
     width: 907.5px;
     margin-left: calc(50% - 453.75px);
-    margin-top: 37px;
+    margin-top: 70px;
+}
+.boxCanceled {
+    width: 700px;
+    margin-left: calc(50% - 350px);
+    margin-top: 70px;
 }
 
 .rateProduct {
@@ -939,6 +941,7 @@ a {
     font-size: 15px;
     border: none;
     margin-top: 30px;
+    padding: 10px;
 }
 
 ::placeholder {
@@ -957,7 +960,7 @@ a {
     background-color: #D9D9D9;
     width: 145px;
     height: 46.25px;
-    margin-right: 52px;
+    margin-right: 24px;
 }
 
 /* voucher */
@@ -1003,11 +1006,11 @@ a {
 }
 
 #promotionnameVoucher {
-    font-size: 18px;
+    font-size: 16px;
 }
 
 #timeVoucher {
-    font-size: 14px;
+    font-size: 12px;
     color: #F25019;
 }
 

@@ -36,7 +36,7 @@ public class Imageevaluates implements Serializable {
 
     //--- ENTITY PRIMARY KEY 
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Integer    imageevaid ;
 
     //--- ENTITY DATA FIELDS 

@@ -178,10 +178,10 @@ function formatNumber(nStr, decSeperate, groupSeperate) {
 function checkAll() {
 	this.tong = 0;
 	for (var i = 0; i < purchase.length; i++) {
-		console.log("purchase ", document.getElementById('cartid' + purchase[i]).innerText )
+		console.log("purchase ", document.getElementById('cartid' + purchase[i]).innerText)
 		var strprice = document.getElementById('cartid' + purchase[i]).innerText;
-	
-		console.log("jdlkfjsprice "+ strprice)
+
+		console.log("jdlkfjsprice " + strprice)
 		var reply = strprice.replaceAll(',', '');
 		this.tong += Number(reply);
 	}
@@ -590,7 +590,7 @@ app.controller("cart_ctrl", function ($scope, $http, $timeout) {
 
 	$scope.loadAll();
 
-	$scope.edu = function (id, a , b) {
+	$scope.edu = function (id, a, b) {
 		$http.get("/rest/books/cate/" + id).then(resp => {
 			$scope.a = a;
 			$scope.b = b;
@@ -623,9 +623,9 @@ app.controller("cart_ctrl", function ($scope, $http, $timeout) {
 			'Content-Type': undefined,
 			transformRequest: angular.identity
 		};
-		$http.post("/rest/categories/cateWithBook",formData, {headers: headers}).then(resp => {
+		$http.post("/rest/categories/cateWithBook", formData, { headers: headers }).then(resp => {
 			$scope.listCate = resp.data;
-			console.log("cate:",$scope.listCate)
+			console.log("cate:", $scope.listCate)
 		}).catch(error => {
 			console.log("Error", error)
 		});
@@ -952,9 +952,9 @@ function loadWin() {
 			document.getElementById('priceItem' + m.shopid).innerText = formatNumber(priceItem, ".", ",");;
 			totalPriceAll += priceItem;
 			console.log("923" + totalship)
-			var s = 	$('#shippunit'+m.shopid).children("option:selected").text();
-		var ship1 = s.slice(s.indexOf(': ')+2);
-			console.log("ship1 "+ ship1)
+			var s = $('#shippunit' + m.shopid).children("option:selected").text();
+			var ship1 = s.slice(s.indexOf(': ') + 2);
+			console.log("ship1 " + ship1)
 			totalship += Number(ship1);
 			//console.log("923"+ totalship)
 
@@ -972,7 +972,7 @@ function calculatorPrice() {
 	var a = document.getElementById('totalPriceAll').innerText.replaceAll(',', '');
 	var b = document.getElementById('shippingPrice').innerText.replaceAll(',', '');
 	var c = document.getElementById('totalSales').innerText.replaceAll(',', '');
-//	var d = document.getElementById('totalFreeShip').innerText.replaceAll(',', '').replaceAll('-', '');
+	//	var d = document.getElementById('totalFreeShip').innerText.replaceAll(',', '').replaceAll('-', '');
 	var e = document.getElementById('totalFinal');
 	var f = Number(a) + Number(b) - Number(c);
 	e.value = formatNumber(f, ".", ",");
@@ -1027,7 +1027,7 @@ app.controller("order_ctrl", function ($scope, $http, $timeout) {
 
 	$scope.paymentCart = function (stt) {
 		var payone = Number($('#pay').children("option:selected").val());
-		console.log("book "+localStorage.getItem("bookingAll"))
+		console.log("book " + localStorage.getItem("bookingAll"))
 		if (stt == 1) {
 
 			if (payone == -1) {
@@ -1058,7 +1058,7 @@ app.controller("order_ctrl", function ($scope, $http, $timeout) {
 								type: Number($('#pay').children("option:selected").val()),
 								addressuserid: $('#addressship').children("option:selected").val(),
 								addressusers: { addressuserid: $('#addressship').children("option:selected").val() },
-	
+
 							}
 						},
 						orderstatuses: { orderstatusid: 1 },
@@ -1077,7 +1077,7 @@ app.controller("order_ctrl", function ($scope, $http, $timeout) {
 									console.log("khác shop" + item.books.shopid)
 									return;
 								}
-	
+
 							})
 						},
 						costship: Number($('#shipShopPrivate' + i.shopid).text()),
@@ -1086,45 +1086,45 @@ app.controller("order_ctrl", function ($scope, $http, $timeout) {
 					}
 					var booking = angular.copy($scope.bookings);
 					console.log("ind " + JSON.stringify($scope.bookings))
-	
-					
-						if (Number($('#pay').children("option:selected").val()) == 1) {
-							localStorage.setItem("bookingAll", JSON.stringify($scope.bookings));
-						
-						}
-						else {
-							$http.post(`/rest/bookings`, booking).then(resp => {
-								console.log("1047 : " + JSON.stringify(resp.data))
-								$scope.deleteDeal();
-								$http.delete("http://localhost:8080/rest/discount/" + vouchero.discountcodeid).then(resp => {
-								})
-								console.log("949")
-								$('#dhmodal').show();
-								$('#iconModels').html('<i  style="font-size: 50px;color: green;" class="bi bi-check-circle"></i> ')
-								$('#buttonClose').hide();
-								$('#descrptionInfors').text("Đặt hàng thành công!");
-								$('#modalbutton').show();
-							}).catch(error => {
-								console.log("954")
-								$('#dhmodal').show();
-								$('#iconModels').html('<i  style="font-size: 50px;color: red;" class="bi bi-x-circle"></i> ')
-								$('#descrptionInfors').text("Đặt hàng thất bại! Vui lòng thử lại");
-								$('#buttonClose').hide();
-								$('#modalbutton').show();
-								console.log(error)
+
+
+					if (Number($('#pay').children("option:selected").val()) == 1) {
+						localStorage.setItem("bookingAll", JSON.stringify($scope.bookings));
+
+					}
+					else {
+						$http.post(`/rest/bookings`, booking).then(resp => {
+							console.log("1047 : " + JSON.stringify(resp.data))
+							$scope.deleteDeal();
+							$http.delete("http://localhost:8080/rest/discount/" + vouchero.discountcodeid).then(resp => {
 							})
-						}
-	
-					
-		
+							console.log("949")
+							$('#dhmodal').show();
+							$('#iconModels').html('<i  style="font-size: 50px;color: green;" class="bi bi-check-circle"></i> ')
+							$('#buttonClose').hide();
+							$('#descrptionInfors').text("Đặt hàng thành công!");
+							$('#modalbutton').show();
+						}).catch(error => {
+							console.log("954")
+							$('#dhmodal').show();
+							$('#iconModels').html('<i  style="font-size: 50px;color: red;" class="bi bi-x-circle"></i> ')
+							$('#descrptionInfors').text("Đặt hàng thất bại! Vui lòng thử lại");
+							$('#buttonClose').hide();
+							$('#modalbutton').show();
+							console.log(error)
+						})
+					}
+
+
+
 				});
 			}
 		}
 		else {
-		let	booking = [];
-		booking =  JSON.parse(localStorage.getItem("bookingAll"));
-		console.log("sssboooknew "+ JSON.stringify(booking))
-			$http.post(`/rest/bookings`,booking).then(resp => {
+			let booking = [];
+			booking = JSON.parse(localStorage.getItem("bookingAll"));
+			console.log("sssboooknew " + JSON.stringify(booking))
+			$http.post(`/rest/bookings`, booking).then(resp => {
 				console.log("1047 : " + JSON.stringify(resp.data))
 				$scope.deleteDeal();
 				$http.delete("http://localhost:8080/rest/discount/" + vouchero.discountcodeid).then(resp => {
@@ -1132,15 +1132,24 @@ app.controller("order_ctrl", function ($scope, $http, $timeout) {
 				location.href = "/cart"
 			}).catch(error => {
 
-				console.log("1105",error)
+				console.log("1105", error)
 			})
 		}
 
 	}
 });
 
-
-app.controller("address_ctrl", function ($scope, $http) {
+app.directive('fileInput', ['$parse', function ($parse) {
+	return {
+		restrict: 'A',
+		link: function (scope, elm, attrs) {
+			elm.bind('change', function () {
+				$parse(attrs.fileInput).assign(scope, elm[0].files)
+				scope.$apply()
+			})
+		}
+	}
+}]).controller("address_ctrl", function ($scope, $http, $window, $timeout) {
 
 	$scope.voucherUser = function () {
 		console.log("9888")
@@ -1171,15 +1180,15 @@ app.controller("address_ctrl", function ($scope, $http) {
 		console.log(ad.ward + ', ' + ad.district + ', ' + ad.province);
 		let checkedradio = $('[name="sstatusEditAddress"]:radio:checked').val();
 		ad.statusaddress = checkedradio;
-		console.log("radio "+ checkedradio )
+		console.log("radio " + checkedradio)
 		$http.post("/rest/address", ad).then(resp => {
 			location.href = "/myAccount/address";
 		})
 	}
 
-	$scope.setDefault = function(id){
-		$http.put("/rest/address/update",id).then(resp =>{
-			console.log("address "+ resp.data)
+	$scope.setDefault = function (id) {
+		$http.put("/rest/address/update", id).then(resp => {
+			console.log("address " + resp.data)
 			location.href = "/myAccount/address";
 		})
 	}
@@ -1231,7 +1240,7 @@ app.controller("address_ctrl", function ($scope, $http) {
 
 	$scope.updateBooking = function () {
 		var ad = angular.copy($scope.add);
-		console.log("cart 1144 "+ ad[0].bookingid)
+		console.log("cart 1144 " + ad[0].bookingid)
 		$http.post("/rest/bookings/update", ad[0].bookingid).then(resp => {
 			location.href = "/myAccount/orderMyAccount";
 		})
@@ -1252,22 +1261,26 @@ app.controller("address_ctrl", function ($scope, $http) {
 		})
 	}
 
-	$scope.evaluate = {}; // Khởi tạo đối tượng để lưu trữ dữ liệu đánh giá
 
+
+	$scope.evaluate = {};
 	$scope.postEvaluate = function () {
-		// Lấy dữ liệu cho Evaluate từ $scope.evaluate và $scope.dbIdForEvaluate
 		var evaluateData = {
 			dbid: $scope.dbIdForEvaluate,
 			rating: parseFloat(document.querySelector('input[name="rating"]:checked').value),
 			reviewtext: $scope.evaluate.reviewtext,
 			evaluatedate: new Date()
 		};
-		console.log(evaluateData)
-		// Gửi yêu cầu POST để tạo Evaluate
+	
+		const headers = {
+			'Content-Type': "application/json",
+			transformRequest: angular.identity
+		};
+
 		$http.post("/api/evaluates/save", evaluateData).then(resp => {
-			//$('#idRating-orderDetail').text("Mua lại")
-			console.log("Evaluate created:", resp.data);
-			location.href = "/myAccount/orderDetailMyAccount/" + $scope.add.bookingid;
+			$scope.evaluateId = resp.data.evaluateid;
+			console.log("Evaluate id:", $scope.evaluateId);
+			// location.href = "/myAccount/orderDetailMyAccount/" + $scope.add.bookingid;
 			alert("Đánh giá thành công")
 
 		}).catch(error => {
@@ -1275,8 +1288,68 @@ app.controller("address_ctrl", function ($scope, $http) {
 			alert("Thất bại")
 			// Xử lý lỗi nếu cần
 		});
+
+	}
+
+	//image
+	$scope.filesChanged = function (elm) {
+		$scope.files.push(elm.files);
+		$scope.$apply();
+	}
+	$scope.upload = function () {
+
+		for (let i = 0; i < $scope.files.length; ++i) {
+			var fd = new FormData();
+			console.log("Lặp lại " + $scope.files.length + " lần");
+			fd.append('file', $scope.files[i]);
+			fd.append('evaluateid', $scope.evaluateId);
+
+			$http.post("/api/evaluates/uploadImages", fd, {
+				transformRequest: angular.identity,
+				headers: { 'Content-Type': undefined }
+			}).then(function (response) {
+				console.log(response.data);
+			}).catch(function (error) {
+				console.error(error);
+			});
+		}
 	};
 
+	//  Khởi tạo đối tượng để lưu trữ dữ liệu đánh giá
+
+	// $scope.postEvaluate = function () {
+	// 	// Lấy dữ liệu cho Evaluate từ $scope.evaluate và $scope.dbIdForEvaluate
+	// 	var evaluateData = {
+	// 		dbid: $scope.dbIdForEvaluate,
+	// 		rating: parseFloat(document.querySelector('input[name="rating"]:checked').value),
+	// 		reviewtext: $scope.evaluate.reviewtext,
+	// 		evaluatedate: new Date()
+	// 	};
+	// 	$scope.imagebook = []
+	// 	console.log(evaluateData)
+	// 	// Gửi yêu cầu POST để tạo Evaluate
+	// 	$http.post("/api/evaluates/save", evaluateData).then(resp => {
+	// 		//$('#idRating-orderDetail').text("Mua lại")
+	// 		console.log("Evaluate created:", resp.data);
+	// 		// location.href = "/myAccount/orderDetailMyAccount/" + $scope.add.bookingid;
+	// 		alert("Đánh giá thành công")
+
+	// 	}).catch(error => {
+	// 		console.error("Error creating Evaluate:", error);
+	// 		alert("Thất bại")
+	// 		// Xử lý lỗi nếu cần
+	// 	});
+	// };
+
+
+	$scope.saveBook = function () {
+		$scope.postEvaluate();
+
+		$timeout(function () {
+			$scope.upload();
+		}, 1000);
+
+	}
 
 	// voucher MyAccount
 	$scope.callVoucherMA = function (discountcodeid) {
@@ -1295,7 +1368,7 @@ app.controller("address_ctrl", function ($scope, $http) {
 			$http.get("/rest/books/" + id).then(resp => {
 				var bookQuan = resp.data;
 				var item = this.items.find(item => item.books.bookid == id);
-				console.log("1258 "+ item)
+				console.log("1258 " + item)
 				if (item) {
 					console.log("1253");
 					item.quantity += 1;
@@ -1303,7 +1376,7 @@ app.controller("address_ctrl", function ($scope, $http) {
 						$scope.messageBook = "Số lượng sách trong kho không đủ"
 					}
 					else {
-					
+
 						$scope.messageBook = "";
 						var updatecart = `${host}`;
 						var cartupdate = angular.copy(item);
@@ -1333,12 +1406,12 @@ app.controller("address_ctrl", function ($scope, $http) {
 								this.items.push(resp.data);
 								$scope.cart.load();
 								$('#cartUser').text(Number($('#cartUser').text()) + 1);
-							
+
 							})
 						})
 					}
 				}
-				location.href='/cart'
+				location.href = '/cart'
 			});
 
 		},
@@ -1347,8 +1420,8 @@ app.controller("address_ctrl", function ($scope, $http) {
 			console.log("mua lại" + bookingid)
 			$http.get("/rest/bookings/" + bookingid).then(resp => {
 				var de = resp.data;
-				de.forEach(i =>{ 
-					
+				de.forEach(i => {
+
 					$scope.cart.add(i.books.bookid)
 				})
 			});
@@ -1359,18 +1432,18 @@ app.controller("address_ctrl", function ($scope, $http) {
 				this.items = resp.data;
 			});
 		}
-		
+
 
 
 	}
 	$scope.cart.load();
-	$scope.printOrder = function(bookingid){
+	$scope.printOrder = function (bookingid) {
 		$http({
 			method: 'GET',
 			url: '/rest/bookings/generate/' + bookingid,
 			responseType: 'arraybuffer'
 		}).then(function (response) {
-			var blob = new Blob([response.data], {type: 'application/pdf'});
+			var blob = new Blob([response.data], { type: 'application/pdf' });
 			var url = window.URL.createObjectURL(blob);
 			var a = document.createElement('a');
 			a.href = url;

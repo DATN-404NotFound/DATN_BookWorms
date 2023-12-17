@@ -101,7 +101,7 @@
             <div class="modal-dialog">
                 <div class="modal-content boxRateProduct">
                     <div class="modal-header" style="border: none;">
-                        <h3 class="modal-title" id="exampleModalLabel">Đánh Giá Sản Phẩm</h3>
+                        <h4 class="modal-title ms-3" id="exampleModalLabel">Đánh Giá Sản Phẩm</h4>
                     </div>
                     <div class="modal-body">
                         <div class="rateProduct mb-5">
@@ -110,7 +110,8 @@
                                 alt="">
                             <span ></span>
                             <p class="nameProductRate">{{add.books.bookname}}</p> <br> <br>
-                            <button class="btn btnChooseImageRate" hidden>Chọn ảnh</button>
+                            <!-- <button class="btn btnChooseImageRate">Chọn ảnh</button> -->
+                            <input class="" type="file" ng-model="files" multiple required file-input="files">
                             <div id="rating" class="star-rate">
                                 <input type="radio" onclick="ab(id)" id="star5" name="rating" value="5" />
                                 <label class="full" for="star5" title="Awesome - 5 stars"></label>
@@ -147,9 +148,9 @@
                         </div>
                     </div>
                     <div class="modal-footer" style="border: none;">
-                        <button type="button" class="btn btnFinish-rateProduct" ng-click="postEvaluate()">Hoàn
+                        <button type="button" class="btn btnFinish-rateProduct" ng-click="saveBook()">Hoàn
                             thành</button>
-                        <button type="button" class="btn btnCancel-rateProduct" data-bs-dismiss="modal">Hủy</button>
+                        <button type="button" class="btn btnCancel-rateProduct" data-bs-dismiss="modal">Trở lại</button>
                     </div>
                 </div>
             </div>
