@@ -925,7 +925,12 @@ app.controller('transportController', function ($scope, $routeParams, $route, $h
         selectedBookings.forEach(function (booking) {
             $http.put('/rest/tranportChannel/' + booking.bookingid + '/' + status + '/updateOrderStatus')
                 .then(function (response) {
-                    $scope.findByOrderStatusId(3);
+                    if (status == 4){
+                        $scope.findByOrderStatusId(3);
+                    }else if(status == 5){
+                        $scope.findByOrderStatusId(4);
+                    }
+
                 })
                 .catch(function (error) {
                 });
@@ -947,13 +952,20 @@ app.controller('transportController', function ($scope, $routeParams, $route, $h
     //Check Tab
     $scope.waitForConfirmationTabSelected = false;
     $scope.showCheckboxColumn = false;
+    $scope.shippingTabSelected = false;
     $scope.tabSelected = function (tabId) {
         if (tabId === 3) {
             $scope.waitForConfirmationTabSelected = true;
             $scope.showCheckboxColumn = true;
-        } else {
+            $scope.shippingTabSelected = false;
+        } else if(tabId === 4){
+            $scope.waitForConfirmationTabSelected = true;
+            $scope.showCheckboxColumn = true;
+            $scope.shippingTabSelected = true;
+        }else {
             $scope.waitForConfirmationTabSelected = false;
             $scope.showCheckboxColumn = false;
+            $scope.shippingTabSelected = false;
         }
     };
 
