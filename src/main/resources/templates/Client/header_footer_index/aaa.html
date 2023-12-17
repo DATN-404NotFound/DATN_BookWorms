@@ -14,19 +14,21 @@
     </script>
     <div class="modal" id="myModal" style="font-family: Lato;">
 
-        <div class="modal-dialog modal-md" style="margin-top: 20px; height: 400px;">
-            <div class="modal-content" style="border-radius: 20px;">
+        <div class="modal-dialog modal-md" style="margin-top: 20px;">
+            <div class="modal-content" style="border-radius: 5px;">
 
                 <!-- Modal Header -->
-                <div class="modal-header" style="height: 40px;padding: 30px;background-color: #C93F04;border-top-right-radius: 20px;border-top-left-radius: 20px">
-                    <h4 class="modal-title fs-6 text-light" id="descrptionTitle">Xin chào</h4>
+                <div class="modal-header" style="height: 20px;padding: 30px;border-top-right-radius: 5px;border-top-left-radius: 5px">
+                    <h4 class="modal-title fs-6 " id="descrptionTitle" style="color: #C93F04; border-bottom: white; font-weight: bold">
+                        <img th:src="@{/SellerChannel/images/Tham-khao-mau-icon-Hello-dac-sac.jpg}" class="img-fluid float-left" style="width: 50px; margin-right: 10px">
+                        Xin chào</h4>
                     <button type="button" class="btn btn-close" aria-label="Close" data-dismiss="modal"
                             aria-hidden="true" hidden>
                     </button>
                 </div>
 
                 <!-- Modal body -->
-                <div class="modal-body p-2" style="">
+                <div class="modal-body p-2 text-left">
                     <div id="descriptionInfor" class="fs-6 " style="height: 50px;color: black;padding-left: 20px">Xin chào
                         <span th:text="${user.getFullname()}"></span> ,
                         <span>Hi vọng có thời gian mua sắm tuyệt vời tại IBook </span>
@@ -111,10 +113,10 @@
                 </div>
 
             </div>
-            <div style="position: absolute; top: 200px; text-align: center; z-index: 111; left: 44%;"><span
+            <div style="position: absolute; top: 200px; text-align: center; z-index: 111; left: 43%;"><span
                     style="font-size: 35px; font-weight: 400; color: white;">SẢN PHẨM MỚI</span></div>
 
-            <div style="position: absolute; top: 300px; text-align: center; z-index: 111; left: 17%;"><span
+            <div style="position: absolute; top: 300px; text-align: center; z-index: 111; left: 19%;"><span
                     style="font-size: 100px; font-weight:normal; color: white; font-family:Georgia, 'Times New Roman', Times, non-serif;">THẾ GIỚI TRONG TỪNG <br> TRANG SÁCH</span></div>
             <div style="position: absolute; top: 590px; text-align: center; z-index: 111; left: 45%;"><span
                     style="font-size: 35px; font-weight: 200; color: white;">BYRON RESSE</span></div>

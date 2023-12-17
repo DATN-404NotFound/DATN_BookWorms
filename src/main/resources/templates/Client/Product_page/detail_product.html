@@ -4,10 +4,17 @@
 <body>
     <main ng-app="cart_app" ng-controller="cart_ctrl">
         <div class="cart_articical" style="margin-top: 70px;">
-
+            <nav aria-label="breadcrumb" style="padding-top: 20px; margin-left: 9.6%">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a th:href="@{Ibook/index}" style="font-weight: bold">Trang chủ</a></li>
+                    <li class="breadcrumb-item"><a th:href="@{/product/list}" style="font-weight: bold">Sản phẩm</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Chi tiết sản phẩm</li>
+                </ol>
+            </nav>
             <div class="cart_body">
                 <div class="contain">
                     <div class="container-fliud">
+
                         <div class="row">
                             <div class="col-sm-1 text-center">
 

@@ -2,7 +2,12 @@
 <html xmlns:th="http://www.thymeleaf.org" th:replace="~{/Client/index::dynamic(~{::main})}">
 <body>
     <main ng-controller="cart_ctrl" style="width: 98%; height: auto; margin: auto; margin-top: 70px;">
-        <div></div>
+        <nav aria-label="breadcrumb" style="padding-top: 20px">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a th:href="@{/Ibook/index}" style="font-weight: bold">Trang chủ</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Sản phẩm</li>
+            </ol>
+        </nav>
         <div>
             <div class="d-inline-flex p-3 text-white">
                 <div class="p-2">

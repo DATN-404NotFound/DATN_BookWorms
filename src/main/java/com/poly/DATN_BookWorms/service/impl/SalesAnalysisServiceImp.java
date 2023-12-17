@@ -80,7 +80,7 @@ public class SalesAnalysisServiceImp implements SalesAnalysisService {
         if (listBookFormShop.size()>0)
             return booksRepo.getProductViews(shopId);
         else
-            return booksRepo.getProductViews(shopId);
+            return 0;
     }
 
     @Override
