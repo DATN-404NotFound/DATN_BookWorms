@@ -85,5 +85,8 @@ public interface BooksRepo extends JpaRepository<Books, Long> {
 	
 	@Query("SELECT b FROM Books b GROUP BY b ORDER BY SUM(b.quantitysold) ASC limit 5")
 	List<Books> findTop5Inventory();
+
+    @Query("Select b.shoponlines from Books b where b.bookid like ?1")
+    Shoponlines s(long bookid);
 }
 
