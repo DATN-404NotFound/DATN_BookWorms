@@ -26,8 +26,6 @@ import org.springframework.web.multipart.MultipartFile;
 @RequestMapping("/rest/books")
 public class BookRestController {
 
-	
-	
 	@Autowired
 	BookService bookService;
 	@Autowired
@@ -36,27 +34,27 @@ public class BookRestController {
 	PublishingCompanyService publishingCompanyService;
 	@Autowired
 	SessionService service;
+
 	@GetMapping
 	public List<Books> getAll() {
 		return bookService.findAll();
 	}
+
 	@GetMapping("/ab")
 	public List<Books> getAllById() {
 		Account account = service.get("user");
 
 		return bookService.findByshopidv2(account.getListOfShoponlines().get(0).getShopid());
 	}
-	
+
 	@GetMapping("/cate/{id}")
 	public List<Books> getAll5(@PathVariable("id") Integer id) {
-		
-		return  bookService.getBooksByCategoryID(id);
-	}
-	
 
-	
+		return bookService.getBooksByCategoryID(id);
+	}
+
 	@PutMapping("{id}")
-	public Books update(@PathVariable("id")Integer id, @RequestBody Books book) {
+	public Books update(@PathVariable("id") Integer id, @RequestBody Books book) {
 		return bookService.update(book);
 	}
 
@@ -65,57 +63,60 @@ public class BookRestController {
 		bookService.delete(bookId);
 		return ResponseEntity.ok().build();
 	}
-	
+
 	@GetMapping("/{id}")
-	public Books getOne(@PathVariable("id")Long id) {
+	public Books getOne(@PathVariable("id") Long id) {
 		return bookService.findById(id);
 	}
+
 	@GetMapping("/shop")
 	public List<Books> getBookListShop(@RequestParam("shopid") Integer shopid) {
-	
+
 		return bookService.findByShopList(shopid);
 	}
-	
+
 	@GetMapping("/type")
-	public List<Integer> getBookWithTypeBook(@RequestParam("listtype") String listtype){ 
-		String[] listty =listtype.split(",");
+	public List<Integer> getBookWithTypeBook(@RequestParam("listtype") String listtype) {
+		String[] listty = listtype.split(",");
 		List<Integer> listtypes = new ArrayList<Integer>();
-		for(int i=0; i<listty.length;i++) { 
+		for (int i = 0; i < listty.length; i++) {
 			listtypes.add(Integer.parseInt(listty[i]));
 		}
-		
+
 		return bookService.getBookWithTypeBook(listtypes);
 	}
-	
+
 	@GetMapping("/writer")
-	public List<Integer> getBookWithWriter(@RequestParam("listwriter") String listwriter){ 
-		String[] listty =listwriter.split(",");
+	public List<Integer> getBookWithWriter(@RequestParam("listwriter") String listwriter) {
+		String[] listty = listwriter.split(",");
 		List<Integer> listtypes = new ArrayList<Integer>();
-		for(int i=0; i<listty.length;i++) { 
+		for (int i = 0; i < listty.length; i++) {
 			listtypes.add(Integer.parseInt(listty[i]));
 		}
-		
+
 		return bookService.getBookWithWriters(listtypes);
 	}
-	
+
 	@GetMapping("/Eva")
-	public List<Integer> getBookWithEvaluate(@RequestParam("listeva") String listeva){ 
-		String[] listty =listeva.split(",");
+	public List<Integer> getBookWithEvaluate(@RequestParam("listeva") String listeva) {
+		String[] listty = listeva.split(",");
 		List<Integer> listtypes = new ArrayList<Integer>();
-		for(int i=0; i<listty.length;i++) { 
+		for (int i = 0; i < listty.length; i++) {
 			listtypes.add(Integer.parseInt(listty[i]));
 		}
 		return bookService.getBookWithEvaluate(listtypes);
 	}
+
 //	@GetMapping("/list/{id}")
 //	public List<Shoponlines> listshopDeal(@PathVariable("id") Long id){ 
 //		System.out.println("listshopBooks "+ bookService.list_shopId_deal(id));
 //		return bookService.list_shopId_deal(id);
 //	}
-@GetMapping("/names")
-public List<Categories> getAllCategoryNames() {
-	return categoryService.findAll();
-}
+	@GetMapping("/names")
+	public List<Categories> getAllCategoryNames() {
+		return categoryService.findAll();
+	}
+
 	@GetMapping("/publishingcompany")
 	public ResponseEntity<List<Publishingcompanies>> getAllPublishingCompany() {
 		List<Publishingcompanies> publishingCompanies = publishingCompanyService.findAll();
@@ -126,27 +127,24 @@ public List<Categories> getAllCategoryNames() {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 	}
+
 	@PostMapping("/create")
 	public ResponseEntity<String> createBook(@RequestParam("bookname") String bookname,
-											 @RequestParam("category") Integer category,
-											 @RequestParam("language") String language,
-											 @RequestParam("size") String size,
-											 @RequestParam("weight") Double weight,
-											 @RequestParam("totalpage") Integer totalpage,
-											 @RequestParam("publishingyear") Integer publishingyear,
-											 @RequestParam("price") Double price,
-											 @RequestParam("quantity") Integer quantity,
-											 @RequestParam("publishingcompanyid") Integer publishingcompanyid,
-											 @RequestParam("isactive") Boolean isactive,
-											 @RequestPart("images") MultipartFile[] images) {
+			@RequestParam("category") Integer category, @RequestParam("language") String language,
+			@RequestParam("size") String size, @RequestParam("weight") Double weight,
+			@RequestParam("totalpage") Integer totalpage, @RequestParam("publishingyear") Integer publishingyear,
+			@RequestParam("price") Double price, @RequestParam("quantity") Integer quantity,
+			@RequestParam("publishingcompanyid") Integer publishingcompanyid,
+			@RequestParam("isactive") Boolean isactive, @RequestPart("images") MultipartFile[] images) {
 		try {
 			if (category == null || images == null || images.length == 0) {
 				return ResponseEntity.badRequest().body("Invalid category or empty images.");
 			}
-			Books book = bookService.creates(bookname, language, size, weight, totalpage, publishingyear,
-					price, quantity, publishingcompanyid, isactive, images, category);
+			Books book = bookService.creates(bookname, language, size, weight, totalpage, publishingyear, price,
+					quantity, publishingcompanyid, isactive, images, category);
 			if (book != null && book.getBookid() != null) {
-				return ResponseEntity.status(HttpStatus.CREATED).body("Book created successfully. Book ID: " + book.getBookid());
+				return ResponseEntity.status(HttpStatus.CREATED)
+						.body("Book created successfully. Book ID: " + book.getBookid());
 			} else {
 				return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error creating book.");
 			}
@@ -155,8 +153,10 @@ public List<Categories> getAllCategoryNames() {
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error creating book.");
 		}
 	}
+
 	@PutMapping("/updateIsActive/{bookId}")
-	public ResponseEntity<Void> updateIsActive(@PathVariable Long bookId, @RequestBody Map<String, Boolean> requestBody) {
+	public ResponseEntity<Void> updateIsActive(@PathVariable Long bookId,
+			@RequestBody Map<String, Boolean> requestBody) {
 		boolean newIsActive = requestBody.get("isactive");
 		bookService.updateIsActive(bookId, newIsActive);
 		return ResponseEntity.ok().build();

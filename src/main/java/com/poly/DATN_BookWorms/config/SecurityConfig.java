@@ -4,6 +4,8 @@ package com.poly.DATN_BookWorms.config;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.Customizer;
@@ -24,6 +26,8 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+import com.poly.DATN_BookWorms.repo.ViewWebRepo;
+
 import java.io.IOException;
 
 
@@ -31,9 +35,12 @@ import java.io.IOException;
 @EnableWebSecurity
 public class SecurityConfig implements WebMvcConfigurer{
 	
+	@Autowired
+	ViewWebRepo webRepo;
+	
 	@Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(new ViewCount());
+        registry.addInterceptor(new ViewCount(webRepo));
     }
 	
 	@Bean

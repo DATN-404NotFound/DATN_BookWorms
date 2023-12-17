@@ -22,15 +22,18 @@ import com.poly.DATN_BookWorms.entities.Detailbookings;
 import com.poly.DATN_BookWorms.entities.Publishingcompanies;
 import com.poly.DATN_BookWorms.entities.Sales;
 import com.poly.DATN_BookWorms.entities.Shoponlines;
+import com.poly.DATN_BookWorms.entities.ViewWeb;
 import com.poly.DATN_BookWorms.repo.BookingsRepo;
 import com.poly.DATN_BookWorms.repo.BooksRepo;
 import com.poly.DATN_BookWorms.repo.DetailbookingsRepo;
+import com.poly.DATN_BookWorms.repo.ViewWebRepo;
 import com.poly.DATN_BookWorms.response.DetailBookingResponse;
 import com.poly.DATN_BookWorms.service.BookService;
 import com.poly.DATN_BookWorms.service.BookingService;
 import com.poly.DATN_BookWorms.service.PublishingCompanyService;
 import com.poly.DATN_BookWorms.service.SaleService;
 import com.poly.DATN_BookWorms.service.ShopOnlineService;
+import com.poly.DATN_BookWorms.utils.SessionService;
 
 import jakarta.servlet.ServletContext;
 import jakarta.servlet.http.HttpServletRequest;
@@ -62,7 +65,11 @@ public class AdminController {
 	ShopOnlineService shopOnlineService;
 	@Autowired
 	PublishingCompanyService publishingCompanyService;
+	@Autowired
+	ViewWebRepo viewWebRepo;
 	
+	@Autowired
+	SessionService session;
 	public void display(Model model) {
 		long countUnpaid = bookingService.countUnpaid();
 		model.addAttribute("countUnpaid", countUnpaid);
@@ -95,10 +102,15 @@ public class AdminController {
 	public String findByOrderUser(Model model) {
 		List<Bookings> item = bookingService.findAll();
 		model.addAttribute("item", item);
+		
 		long countBooking = bookingService.countBooking();
-
+		ViewWeb viewWeb = viewWebRepo.findById(1).get();
+		
 		model.addAttribute("countBooking", countBooking);
+		
+		model.addAttribute("view", viewWeb);
 		display(model);
+		session.set("viewWeb", viewWeb);
 		return "admin/findOrderUser";
 	}
 	

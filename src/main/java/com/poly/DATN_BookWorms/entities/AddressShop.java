@@ -20,7 +20,6 @@ public class AddressShop implements Serializable {
 
     private String namereceiver;
 
-    private String address;
 
     @Temporal(TemporalType.DATE)
     @Column(name="createat")
@@ -40,8 +39,6 @@ public class AddressShop implements Serializable {
         sb.append(addressshopid);
         sb.append("|");
         sb.append(namereceiver);
-        sb.append("|");
-        sb.append(address);
         sb.append("|");
         sb.append(phonenumber);
         sb.append("|");
@@ -67,14 +64,6 @@ public class AddressShop implements Serializable {
 
 	public void setNamereceiver(String namereceiver) {
 		this.namereceiver = namereceiver;
-	}
-
-	public String getAddress() {
-		return address;
-	}
-
-	public void setAddress(String address) {
-		this.address = address;
 	}
 
 	public Date getCreateat() {
