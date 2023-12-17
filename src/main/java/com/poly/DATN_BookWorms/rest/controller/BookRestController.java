@@ -94,12 +94,7 @@ public class BookRestController {
 		System.out.println("111111111111111" + bookService.findById(id));
 		return bookService.findById(id);
 	}
-
-	//	@GetMapping("/list/{id}")
-//	public List<Shoponlines> listshopDeal(@PathVariable("id") Long id){
-//		System.out.println("listshopBooks "+ bookService.list_shopId_deal(id));
-//		return bookService.list_shopId_deal(id);
-//	}
+	
 	@GetMapping("/names")
 	public List<Categories> getAllCategoryNames() {
 		return categoryService.findAll();
