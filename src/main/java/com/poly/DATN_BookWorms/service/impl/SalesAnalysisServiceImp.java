@@ -32,6 +32,7 @@ public class SalesAnalysisServiceImp implements SalesAnalysisService {
     public double getMonthSales(Date startDate, Date endDate) {
         List<Bookings> bookings = bookingsRepo.getIsSuccess(startDate, endDate);
         List<Detailbookings> detailbookings = new ArrayList<>();
+
         for (Bookings booking : bookings) {
             detailbookings.addAll(booking.getListOfDetailbookings());
         }
@@ -74,8 +75,12 @@ public class SalesAnalysisServiceImp implements SalesAnalysisService {
 
     @Override
     public int getProductView(Integer shopId) {
+        List<Books> listBookFormShop = booksRepo.findBookByShopId(shopId);
 
-        return booksRepo.getProductViews(shopId);
+        if (listBookFormShop.size()>0)
+            return booksRepo.getProductViews(shopId);
+        else
+            return booksRepo.getProductViews(shopId);
     }
 
     @Override
