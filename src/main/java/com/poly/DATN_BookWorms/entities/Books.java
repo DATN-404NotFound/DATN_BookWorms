@@ -63,7 +63,6 @@ public class Books implements Serializable {
     @Column(name = "quantity")
     public Integer quantity;
 
-    @Column(name = "statues", length = 20)
     public String statues;
 
     public Integer publishingcompanyid;
@@ -143,8 +142,6 @@ public class Books implements Serializable {
         sb.append(price);
         sb.append("|");
         sb.append(quantity);
-        sb.append("|");
-        sb.append(statues);
         sb.append("|");
         sb.append(publishingcompanyid);
         sb.append("|");

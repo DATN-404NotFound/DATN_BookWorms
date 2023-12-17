@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" ng-app="myApp">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" ng-app="Admin">
 
 <head>
 <meta charset="utf-8">
@@ -72,6 +72,11 @@
 						<div class="row">
 							<!-- Striped rows -->
 							<div class="col-md-12 col-lg-8">
+							<select class="form-control w-25 mb-2" ng-model="statusFilter" ng-change="filterBooks(statusFilter)">
+								<option value="" selected="selected">All</option>
+								<option value="1">Active</option>
+								<option value="0">Inactive</option>
+							</select>
 								<div class="card shadow" style="width: 1300px; height: 600px">
 									<div class="card-header">
 										<strong class="card-title">List Books</strong> <a
@@ -95,16 +100,16 @@
 												</tr>
 											</thead>
 											<tbody>
-												 <tr th:each="item : ${item}">
-													<td th:text="${item.bookid}"></td>
-													<th scope="col" th:text="${item.bookname}"></th>
-													<td th:text="${item.publishingyear}"></td>
-													<td style="width: 120px" th:text="${item.price} + ' VND'"></td>
-													<td th:text="${item.quantity}"></td>
-													<td th:text="${item.statues}"></td>
-													<td th:text="${item.publishingcompanies.namepc}"></td>
-													<td th:text="${item.shoponlines.shopname}"></td>
-													<td th:text="${item.productviews}"></td>
+												 <tr ng-repeat="item in books | filter: filterByActive">
+													<td>{{item.bookid}}</td>
+													<th>{{item.bookname}}</th>
+													<th>{{item.publishingyear}}</th>
+													<th>{{item.price}}</th>
+													<th>{{item.quantity}}</th>
+													<th>{{item.statues}}</th>
+													<th>{{item.publishingcompanies.namepc}}</th>
+													<th>{{item.shoponlines.shopname}}</th>
+													<th>{{item.productviews}}</th>
 												</tr>
 											</tbody>
 										</table>

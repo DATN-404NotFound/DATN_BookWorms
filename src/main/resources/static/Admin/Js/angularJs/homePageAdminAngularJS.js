@@ -55,10 +55,14 @@ app.config(function($routeProvider) {
 		})
 		.when('/admin/statisticalbook', {
 			templateUrl: '/admin/statisticalbook',
-			controller: ''
+			controller: 'bookController'
 		})
 		.when('/admin/statisticalshop', {
 			templateUrl: '/admin/statisticalshop',
+			controller: ''
+		})
+		.when('/admin/statisticalpublishingcompany', {
+			templateUrl: '/admin/statisticalpublishingcompany',
 			controller: ''
 		})
 })
@@ -90,3 +94,28 @@ app.controller("findtop5", function($scope, $routeParams, $route, $http, $rootSc
 
 	$scope.changeOrder();
 })
+
+app.controller('bookController', function($scope, $http) {
+    $scope.statusFilter = ''; // Mặc định hiển thị tất cả sách
+
+    $http.get('/rest/books').then(function(response) {
+        $scope.books = response.data;
+    });
+    
+
+    $scope.filterBooks = function(status) {
+		console.log(status)
+        $scope.statusFilter = status;
+        
+    };
+    
+    
+    $scope.filterByActive = function (b) {
+		if (b.isactive== $scope.statusFilter) {
+			return b;
+		}
+		if($scope.statusFilter == ""){
+			return b;
+		}
+	};
+});

@@ -19,6 +19,7 @@ import com.itextpdf.text.DocumentException;
 import com.poly.DATN_BookWorms.entities.Bookings;
 import com.poly.DATN_BookWorms.entities.Books;
 import com.poly.DATN_BookWorms.entities.Detailbookings;
+import com.poly.DATN_BookWorms.entities.Publishingcompanies;
 import com.poly.DATN_BookWorms.entities.Sales;
 import com.poly.DATN_BookWorms.entities.Shoponlines;
 import com.poly.DATN_BookWorms.repo.BookingsRepo;
@@ -27,6 +28,7 @@ import com.poly.DATN_BookWorms.repo.DetailbookingsRepo;
 import com.poly.DATN_BookWorms.response.DetailBookingResponse;
 import com.poly.DATN_BookWorms.service.BookService;
 import com.poly.DATN_BookWorms.service.BookingService;
+import com.poly.DATN_BookWorms.service.PublishingCompanyService;
 import com.poly.DATN_BookWorms.service.SaleService;
 import com.poly.DATN_BookWorms.service.ShopOnlineService;
 
@@ -58,7 +60,9 @@ public class AdminController {
 	BookingsRepo bookingsRepo;
 	@Autowired
 	ShopOnlineService shopOnlineService;
-
+	@Autowired
+	PublishingCompanyService publishingCompanyService;
+	
 	public void display(Model model) {
 		long countUnpaid = bookingService.countUnpaid();
 		model.addAttribute("countUnpaid", countUnpaid);
@@ -110,6 +114,13 @@ public class AdminController {
 		List<Shoponlines> item = shopOnlineService.findAll();
 		model.addAttribute("item", item);
 		return "admin/statisticalshop";
+	}
+	
+	@GetMapping("/statisticalpublishingcompany")
+	public String statisticalPublishingCompany(Model model) {
+		List<Publishingcompanies> item = publishingCompanyService.findAll();
+		model.addAttribute("item", item);
+		return "admin/statisticalpublishingcompany";
 	}
 
 	@GetMapping("/unpaid")

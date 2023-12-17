@@ -74,7 +74,7 @@
 							<div class="col-md-12 col-lg-8">
 								<div class="card shadow" style="width: 1300px; height: 600px">
 									<div class="card-header">
-										<strong class="card-title">List Shop</strong> <a
+										<strong class="card-title">List Publishing Company</strong> <a
 											class="float-right small text-muted" href="#!">View all</a>
 									</div>
 									<div class="card-body my-n2" data-simplebar
@@ -83,23 +83,22 @@
 											class="table table-striped table-hover table-borderless">
 											<thead>
 												<tr>
-													<th>Shop ID</th>
-													<th>Shop Name</th>
-													<th>Phone Number</th>
-													<th>Total</th>
-													<th>Description</th>
-													<th>User</th>
+													<th>Publishing Company ID</th>
+													<th>Name</th>
+													<th>Phone</th>
+													<th>Email</th>
+													<th>Address</th>
+													<th>Profile</th>
 												</tr>
 											</thead>
 											<tbody>
 												 <tr th:each="item : ${item}">
-													<td th:text="${item.shopid}"></td>
-													<th scope="col" th:text="${item.shopname}"></th>
-													<td th:text="${item.phonenumber}"></td>
-													<td style="width: 120px" th:if="${item.total} != null" th:text="${item.total} + ' VND'"></td>
-													<td style="width: 120px" th:if="${item.total} == null" >0 VND</td>
-													<td th:text="${item.description}"></td>
-													<td th:text="${item.account.fullname}"></td>
+													<td th:text="${item.pcid}"></td>
+													<th scope="col" th:text="${item.namepc}"></th>
+													<td th:text="${item.phone}"></td>
+													<td th:text="${item.email}"></td>
+													<td th:text="${item.address}"></td>
+													<td th:text="${item.profile}"></td>
 												</tr>
 											</tbody>
 										</table>
