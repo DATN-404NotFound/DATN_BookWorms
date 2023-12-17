@@ -10,14 +10,7 @@ import java.util.*;
 import java.awt.print.Book;
 
 import com.poly.DATN_BookWorms.entities.*;
-import com.poly.DATN_BookWorms.service.BookService;
-import com.poly.DATN_BookWorms.service.CategoryService;
-import com.poly.DATN_BookWorms.service.EvaluateService;
-import com.poly.DATN_BookWorms.service.EvaluatesService;
-import com.poly.DATN_BookWorms.service.PublishingCompanyService;
-import com.poly.DATN_BookWorms.service.ShopService;
-import com.poly.DATN_BookWorms.service.TypeBookService;
-import com.poly.DATN_BookWorms.service.WriterService;
+import com.poly.DATN_BookWorms.service.*;
 import com.poly.DATN_BookWorms.utils.SessionService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,6 +49,9 @@ public class BookRestController {
 
 	@Autowired
 	EvaluatesService evaluatesService;
+
+	@Autowired
+	ImagesBookService imagesBookService;
 
 	@GetMapping
 	public List<Books> getAll() {
@@ -167,10 +163,7 @@ public class BookRestController {
 		return bookService.findAll();
 	}
 
-	@PutMapping("{id}")
-	public Books update(@PathVariable("id") Integer id, @RequestBody Books book) {
-		return bookService.update(book);
-	}
+
 
 	@GetMapping("/writers")
 	public ResponseEntity<List<Writtingmasters>> getAllWriter() {
@@ -193,13 +186,6 @@ public class BookRestController {
 		return ResponseEntity.ok(newBook);
 	}
 
-	@PostMapping(value = "/createTypeBook")
-	public ResponseEntity<Typebooks> createTypeBooks(@RequestBody @Valid Typebooks typebooks) {
-
-		Typebooks typebook = typeBookService.save(typebooks);
-		return ResponseEntity.ok(typebook);
-	}
-
 	@PostMapping(value = "/saveBook", consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public void saveProfileChange(@RequestParam(value = "fileImage") Optional<MultipartFile> multipartFile,
 			@RequestParam("book") Book book, @RequestParam("company") Publishingcompanies publishingcompanies,
@@ -214,14 +200,7 @@ public class BookRestController {
 		return ResponseEntity.ok().build();
 	}
 
-	@PostMapping(value = "/createBook")
-	public ResponseEntity<Books> createBook(@RequestBody @Valid Books book) {
-		Account user = service.get("user");
-		Shoponlines shoponlines = shopService.findUserId(user.getUserid());
-		book.setShopid(shoponlines.getShopid());
-		Books newBook = bookService.creates(book);
-		return ResponseEntity.ok(newBook);
-	}
+
 
 	@PostMapping(value = "/createTypeBook")
 	public ResponseEntity<Typebooks> createTypeBooks(@RequestParam("categoryid") String categoryId,
@@ -235,7 +214,7 @@ public class BookRestController {
 	}
 
 	@PostMapping(value = "/createWriter")
-	public ResponseEntity<Writers> createTypeBooks(@RequestBody @Valid Writers writers) {
+	public ResponseEntity<Writers> createWriter(@RequestBody @Valid Writers writers) {
 		Writers writer = writerService.save(writers);
 		return ResponseEntity.ok(writer);
 	}
