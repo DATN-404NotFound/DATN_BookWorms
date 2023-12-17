@@ -1,5 +1,7 @@
 package com.poly.DATN_BookWorms.controller;
 
+import java.math.BigDecimal;
+
 import javax.validation.Valid;
 
 import org.apache.commons.lang3.RandomStringUtils;
@@ -17,12 +19,16 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import jakarta.mail.MessagingException;
 
+import com.poly.DATN_BookWorms.beans.MailInformation;
 import com.poly.DATN_BookWorms.dto.AccountDTO;
 import com.poly.DATN_BookWorms.entities.Account;
+import com.poly.DATN_BookWorms.entities.Sales;
 import com.poly.DATN_BookWorms.service.AccountService;
 import com.poly.DATN_BookWorms.service.CustomUserDetailService;
 
 import com.poly.DATN_BookWorms.service.MailService;
+import com.poly.DATN_BookWorms.service.SaleService;
+import com.poly.DATN_BookWorms.service.impl.MailServiceImp;
 import com.poly.DATN_BookWorms.utils.CRC32_SHA256;
 import com.poly.DATN_BookWorms.utils.MailBody;
 import com.poly.DATN_BookWorms.utils.OTP_privateKey;
@@ -52,6 +58,12 @@ public class    AccountController {
 
     @Autowired
     CRC32_SHA256 crc32_SHA256;
+    
+    @Autowired
+	SaleService saleService;
+    
+	@Autowired
+	MailServiceImp mailer;
 
     @RequestMapping("/login")
     public String loginForm() {
@@ -120,13 +132,14 @@ public class    AccountController {
     }
 
     @PostMapping("/registration")
-    public String registration(@Valid @ModelAttribute("user") AccountDTO accountDTO, BindingResult result, Model model) {
+    public String registration(@Valid @ModelAttribute("user") AccountDTO accountDTO, BindingResult result, Model model) throws MessagingException {
         Account existingUser = accountService.findByUsename(accountDTO.getUsername());
 
         if (existingUser != null)
             result.rejectValue("Username", null, "User already registered !!!");
 
         if (result.hasErrors()) {
+        	
             model.addAttribute("user", accountDTO);
             return "Client/Account_page/Register";
         }

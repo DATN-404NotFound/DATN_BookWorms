@@ -20,20 +20,20 @@ import com.poly.DATN_BookWorms.service.DetailBookingService;
 public class AdminRestController {
 
 	@Autowired
-	DetailBookingService detailBookingService;
+	BooksRepo booksRepo;
 	
-//	@GetMapping("/bestSeller")
-//	public ResponseEntity<List<Books>> bestSeller() {
-//		List<Books> listBooks= detailBookingService.findTop5Seller();
-//		System.out.println(listBooks.toString());
-//		return ResponseEntity.ok(listBooks);
-//
-//	}
-//
-//	@GetMapping("/inventory")
-//	public ResponseEntity<List<Books>> inventory() {
-//		List<Books> listBooks = detailBookingService.findTop5Inventory();
-//		return ResponseEntity.ok(listBooks);
-//	}
+	@GetMapping("/bestSeller")
+	public ResponseEntity<List<Books>> bestSeller() {
+		List<Books> listBooks= booksRepo.findTop5Seller();
+		System.out.println(listBooks.toString());
+		return ResponseEntity.ok(listBooks);
+
+	}
+
+	@GetMapping("/inventory")
+	public ResponseEntity<List<Books>> inventory() {
+		List<Books> listBooks = booksRepo.findTop5Inventory();
+		return ResponseEntity.ok(listBooks);
+	}
 
 }

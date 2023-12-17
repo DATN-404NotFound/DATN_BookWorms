@@ -363,4 +363,9 @@ public class BookingServiceImp implements BookingService{
 	public List<Bookings> findByUserIdAndOrderStaturs(String userId, Integer orderstatusid) {
 		return bookingRepo.findByUserIdAndOrderStaturs(userId,orderstatusid );
 	}
+	public long countBooking() {
+		// TODO Auto-generated method stub
+		return bookingRepo.count();
+	}
+
 }

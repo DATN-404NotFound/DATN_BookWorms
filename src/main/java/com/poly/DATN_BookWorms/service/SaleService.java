@@ -24,6 +24,10 @@ public interface SaleService {
 
 	Sales create(Sales sales);
 
+	Sales create(String promotionname, Date createat, String descriptions, BigDecimal discountpercentage, String statuses, String intendfor);
+	
+	Sales save(Sales sales);
+	
 	Sales update(Sales sale);
 
 	void delete(String id);

@@ -87,7 +87,7 @@ public class AdminPaymentRestController {
 				shopOnlinesRepo.save(shopOnlines);
 				paymentShopRepo.save(paymentShop);
 				mailInfo.setTo(paymentShop.getShoponlines().getAccount().getEmail());
-				mailInfo.setSubject("IBook chào bạn! Yêu cầu thanh toán của bạn đã được xử lý");
+				mailInfo.setSubject("IBook chào bạn! Thông tin thanh toán");
 				String body = "VNPay_TxnRef: " + vnp_TxnRef + " VNPay_Amount: " + vnp_Amount + " VNPay_OrderInfo: " + vnp_OrderInfo;
 				mailInfo.setBody(body);
 				mailer.send(mailInfo);

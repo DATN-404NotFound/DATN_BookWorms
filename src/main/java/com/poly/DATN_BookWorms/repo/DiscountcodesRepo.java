@@ -28,4 +28,6 @@ public interface DiscountcodesRepo extends JpaRepository<Discountcodes, Integer>
 //	@Query("SELECT d.startdiscount as startdiscount, s.promotionname as promotionname, f.filename as filename FROM Discountcodes d JOIN Sales s ON d.saleid = s.couoponcode JOIN Files f ON s.shopid = f.shopid WHERE f.typefile = 'logo' and d.userid = ?1")
 //	public List<Discountcodes> findDisountByUserId(String userid);
 	
+	@Query("SELECT s.logo FROM Discountcodes d JOIN Account a ON d.userid = a.userid JOIN Shoponlines s ON a.userid = s.userid WHERE d.userid = ?1 OR ?1 IS NULL")
+	public Discountcodes findImageShopFromUserId(String id);
 }
