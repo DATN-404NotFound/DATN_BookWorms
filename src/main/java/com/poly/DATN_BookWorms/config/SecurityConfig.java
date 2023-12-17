@@ -89,10 +89,25 @@ public class SecurityConfig implements WebMvcConfigurer{
 .permitAll());
 
 		http.oauth2Login(customize -> customize.loginPage("/account/login")
-				.defaultSuccessUrl("/account/login-google/success").defaultSuccessUrl("/account/login-facebook/success")
+				.defaultSuccessUrl("/account/login/success")
 				.failureUrl("/account/login")
 				.authorizationEndpoint(authorizationEndpointConfig -> authorizationEndpointConfig
 						.baseUri("/oauth2/authorization"))
+				.successHandler((request, response, authentication) -> {
+			        // Xác định OAuth2 dựa trên thông tin xác thực
+					String redirectUrl = "/account/login/success/";
+
+				    // Kiểm tra nhà cung cấp OAuth2 từ thông tin xác thực
+				    if (authentication.getAuthorities().stream()
+				            .anyMatch(grantedAuthority -> grantedAuthority.getAuthority().contains("google"))) {
+				        redirectUrl += "google";
+				    } else {
+				        // Xử lý những nhà cung cấp khác nếu cần
+				        redirectUrl += "facebook";
+				    }
+
+				    response.sendRedirect(redirectUrl);
+			    })
 				.permitAll());
 
 		http.logout((form) -> form
@@ -103,5 +118,21 @@ public class SecurityConfig implements WebMvcConfigurer{
 		http.cors().and().csrf().disable();
 		return http.build();
 	}
+	
+	 public static String determineOAuth2Provider(Authentication authentication) {
+	        // Kiểm tra thông tin xác thực để xác định nhà cung cấp OAuth2
+	        if (authentication.getAuthorities().stream()
+	                .anyMatch(grantedAuthority ->
+	                        grantedAuthority.getAuthority().equals("ROLE_GOOGLE_USER"))) {
+	            return "google";
+	        } else if (authentication.getAuthorities().stream()
+	                .anyMatch(grantedAuthority ->
+	                        grantedAuthority.getAuthority().equals("ROLE_FACEBOOK_USER"))) {
+	            return "facebook";
+	        } else {
+	            // Xử lý những trường hợp khác nếu cần
+	            return "unknown";
+	        }
+	    }
 
 }

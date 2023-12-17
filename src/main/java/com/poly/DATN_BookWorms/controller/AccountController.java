@@ -6,6 +6,7 @@ import javax.validation.Valid;
 
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Controller;
@@ -70,7 +71,7 @@ public class    AccountController {
         return "/Client/Account_page/Login";
     }
 
-    @RequestMapping("/login-google/success")
+    @RequestMapping("login/success/google")
     public String loginWithGoogle(@AuthenticationPrincipal OAuth2User performance, Model model) {
         if (performance == null) {
             return "redirect:/login";
@@ -89,7 +90,7 @@ public class    AccountController {
         return "redirect:/Ibook/index";
     }
 
-    @RequestMapping("/login-facebook/success")
+    @RequestMapping("login/success/facebook")
     public String loginWithFaceBook(@AuthenticationPrincipal OAuth2User performance, Model model) {
         if (performance == null) {
             return "redirect:/login";
@@ -177,4 +178,5 @@ public class    AccountController {
       public String otpcon() { 
     	  return "Client/Account_page/ConfirmCode"; 
       }  
+      
 }
