@@ -1,24 +1,29 @@
 package com.poly.DATN_BookWorms.rest.controller;
 
-import com.poly.DATN_BookWorms.entities.Account;
-import com.poly.DATN_BookWorms.entities.Cart;
-import com.poly.DATN_BookWorms.entities.Detailbookings;
-import com.poly.DATN_BookWorms.entities.Evaluates;
-import com.poly.DATN_BookWorms.entities.Shoponlines;
-import com.poly.DATN_BookWorms.service.DetailBookingService;
-import com.poly.DATN_BookWorms.service.EvaluateService;
-import com.poly.DATN_BookWorms.service.ShopOnlinesService;
+import com.poly.DATN_BookWorms.entities.*;
+import com.poly.DATN_BookWorms.service.*;
 import com.poly.DATN_BookWorms.utils.SessionService;
 import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.List;
+import java.util.Map;
+import java.util.UUID;
+
 @CrossOrigin("*")
 @RestController
 @RequestMapping("/api/evaluates")
@@ -31,6 +36,8 @@ public class EvaluateRestController {
     ShopOnlinesService shopOnlinesService;
     @Autowired
     DetailBookingService detailBookingService;
+    @Autowired
+    ImageEvaluatesService imageEvaluatesService;
     @GetMapping
     public List<Evaluates> findAll() {
         Account account = sessionService.get("user");
@@ -57,5 +64,41 @@ public class EvaluateRestController {
 			// TODO: handle exception
 		}
 	}
+    @PostMapping(value = "/uploadImages", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<Map<String, String>> handleFileUploadForm(
+            @RequestPart("file") MultipartFile file,
+            @RequestParam("evaluateid") String evaluateId) throws IOException {
+        try {
+            File f = new ClassPathResource("").getFile();
+            String uploadDir = "V:/FPT/DuAnTotNghiep/Source/DATN_BookWorms/src/main/resources/static/SellerChannel/images/";
+            Path uploadPath = Paths.get(uploadDir);
+
+            if (!java.nio.file.Files.exists(uploadPath)) java.nio.file.Files.createDirectories(uploadPath);
+
+            String uniqueFileName = UUID.randomUUID().toString() + "-" + file.getOriginalFilename();
+
+            Path filePath = uploadPath.resolve(uniqueFileName);
+            Files.copy(file.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
+
+            String fileUri = ServletUriComponentsBuilder.fromCurrentContextPath()
+                    .path(uniqueFileName)
+                    .toUriString();
+
+            var result = Map.of(
+                    "filename", uniqueFileName,
+                    "fileUri", fileUri
+            );
+            Imageevaluates imageevaluates = new Imageevaluates();
+            imageevaluates.setImage(uniqueFileName);
+            imageevaluates.setEvaluateid(Integer.valueOf(evaluateId));
+            imageevaluates.setType("image");
+            imageEvaluatesService.save(imageevaluates);
+            return ResponseEntity.ok().body(result);
+
+        } catch (IOException e) {
+        	e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 
 }

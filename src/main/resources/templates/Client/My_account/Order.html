@@ -359,6 +359,28 @@
                     </div>
                 </div>
             </div>
+            <div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel1"
+                aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content boxCanceled">
+                        <div class="modal-header" style="border: none;">
+                            <h4 class="modal-title ms-3" id="exampleModalLabel">Hủy đơn hàng</h4>
+                        </div>
+                        <div class="modal-body">
+                            <h5 class="ms-4">Bạn có chắc chắn muốn hủy đơn hàng?</h5>
+                        </div>
+                        <div class="modal-footer" style="border: none;">
+                            <form action="">
+                                <button type="button" class="btn btnFinish-rateProduct me-2" ng-click="updateBooking()">Xác
+                                    nhận
+                                </button>
+                                <button type="button" class="btn btnCancel-rateProduct" data-bs-dismiss="modal">Trở lại
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     <script th:src="@{/Client/Js/MyAccount/order.js}"></script>
