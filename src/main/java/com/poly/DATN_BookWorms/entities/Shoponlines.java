@@ -56,8 +56,6 @@ public class Shoponlines implements Serializable {
     public String paycount;
 
     public Boolean isactive;
-    
-    public String logo;
 
     //--- ENTITY LINKS ( RELATIONSHIP )
 
