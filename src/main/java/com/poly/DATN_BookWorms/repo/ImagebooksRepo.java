@@ -1,6 +1,7 @@
 package com.poly.DATN_BookWorms.repo;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -11,4 +12,6 @@ public interface ImagebooksRepo extends JpaRepository<Imagebooks, Integer>{
 
 	@Query("Select i from Imagebooks i where i.books.bookid like ?1")
 	public List<Imagebooks> findByBookid (Long bookid);
+
+	List<Imagebooks> findBybookid(Integer bookid);
 }

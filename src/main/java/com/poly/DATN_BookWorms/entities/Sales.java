@@ -67,6 +67,7 @@ public class Sales implements Serializable {
     public Integer    shopid ;
     
     public Double     minprice ;
+
     public boolean isdelete;
 
 

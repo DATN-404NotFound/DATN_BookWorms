@@ -19,4 +19,7 @@ public interface TypeBookService {
     Typebooks save(Typebooks typebooks);
 
     List<Categories> findCateByBookId(int bookid);
+    Typebooks update(Typebooks typebooks);
+
+    List<Typebooks> findByBookId(Integer bookId);
 }

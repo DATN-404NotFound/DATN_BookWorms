@@ -20,7 +20,7 @@
                   <div class="card-body">
 
                     <div class="tab-content mb-1" id="pills-tabContent">
-                      <div class="tab-pane fade show active" id="pills-All" role="tabpanel" aria-labelledby="pills-All-tab"> 
+                      <div class="tab-pane fade show active" id="pills-All" role="tabpanel" aria-labelledby="pills-All-tab">
                         <div class="row">
                           <div class="col-md-6">
                             <div class="form-group">
@@ -36,7 +36,7 @@
                             </div>
                             </div>
                           </div>
-                        </div>    
+                        </div>
                       </div>
 
 
@@ -44,7 +44,7 @@
                   </div>
                 </div>
               </div>
-              
+
               <div class="mt-2 mb-2 align-items-center">
                 <div class="card shadow">
                   <div class="card-body">
@@ -91,7 +91,7 @@
                                             <span class="text-muted sr-only">Action</span>
                                           </button>
                                             <div class="dropdown-menu dropdown-menu-right">
-                                              <a class="dropdown-item" data-toggle="modal" data-target=".bd-example-modal-xl">Edit</a>
+                                              <a class="dropdown-item" href="#!/shop/TranportChannel/EditBook" ng-click="updateBookid(book.bookid)">Edit</a>
 
                                               <a class="dropdown-item" ng-click="deleteIsChoose(book)">Remove</a>
 
@@ -139,95 +139,7 @@
                                     <span aria-hidden="true">&times;</span>
                                   </button>
                                 </div>
-                                <div class="modal-body">
-                                  <form ng-submit="createBook()" enctype="multipart/form-data">
-                                    <div class="form-row">
-                                      <div class="form-group col-md-6">
-                                        <label for="bookname">Product’s name</label>
-                                        <input type="text" ng-model="bookname" required class="form-control" placeholder="Product’s name">
-                                      </div>
-                                      <div class="form-group col-md-6">
-                                        <label for="inputState">Category</label>
-                                        <select ng-options="category.categoryid as category.name for category in categories" ng-model="category" class="form-control">
 
-                                        </select>
-                                        <input type="hidden" id="categoryid" name="categoryid">
-                                      </div>
-                                    </div>
-                                    <div class="form-row">
-                                      <div class="form-group col-md-3">
-                                        <label for="language">Language</label>
-                                        <input type="text" ng-model="language" required class="form-control" placeholder="Example: English">
-                                      </div>
-                                      <div class="form-group col-md-3">
-                                        <label  for="size">Size</label>
-                                        <input type="text" ng-model="size" required class="form-control" placeholder="35 x 10 x 20">
-                                      </div>
-                                      <div class="form-group col-md-3">
-                                        <label  for="quantity">Quantity</label>
-                                        <input type="number" ng-model="quantity" required class="form-control">
-                                      </div>
-                                      <div class="form-group col-md-3">
-                                        <label for="publishingcompanyid">Publishing Company</label>
-                                        <select ng-options="publishingcompany.pcid as publishingcompany.namepc for publishingcompany in publishingCompanies" ng-model="publishingcompanyid" required class="form-control">
-
-                                        </select>
-                                        <input type="hidden" id="publishingcompanyid" name="publishingcompanyid">
-                                      </div>
-                                    </div>
-
-                                    <div class="form-row">
-                                      <div class="form-group col-md-3">
-                                        <label for="price">Price</label>
-                                        <input type="number" step="0.01" ng-model="price" required class="form-control">
-                                      </div>
-                                      <div class="form-group col-md-3">
-                                        <label for="weight">Weight</label>
-                                        <input class="form-control" ng-model="weight" required step="0.1" id="weight" name="weight">
-                                      </div>
-                                      <div class="form-group col-md-3">
-
-                                        <label for="publishingyear">Date Picker</label>
-                                        <div class="input-group">
-                                          <input  ng-model="publishingyear" required type="text" class="form-control drgpicker" value="2023" aria-describedby="button-addon2">
-                                          <div class="input-group-append">
-                                            <div class="input-group-text" id="button-addon-date"><span class="fe fe-calendar fe-16 mx-2"></span></div>
-                                          </div>
-                                        </div>
-
-                                      </div>
-                                      <div class="form-group col-md-3">
-                                        <label for="totalpage">Total page</label>
-                                        <input type="number"  ng-model="totalpage" required class="form-control" min="1">
-                                      </div>
-                                    </div>
-                                    <div class="form-group">
-                                      <label for="image">Image</label>
-                                      <div class="form-group">
-                                        <label for="images">Images</label>
-                                        <input type="file" id="images" name="images" ng-model="images" multiple accept="image/*" required>
-                                      </div>
-                                      <div class="form-group">
-                                        <div class="card-deck mb-4">
-                                          <div class="card border-0 bg-transparent" id="imageContainer">
-                                            <!-- Hiển thị ảnh đã chọn -->
-                                          </div>
-                                        </div>
-                                      </div>
-                                    </div>
-                                    <div class="form-group">
-                                      <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" value="" id="invalidCheck" ng-model="isactive">
-                                        <label class="form-check-label" for="isactive"> Avtive? </label>
-                                        <div class="invalid-feedback"> You must agree before submitting. </div>
-                                      </div>
-                                    </div>
-                                    <div class="modal-footer">
-                                      <button type="button" class="btn mb-2 btn-secondary" data-dismiss="modal">Close</button>
-                                      <button type="button" class="btn mb-2 btn-primary">Create</button>
-                                    </div>
-                                  </form>
-                                </div>
 
                               </div>
                             </div>
@@ -367,12 +279,12 @@
                   </div>
                   </div>
               </div>
-  
-  
-           
+
+
+
               <div class="row">
-             
-            
+
+
               </div> <!-- .row-->
             </div> <!-- .col-12 -->
             </div>

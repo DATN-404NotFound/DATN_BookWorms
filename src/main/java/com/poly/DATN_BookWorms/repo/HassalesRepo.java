@@ -14,4 +14,8 @@ public interface HassalesRepo extends JpaRepository<Hassales, Integer>{
     
     List<Hassales> findAllBysaleid(String saleId);
 
+    @Query("SELECT h.hassaleid FROM Hassales h WHERE h.bookid = ?1")
+    Integer findByBookId(Integer bookId);
+    @Query("SELECT  h.hassaleid FROM Hassales h WHERE h.bookid = ?1 and h.saleid = ?2")
+    Integer findHasSaleIdByBookId(Integer bookId, String saleId);
 }

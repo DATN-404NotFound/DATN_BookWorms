@@ -34,10 +34,10 @@
                 <ol class="breadcrumb mt-3" style="background-color: transparent;">
                   <li class="breadcrumb-item"><a href="#">Tranport Channel</a></li>
 
-                  <li class="breadcrumb-item active" aria-current="page">Create Product</li>
+                  <li class="breadcrumb-item active" aria-current="page">Edit Product</li>
                 </ol>
               </nav>
-              <h3>Create product</h3>
+              <h3>Edit product</h3>
             </div>
           </div>
           <div class="card-deck">
@@ -98,18 +98,14 @@
                                             </tr>
                                             </thead>
                                             <tbody>
-                                            <tr ng-repeat="category in categories">
-                                              <td>{{ category.categoryid
-                                                }}
+                                            <tr ng-repeat="category in categories | orderBy:'-itemExistsInItems2'">
+                                              <td>{{ category.categoryid }}
                                               </td>
                                               <td>{{ category.name }}</td>
 
                                               <td>
                                                 <div class="custom-control custom-switch">
-                                                  <input type="checkbox"
-                                                         class="custom-control-input"
-                                                         id="c{{$index + 1}}"
-                                                         ng-click="getToListCategoryAddBook(category)">
+                                                  <input type="checkbox" class="custom-control-input" ng-checked="itemExistsInItems2(category)" id="c{{$index + 1}}" ng-s="getToListCategoryAddBook(category)">
                                                   <label class="custom-control-label"
                                                          for="c{{$index + 1}}"></label>
                                                 </div>
@@ -237,7 +233,7 @@
                                             <td>
                                               <div class="custom-control custom-switch">
                                                 <input type="checkbox"
-                                                       class="custom-control-input"
+                                                       class="custom-control-input" ng-checked="itemExistsInItems3(writer)"
                                                        id="w{{$index + 1}}"
                                                        ng-click="getToListWriterAddBook(writer)">
                                                 <label class="custom-control-label"

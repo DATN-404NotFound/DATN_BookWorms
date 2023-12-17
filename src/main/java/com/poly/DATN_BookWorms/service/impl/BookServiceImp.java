@@ -9,6 +9,7 @@ import com.poly.DATN_BookWorms.repo.ImagebooksRepo;
 import com.poly.DATN_BookWorms.repo.TypebooksRepo;
 import com.poly.DATN_BookWorms.response.BookResponse;
 import com.poly.DATN_BookWorms.utils.SessionService;
+import jakarta.persistence.EntityNotFoundException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -74,40 +75,40 @@ public class BookServiceImp implements BookService{
 			books.setIsactive(books.getIsactive());
 			books.setQuantitysold(0);
 			books.setShopid(user.getListOfShoponlines().get(0).getShopid());
+			books.setProductviews(0);
+			books.setQuantitysold(books.getQuantity());
+			books.setIsdelete(false);
 		return bookRepo.save(books);
-
-
-
-
-//		typebooksRepo.save(typebooks);
-//		for (MultipartFile image : imagess) {
-//			try {
-//				String fileName = StringUtils.cleanPath(Objects.requireNonNull(image.getOriginalFilename()));
-//				String uploadDir = "D:/Work/DATN_BookWorms/src/main/resources/static/Client/images";
-//				FileUploadUtil.saveFile(uploadDir, fileName, image);
-//				imagebooks.setBookid(books.getBookid().intValue());
-//				imagebooks.setName(fileName);
-//				imagebooks.setTypefile("image");
-//
-//				imagebooksRepo.save(imagebooks);
-//			} catch (IOException e) {
-//				System.out.println("not save image");
-//				e.printStackTrace();
-//			}
-//		}
-//
-//		return books;
-
-
-
-	}
-
+			}
 	@Override
-	public Books update(Books book) {
-		// TODO Auto-generated method stub
-		logger.info("update book with book : {}", book);
-		return bookRepo.save(book);
+	public Books update(Books books) {
+		if (books.getBookid() == null) {
+			throw new IllegalArgumentException("Books ID cannot be null for update operation");
+		}
+		Account user = sessionService.get("user");
+		Books existingBooks = bookRepo.findById(books.getBookid())
+				.orElseThrow(() -> new EntityNotFoundException("Books not found with ID: " + books.getBookid()));
+		books.setBookname(books.getBookname());
+		books.setLanguage(books.getLanguage());
+		books.setSize(books.getSize());
+		books.setWeight(books.getWeight());
+		books.setTotalpage(books.getTotalpage());
+		books.setPublishingyear(books.getPublishingyear());
+		books.setPrice(books.getPrice());
+		books.setQuantity(books.getQuantity());
+		books.setStatues("Còn hàng");
+		books.setPublishingcompanyid(books.getPublishingcompanyid());
+		books.setIsactive(books.getIsactive());
+		books.setQuantitysold(0);
+		books.setShopid(user.getListOfShoponlines().get(0).getShopid());
+		books.setProductviews(0);
+		books.setQuantitysold(books.getQuantity());
+		books.setIsdelete(false);
+		return bookRepo.save(existingBooks);
 	}
+
+
+
 
 	@Override
 	public void delete(Long id) {
@@ -242,6 +243,9 @@ public class BookServiceImp implements BookService{
 	public Books getNewBook() {
 		return bookRepo.getNewBook();
 	}
-
+	@Override
+	public Optional<Books> findByBookId(Long bookId) {
+		return bookRepo.findBybookid(bookId);
+	}
 
 }

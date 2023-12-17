@@ -1,9 +1,9 @@
 package com.poly.DATN_BookWorms.service.impl;
 
 import com.poly.DATN_BookWorms.entities.Hassales;
-import com.poly.DATN_BookWorms.entities.Sales;
 import com.poly.DATN_BookWorms.repo.HassalesRepo;
 import com.poly.DATN_BookWorms.service.HasSaleService;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,18 +21,10 @@ public class HasSaleServiceImp implements HasSaleService {
 
     @Override
     public Hassales saveHassales(Hassales hassales) {
-        hassales.setBookid(hassales.getBookid());
-        hassales.setSaleid(hassales.getSaleid());
-        hassales.setStarttime(hassales.getStarttime());
-        hassales.setEndtime(hassales.getEndtime());
         hassalesRepo.save(hassales);
         return hassales;
     }
 
-//    @Override
-//    public List<Hassales> findAllBysaleid(String saleId) {
-//        return hassalesRepo.findAllBysaleid(saleId);
-//    }
     @Override
     public List<Hassales> findAllBysaleid(String saleId) {
         List<Hassales> allSales = hassalesRepo.findAll();
@@ -42,6 +34,22 @@ public class HasSaleServiceImp implements HasSaleService {
 
         return filteredSales;
     }
+    @Override
+    @Transactional
+    public void deleteHassalesById(Integer hassaleId) {
+        hassalesRepo.deleteById(hassaleId);
+    }
+
+    @Override
+    public List<Hassales> findAll() {
+        return hassalesRepo.findAll();
+    }
+
+    @Override
+    public Integer findHasSaleIdByBookId(Integer bookId, String saleId) {
+        return hassalesRepo.findHasSaleIdByBookId(bookId, saleId);
+    }
+
 
 
 }

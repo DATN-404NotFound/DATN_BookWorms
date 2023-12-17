@@ -1,6 +1,8 @@
 package com.poly.DATN_BookWorms.service;
 
 import java.util.List;
+import java.util.Optional;
+
 import com.poly.DATN_BookWorms.response.BookResponse;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -60,4 +62,6 @@ public interface BookService {
 	 Books save(Books book);
 
 	Books getNewBook();
+
+	Optional<Books> findByBookId(Long bookId);
 }

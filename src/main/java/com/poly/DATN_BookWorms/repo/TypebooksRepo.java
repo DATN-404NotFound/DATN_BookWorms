@@ -10,8 +10,11 @@ import com.poly.DATN_BookWorms.entities.Typebooks;
 
 public interface TypebooksRepo extends JpaRepository<Typebooks, Integer> {
 
-    @Query("Select t.categories from Typebooks t where t.bookid in (Select b.bookid from Books b where b.shopid = ?1)")
-    List<Categories> listCategoriesByType(Integer shopid);
     @Query("Select t.categories from Typebooks t where t.bookid  = ?1")
     List<Categories> findCateByBookId(int bookid);
+
+    @Query("Select t.categories from Typebooks t where t.bookid in (Select b.bookid from Books b where b.shopid = ?1)")
+    List<Categories> listCategoriesByType(Integer shopid);
+
+    List<Typebooks> findBybookid(Integer bookId);
 }

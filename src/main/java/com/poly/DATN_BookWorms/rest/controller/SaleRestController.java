@@ -39,7 +39,20 @@ public class SaleRestController {
 	public Sales getSaleCounpon(@PathVariable("coupon") String coupon){ 
 		return saleService.findById(coupon);
 	}
-	
+
+	@GetMapping("/getListHasSales")
+	public ResponseEntity<List<Hassales>> getListHasSales(){
+		return ResponseEntity.ok(hasSaleService.findAll());
+	}
+
+	@PostMapping("/getHasSaleFromBook")
+	public ResponseEntity<Integer> getHasSaleFromBoook(@RequestParam("bookid") String bookId, @RequestParam("saleid") String saleId){
+		Integer hasSalesId = hasSaleService.findHasSaleIdByBookId(Integer.parseInt(bookId), saleId);
+		if(hasSalesId == null)
+			return ResponseEntity.ok(null);
+		else
+			return ResponseEntity.ok(hasSalesId);
+	}
 	@GetMapping("/{intendfor}")
 	public List<Sales> getSaleShopOfIntend(@PathVariable("intendfor") String intendfor){ 
 		return saleService.saleOfShopIntendFor(intendfor);
@@ -59,10 +72,25 @@ public class SaleRestController {
 	public List<Hassales> findAllByCouponCode(@PathVariable("couponCode") String couponCode) {
 		return hasSaleService.findAllByCouponCode(couponCode);
 	}
-	@PostMapping(value = "/createHassale", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Hassales> createHassales(@RequestBody Hassales hassales) {
-		Hassales createdHassale = hasSaleService.saveHassales(hassales);
+	@PostMapping(value = "/createHassale/{bookID}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Hassales> createHassales(@RequestBody Hassales hassales, @PathVariable("bookID") Integer bookID) {
+
+		Hassales createdHassale = new Hassales();
+		createdHassale.setBookid(bookID);
+		createdHassale.setSaleid(hassales.getSaleid());
+		createdHassale.setStarttime(new Date());
+		createdHassale.setEndtime(hassales.getEndtime());
+		hasSaleService.saveHassales(createdHassale);
 		return ResponseEntity.ok(createdHassale);
+	}
+	@DeleteMapping("/deleteHassale/{hassaleId}")
+	public ResponseEntity<String> deleteHassalesById(@PathVariable Integer hassaleId) {
+		try {
+			hasSaleService.deleteHassalesById(hassaleId);
+			return new ResponseEntity<>("Hassales deleted successfully", HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<>("Error deleting Hassales: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+		}
 	}
 	@GetMapping("/findAllBySaleId/{saleId}")
 	public ResponseEntity<List<Hassales>> findAllBySaleId(@PathVariable String saleId) {

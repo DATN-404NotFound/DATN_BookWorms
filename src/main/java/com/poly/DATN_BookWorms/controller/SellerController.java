@@ -67,6 +67,10 @@ public class SellerController {
     public String createProduct(Model model){
         return "SellerChannel/CreateProduct";
     }
+    @RequestMapping("/shop/TranportChannel/EditBook")
+    public String editProduct(Model model){
+        return "SellerChannel/EditBook";
+    }
     @RequestMapping("/shop/TranportChannel/Transport")
     public String Tranport(Model model){
         return "SellerChannel/TransportChannel";
