@@ -234,10 +234,9 @@ public class MyAccountController {
         List<Bookings> bookingStatus5 = bookingService.findByUserIdAndOrderStaturs(account.getUserid(),5);
         List<Bookings> bookingStatus6 = bookingService.findByUserIdAndOrderStaturs(account.getUserid(),6);
         List<Bookings> bookingStatus7 = bookingService.findByUserIdAndOrderStaturs(account.getUserid(),7);
+        List<Bookings> bookingStatus8 = bookingService.findByUserIdAndOrderStaturs(account.getUserid(),7);
 
-//        System.out.println("list" + booking.get(0).listOfDetailbookings.get(0).books.shoponlines.listOfFiles.get(0).filename);
         model.addAttribute("booking", booking);
-//        List<Bookings> booking_StatusId = bookingService.findByStatusId(tab);
         model.addAttribute("bookingStatus1", bookingStatus1);
         model.addAttribute("bookingStatus2", bookingStatus2);
         model.addAttribute("bookingStatus3", bookingStatus3);
@@ -245,12 +244,9 @@ public class MyAccountController {
         model.addAttribute("bookingStatus5", bookingStatus5);
         model.addAttribute("bookingStatus6", bookingStatus6);
         model.addAttribute("bookingStatus7", bookingStatus7);
+        model.addAttribute("bookingStatus8", bookingStatus8);
 
 
-        for (Bookings bookings : booking) {
-            System.out.println("listsize : " + booking.size());
-            System.out.println(" 74 order " + bookings.toString() + "--- img = " + bookings.listOfDetailbookings.get(0).books.shoponlines.listOfFiles.get(0).filename);
-        }
         return "Client/My_account/Order";
     }
 

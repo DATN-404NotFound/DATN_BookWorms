@@ -62,7 +62,7 @@
                             data-bs-toggle="modal" id="idRating-orderDetail" data-bs-target="#exampleModal">
                             Đánh giá
                         </button> <br style="clear: both;">
-                        <p class="price-orderDetail" th:text="'₫ ' + ${#numbers.formatDecimal(d.books.price*d.quantity,0,'COMMA',0,'POINT')}"></p>
+                        <p class="price-orderDetail" th:text="${#numbers.formatDecimal(d.books.price*d.quantity,0,'COMMA',0,'POINT')}+ ' ₫'"></p>
                     </div>
                 </div>
             </div>
@@ -71,19 +71,15 @@
                     <table class="tabledetailInfo">
                         <tr> 
                             <td >Tổng tiền hàng:</td>
-                            <td th:text="'₫ ' + ${#numbers.formatDecimal(db.get(0).bookings.cost,0,'COMMA',0,'POINT')}"></td>
+                            <td th:text="${#numbers.formatDecimal(db.get(0).bookings.cost,0,'COMMA',0,'POINT')}+ ' ₫'"></td>
                         </tr>
                         <tr>
                             <td>Phí vận chuyển:</td>
-                            <td th:text="'₫ ' + ${#numbers.formatDecimal(db.get(0).bookings.shippingunits.cod,0,'COMMA',0,'POINT')}">15.00</td>
+                            <td th:text="${#numbers.formatDecimal(db.get(0).bookings.shippingunits.cod,0,'COMMA',0,'POINT')}+ ' ₫'">15.00</td>
                         </tr>
                         <tr>
                             <td>Voucher:</td>
-                            <td th:text="'₫ ' + ${#numbers.formatDecimal(db.get(0).bookings.costvoucher,0,'COMMA',0,'POINT')}">-30.00</td>
-                        </tr>
-                        <tr>
-                            <td>Voucher FreeShip:</td>
-                            <td th:text="'₫ ' + ${#numbers.formatDecimal(db.get(0).bookings.costship,0,'COMMA',0,'POINT')}">-30.00</td>
+                            <td th:text="${#numbers.formatDecimal(db.get(0).bookings.costvoucher,0,'COMMA',0,'POINT')}+ ' ₫'">-30.00</td>
                         </tr>
                         <tr>
                             <td>Phương thức thanh toán:</td>
@@ -91,7 +87,7 @@
                         </tr>
                         <tr>
                             <td>Thành tiền:</td>
-                            <td th:text="'₫ ' + ${#numbers.formatDecimal(db.get(0).bookings.cost+db.get(0).bookings.shippingunits.cod-db.get(0).bookings.costvoucher-db.get(0).bookings.costship,0,'COMMA',0,'POINT')}">295.00</td>
+                            <td th:text="${#numbers.formatDecimal(db.get(0).bookings.cost+db.get(0).bookings.shippingunits.cod-db.get(0).bookings.costvoucher,0,'COMMA',0,'POINT')}+ ' ₫'">295.00</td>
                         </tr>
                     </table>
                 </div>
