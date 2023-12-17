@@ -293,12 +293,12 @@
                                     <ul class="ul_productCart" ng-init="initCateByBookId(x.bookid)">
                                         <li class=" li_productCart"  ng-repeat="cate in listCate">{{cate.name}}</li>
                                     </ul>
-                                    <span class="foot_productCart"><i class="fa fa-shopping-bag"></i>Mua ngay</span>
+                                    <span class="foot_productCart"><i class="fa fa-shopping-bag" ng-disabled="x.isactive  == false || x.statues == 'Hết hàng' " ng-click="buyNow(x.bookid)"></i>Mua ngays</span>
                                     <span class="foot_productCart" ng-click="setQuantityPro('x.bookid')"><i class="fa fa-shopping-cart"></i>Thêm vào giỏ hàng</span>
                                 </div>
                             </div>
                         </div>
-
+ 
                         <div style="width: 5% ;float: left; margin-top: 200px; margin-left: 1%;"
                              class="scroll-button right-button">
                             <button class="btn" ng-click="next(b,4)"><i class="bi bi-chevron-right"
