@@ -91,4 +91,8 @@ public class SellerController {
     public String createBankAccount(Model model){
         return "SellerChannel/CreateBankAccount";
     }
+    @RequestMapping("/shop/bulkDelivery")
+    public String bulkDelivery(Model model){
+        return "SellerChannel/BulkDelivery";
+    }
 }

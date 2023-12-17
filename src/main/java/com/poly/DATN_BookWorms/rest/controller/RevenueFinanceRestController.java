@@ -89,9 +89,9 @@ public class RevenueFinanceRestController {
         paymentShop.setCreateat(new Date());
         paymentShop.setStatus(false);
         paymentShop.setValuepayment(Long.parseLong(paymentTotal));
-        paymentShop.setShoponlines(shoponlines);
+        paymentShop.setShopid(shoponlines.getShopid());
         paymentShop.setIsdelete(false);
-
+        System.out.println(shoponlines.toString());
         paymentShopService.save(paymentShop);
         // Trả về phản hồi thành công
         return ResponseEntity.ok(paymentShop);

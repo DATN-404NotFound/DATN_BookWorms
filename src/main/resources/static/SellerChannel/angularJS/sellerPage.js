@@ -73,6 +73,10 @@ app.config(function ($routeProvider) {
             templateUrl: '/Ibook/seller/shop/finance/createBankAccount',
             controller: 'createBankAccountController'
         })
+        .when('/shipping/bulkDelivery',{
+            templateUrl: '/Ibook/seller/shop/bulkDelivery',
+            controller: 'bulkDeliveryController'
+        })
         .otherwise({
             redirectTo: '/seller'
         });
@@ -101,8 +105,6 @@ app.controller("indexController", function ($scope, $routeParams, $route, $http,
             $scope.salesAnalysis = resp.data;
             $scope.salesAnalysisNow.push(resp.data[currentMonth-1]);
             $scope.salesAnalysisNow.push(resp.data[currentMonth - 2]);
-            console.log("data", $scope.salesAnalysis)
-            console.log("data", $scope.salesAnalysisNow)
         }).catch(error => {
             console.log("Error", error)
         });
@@ -270,22 +272,12 @@ app.controller("salesController", function ($scope, $routeParams, $route, $http,
             $timeout(function () {
                 $scope.initDataChart(resp.data);
             }, 500);
-            console.log("data", $scope.salesAnalysis)
-            console.log("data", $scope.salesAnalysisNow)
-            console.log("year", $scope.year)
         }).catch(error => {
             console.log("Error", error)
         });
 
 
     }
-
-    const yearDropdown = document.getElementById("year-dropdown");
-
-    yearDropdown.addEventListener("change", function() {
-       $scope.getSalesAnalysis();
-        console.log("Selected year:", $scope.year);
-    });
 
     $scope.growthIncreases = function (firtsMonth, secondMonth) {
         var growth = 0;

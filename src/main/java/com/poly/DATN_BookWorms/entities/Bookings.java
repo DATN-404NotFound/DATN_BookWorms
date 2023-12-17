@@ -65,7 +65,7 @@ public class Bookings {
 
 	public Double     costvoucher ;
 
-	public Double     costship ;
+	public Float     costship ;
 
     //--- ENTITY LINKS ( RELATIONSHIP )
     @OneToMany(mappedBy="bookings")

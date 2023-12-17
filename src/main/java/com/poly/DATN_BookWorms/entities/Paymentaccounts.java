@@ -87,8 +87,6 @@ public class Paymentaccounts implements Serializable {
 
 
 
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	} 
+
 
 }

@@ -46,6 +46,8 @@ public class PaymentShop implements Serializable {
 	public long valuepayment;
 
 	public boolean isdelete;
+
+	public Integer shopid;
 	
 	@ManyToOne
     @JoinColumn(name="Shopid", referencedColumnName="ShopId", insertable=false, updatable=false)
