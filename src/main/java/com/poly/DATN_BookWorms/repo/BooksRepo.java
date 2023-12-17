@@ -87,5 +87,8 @@ public interface BooksRepo extends JpaRepository<Books, Long> {
 	List<Books> findTop5Inventory();
     @Query("SELECT b FROM Books b WHERE b.shopid = ?1")
     List<Books> findBookByShopId(Integer shopId);
+
+    @Query("Select b.shoponlines from Books b where b.bookid like ?1")
+    Shoponlines s(long bookid);
 }
 

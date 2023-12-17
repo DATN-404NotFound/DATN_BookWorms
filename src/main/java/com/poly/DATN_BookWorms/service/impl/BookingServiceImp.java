@@ -23,9 +23,11 @@ import com.poly.DATN_BookWorms.entities.Bookings;
 import com.poly.DATN_BookWorms.entities.Books;
 import com.poly.DATN_BookWorms.entities.Detailbookings;
 import com.poly.DATN_BookWorms.entities.Payments;
+import com.poly.DATN_BookWorms.entities.Shoponlines;
 import com.poly.DATN_BookWorms.repo.BookingsRepo;
 import com.poly.DATN_BookWorms.repo.BooksRepo;
 import com.poly.DATN_BookWorms.repo.DetailbookingsRepo;
+import com.poly.DATN_BookWorms.repo.ShoponlinesRepo;
 import com.poly.DATN_BookWorms.service.AccountService;
 import com.poly.DATN_BookWorms.service.BookingService;
 import com.poly.DATN_BookWorms.service.MailService;
@@ -52,7 +54,8 @@ public class BookingServiceImp implements BookingService{
 	@Autowired
 	BooksRepo booksRepo;
 	
-	
+	@Autowired
+	ShoponlinesRepo shoponlinesRepo;
 	@Autowired
 	PaymentService paymentService;
 	
@@ -75,7 +78,7 @@ public class BookingServiceImp implements BookingService{
 	String email = "";
 	String shopname = "";
 
-	
+	long bookid = 0;
 	int countdetal =0;
 	@Override
 	public Bookings create(JsonNode bookingData) {
@@ -102,7 +105,7 @@ public class BookingServiceImp implements BookingService{
 			Calendar c = Calendar.getInstance();
 			c.add(Calendar.DAY_OF_MONTH,3); 
 			booking.setTimefinish(c.getTime());
-		
+			
 			bookingRepo.save(booking);
 			logger.info("Create booking is successful with booking : {}", booking);
 			TypeReference<List<Detailbookings>> type = new TypeReference<List<Detailbookings>>() {};
@@ -127,6 +130,7 @@ public class BookingServiceImp implements BookingService{
 								d.setBookingid(booking.getBookingid());
 								 d.setBookings(booking);
 								 d.setDbid(crc32_SHA256.getCodeCRC32C(userid+d.bookingid+d.bookid));
+								 bookid = d.bookid;
 								 logger.info("Detailbooking for create : {}", d.toString());
 								 detailRepo.save(d);
 							email = d.getDbid();
@@ -148,6 +152,11 @@ public class BookingServiceImp implements BookingService{
 						d.setBookings(booking);
 						d.setPaymentid(crc32_SHA256.getCodeCRC32C(userid+ d.getBookingid()));
 						if(d.getType()) { 
+							//System.out.println("tttttttttttttttttttttttttttttttttttttttttttt12 "+ d.getType());
+						//	Bookings book = bookingRepo.findBybookingid(d.getBookingid());
+						Shoponlines shopon = booksRepo.s(bookid);
+
+							shopon.setTotal(shopon.getTotal() + booking.getCost());
 							d.setStatus("Đã thanh toán");
 							booking.getOrderstatuses().setOrderstatusid(4);
 							booking.setOrderstatusid(4);

@@ -44,20 +44,25 @@ function validateSignupForm() {
             console.log(JSON.stringify(resultData));
            
             $('#iconModel').html('<i  style="font-size: 50px;color: green;" class="bi bi-check-circle"></i> ')
-            $('#descrptionInfor').text("Cập nhật thành công!")
+            $('#descrptionInfor').text("Cập nhật thành công!");
+            $("#buttonExxit").show();
           }
         },
       });
     } catch (error) {
       $('#mess').show();
-      $('#modela').hide()
+      $('#iconModel').html('<i  style="font-size: 50px;color: red;" class="bi bi-x-circle"></i> ')
+      $('#descrptionInfor').text("Mật khẩu mới và Nhập lại mật khẩu không khớp!!");
+      $("#buttonExxit").hide();
       console.log("lỗi : " + error)
 
     }
   }
   else {
     $('#mess').show();
-    $('#modela').hide()
+    $('#iconModel').html('<i  style="font-size: 50px;color: red;" class="bi bi-x-circle"></i> ')
+      $('#descrptionInfor').text("Vui lòng nhập đủ đầy đủ yêu cầu!!");
+      $("#buttonExxit").hide();
     console.log("false");
   }
 }

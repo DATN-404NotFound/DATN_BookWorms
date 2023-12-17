@@ -29,6 +29,7 @@ import javax.validation.constraints.NotBlank;
  * @author Telosys
  *
  */
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity

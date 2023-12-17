@@ -46,7 +46,6 @@
                                     <input type="radio" th:checked="${item.isactive  == false}  " name="isActive"> Tạm
                                     ngưng
                                 </form>
-                                <p class="product-description"></p>
                                 <h2 class="price">Current price: <span
                                         th:text="${#numbers.formatDecimal(item.price, 0, 'POINT', 0, 'COMMA')} +'₫'"></span>
                                 </h2>

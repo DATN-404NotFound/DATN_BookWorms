@@ -252,8 +252,9 @@
                                     <ul class="ul_productCart" ng-init="initCateByBookId(x.bookid)">
                                         <li class=" li_productCart"  ng-repeat="cate in listCate">{{cate.name}}</li>
                                     </ul>
-                                    <span class="foot_productCart"><i class="fa fa-shopping-bag"></i>Mua Ngay</span>
-                                    <a class="foot_productCart" ng-click="setQuantityPro('x.bookid')" id="nyan-btn" ><i class="fa fa-shopping-cart"></i>Thêm vào giỏ hàng</a>
+                                    <span class="foot_productCart"  ng-disabled="x.isactive  == false || x.statues == 'Hết hàng' " ng-click="buyNow(x.bookid)"><i class="fa fa-shopping-bag"></i>Mua Ngay</span>
+                                    <a class="foot_productCart" ng-disabled="x.isactive  == false || x.statues == 'Hết hàng' "
+                                    ng-click="cart.add(x.bookid)" id="nyan-btn" ><i class="fa fa-shopping-cart"></i>Thêm vào giỏ hàng</a>
                                 </div>
                             </div>
                         </div>
@@ -293,12 +294,12 @@
                                     <ul class="ul_productCart" ng-init="initCateByBookId(x.bookid)">
                                         <li class=" li_productCart"  ng-repeat="cate in listCate">{{cate.name}}</li>
                                     </ul>
-                                    <span class="foot_productCart"><i class="fa fa-shopping-bag"></i>Mua ngay</span>
+                                    <span class="foot_productCart"><i class="fa fa-shopping-bag"></i>Mua ngays</span>
                                     <span class="foot_productCart" ng-click="setQuantityPro('x.bookid')"><i class="fa fa-shopping-cart"></i>Thêm vào giỏ hàng</span>
                                 </div>
                             </div>
                         </div>
-
+ 
                         <div style="width: 5% ;float: left; margin-top: 200px; margin-left: 1%;"
                              class="scroll-button right-button">
                             <button class="btn" ng-click="next(b,4)"><i class="bi bi-chevron-right"
@@ -403,12 +404,10 @@
                                     <input type="radio" th:checked="${item.isactive  == false}  " name="isActive"> Tạm
                                     ngưng
                                 </form>
-                                <p class="product-description">“Bạn hối tiếc vì không
-                                    nắm bắt lấy một cơ hội nào đó, chẳng có ai phải mất ngủ.
-                                    Bạn trải qua những ngày tháng nhạt nhẽo với công việc bạn căm ghét, người ta
-                                    chẳng hề bận lòng.
-                                    Bạn có chết mòn nơi xó tường với những ước mơ dang dở, đó không phải là việc
-                                    của họ.</p>
+                                <p class="product-description" id="content11"
+                                ng-init="loadContent(11)">
+                                   
+                                </p>
                                 <h4 class="price">Giá: <span
                                         th:text="${#numbers.formatDecimal(item.price, 0, 'POINT', 0, 'COMMA')} +'₫'"></span>
                                 </h4>

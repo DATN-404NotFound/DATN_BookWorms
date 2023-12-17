@@ -68,7 +68,6 @@ public class BookingRestController {
     public Bookings create(@RequestBody JsonNode bookingData, HttpServletRequest request) {
         return bookingService.create(bookingData);
     }
-	
 
     @GetMapping("")
     public List<Bookings> getAll() {

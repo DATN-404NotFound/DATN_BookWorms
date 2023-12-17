@@ -436,6 +436,9 @@ a :hover {
 
 .product-description {
     font-size: 20px;
+    height: 200px;
+    width: 100%;
+    overflow-x: scroll;
 }
 
 .review-no, .product-title {
@@ -623,4 +626,3 @@ a:hover {
     right: 17px;
 
 }
-

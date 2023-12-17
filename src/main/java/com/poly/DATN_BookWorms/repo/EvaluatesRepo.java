@@ -17,4 +17,5 @@ public interface EvaluatesRepo extends JpaRepository<Evaluates, Integer>{
     List<Evaluates> getEvaByBookid(Long bookid);
     
     
+    
 }

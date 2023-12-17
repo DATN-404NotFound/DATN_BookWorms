@@ -314,12 +314,23 @@ app.controller("cart_ctrl", function ($scope, $http, $timeout) {
 		switch (stt) {
 			case 1: {
 				$scope.process($scope.filterCate, name);
-				$scope.getList(1, "type", "listtype", $scope.filterCate);
+				if ($scope.filterCate == null || $scope.filterCate == "") {
+					$scope.getList(1, "type", "listtype", 0);
+				}
+				else {
+					$scope.getList(1, "type", "listtype", $scope.filterCate);
+				}
 				break;
 			}
 			case 2: {
 				$scope.process($scope.filterWrite, name);
-				$scope.getList(2, "writer", "listwriter", $scope.filterWrite);
+				//$scope.getList(2, "writer", "listwriter", $scope.filterWrite);
+				if ($scope.filterWrite == null || $scope.filterWrite == "") {
+					$scope.getList(2, "writer", "listwriter", 0);
+				}
+				else {
+					$scope.getList(2, "writer", "listwriter", $scope.filterWrite);
+				}
 				break;
 			}
 			case 3: {
@@ -388,8 +399,15 @@ app.controller("cart_ctrl", function ($scope, $http, $timeout) {
 				break;
 			}
 			case 5: {
+				$scope.filterRatting = [];
 				$scope.process($scope.filterRatting, name);
-				$scope.getList(3, "Eva", "listeva", $scope.filterRatting);
+				//$scope.getList(3, "Eva", "listeva", $scope.filterRatting);
+				if ($scope.filterRatting == null || $scope.filterRatting == "") {
+					$scope.getList(3, "Eva", "listeva", 0);
+				}
+				else {
+					$scope.getList(3, "Eva", "listeva", $scope.filterRatting);
+				}
 				break;
 			}
 		}
@@ -430,25 +448,29 @@ app.controller("cart_ctrl", function ($scope, $http, $timeout) {
 		}
 		else {
 
-			return (JSON.stringify(angular.lowercase(b.bookname)).indexOf($scope.searchfilter) != -1 || JSON.stringify(b.price).indexOf($scope.searchfilter) != -1);
+			return (JSON.stringify(angular.lowercase(b.bookname)).indexOf($scope.searchfilter) !== -1 || JSON.stringify(b.price).indexOf($scope.searchfilter) !== -1);
 		}
 	}
 
 	$scope.filtershop = function (s) {
 		$scope.searchfilter = localStorage.getItem("searchfilter")
 		if ($scope.searchfilter == null) {
+			console.log("440 ")
 			return (JSON.stringify(angular.lowercase(s.shopname)).indexOf($scope.searchfilter) == -1);
 		}
 		else {
-			return (JSON.stringify(angular.lowercase(s.shopname)).indexOf($scope.searchfilter) != -1);
+			console.log("441 ")
+			return (JSON.stringify(angular.lowercase(s.shopname)).indexOf($scope.searchfilter) !== -1);
 		}
 	}
 
 	$scope.filterByCate = function (b) {
 		if ($scope.filterCate.length == 0) {
+			console.log("451 " + b)
 			return ($scope.filterValueCate.indexOf(b.bookid) == -1);
 		}
 		else {
+			console.log("djfk " + b)
 			return ($scope.filterValueCate.indexOf(b.bookid) !== -1);
 		}
 	};
@@ -465,9 +487,11 @@ app.controller("cart_ctrl", function ($scope, $http, $timeout) {
 
 	$scope.filterByRatting = function (b) {
 		if ($scope.filterRatting.length == 0) {
+			console.log("489")
 			return ($scope.filterValueRatting.indexOf(b.bookid) == -1);
 		}
 		else {
+			console.log("492 " + b)
 			return ($scope.filterValueRatting.indexOf(b.bookid) !== -1);
 		}
 	};
@@ -803,6 +827,7 @@ $(document).ready(function () {
 			var c = Number(reply) * Number(data.sales.discountpercentage);
 			document.getElementById('totalSales').innerText = formatNumber(c, ".", ",");
 			vouchero = data;
+
 			calculatorPrice();
 		});
 
@@ -907,7 +932,10 @@ function deals() {
 	}
 
 }
-
+$(document).ready(function () {
+	console.log("ẩn")
+	$('.spinner-border').hide();
+});
 
 function greeting() {
 	location.href = "/order"
@@ -1012,6 +1040,7 @@ app.controller("order_ctrl", function ($scope, $http, $timeout) {
 	}
 
 	$scope.deleteDeal = function () {
+		$scope.dealItem = JSON.parse(localStorage.getItem('deal'));
 		$scope.dealItem.forEach(i => {
 			$http.delete("http://localhost:8080/rest/cart/" + i.cartid).then(resp => {
 			})
@@ -1028,6 +1057,11 @@ app.controller("order_ctrl", function ($scope, $http, $timeout) {
 	$scope.paymentCart = function (stt) {
 		var payone = Number($('#pay').children("option:selected").val());
 		console.log("book " + localStorage.getItem("bookingAll"))
+		var ams = $.noConflict();
+		ams(document).ready(function () {
+			ams('#spt').show();
+
+		});
 		if (stt == 1) {
 
 			if (payone == -1) {
@@ -1038,8 +1072,11 @@ app.controller("order_ctrl", function ($scope, $http, $timeout) {
 				$('#modalbutton').hide();
 			}
 			else {
+
 				var timeoutTimer = 0;
 				$scope.shopItem.forEach(i => {
+					var s = $('#shippunit' + i.shopid).children("option:selected").text();
+					var ship1 = s.slice(s.indexOf(': ') + 2);
 					var a = document.getElementById('priceItem' + i.shopid).innerText;
 					$scope.bookings = {
 						bookingid: i.shopid,
@@ -1080,7 +1117,7 @@ app.controller("order_ctrl", function ($scope, $http, $timeout) {
 
 							})
 						},
-						costship: Number($('#shipShopPrivate' + i.shopid).text()),
+						costship: Number(ship1),
 						costvoucher: (Number($('#sale' + i.shopid).text()) / 100),
 						timefinish: new Date()
 					}
@@ -1093,47 +1130,61 @@ app.controller("order_ctrl", function ($scope, $http, $timeout) {
 
 					}
 					else {
+
 						$http.post(`/rest/bookings`, booking).then(resp => {
 							console.log("1047 : " + JSON.stringify(resp.data))
 							$scope.deleteDeal();
 							$http.delete("http://localhost:8080/rest/discount/" + vouchero.discountcodeid).then(resp => {
 							})
+
 							console.log("949")
 							$('#dhmodal').show();
 							$('#iconModels').html('<i  style="font-size: 50px;color: green;" class="bi bi-check-circle"></i> ')
 							$('#buttonClose').hide();
 							$('#descrptionInfors').text("Đặt hàng thành công!");
 							$('#modalbutton').show();
+							$('.spinner-border').hide();
 						}).catch(error => {
+
 							console.log("954")
 							$('#dhmodal').show();
 							$('#iconModels').html('<i  style="font-size: 50px;color: red;" class="bi bi-x-circle"></i> ')
 							$('#descrptionInfors').text("Đặt hàng thất bại! Vui lòng thử lại");
 							$('#buttonClose').hide();
 							$('#modalbutton').show();
+							$('.spinner-border').hide();
+
+
 							console.log(error)
 						})
 					}
-
-
-
 				});
 			}
+
 		}
 		else {
 			let booking = [];
 			booking = JSON.parse(localStorage.getItem("bookingAll"));
 			console.log("sssboooknew " + JSON.stringify(booking))
+
+
+			var jq = $.noConflict();
+			jq(document).ready(function () {
+				jq('.spinner-border').show();
+
+			});
 			$http.post(`/rest/bookings`, booking).then(resp => {
+
 				console.log("1047 : " + JSON.stringify(resp.data))
 				$scope.deleteDeal();
 				$http.delete("http://localhost:8080/rest/discount/" + vouchero.discountcodeid).then(resp => {
 				})
 				location.href = "/cart"
 			}).catch(error => {
-
 				console.log("1105", error)
 			})
+
+
 		}
 
 	}
@@ -1237,12 +1288,31 @@ app.directive('fileInput', ['$parse', function ($parse) {
 
 		})
 	}
-
+	$scope.printOrder = function (bookingid) {
+		$http({
+			method: 'GET',
+			url: '/rest/bookings/generate/' + bookingid,
+			responseType: 'arraybuffer'
+		}).then(function (response) {
+			var blob = new Blob([response.data], { type: 'application/pdf' });
+			var url = window.URL.createObjectURL(blob);
+			var a = document.createElement('a');
+			a.href = url;
+			a.download = 'example.pdf';
+			document.body.appendChild(a);
+			a.click();
+			window.URL.revokeObjectURL(url);
+		}, function (error) {
+			console.log('Failed to generate PDF');
+		});
+	}
 	$scope.updateBooking = function () {
 		var ad = angular.copy($scope.add);
 		console.log("cart 1144 " + ad[0].bookingid)
 		$http.post("/rest/bookings/update", ad[0].bookingid).then(resp => {
 			location.href = "/myAccount/orderMyAccount";
+		}).catch(error => {
+			console.log("1251" + error)
 		})
 	}
 	$scope.toShopDetails = function (shopid) {
@@ -1271,7 +1341,7 @@ app.directive('fileInput', ['$parse', function ($parse) {
 			reviewtext: $scope.evaluate.reviewtext,
 			evaluatedate: new Date()
 		};
-	
+
 		const headers = {
 			'Content-Type': "application/json",
 			transformRequest: angular.identity
@@ -1458,6 +1528,13 @@ app.directive('fileInput', ['$parse', function ($parse) {
 
 	}
 
+	$scope.setDefault = function (id) {
+		$http.put("/rest/address/update", id).then(resp => {
+			console.log("address " + resp.data)
+			location.href = "/myAccount/address";
+		})
+	}
+
 });
 
 
@@ -1540,6 +1617,8 @@ var printResult = () => {
 	}
 
 }
+
+
 
 
 

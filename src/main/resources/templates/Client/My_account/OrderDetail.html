@@ -83,7 +83,8 @@
                         </tr>
                         <tr>
                             <td>Phương thức thanh toán:</td>
-                            <td th:text="${db.get(0).bookings.shippingunits.name}">COD</td>
+                            <td th:if ="${db.get(0).bookings.listOfPayments.get(0).type == false}">Tiền mặt</td>
+                            <td th:if ="${db.get(0).bookings.listOfPayments.get(0).type == true}">Thanh toán qua thẻ ngân hàng</td>
                         </tr>
                         <tr>
                             <td>Thành tiền:</td>
@@ -92,8 +93,8 @@
                     </table>
                 </div>
                 <div class="detailInfo-right">
-                    <button   th:attr="ng-click=@{|printOrder('${db.get(0).bookings.bookingid}')|}"  class="btn btnBuilOrrder-orderDetail">Xuất hoá đơn </button>
-                    <button class="btn btnBuyAgain-orderDetail" th:if="${db.get(0).bookings.orderstatusid} == 8" th:attr="ng-click=@{|cart.repurchase('${db.get(0).bookingid}')|}">Mua lại </button>
+                    <button   th:attr="ng-click=@{|printOrder('${db.get(0).bookings.bookingid}')|}"  th:if="${db.get(0).bookings.orderstatusid} == 8 And ${db.get(0).bookings.orderstatusid} == 5"  class="btn btnBuilOrrder-orderDetail">Xuất hoá đơn </button>
+                    <button class="btn btnBuyAgain-orderDetail" th:if="${db.get(0).bookings.orderstatusid} == 8 " th:attr="ng-click=@{|cart.repurchase('${db.get(0).bookingid}')|}">Mua lại </button>
                 </div>
             </div>
         </div>
