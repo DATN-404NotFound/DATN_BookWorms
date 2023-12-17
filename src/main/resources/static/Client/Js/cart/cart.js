@@ -827,7 +827,7 @@ $(document).ready(function () {
 			var c = Number(reply) * Number(data.sales.discountpercentage);
 			document.getElementById('totalSales').innerText = formatNumber(c, ".", ",");
 			vouchero = data;
-			localStorage.setItem("vouchero", vouchero);
+		
 			calculatorPrice();
 		});
 
@@ -932,7 +932,10 @@ function deals() {
 	}
 
 }
-
+$(document).ready(function() {
+	console.log("ẩn")
+	$('.spinner-border').hide();
+   });
 
 function greeting() {
 	location.href = "/order"
@@ -1054,7 +1057,11 @@ app.controller("order_ctrl", function ($scope, $http, $timeout) {
 	$scope.paymentCart = function (stt) {
 		var payone = Number($('#pay').children("option:selected").val());
 		console.log("book " + localStorage.getItem("bookingAll"))
-
+		var ams = $.noConflict();
+		ams(document).ready(function(){
+			ams('#spt').show();
+		
+		});
 		if (stt == 1) {
 
 			if (payone == -1) {
@@ -1065,6 +1072,7 @@ app.controller("order_ctrl", function ($scope, $http, $timeout) {
 				$('#modalbutton').hide();
 			}
 			else {
+				
 				var timeoutTimer = 0;
 				$scope.shopItem.forEach(i => {
 					var s = $('#shippunit' + i.shopid).children("option:selected").text();
@@ -1122,51 +1130,61 @@ app.controller("order_ctrl", function ($scope, $http, $timeout) {
 
 					}
 					else {
+						
 						$http.post(`/rest/bookings`, booking).then(resp => {
 							console.log("1047 : " + JSON.stringify(resp.data))
 							$scope.deleteDeal();
 							$http.delete("http://localhost:8080/rest/discount/" + vouchero.discountcodeid).then(resp => {
 							})
+						
 							console.log("949")
 							$('#dhmodal').show();
 							$('#iconModels').html('<i  style="font-size: 50px;color: green;" class="bi bi-check-circle"></i> ')
 							$('#buttonClose').hide();
 							$('#descrptionInfors').text("Đặt hàng thành công!");
 							$('#modalbutton').show();
+							$('.spinner-border').hide();
 						}).catch(error => {
+						
 							console.log("954")
 							$('#dhmodal').show();
 							$('#iconModels').html('<i  style="font-size: 50px;color: red;" class="bi bi-x-circle"></i> ')
 							$('#descrptionInfors').text("Đặt hàng thất bại! Vui lòng thử lại");
 							$('#buttonClose').hide();
 							$('#modalbutton').show();
+							$('.spinner-border').hide();
+							
+						
 							console.log(error)
 						})
 					}
-
-
-
 				});
 			}
 			
 		}
 		else {
 			let booking = [];
-			
 			booking = JSON.parse(localStorage.getItem("bookingAll"));
 			console.log("sssboooknew " + JSON.stringify(booking))
-			$http.post(`/rest/bookings`, booking).then(resp => {
-				console.log("1047 : " + JSON.stringify(resp.data))
-				$scope.deleteDeal();
-				let vouchero1 =  JSON.parse(localStorage.getItem('vouchero'));;
-				console.log("voucher01 "+ vouchero1)
-				$http.delete("http://localhost:8080/rest/discount/" + vouchero1.discountcodeid).then(resp => {
-				})
-				//location.href = "/cart"
-			}).catch(error => {
+			
+			
+				var jq = $.noConflict();
+jq(document).ready(function(){
+	jq('.spinner-border').show();
 
-				console.log("1105", error)
-			})
+});
+				$http.post(`/rest/bookings`, booking).then(resp => {
+
+					console.log("1047 : " + JSON.stringify(resp.data))
+					$scope.deleteDeal();
+					$http.delete("http://localhost:8080/rest/discount/" + vouchero.discountcodeid).then(resp => {
+					})
+					location.href = "/cart"
+				}).catch(error => {
+					console.log("1105", error)
+				})
+			
+
 		}
 
 	}
@@ -1526,6 +1544,8 @@ var printResult = () => {
 	}
 
 }
+
+
 
 
 
