@@ -255,7 +255,13 @@ a {
     margin-top: 37px;
 }
 
-.btnFinish-newAddress,
+.btnFinish-newAddress {
+    background-color: #F25019;
+    color: white;
+    width: 145px;
+    height: 46.25px;
+    margin-left: calc(100% - 310px);
+}
 .btnFinish-editAddress {
     background-color: #F25019;
     color: white;
@@ -263,7 +269,6 @@ a {
     height: 46.25px;
     margin-left: calc(100% - 485px);
 }
-
 .btnDelete-editAddress {
     width: 145px;
     color: white;
@@ -284,9 +289,9 @@ a {
 
 #fullName-newAddress,
 #numberPhone-newAddress,
-#province-newAddress,
-#district-newAddress,
-#ward-newAddress,
+#city, #city1,
+#district, #district1,
+#ward, #ward1,
 #specificAddress-newAddress {
     height: 50px;
     font-size: 15px !important;
@@ -295,20 +300,15 @@ a {
 
 #fullName-newAddress:focus,
 #numberPhone-newAddress:focus,
-#province-newAddress:focus,
-#district-newAddress:focus,
-#ward-newAddress:focus,
+#city:focus, #city1:focus,
+#district:focus, #district1:focus,
+#ward:focus, #ward1:focus,
 #specificAddress-newAddress:focus {
     height: 50px;
     font-size: 15px !important;
     box-shadow: none !important;
     border: 1px black solid;
 }
-
-#province-newAddress option:hover {
-    background-color: #F25019 !important;
-}
-
 #formNewAddress div label {
     font-size: 15px;
 }
@@ -988,7 +988,7 @@ a {
 .imgVoucher {
     width: 25%;
     height: 100px;
-    margin: 9px 15px 0 0;
+    margin: 9px 15px 0 10px;
     float: left;
 }
 
@@ -1026,13 +1026,13 @@ a {
     background-color: #fff;
     box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.5);
     width: 90%;
-    height: 118px;
+    height: 100px;
     margin: 15px 0 20px 5%;
 }
 .detail-imgVoucher {
     width: 25%;
-    height: 100px;
-    margin: 9px 15px 0 0;
+    height: 80px;
+    margin: 9px 15px 0 10px;
     float: left;
 }
 
@@ -1046,11 +1046,11 @@ a {
 }
 
 #detail-promotionnameVoucher {
-    font-size: 18px;
+    font-size: 16px;
 }
 
 #detail-timeVoucher {
-    font-size: 14px;
+    font-size: 12px;
     color: #F25019;
 }
 .btnCancel-detailVoucher {
