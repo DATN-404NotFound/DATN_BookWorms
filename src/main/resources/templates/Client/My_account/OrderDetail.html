@@ -3,7 +3,6 @@
 
 <body>
     <div th:fragment="maccount">
-        <button   th:attr="ng-click=@{|printOrder('${db.get(0).bookings.bookingid}')|}"  class="float-end m-5 btn btn-primary">Xuất hoá đơn </button> <br>
         <div class="boxOrderDetail-top">
             <p class="mt-4" id="pDiaChiNhanHang">Địa chỉ nhận hàng</p>
             <p class="mt-4" id="pID-orderDetail">ID: <span th:text="${db.get(0).bookings.bookingid}"></span></p> <br>
@@ -97,6 +96,7 @@
                     </table>
                 </div>
                 <div class="detailInfo-right">
+                    <button   th:attr="ng-click=@{|printOrder('${db.get(0).bookings.bookingid}')|}"  class="btn btnBuilOrrder-orderDetail">Xuất hoá đơn </button>
                     <button class="btn btnBuyAgain-orderDetail" th:if="${db.get(0).bookings.orderstatusid} == 8" th:attr="ng-click=@{|cart.repurchase('${db.get(0).bookingid}')|}">Mua lại </button>
                 </div>
             </div>

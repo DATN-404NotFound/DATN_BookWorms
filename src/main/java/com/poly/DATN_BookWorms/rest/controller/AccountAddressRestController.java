@@ -49,20 +49,7 @@ public class AccountAddressRestController {
 		return addressService.byAddressUserId(id);
 	}
 	
-	@PutMapping("/update")
-	public Addressusers ok(@RequestBody String id){ 
-		Addressusers add = accountAddressService.findById(id);
-	
-		String userid = crc32_SHA256.getCodeCRC32C(request.getRemoteUser());
-		List<Addressusers> as = accountAddressService.getAdressByUser(userid);
-		for (Addressusers addressusers : as) {
-			addressusers.setStatusaddress("Không");
-			accountAddressService.save(addressusers);
-		}
-		add.setStatusaddress("Mặc định");
-		accountAddressService.save(add);
-		return add ;
-	}
+
 	@PostMapping
 	public Addressusers postAddress(@RequestBody Addressusers json){ 
 		
@@ -74,6 +61,19 @@ public class AccountAddressRestController {
 		
 		addressService.delete(id);
 	}
-	
-	
+
+	@PutMapping("/update")
+	public Addressusers ok(@RequestBody String id){
+		Addressusers add = accountAddressService.findById(id);
+
+		String userid = crc32_SHA256.getCodeCRC32C(request.getRemoteUser());
+		List<Addressusers> as = accountAddressService.getAdressByUser(userid);
+		for (Addressusers addressusers : as) {
+			addressusers.setStatusaddress("Không");
+			accountAddressService.save(addressusers);
+		}
+		add.setStatusaddress("Mặc định");
+		accountAddressService.save(add);
+		return add ;
+	}
 }

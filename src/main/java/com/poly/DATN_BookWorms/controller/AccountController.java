@@ -75,7 +75,7 @@ public class    AccountController {
         }
         try {
             // Sleep for 2 seconds (2000 milliseconds)
-            Thread.sleep(2000);
+            Thread.sleep(5000);
             customUserDetailService.loadUserByUsername(performance.getName());
 
         } catch (InterruptedException e) {
@@ -102,7 +102,7 @@ public class    AccountController {
 
         try {
             // Sleep for 2 seconds (2000 milliseconds)
-            Thread.sleep(2000);
+            Thread.sleep(5000);
             customUserDetailService.loadUserByUsername(performance.getName());
         } catch (InterruptedException e) {
             e.printStackTrace();

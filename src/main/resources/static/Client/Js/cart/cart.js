@@ -1192,11 +1192,22 @@ app.controller("address_ctrl", function ($scope, $http) {
 		ad.province = document.getElementById('city1').value;
 		ad.district = document.getElementById('district1').value;
 		ad.ward = document.getElementById('ward1').value;
-		console.log(ad.ward + ', ' + ad.district + ', ' + ad.province)
+		console.log(ad.ward + ', ' + ad.district + ', ' + ad.province);
+		let checkedradio = $('[name="sstatusEditAddress"]:radio:checked').val();
+		ad.statusaddress = checkedradio;
+		console.log("radio "+ checkedradio )
 		$http.post("/rest/address", ad).then(resp => {
 			location.href = "/myAccount/address";
 		})
 	}
+
+	$scope.setDefault = function(id){
+		$http.put("/rest/address/update",id).then(resp =>{
+			console.log("address "+ resp.data)
+			location.href = "/myAccount/address";
+		})
+	}
+
 	$scope.setShop = function (ds, shopId) {
 		console.log("a ", shopId)
 		let url = `http://localhost:8080/rest/files/` + shopId;
