@@ -87,7 +87,7 @@
                         </tr>
                         <tr>
                             <td>Thành tiền:</td>
-                            <td th:text="${#numbers.formatDecimal(db.get(0).bookings.cost+db.get(0).bookings.shippingunits.cod-db.get(0).bookings.costvoucher-db.get(0).bookings.costship,0,'COMMA',0,'POINT')}+ ' ₫'">295.00</td>
+                            <td th:text="${#numbers.formatDecimal(db.get(0).bookings.cost + db.get(0).bookings.shippingunits.cod - db.get(0).bookings.costvoucher,0,'COMMA',0,'POINT')}+ ' ₫'">295.00</td>
                         </tr>
                     </table>
                 </div>
