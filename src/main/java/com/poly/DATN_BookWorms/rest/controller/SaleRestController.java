@@ -39,7 +39,20 @@ public class SaleRestController {
 	public Sales getSaleCounpon(@PathVariable("coupon") String coupon){ 
 		return saleService.findById(coupon);
 	}
-	
+
+	@GetMapping("/getListHasSales")
+	public ResponseEntity<List<Hassales>> getListHasSales(){
+		return ResponseEntity.ok(hasSaleService.findAll());
+	}
+
+	@PostMapping("/getHasSaleFromBook")
+	public ResponseEntity<Integer> getHasSaleFromBoook(@RequestParam("bookid") String bookId, @RequestParam("saleid") String saleId){
+		Integer hasSalesId = hasSaleService.findHasSaleIdByBookId(Integer.parseInt(bookId), saleId);
+		if(hasSalesId == null)
+			return ResponseEntity.ok(null);
+		else
+			return ResponseEntity.ok(hasSalesId);
+	}
 	@GetMapping("/{intendfor}")
 	public List<Sales> getSaleShopOfIntend(@PathVariable("intendfor") String intendfor){ 
 		return saleService.saleOfShopIntendFor(intendfor);

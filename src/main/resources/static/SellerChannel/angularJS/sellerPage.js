@@ -708,7 +708,7 @@ app.directive('fileInput', ['$parse', function ($parse) {
 
             $http.post(url, fd, {
                 transformRequest: angular.identity,
-                headers: { 'Content-Type': undefined }
+                headers: {'Content-Type': undefined}
             }).then(function (response) {
                 console.log(response.data);
             }).catch(function (error) {
@@ -740,7 +740,7 @@ app.directive('fileInput', ['$parse', function ($parse) {
 
         for (let i = 0; i < $scope.listCategoryToBook.length; ++i) {
             var formData = new FormData();
-            formData.append("categoryid",$scope.listCategoryToBook[i].categoryid);
+            formData.append("categoryid", $scope.listCategoryToBook[i].categoryid);
             formData.append("bookid", $scope.book.bookid);
 
             console.log($scope.listCategoryToBook[i].categoryid)
@@ -750,7 +750,7 @@ app.directive('fileInput', ['$parse', function ($parse) {
                 transformRequest: angular.identity
             };
 
-            $http.post(url,formData, {headers: headers}).then(resp => {
+            $http.post(url, formData, {headers: headers}).then(resp => {
                 console.log("Save typebook success!!!")
             }).catch(error => {
                 console.log("Save typebook false!!!")
@@ -839,7 +839,7 @@ app.service('BookService', function ($http) {
 });
 //Add
 //Tranport
-app.controller('transportController', function ($scope, $routeParams, $route, $http, $rootScope,$timeout) {
+app.controller('transportController', function ($scope, $routeParams, $route, $http, $rootScope, $timeout) {
     $scope.pageSize = 15; // Number of items per page
     $scope.currentPage = 1; // Current page
     $scope.totalPages = 1
@@ -931,7 +931,7 @@ app.controller('transportController', function ($scope, $routeParams, $route, $h
 
         });
 
-             $scope.sendMail();
+        $scope.sendMail();
 
     };
     //Undefied checkbox
@@ -1027,24 +1027,24 @@ app.controller('transportController', function ($scope, $routeParams, $route, $h
         selectedBookings.forEach(function (bookingId) {
             console.log(bookingId)
             var a = angular.copy(bookingId);
-            $http.post('/rest/bookings/update',a)
-                .then(function(response) {
+            $http.post('/rest/bookings/update', a)
+                .then(function (response) {
                     console.log('Booking status updated successfully');
                 })
-                .catch(function(error) {
+                .catch(function (error) {
                     console.error('Error updating booking status:', error);
                 });
         });
     };
 
-    $scope.updateBookingStatus = function(bookingId) {
+    $scope.updateBookingStatus = function (bookingId) {
 
     };
 });
 
 
 //Voucher
-app.controller('voucherController', function ($scope, $routeParams, $route, $http, $rootScope) {
+app.controller('voucherController', function ($scope, $routeParams, $route, $http, $rootScope,$window,$timeout) {
     $scope.pageSize = 5; // Number of items per page
     $scope.currentPage = 1; // Current page
     $scope.totalPages = 1
@@ -1090,7 +1090,7 @@ app.controller('voucherController', function ($scope, $routeParams, $route, $htt
                 $scope.books = response.data;
                 $scope.totalPagesv2 = Math.ceil($scope.books.length / $scope.pageSizev2);
                 $scope.setPage(1); // Set initial page
-
+                console.log("books", $scope.books);
             })
             .catch(function (error) {
                 console.error('Error fetching data:', error);
@@ -1122,11 +1122,10 @@ app.controller('voucherController', function ($scope, $routeParams, $route, $htt
 
     // get has sales
     $scope.setCheckboxHassale = function (hasSaleID) {
-        $scope.hassales = [];
+        $scope.couponCode = hasSaleID;
         $http.get('/rest/sale/findAllBySaleId/' + hasSaleID)
             .then(function (response) {
                 $scope.hassales = response.data;
-
                 console.log("Data from setCheckboxHassale:", $scope.hassales);
             })
             .catch(function (error) {
@@ -1138,32 +1137,29 @@ app.controller('voucherController', function ($scope, $routeParams, $route, $htt
         var exists = false;
         for (var i = 0; i < $scope.hassales.length; i++) {
             if (book.bookid === $scope.hassales[i].bookid) {
-
                 exists = true;
                 break;
             }
         }
         return exists;
     };
-    $scope.getHassaleId = function(bookId) {
-        for (var i = 0; i < $scope.hassales.length; i++) {
-            if ($scope.hassales[i].bookid === bookId) {
-                return $scope.hassales[i].hassaleid;
-            }
-        }
-        // Trả về một giá trị mặc định hoặc null nếu không tìm thấy
-        return null;
+    $scope.getHassaleId = function (bookId, saleId) {
+
+        var formData = new FormData();
+        formData.append('bookid', bookId);
+        formData.append('saleid', saleId);
+        const headers = {
+            'Content-Type': undefined,
+            transformRequest: angular.identity
+        };
+        $http.post('/rest/sale/getHasSaleFromBook',formData, {headers:headers}).then(function (response) {
+            $scope.hasSaleFormBookId =  response.data;
+            console.log("hassaleid",response.data);
+        }).catch(function (error) {
+            console.error(error);
+        });
     };
 
-    // $scope.compareBooksWithSales = function () {
-    //     $scope.paginatedBooksv2.forEach(function (book) {
-    //         var hasSale = $scope.hassales.some(function (sale) {
-    //             return sale.bookid === book.bookid;
-    //         });
-    //
-    //         $scope.itemChecked[book.name] = hasSale;
-    //     });
-    // };
     $scope.search = function (item) {
         if ($scope.searchText == undefined) {
             return true;
@@ -1187,35 +1183,39 @@ app.controller('voucherController', function ($scope, $routeParams, $route, $htt
             'Content-Type': "application/json",
             transformRequest: angular.identity
         };
-        $http.post('/rest/sale/createHassale/'+ bookID, JSON.stringify($scope.createhassale), {headers: headers})
+        $http.post('/rest/sale/createHassale/' + bookID, JSON.stringify($scope.createhassale), {headers: headers})
             .then(function (response) {
                 // Handle success
-                $window.alert("Tạo voucher thành công")
+                $window.alert("Áp dụng voucher cc thành công")
+
             })
             .catch(function (error) {
                 console.error(error);
             });
     };
-    $scope.deleteHassales = function(hassaleId) {
+    $scope.deleteHassales = function (hassaleId) {
         $http({
             method: 'DELETE',
             url: '/rest/sale/deleteHassale/' + hassaleId
-        }).then(function(response) {
+        }).then(function (response) {
             console.log(response.data);
-        }, function(error) {
+        }, function (error) {
             console.error('Error deleting Hassales: ' + error.data);
         });
     };
     //Checkbox Select
-    $scope.checkboxValue = false;
-    $scope.handleCheckbox = function(bookID, hassaleId) {
-        if ($scope.checkboxValue) {
-            $scope.createHassale(bookID);
-        } else {
-            $scope.deleteHassales(hassaleId);
-        }
+    $scope.handleCheckbox = function (bookID) {
+        //get HasSale to Book
+        $scope.getHassaleId(bookID,$scope.couponCode);
+        $timeout(function () {
+            if($scope.hasSaleFormBookId == null || $scope.hasSaleFormBookId == ''){
+                $scope.createHassale(bookID);
+            }else{
+                $scope.deleteHassales($scope.hasSaleFormBookId);
+            }
+            $scope.initInfoProductv2();
+        },1000)
     };
-
 });
 //Create Voucher
 app.controller('createVoucherController', function ($scope, $http, $window) {
@@ -1387,11 +1387,10 @@ app.controller('salesOrderManagementController', function ($scope, $http, BookSe
                 console.error('Lỗi khi cập nhật: ', error);
             });
     };
-    $scope.updateBookid = function(bookid) {
+    $scope.updateBookid = function (bookid) {
         $rootScope.bookid = bookid;
         console.log($scope.bookid)
     };
-
 
 
 });
@@ -1500,7 +1499,7 @@ app.directive('fileInput', ['$parse', function ($parse) {
 
             $http.post(url, fd, {
                 transformRequest: angular.identity,
-                headers: { 'Content-Type': undefined }
+                headers: {'Content-Type': undefined}
             }).then(function (response) {
                 console.log(response.data);
             }).catch(function (error) {
@@ -1532,7 +1531,7 @@ app.directive('fileInput', ['$parse', function ($parse) {
 
         for (let i = 0; i < $scope.listCategoryToBook.length; ++i) {
             var formData = new FormData();
-            formData.append("categoryid",$scope.listCategoryToBook[i].categoryid);
+            formData.append("categoryid", $scope.listCategoryToBook[i].categoryid);
             formData.append("bookid", $scope.book.bookid);
 
             console.log($scope.listCategoryToBook[i].categoryid)
@@ -1542,7 +1541,7 @@ app.directive('fileInput', ['$parse', function ($parse) {
                 transformRequest: angular.identity
             };
 
-            $http.post(url,formData, {headers: headers}).then(resp => {
+            $http.post(url, formData, {headers: headers}).then(resp => {
                 console.log("Save typebook success!!!")
             }).catch(error => {
                 console.log("Save typebook false!!!")
@@ -1594,27 +1593,27 @@ app.directive('fileInput', ['$parse', function ($parse) {
         }, 1000);
 
     }
-    $scope.getBookById = function() {
+    $scope.getBookById = function () {
         // Kiểm tra xem $rootScope.bookid đã được đặt chưa
         if ($rootScope.bookid) {
             $http.get('/rest/books/findbyBookId/' + $rootScope.bookid)
-                .then(function(response) {
+                .then(function (response) {
                     // Kiểm tra xem response.data có chứa thông tin sách không
                     if (response.data) {
                         $scope.book = response.data;
-                        console.log("cccc"+$scope.book)
+                        console.log("cccc" + $scope.book)
                     } else {
                         $scope.error = "Không tìm thấy cuốn sách.";
                     }
                 })
-                .catch(function(error) {
+                .catch(function (error) {
                     $scope.error = "Không tìm thấy cuốn sách.";
                 });
         } else {
             $scope.error = "bookid is not set.";
         }
     };
-$scope.getBookById();
+    $scope.getBookById();
     $scope.setCheckboxHassale = function () {
         $scope.hassale = [];
         $http.get('/rest/books/findTypeBookByBookId/' + $rootScope.bookid)

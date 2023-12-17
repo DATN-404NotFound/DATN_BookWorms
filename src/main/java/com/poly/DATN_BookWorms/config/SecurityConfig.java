@@ -75,11 +75,12 @@ public class SecurityConfig {
 				.permitAll());
 
 		http.oauth2Login(customize -> customize.loginPage("/account/login")
-				.defaultSuccessUrl("/account/login-google/success").defaultSuccessUrl("/account/login-facebook/success")
+				.defaultSuccessUrl("/account/login-google/success")
 				.failureUrl("/account/login")
 				.authorizationEndpoint(authorizationEndpointConfig -> authorizationEndpointConfig
 						.baseUri("/oauth2/authorization"))
 				.permitAll());
+
 
 		http.logout((form) -> form
 				.logoutUrl("/account/logout")

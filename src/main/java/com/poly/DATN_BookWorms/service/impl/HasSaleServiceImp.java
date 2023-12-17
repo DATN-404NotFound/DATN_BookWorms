@@ -40,5 +40,16 @@ public class HasSaleServiceImp implements HasSaleService {
         hassalesRepo.deleteById(hassaleId);
     }
 
+    @Override
+    public List<Hassales> findAll() {
+        return hassalesRepo.findAll();
+    }
+
+    @Override
+    public Integer findHasSaleIdByBookId(Integer bookId, String saleId) {
+        return hassalesRepo.findHasSaleIdByBookId(bookId, saleId);
+    }
+
+
 
 }

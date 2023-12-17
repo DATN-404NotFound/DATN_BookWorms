@@ -215,12 +215,11 @@
                                                             <td>{{ book.language }}</td>
                                                             <td>
                                                               <div class="custom-control custom-switch">
-                                                                <input type="checkbox" class="custom-control-input" ng-checked="itemExistsInItems2(book)" id="c{{$index + 1}}" ng-click="handleCheckbox(book.bookid, getHassaleId(book.bookid))">
+                                                                <input type="checkbox" class="custom-control-input"  ng-checked="itemExistsInItems2(book)" id="c{{$index + 1}}" ng-click="handleCheckbox(book.bookid)">
                                                                 <label class="custom-control-label" for="c{{$index + 1}}"></label>
                                                               </div>
                                                             </td>
                                                             <!-- New column displaying hassales[i].hassaleid if checkbox is checked -->
-                                                            <td ng-if="itemExistsInItems2(book)">{{ getHassaleId(book.bookid) }}</td>
                                                           </tr>
                                                           </tbody>
 
