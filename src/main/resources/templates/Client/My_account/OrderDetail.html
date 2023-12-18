@@ -9,9 +9,11 @@
             <p id="pAddressDetail">
                 <span th:text="${adr.addressusers.fullname}"></span> <br>
                 <span th:text="${adr.addressusers.phonenumber}"></span> <br>
-                <span th:text="${adr.addressusers.detailhome}"></span>, <span th:text="${adr.addressusers.Ward}"></span>, <span th:text="${adr.addressusers.district}"></span>, <span th:text="${adr.addressusers.province}"></span><br>
+                <span th:text="${adr.addressusers.detailhome}"></span>, <span
+                    th:text="${adr.addressusers.Ward}"></span>, <span th:text="${adr.addressusers.district}"></span>,
+                <span th:text="${adr.addressusers.province}"></span><br>
             </p>
-          
+
             <div class="deliveryProcess" th:if="${db.get(0).bookings.orderstatuses.statusname} != 'Đơn Huỷ'">
                 <div class="bar1"></div>
                 <div class="bar2"></div>
@@ -35,7 +37,7 @@
                 </div>
             </div>
         </div>
-        
+
         <div class="boxOrderDetail-bottom mt-2">
             <div th:each="d : ${db}">
                 <!-- <div class="boxHeader">
@@ -62,39 +64,51 @@
                             data-bs-toggle="modal" id="idRating-orderDetail" data-bs-target="#exampleModal">
                             Đánh giá
                         </button> <br style="clear: both;">
-                        <p class="price-orderDetail" th:text="${#numbers.formatDecimal(d.books.price*d.quantity,0,'COMMA',0,'POINT')}+ ' ₫'"></p>
+                        <p class="price-orderDetail"
+                            th:text="${#numbers.formatDecimal(d.books.price*d.quantity,0,'COMMA',0,'POINT')}+ ' ₫'"></p>
                     </div>
                 </div>
             </div>
             <div class="boxFooter">
                 <div class="detailInfo-left">
                     <table class="tabledetailInfo">
-                        <tr> 
-                            <td >Tổng tiền hàng:</td>
-                            <td th:text="${#numbers.formatDecimal(db.get(0).bookings.cost,0,'COMMA',0,'POINT')}+ ' ₫'"></td>
+                        <tr>
+                            <td>Tổng tiền hàng:</td>
+                            <td th:text="${#numbers.formatDecimal(db.get(0).bookings.cost,0,'COMMA',0,'POINT')}+ ' ₫'">
+                            </td>
                         </tr>
                         <tr>
                             <td>Phí vận chuyển:</td>
-                            <td th:text="${#numbers.formatDecimal(db.get(0).bookings.shippingunits.cod,0,'COMMA',0,'POINT')}+ ' ₫'">15.00</td>
+                            <td
+                                th:text="${#numbers.formatDecimal(db.get(0).bookings.shippingunits.cod,0,'COMMA',0,'POINT')}+ ' ₫'">
+                                15.00</td>
                         </tr>
                         <tr>
                             <td>Voucher:</td>
-                            <td th:text="${#numbers.formatDecimal(db.get(0).bookings.costvoucher,0,'COMMA',0,'POINT')}+ ' ₫'">-30.00</td>
+                            <td
+                                th:text="${#numbers.formatDecimal(db.get(0).bookings.costvoucher,0,'COMMA',0,'POINT')}+ ' ₫'">
+                                -30.00</td>
                         </tr>
                         <tr>
                             <td>Phương thức thanh toán:</td>
-                            <td th:if ="${db.get(0).bookings.listOfPayments.get(0).type == false}">Tiền mặt</td>
-                            <td th:if ="${db.get(0).bookings.listOfPayments.get(0).type == true}">Thanh toán qua thẻ ngân hàng</td>
+                            <td th:if="${db.get(0).bookings.listOfPayments.get(0).type == false}">Tiền mặt</td>
+                            <td th:if="${db.get(0).bookings.listOfPayments.get(0).type == true}">Thanh toán qua thẻ ngân
+                                hàng</td>
                         </tr>
                         <tr>
                             <td>Thành tiền:</td>
-                            <td th:text="${#numbers.formatDecimal(db.get(0).bookings.cost + db.get(0).bookings.shippingunits.cod - db.get(0).bookings.costvoucher,0,'COMMA',0,'POINT')}+ ' ₫'">295.00</td>
+                            <td
+                                th:text="${#numbers.formatDecimal(db.get(0).bookings.cost + db.get(0).bookings.shippingunits.cod - db.get(0).bookings.costvoucher,0,'COMMA',0,'POINT')}+ ' ₫'">
+                                295.00</td>
                         </tr>
                     </table>
                 </div>
                 <div class="detailInfo-right">
-                    <button   th:attr="ng-click=@{|printOrder('${db.get(0).bookings.bookingid}')|}"  th:if="${db.get(0).bookings.orderstatusid} == 8 And ${db.get(0).bookings.orderstatusid} == 5"  class="btn btnBuilOrrder-orderDetail">Xuất hoá đơn </button>
-                    <button class="btn btnBuyAgain-orderDetail" th:if="${db.get(0).bookings.orderstatusid} == 8 " th:attr="ng-click=@{|cart.repurchase('${db.get(0).bookingid}')|}">Mua lại </button>
+                    <button th:attr="ng-click=@{|printOrder('${db.get(0).bookings.bookingid}')|}"
+                        th:if="${db.get(0).bookings.orderstatusid} == 8 And ${db.get(0).bookings.orderstatusid} == 5"
+                        class="btn btnBuilOrrder-orderDetail">Xuất hoá đơn </button>
+                    <button class="btn btnBuyAgain-orderDetail" th:if="${db.get(0).bookings.orderstatusid} == 8 "
+                        th:attr="ng-click=@{|cart.repurchase('${db.get(0).bookingid}')|}">Mua lại </button>
                 </div>
             </div>
         </div>
@@ -105,14 +119,11 @@
                         <h4 class="modal-title ms-3" id="exampleModalLabel">Đánh Giá Sản Phẩm</h4>
                     </div>
                     <div class="modal-body">
-                        <div class="rateProduct mb-5">
-                            <img class="imgProductRate" id="imgb{{add.books.bookid}}" 
-                                style="width: 73.75px; height: 110px; border-radius: 10px; float: left;"
-                                alt="">
-                            <span ></span>
+                        <div class="rateProduct mb-3">
+                            <img class="imgProductRate" id="imgb{{add.books.bookid}}"
+                                style="width: 73.75px; height: 110px; border-radius: 10px; float: left;" alt="">
+                            <span></span>
                             <p class="nameProductRate">{{add.books.bookname}}</p> <br> <br>
-                            <!-- <button class="btn btnChooseImageRate">Chọn ảnh</button> -->
-                            <input class="" type="file" ng-model="files" multiple required file-input="files">
                             <div id="rating" class="star-rate">
                                 <input type="radio" onclick="ab(id)" id="star5" name="rating" value="5" />
                                 <label class="full" for="star5" title="Awesome - 5 stars"></label>
@@ -146,6 +157,14 @@
                             </div>
                             <textarea ng-model="evaluate.reviewtext" name="" id="detailedReview" cols="80" rows="5"
                                 placeholder="Chia sẻ mọi suy nghĩ của bạn về sản phẩm!"></textarea>
+                            <div class="file-input-wrapper mt-3">
+                                <input class="custom-file-input" id="uniqueFileInput" type="file" ng-model="files"
+                                    multiple required file-input="files" onchange="updateFileNames(this)" />
+                                <label for="uniqueFileInput" class="file-input-label">Choose File</label>
+                                <span class="file-input-text" id="selectedFileName"
+                                    data-content="No file chosen"></span>
+                            </div>
+
                         </div>
                     </div>
                     <div class="modal-footer" style="border: none;">

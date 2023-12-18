@@ -10,3 +10,15 @@ if (hrBar2.textContent == "Chưa thanh toán" || hrBar2.textContent == "Đã tha
 } else {
     document.querySelector('.bar2').style.backgroundColor = "#F25019";
 }
+//
+function updateFileNames(input) {
+    var selectedFileName = document.getElementById('selectedFileName');
+    
+    if (input.files.length > 0) {
+        var fileNames = Array.from(input.files).map(file => file.name).join(', ');
+        selectedFileName.textContent = fileNames;
+    } else {
+        selectedFileName.textContent = "No file chosen";
+    }
+}
+
