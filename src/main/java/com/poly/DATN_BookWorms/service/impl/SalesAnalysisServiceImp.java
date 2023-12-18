@@ -85,17 +85,61 @@ public class SalesAnalysisServiceImp implements SalesAnalysisService {
 
     @Override
     public List<CategoryRanking> getCategoryRanking() {
+        List<Bookings> bookings = bookingsRepo.findAll();
+        List<Detailbookings> detailbookings = new ArrayList<>();
+        for (Bookings booking : bookings) {
+            detailbookings.addAll(booking.getListOfDetailbookings());
+        }
+        System.out.println("detailbooking " + detailbookings.size());
         Account user = sessionService.get("user");
         Shoponlines shoponlines = shopService.findUserId(user.getUserid());
-        Map<Integer, Integer> categoryRankings = detailbookingsRepo.findCateRankByShopId(shoponlines.getShopid());
-        List<CategoryRanking> categoryRankings1 = new ArrayList<>();
+        // Lấy list sách của Shop
 
-        for (Map.Entry<Integer, Integer> entry : categoryRankings.entrySet()) {
-            Optional<Categories> categories = categoriesRepo.findById(entry.getKey());
+        List<Books> books = shoponlines.getListOfBooks();
+        System.out.println("books " + books.size());
 
-           categoryRankings1.add(new CategoryRanking(categories, entry.getValue()));
+        List<CategoryRanking> categoryRankings = new ArrayList<>();
+        List<Categories> categories = new ArrayList<>();
+        for (Books book : books) {
+            for (Detailbookings detailbooking : detailbookings) {
+                if (detailbooking.getBooks().getBookid().equals(book.getBookid())) {
+                    List<Typebooks> typebooks = book.getListOfTypebooks();
+
+                    //Lấy category từ sách có trong detailbooking
+
+                    for (Typebooks typebook : typebooks) {
+                        categories.add(typebook.getCategories());
+                    }
+
+                }
+            }
         }
-        return categoryRankings1;
+        System.out.println("categories " + categories.size());
+        //Thêm vào thống kê tăng số lượng nếu có từ 2 lần trở lên
+        for (Categories category : categories) {
+            int count = 0;
+            if (categoryRankings.isEmpty()) {
+                categoryRankings.add(new CategoryRanking(category, 1));
+            } else {
+                for (CategoryRanking categoryRanking : categoryRankings) {
+                    count++;
+                    if (categoryRanking.getCategories().getCategoryid().equals(category.getCategoryid())) {
+                        categoryRanking.setOrderNumbers(categoryRanking.getOrderNumbers() + 1);
+                        break;
+                    }
+                    if (count >= categoryRankings.size()) {
+                        categoryRankings.add(new CategoryRanking(category, 1));
+                    }
+
+
+                }
+            }
+
+            System.out.println(count);
+
+        }
+        System.out.println("categoryRaking " + categoryRankings.size());
+        return categoryRankings;
     }
 
     @Override

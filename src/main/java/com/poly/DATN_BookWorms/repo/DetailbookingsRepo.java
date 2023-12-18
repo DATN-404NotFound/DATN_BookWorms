@@ -12,7 +12,7 @@ public interface DetailbookingsRepo extends JpaRepository<Detailbookings, String
     @Query("select db from Detailbookings db where db.bookingid = ?1")
     List<Detailbookings> findByBookingId(String bookingId);
     @Query("select t.categoryid ,count(t.bookid) from Typebooks  t group by t.categoryid, t.bookid having t.bookid in (select db.bookid    from Detailbookings db group by  db.bookid having db.bookid  in (Select b.bookid from Books b where b.shopid = ?1 )) order by count(t.bookid) desc ")
-    Map<Integer,Integer> findCateRankByShopId(Integer shopId);
+    List<Object> findCateRankByShopId(Integer shopId);
 
 }
 
