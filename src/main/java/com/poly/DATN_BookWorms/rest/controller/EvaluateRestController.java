@@ -70,7 +70,7 @@ public class EvaluateRestController {
             @RequestParam("evaluateid") String evaluateId) throws IOException {
         try {
             File f = new ClassPathResource("").getFile();
-            String uploadDir = "V:/FPT/DuAnTotNghiep/Source/DATN_BookWorms/src/main/resources/static/SellerChannel/images/";
+            String uploadDir = "./src/main/resources/static/SellerChannel/images/";
             Path uploadPath = Paths.get(uploadDir);
 
             if (!java.nio.file.Files.exists(uploadPath)) java.nio.file.Files.createDirectories(uploadPath);

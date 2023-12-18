@@ -26,4 +26,9 @@ public class DetailBookingRestController {
         return detailBookingService.dtb(a);
     }
 
+    @GetMapping("/2/{bookingid}")
+    public List<Detailbookings> detailbooking1(@PathVariable("bookingid")  String a){
+        return detailBookingService.findByBookingId(a);
+    }
+
 }

@@ -871,16 +871,53 @@ a {
     margin: 5px 0 0 25px;
 }
 
-.btnChooseImageRate {
-    background-color: #F25019;
-    width: 145px;
-    height: 36.25px;
-    font-size: 15px;
-    color: white;
-    border-radius: 5px;
-    float: left;
-    margin: 20px 0 0 25px;
+/* Style for the file input wrapper */
+.file-input-wrapper {
+    position: relative;
+    overflow: hidden;
+    display: inline-block;
 }
+
+/* Style for the actual file input with a unique ID */
+#uniqueFileInput {
+    font-size: 16px;
+    cursor: pointer;
+    padding: 10px;
+    width: 0; /* Make the input cover the label */
+    height: 0;
+    opacity: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+/* Style for the label to mimic a button */
+.file-input-label {
+    display: inline-block;
+    background: green;
+    color: #fff;
+    padding: 8px 15px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+/* Style on hover for the custom file input button */
+.file-input-label:hover {
+    background: rgb(23, 163, 23);
+}
+
+/* Style for the text next to the file input (if needed) */
+.file-input-text {
+    margin-left: 10px;
+}
+
+/* Style the selected file name (optional) */
+.file-input-wrapper:after {
+    content: attr(data-content);
+    display: inline-block;
+    margin-left: 10px;
+}
+
 
 .star-rate {
     font-size: 26px;

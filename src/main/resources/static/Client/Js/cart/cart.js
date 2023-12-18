@@ -1486,10 +1486,13 @@ app.directive('fileInput', ['$parse', function ($parse) {
 
 		},
 		repurchase(bookingid) {
+			
 			// Sử dụng API để lấy thông tin đơn hàng cần mua lại
 			console.log("mua lại" + bookingid)
-			$http.get("/rest/bookings/" + bookingid).then(resp => {
-				var de = resp.data;
+			$http.get("/rest/detailBooking/2/" + bookingid).then(resp => {
+				let de = (resp.data);
+				
+				console.log(de)
 				de.forEach(i => {
 
 					$scope.cart.add(i.books.bookid)
@@ -1502,8 +1505,6 @@ app.directive('fileInput', ['$parse', function ($parse) {
 				this.items = resp.data;
 			});
 		}
-
-
 
 	}
 	$scope.cart.load();
