@@ -89,7 +89,7 @@ public class SecurityConfig implements WebMvcConfigurer{
 				.permitAll()
 				.requestMatchers("static/**")
 				.permitAll()
-				.requestMatchers("/admin/**").hasAuthority("ADMIN")
+				.requestMatchers("/admin/**", "/api/payment/create_payment/**", "createvoucher").hasAuthority("ADMIN")
 				.anyRequest().authenticated());
 		http.formLogin(form -> form.loginPage("/account/login")
 				.loginProcessingUrl("/account/login")
@@ -97,12 +97,25 @@ public class SecurityConfig implements WebMvcConfigurer{
 				.permitAll());
 
 		http.oauth2Login(customize -> customize.loginPage("/account/login")
-				.defaultSuccessUrl("/account/login-google/success")
+				.defaultSuccessUrl("/account/login/success")
 				.failureUrl("/account/login")
 				.authorizationEndpoint(authorizationEndpointConfig -> authorizationEndpointConfig
 						.baseUri("/oauth2/authorization"))
-				.permitAll());
+				.successHandler((request, response, authentication) -> {
+			        // Xác định OAuth2 dựa trên thông tin xác thực
+					String redirectUrl = "/account/login/success/";
 
+				    // Kiểm tra nhà cung cấp OAuth2 từ thông tin xác thực
+				    if (authentication.getAuthorities().stream()
+				            .anyMatch(grantedAuthority -> grantedAuthority.getAuthority().contains("google"))) {
+				        redirectUrl += "google";
+				    } else {
+				        redirectUrl += "facebook";
+				    }
+
+				    response.sendRedirect(redirectUrl);
+			    })
+				.permitAll());
 
 		http.logout((form) -> form
 				.logoutUrl("/account/logout")

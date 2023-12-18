@@ -70,7 +70,7 @@ public class    AccountController {
         return "/Client/Account_page/Login";
     }
 
-    @RequestMapping("/login-google/success")
+    @RequestMapping("/login/success/google")
     public String loginWithGoogle(@AuthenticationPrincipal OAuth2User performance, Model model) {
         if (performance == null) {
             return "redirect:/login";
@@ -96,7 +96,7 @@ public class    AccountController {
         return "redirect:/Ibook/index";
     }
 
-    @RequestMapping("/login-facebook/success")
+    @RequestMapping("/login/success/facebook")
     public String loginWithFaceBook(@AuthenticationPrincipal OAuth2User performance, Model model) {
         if (performance == null) {
             return "redirect:/login";
