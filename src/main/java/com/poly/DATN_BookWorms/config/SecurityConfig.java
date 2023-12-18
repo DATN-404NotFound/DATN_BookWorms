@@ -54,29 +54,7 @@ public class SecurityConfig implements WebMvcConfigurer{
 
 
 
-	// @Bean
-	// public RedirectStrategy redirectStrategy() {
-	// 	return new DefaultRedirectStrategy() {
-	// 		public String getLocation(HttpServletRequest request, HttpServletResponse response, Authentication authentication) {
-	// 			String previousUrl = request.getHeader("Referer");
-	// 			if (previousUrl != null) {
-	// 				return previousUrl;
-	// 			} else {
-	// 				return "/Ibook/index";
-	// 			}
-	// 		}
-	// 	};
-	// }
 
-	// @Bean
-	// public AuthenticationSuccessHandler successHandler() {
-	// 	return new AuthenticationSuccessHandler() {
-	// 		@Override
-	// 		public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
-	// 			redirectStrategy().sendRedirect(request, response, "/Ibook/index");
-	// 		}
-	// 	};
-	// }
 	//	Phân quyền sử dụng
 	@Bean
 	public RedirectStrategy redirectStrategy() {
@@ -105,7 +83,7 @@ public class SecurityConfig implements WebMvcConfigurer{
 	@Bean
 	public SecurityFilterChain web(HttpSecurity http) throws Exception {
 		http.authorizeHttpRequests((request) -> request
-				.requestMatchers("/account/**", "/signin/**", "/signup/**", "/product/**", "/Admin/**","/Ibook/index","/Ibook/header").permitAll()
+				.requestMatchers("/account/**", "/signin/**", "/signup/**", "/product/**", "/Admin/**","/Ibook/index","/Ibook/header","Client/header_footer_index/header_index").permitAll()
 				.requestMatchers("rest/**").permitAll()
 				.requestMatchers("/Client/**")
 				.permitAll()

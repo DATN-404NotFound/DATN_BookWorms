@@ -64,10 +64,28 @@
                                                                    ng-model="AddressForm.phonenumber">
                                                         </div>
                                                         <div class="form-group">
-                                                            <label for="address-text"
-                                                                   class="col-form-label">Address</label>
-                                                            <textarea class="form-control" id="address-text"
-                                                                      ng-model="AddressForm.address"></textarea>
+                                                            <label
+                                                                    class="col-form-label">Detail Home</label>
+                                                            <input class="form-control"
+                                                                   ng-model="AddressForm.detailhome" type="text"></input>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label
+                                                                    class="col-form-label">Ward</label>
+                                                            <input type="text" class="form-control"
+                                                                   ng-model="AddressForm.ward"></input>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label
+                                                                    class="col-form-label">District</label>
+                                                            <input type="text" class="form-control"
+                                                                   ng-model="AddressForm.district"></input>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label
+                                                                    class="col-form-label">Province</label>
+                                                            <input type="text" class="form-control"
+                                                                   ng-model="AddressForm.province"></input>
                                                         </div>
                                                     </form>
                                                 </div>
@@ -76,7 +94,7 @@
                                                             data-dismiss="modal">Close
                                                     </button>
                                                     <button type="button" class="btn mb-2 btn-primary"
-                                                            ng-click="saveAddressShop()">Create
+                                                            ng-click="saveAddressShop()" data-dismiss="modal" aria-label="Close">Create
                                                     </button>
                                                 </div>
                                             </div>
@@ -94,7 +112,10 @@
                                                     <th>ID</th>
                                                     <th>Name</th>
                                                     <th>Phone Number</th>
-                                                    <th>Address</th>
+                                                    <th>Detail Home</th>
+                                                    <th>Ward</th>
+                                                    <th>District</th>
+                                                    <th>Province</th>
                                                     <th>Date Create</th>
                                                     <th>Activate</th>
                                                 </tr>
@@ -105,7 +126,10 @@
                                                     <td>{{add.addressshopid}}</td>
                                                     <td>{{ add.namereceiver }}</td>
                                                     <td>{{ add.phonenumber }}</td>
-                                                    <td>{{ add.address }}</td>
+                                                    <td>{{ add.detailhome }}</td>
+                                                    <td>{{ add.ward }}</td>
+                                                    <td>{{ add.district }}</td>
+                                                    <td>{{ add.province }}</td>
                                                     <td>{{ add.createat }}</td>
                                                     <td>
                                                         <div class="custom-control custom-switch">

@@ -81,9 +81,11 @@ public interface BooksRepo extends JpaRepository<Books, Long> {
     @Query("SELECT b FROM Books b WHERE b.shopid = ?1")
     List<Books> findBookByShopId(Integer shopId);
 
-    @Query("Select b.shoponlines from Books b where b.bookid like ?1")
+    @Query("Select b.shoponlines from Books b where b.bookid = ?1")
     Shoponlines s(long bookid);
 
     Optional<Books> findBybookid(Long bookId);
+    @Query("Select b from Books b where b.shoponlines.shopid = ?1 order by b.productviews desc limit 10")
+    List<Books> findByAccordingViewAndShopId(Integer shopid);
 }
 

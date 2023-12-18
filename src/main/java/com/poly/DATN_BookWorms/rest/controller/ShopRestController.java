@@ -87,8 +87,7 @@ public class ShopRestController {
                 Files.copy(inputStream, filePath, StandardCopyOption.REPLACE_EXISTING);
                 //save change profile
                 Shoponlines shoponlines = shopService.findById(Integer.parseInt(shopId));
-                
-                //shoponlines.setLogo(fileName);
+                shoponlines.setLogo(fileName);
                 shopService.save(shoponlines);
             } catch (IOException e) {
                 throw new IOException("Could not  save uploaded file: " + fileName);

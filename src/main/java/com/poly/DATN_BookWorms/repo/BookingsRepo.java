@@ -5,10 +5,10 @@ package com.poly.DATN_BookWorms.repo;
 
 import java.util.*;
 
+import com.poly.DATN_BookWorms.entities.*;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 
-import com.poly.DATN_BookWorms.entities.Bookings;
 import org.springframework.data.jpa.repository.Query;
 
 import java.util.Date;
@@ -18,8 +18,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import com.poly.DATN_BookWorms.entities.Bookings;
-import com.poly.DATN_BookWorms.entities.Cart;
-import com.poly.DATN_BookWorms.entities.Shoponlines;
 import org.springframework.data.repository.query.Param;
 
 

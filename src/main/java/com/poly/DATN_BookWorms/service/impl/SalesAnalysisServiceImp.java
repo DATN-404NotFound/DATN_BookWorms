@@ -11,9 +11,7 @@ import com.poly.DATN_BookWorms.utils.SessionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class SalesAnalysisServiceImp implements SalesAnalysisService {
@@ -27,6 +25,8 @@ public class SalesAnalysisServiceImp implements SalesAnalysisService {
     BooksRepo booksRepo;
     @Autowired
     CategoriesRepo categoriesRepo;
+    @Autowired
+    DetailbookingsRepo detailbookingsRepo;
 
     @Override
     public double getMonthSales(Date startDate, Date endDate) {
@@ -77,7 +77,7 @@ public class SalesAnalysisServiceImp implements SalesAnalysisService {
     public int getProductView(Integer shopId) {
         List<Books> listBookFormShop = booksRepo.findBookByShopId(shopId);
 
-        if (listBookFormShop.size()>0)
+        if (listBookFormShop.size() > 0)
             return booksRepo.getProductViews(shopId);
         else
             return 0;
@@ -85,61 +85,17 @@ public class SalesAnalysisServiceImp implements SalesAnalysisService {
 
     @Override
     public List<CategoryRanking> getCategoryRanking() {
-        List<Bookings> bookings = bookingsRepo.findAll();
-        List<Detailbookings> detailbookings = new ArrayList<>();
-        for (Bookings booking : bookings) {
-            detailbookings.addAll(booking.getListOfDetailbookings());
-        }
-        System.out.println("detailbooking " + detailbookings.size());
         Account user = sessionService.get("user");
         Shoponlines shoponlines = shopService.findUserId(user.getUserid());
-        // Lấy list sách của Shop
+        Map<Integer, Integer> categoryRankings = detailbookingsRepo.findCateRankByShopId(shoponlines.getShopid());
+        List<CategoryRanking> categoryRankings1 = new ArrayList<>();
 
-        List<Books> books = shoponlines.getListOfBooks();
-        System.out.println("books " + books.size());
+        for (Map.Entry<Integer, Integer> entry : categoryRankings.entrySet()) {
+            Optional<Categories> categories = categoriesRepo.findById(entry.getKey());
 
-        List<CategoryRanking> categoryRankings = new ArrayList<>();
-        List<Categories> categories = new ArrayList<>();
-        for (Books book : books) {
-            for (Detailbookings detailbooking : detailbookings) {
-                if (detailbooking.getBooks().getBookid().equals(book.getBookid())) {
-                    List<Typebooks> typebooks = book.getListOfTypebooks();
-
-                    //Lấy category từ sách có trong detailbooking
-
-                    for (Typebooks typebook : typebooks) {
-                        categories.add(typebook.getCategories());
-                    }
-
-                }
-            }
+           categoryRankings1.add(new CategoryRanking(categories, entry.getValue()));
         }
-        System.out.println("categories " + categories.size());
-        //Thêm vào thống kê tăng số lượng nếu có từ 2 lần trở lên
-        for (Categories category : categories) {
-            int count = 0;
-            if (categoryRankings.isEmpty()) {
-                categoryRankings.add(new CategoryRanking(category, 1));
-            } else {
-                for (CategoryRanking categoryRanking : categoryRankings) {
-                    count++;
-                    if (categoryRanking.getCategories().getCategoryid().equals(category.getCategoryid())) {
-                        categoryRanking.setOrderNumbers(categoryRanking.getOrderNumbers() + 1);
-                        break;
-                    }
-                    if (count >= categoryRankings.size()) {
-                        categoryRankings.add(new CategoryRanking(category, 1));
-                    }
-
-
-                }
-            }
-
-            System.out.println(count);
-
-        }
-        System.out.println("categoryRaking " + categoryRankings.size());
-        return categoryRankings;
+        return categoryRankings1;
     }
 
     @Override
@@ -168,11 +124,11 @@ public class SalesAnalysisServiceImp implements SalesAnalysisService {
                     }
                     System.out.println(listBookRankingToSales.size());
                     for (int i = 0; i < listBookRankingToSales.size(); i++) {
-                        if (listBookRankingToSales.get(i).getBook().getBookid() == book.getBookid()){
-                            listBookRankingToSales.get(i).setSale(listBookRankingToSales.get(i).getSale()+ book.getPrice()*detailbooking.getQuantity());
+                        if (listBookRankingToSales.get(i).getBook().getBookid() == book.getBookid()) {
+                            listBookRankingToSales.get(i).setSale(listBookRankingToSales.get(i).getSale() + book.getPrice() * detailbooking.getQuantity());
                             break;
                         }
-                        if (i>= listBookRankingToSales.size()){
+                        if (i >= listBookRankingToSales.size()) {
                             listBookRankingToSales.add(new BookRankingToSales(book, book.getPrice() * detailbooking.getQuantity()));
                             break;
                         }
@@ -211,11 +167,11 @@ public class SalesAnalysisServiceImp implements SalesAnalysisService {
                     }
                     System.out.println(listBookRankingToNumber.size());
                     for (int i = 0; i < listBookRankingToNumber.size(); i++) {
-                        if (listBookRankingToNumber.get(i).getBook().getBookid() == book.getBookid()){
-                            listBookRankingToNumber.get(i).setNumbers(listBookRankingToNumber.get(i).getNumbers()+ detailbooking.getQuantity());
+                        if (listBookRankingToNumber.get(i).getBook().getBookid() == book.getBookid()) {
+                            listBookRankingToNumber.get(i).setNumbers(listBookRankingToNumber.get(i).getNumbers() + detailbooking.getQuantity());
                             break;
                         }
-                        if (i>= listBookRankingToNumber.size()){
+                        if (i >= listBookRankingToNumber.size()) {
                             listBookRankingToNumber.add(new BookRankingToNumber(book, detailbooking.getQuantity()));
                             break;
                         }

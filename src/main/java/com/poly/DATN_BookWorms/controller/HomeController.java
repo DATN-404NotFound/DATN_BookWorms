@@ -78,9 +78,12 @@ public class HomeController {
         //request info user to header
         header(model, user);
         //
+        if(user !=null){
+            model.addAttribute("user", user);
+        }else {
+            model.addAttribute("user", new Account() );
+        }
 
-        model.addAttribute("user", user);
-        System.out.println(user.getUserid());
         if (authentication != null && authentication.getAuthorities().stream()
                 .anyMatch(a -> a.getAuthority().equals("ADMIN"))) {
             return "redirect:/admin/index";

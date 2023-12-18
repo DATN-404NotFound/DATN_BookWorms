@@ -89,13 +89,12 @@ public class SalesAnalysisRestController {
     @GetMapping("/accordingToSales")
     public ResponseEntity<List<BookRankingToSales>> getAccordingToSales() {
         List<BookRankingToSales> listBookRankingToSales = salesAnalysisService.getBookRankingToSales();
-        System.out.println("Book Ranking To Sales"+listBookRankingToSales.toString());
         return ResponseEntity.ok(listBookRankingToSales);
     }
     @GetMapping("/accordingToView")
     public ResponseEntity<List<Books>> getAccordingToView() {
         List<Books> listBookRankingToView = salesAnalysisService.getBookRankingToView();
-        System.out.println("Book Ranking To View"+listBookRankingToView.toString());
+
         return ResponseEntity.ok(listBookRankingToView);
     }
     @GetMapping("/productNumber")
