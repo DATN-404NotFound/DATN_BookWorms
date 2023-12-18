@@ -236,7 +236,7 @@ public class SalesAnalysisServiceImp implements SalesAnalysisService {
         Shoponlines shoponlines = shopService.findUserId(user.getUserid());
         // Lấy list sách của Shop
 
-        List<Books> books = shoponlines.getListOfBooks();
+        List<Books> books = booksRepo.findByAccordingViewAndShopId(shoponlines.getShopid());
         return books;
     }
 

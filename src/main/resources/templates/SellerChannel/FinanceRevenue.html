@@ -54,10 +54,12 @@
                                 <div class="col-md-12">
                                     <div class="mx-4">
                                         <strong class="mb-0 text-uppercase text-muted">Total</strong><br/>
-                                        <h3 ng-if="shopPayment.total >0" >{{ shopPayment.total | currency:"VND"}}</h3>
-                                        <h3 ng-if="shopPayment.total <0" >VND0</h3>
-                                        <p class="text-muted"  ng-if="accountBalance.accountnumber != null">My Bank Account: {{accountBalance.accountnumber}}</p>
-                                        <p class="text-muted"  ng-if="accountBalance.accountnumber == null">My Bank Account: Not have</p>
+                                        <h3 ng-if="shopPayment.total >0">{{ shopPayment.total | currency:"đ"}}</h3>
+                                        <h3 ng-if="shopPayment.total <0">VND0</h3>
+                                        <p class="text-muted" ng-if="accountBalance.accountnumber != null">My Bank
+                                            Account: {{accountBalance.accountnumber}}</p>
+                                        <p class="text-muted" ng-if="accountBalance.accountnumber == null">My Bank
+                                            Account: Not have</p>
                                     </div>
 
                                     <div class="row">
@@ -558,59 +560,59 @@
             </div>
         </div>
         <div class="modal fade modal-shortcut modal-slide" tabindex="-1" role="dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body px-5">
+                    <div class="row align-items-center">
+                        <div class="col-6 text-center">
+                            <div class="squircle bg-success justify-content-center">
+                                <i class="fe fe-cpu fe-32 align-self-center text-white"></i>
+                            </div>
+                            <p>Control area</p>
+                        </div>
+                        <div class="col-6 text-center">
+                            <div class="squircle bg-primary justify-content-center">
+                                <i class="fe fe-activity fe-32 align-self-center text-white"></i>
+                            </div>
+                            <p>Activity</p>
+                        </div>
                     </div>
-                    <div class="modal-body px-5">
-                        <div class="row align-items-center">
-                            <div class="col-6 text-center">
-                                <div class="squircle bg-success justify-content-center">
-                                    <i class="fe fe-cpu fe-32 align-self-center text-white"></i>
-                                </div>
-                                <p>Control area</p>
+                    <div class="row align-items-center">
+                        <div class="col-6 text-center">
+                            <div class="squircle bg-primary justify-content-center">
+                                <i class="fe fe-droplet fe-32 align-self-center text-white"></i>
                             </div>
-                            <div class="col-6 text-center">
-                                <div class="squircle bg-primary justify-content-center">
-                                    <i class="fe fe-activity fe-32 align-self-center text-white"></i>
-                                </div>
-                                <p>Activity</p>
-                            </div>
+                            <p>Droplet</p>
                         </div>
-                        <div class="row align-items-center">
-                            <div class="col-6 text-center">
-                                <div class="squircle bg-primary justify-content-center">
-                                    <i class="fe fe-droplet fe-32 align-self-center text-white"></i>
-                                </div>
-                                <p>Droplet</p>
+                        <div class="col-6 text-center">
+                            <div class="squircle bg-primary justify-content-center">
+                                <i class="fe fe-upload-cloud fe-32 align-self-center text-white"></i>
                             </div>
-                            <div class="col-6 text-center">
-                                <div class="squircle bg-primary justify-content-center">
-                                    <i class="fe fe-upload-cloud fe-32 align-self-center text-white"></i>
-                                </div>
-                                <p>Upload</p>
-                            </div>
+                            <p>Upload</p>
                         </div>
-                        <div class="row align-items-center">
-                            <div class="col-6 text-center">
-                                <div class="squircle bg-primary justify-content-center">
-                                    <i class="fe fe-users fe-32 align-self-center text-white"></i>
-                                </div>
-                                <p>Users</p>
+                    </div>
+                    <div class="row align-items-center">
+                        <div class="col-6 text-center">
+                            <div class="squircle bg-primary justify-content-center">
+                                <i class="fe fe-users fe-32 align-self-center text-white"></i>
                             </div>
-                            <div class="col-6 text-center">
-                                <div class="squircle bg-primary justify-content-center">
-                                    <i class="fe fe-settings fe-32 align-self-center text-white"></i>
-                                </div>
-                                <p>Settings</p>
+                            <p>Users</p>
+                        </div>
+                        <div class="col-6 text-center">
+                            <div class="squircle bg-primary justify-content-center">
+                                <i class="fe fe-settings fe-32 align-self-center text-white"></i>
                             </div>
+                            <p>Settings</p>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+
     </main> <!-- main -->
 </div> <!-- .wrapper -->
 <script src="SellerChannel/js/jquery.min.js"></script>

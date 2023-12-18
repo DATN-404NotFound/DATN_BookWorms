@@ -234,11 +234,11 @@ app.controller("revenueFinanceController", function ($scope, $routeParams, $rout
             $scope.getAnalysisFinance();
             $scope.getListFinance();
             console.log("Result: ", "success!!!!!!")
-            $window.alert("Send request payment success!!!");
+            $window.alert("Gữi yêu cầu thanh toán thành công!!!");
 
         }).catch(error => {
             console.log("Error", error)
-            $window.alert("Send request payment false!!!");
+            $window.alert("Gữi yêu cầu thanh toán thất bại!!!");
         });
     }
     $scope.getRevenueFinance();
