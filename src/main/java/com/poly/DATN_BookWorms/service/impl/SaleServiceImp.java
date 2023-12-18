@@ -11,6 +11,8 @@ import com.poly.DATN_BookWorms.repo.HassalesRepo;
 import com.poly.DATN_BookWorms.service.ShopOnlinesService;
 import com.poly.DATN_BookWorms.utils.CRC32_SHA256;
 import com.poly.DATN_BookWorms.utils.SessionService;
+
+import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -99,8 +101,14 @@ public class SaleServiceImp implements SaleService{
 	}
 
 	@Override
-	public Sales save(Sales sale) {
-		return saleRepo.save(sale);
+	public Sales save(Sales sales) {
+		
+		String randomCode = RandomStringUtils.randomAlphanumeric(10);
+		sales.setCouoponcode(randomCode);
+		sales.setShopid(null);
+		sales.setMinprice(20000.00);
+		return saleRepo.save(sales);
 	}
 
+	
 }
