@@ -91,7 +91,8 @@ public class    AccountController {
             customUserDetailService.loadUserByUsername(performance.getName());
 
         } catch (InterruptedException e) {
-            e.printStackTrace();
+            customUserDetailService.loadUserByUsername(performance.getName());
+
         }
         return "redirect:/Ibook/index";
     }
@@ -117,7 +118,7 @@ public class    AccountController {
             Thread.sleep(5000);
             customUserDetailService.loadUserByUsername(performance.getName());
         } catch (InterruptedException e) {
-            e.printStackTrace();
+            customUserDetailService.loadUserByUsername(performance.getName());
         }
 
         return "redirect:/Ibook/index";

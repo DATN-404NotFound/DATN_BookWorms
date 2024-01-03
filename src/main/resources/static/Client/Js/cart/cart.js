@@ -1056,16 +1056,19 @@ app.controller("order_ctrl", function ($scope, $http, $timeout) {
 
 	$scope.paymentCart = function (stt) {
 		var payone = Number($('#pay').children("option:selected").val());
-		console.log("book " + localStorage.getItem("bookingAll"))
+		var pacA = document.getElementById('pac').value;
+
+		console.log("book " + pacA)
 		var ams = $.noConflict();
 		ams(document).ready(function () {
 			ams('#spt').show();
 
 		});
-		if (stt == 1) {
+		if (stt == 1 ) {
 
 			if (payone == -1) {
 				$('#messPay').text("Vui lòng chọn hình thức thanh toán")
+				$('#messPacA').text("Không có tài khoản ")
 				$('#dhmodal').show();
 				$('#iconModels').html('<i  style="font-size: 50px;color: red;" class="bi bi-x-circle"></i> ')
 				$('#descrptionInfors').text("Vui lòng kiểm tra chính xác thông tin!!");

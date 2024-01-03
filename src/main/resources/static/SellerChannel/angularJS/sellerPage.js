@@ -730,6 +730,7 @@ app.directive('fileInput', ['$parse', function ($parse) {
         $http.post(url, JSON.stringify($scope.book), {headers: headers}).then(resp => {
             $scope.book = resp.data;
             console.log("Save book success!!!", $scope.book)
+            $window.alert("Save boook success!!")
         }).catch(error => {
             console.log("Save book false!!!")
         });

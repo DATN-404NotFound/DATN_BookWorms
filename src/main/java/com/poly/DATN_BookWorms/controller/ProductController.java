@@ -121,7 +121,7 @@ public class ProductController {
 		// System.out.println("lkjlskjlajf");
 		Books item = bookService.findById(id);
 		item.setProductviews(item.getProductviews()+1);
-		bookService.update(item);
+		bookService.save(item);	
 		System.out.println("lkjlskjlajssf" + id);
 		List<Books> b = bookService.getBooksByCategoryID(item.getListOfTypebooks().get(0).categories.categoryid);
 		List<Evaluates> eva_list = evaluatesService.getEvaByBookid(id);
