@@ -83,9 +83,9 @@ public class SecurityConfig implements WebMvcConfigurer{
 	@Bean
 	public SecurityFilterChain web(HttpSecurity http) throws Exception {
 		http.authorizeHttpRequests((request) -> request
-				.requestMatchers("/account/**", "/signin/**", "/signup/**", "/product/**", "/Admin/**","/Ibook/index","/Ibook/header","Client/header_footer_index/header_index").permitAll()
+				.requestMatchers("/account/**", "/signin/**", "/signup/**", "/product/**", "/Admin/**","/Ibook/index","/Ibook/header","Client/header_footer_index/**").permitAll()
 				.requestMatchers("rest/**").permitAll()
-				.requestMatchers("/Client/**")
+				.requestMatchers("/Client/**","/Client/Css")
 				.permitAll()
 				.requestMatchers("static/**")
 				.permitAll()
