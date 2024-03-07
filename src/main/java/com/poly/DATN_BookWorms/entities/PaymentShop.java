@@ -51,12 +51,7 @@ public class PaymentShop implements Serializable {
 	
 	@ManyToOne
     @JoinColumn(name="Shopid", referencedColumnName="ShopId", insertable=false, updatable=false)
-	public Shoponlines shoponlines ;
+	public ShopOnline shopOnline ;
 
-
-
-	
-	
-	
 }
 

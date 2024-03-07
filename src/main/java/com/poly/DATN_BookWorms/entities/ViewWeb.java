@@ -22,6 +22,4 @@ public class ViewWeb {
     private int id;
 	
 	private int views;
-	
-	
 }

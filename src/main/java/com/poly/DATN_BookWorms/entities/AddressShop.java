@@ -7,7 +7,6 @@ import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 import java.util.Date;
-
 @Data
 @Entity
 @AllArgsConstructor
@@ -40,7 +39,8 @@ public class AddressShop implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "Shopid", referencedColumnName="ShopId")
-    private Shoponlines shoponlines ;
+    private ShopOnline shopOnline ;
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -60,7 +60,5 @@ public class AddressShop implements Serializable {
         sb.append("|");
         return sb.toString();
 	}
-
-
 
 }

@@ -3,7 +3,6 @@ package com.poly.DATN_BookWorms.utils;
 import java.util.concurrent.ThreadLocalRandom;
 
 import org.springframework.stereotype.Service;
-
 @Service
 public class OTP_privateKey {
 		
@@ -18,17 +17,18 @@ public class OTP_privateKey {
 		return c;
 	}
 
-public static int privatekey(int euler,int pk) { 
-	int max =0;
-	for(int i =1; i<=1000;i++) { 
-		int x = ((i* euler)+1)/pk;
-		int y = (pk*x) % euler;
-		if(y==1) {
-			if(x>max) { 
-				max = x;
+	public static int privatekey(int euler,int pk) {
+		int max =0;
+		for(int i =1; i<=1000;i++) {
+			int x = ((i* euler)+1)/pk;
+			int y = (pk*x) % euler;
+			if(y==1) {
+				if(x>max) {
+					max = x;
+				}
 			}
 		}
-		}
-	return max;
-		}
+		return max;
+	}
 }
+

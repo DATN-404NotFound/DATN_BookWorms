@@ -17,15 +17,15 @@ app.config(function ($routeProvider) {
             controller: 'transportController'
         })
         .when('/orderManagement/createProduct', {
-            templateUrl: 'templates/SellerChannel/CreateProduct.html',
+            templateUrl: 'templates/SellerChannel/createProduct.html',
             controller: 'createProductController'
         })
         .when('/orderManagement/voucher', {
-            templateUrl: 'templates/SellerChannel/Voucher.html',
+            templateUrl: 'templates/SellerChannel/voucher.html',
             controller: 'voucherController'
         })
         .when('/orderManagement/createVoucher', {
-            templateUrl: 'templates/SellerChannel/CreateVoucher.html',
+            templateUrl: 'templates/SellerChannel/createVoucher.html',
             controller: 'createVoucherController'
         })
         .when('/orderManagement/reviews', {
@@ -33,7 +33,7 @@ app.config(function ($routeProvider) {
             controller: 'reviewController'
         })
         .when('/shipping/bulkDelivery', {
-            templateUrl: 'templates/SellerChannel/BulkDelivery.html',
+            templateUrl: 'templates/SellerChannel/bulkDelivery.html',
             controller: 'bulkDeliveryController'
         })
         .when('/shop/shopProfile', {

@@ -9,23 +9,23 @@
     <link rel="icon" href="favicon.ico">
     <title th:text="${title}">Admin</title>
     <!-- Simple bar CSS -->
-    <link rel="stylesheet" th:href="@{/SellerChannel/css/simplebar.css}">
+    <link rel="stylesheet" th:href="@{/templates/sellerChannel/css/simplebar.css}">
     <!-- Fonts CSS -->
     <link href="https://fonts.googleapis.com/css2?family=Overpass:ital,wght@0,100;0,200;0,300;0,400;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,600;1,700;1,800;1,900&display=swap"
           rel="stylesheet">
     <!-- Icons CSS -->
-    <link rel="stylesheet" th:href="@{/SellerChannel/css/feather.css}">
-    <link rel="stylesheet" th:href="@{/SellerChannel/css/select2.css}">
-    <link rel="stylesheet" th:href="@{/SellerChannel/css/dropzone.css}">
-    <link rel="stylesheet" th:href="@{/SellerChannel/css/uppy.min.css}">
-    <link rel="stylesheet" th:href="@{/SellerChannel/css/jquery.steps.css}">
-    <link rel="stylesheet" th:href="@{/SellerChannel/css/jquery.timepicker.css}">
-    <link rel="stylesheet" th:href="@{/SellerChannel/css/quill.snow.css}">
+    <link rel="stylesheet" th:href="@{/templates/sellerChannel/css/feather.css}">
+    <link rel="stylesheet" th:href="@{/templates/sellerChannel/css/select2.css}">
+    <link rel="stylesheet" th:href="@{/templates/sellerChannel/css/dropzone.css}">
+    <link rel="stylesheet" th:href="@{/templates/sellerChannel/css/uppy.min.css}">
+    <link rel="stylesheet" th:href="@{/templates/sellerChannel/css/jquery.steps.css}">
+    <link rel="stylesheet" th:href="@{/templates/sellerChannel/css/jquery.timepicker.css}">
+    <link rel="stylesheet" th:href="@{/templates/sellerChannel/css/quill.snow.css}">
     <!-- Date Range Picker CSS -->
-    <link rel="stylesheet" th:href="@{/SellerChannel/css/daterangepicker.css}">
+    <link rel="stylesheet" th:href="@{/templates/sellerChannel/css/daterangepicker.css}">
     <!-- App CSS -->
-    <link rel="stylesheet" th:href="@{/SellerChannel/css/app-light.css}" id="lightTheme">
-    <link rel="stylesheet" th:href="@{/SellerChannel/css/app-dark.css}" id="darkTheme" disabled>
+    <link rel="stylesheet" th:href="@{/templates/sellerChannel/css/app-light.css}" id="lightTheme">
+    <link rel="stylesheet" th:href="@{/templates/sellerChannel/css/app-dark.css}" id="darkTheme" disabled>
 </head>
 
 
@@ -35,7 +35,7 @@
 <!-- AngularJS -->
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.3/angular.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-route/1.8.3/angular-route.min.js"></script>
-<script th:src="@{/Admin/Js/angularJs/homePageAdminAngularJS.js}"></script>
+<script th:src="@{admin}"></script>
 
 <!-- jQuery -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -69,7 +69,7 @@
                    role="button"
                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <span class="avatar avatar-sm mt-2">
-              <img th:src="@{/SellerChannel/assets/avatars/face-1.jpg}" alt="..." class="avatar-img rounded-circle">
+              <img th:src="@{/templates/sellerChannel/assets/avatars/face-1.jpg}" alt="..." class="avatar-img rounded-circle">
             </span>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
@@ -88,7 +88,7 @@
             <!-- nav bar -->
             <div class="w-100 mb-4 d-flex">
                 <a class="navbar-brand mx-auto mt-2 flex-fill text-center" href="#!/">
-                    <img th:src="@{/SellerChannel/assets/images/LogoiBook.png}" class="img-fluid"
+                    <img th:src="@{/templates/sellerChannel/assets/images/LogoiBook.png}" class="img-fluid"
                          style="height: 60px;">
                 </a>
             </div>
@@ -226,38 +226,38 @@
 </header>
 
 
-<script th:src="@{/SellerChannel/js/jquery.min.js}"></script>
-<script th:src="@{/SellerChannel/js/popper.min.js}"></script>
-<script th:src="@{/SellerChannel/js/moment.min.js}"></script>
-<script th:src="@{/SellerChannel/js/bootstrap.min.js}"></script>
-<script th:src="@{/SellerChannel/js/simplebar.min.js}"></script>
-<script th:src="@{/SellerChannel/js/daterangepicker.js}"></script>
-<script th:src="@{/SellerChannel/js/jquery.stickOnScroll.js}"></script>
-<script th:src="@{/SellerChannel/js/tinycolor-min.js}"></script>
+<script th:src="@{/templates/sellerChannel/js/jquery.min.js}"></script>
+<script th:src="@{/templates/sellerChannel/js/popper.min.js}"></script>
+<script th:src="@{/templates/sellerChannel/js/moment.min.js}"></script>
+<script th:src="@{/templates/sellerChannel/js/bootstrap.min.js}"></script>
+<script th:src="@{/templates/sellerChannel/js/simplebar.min.js}"></script>
+<script th:src="@{/templates/sellerChannel/js/daterangepicker.js}"></script>
+<script th:src="@{/templates/sellerChannel/js/jquery.stickOnScroll.js}"></script>
+<script th:src="@{/templates/sellerChannel/js/tinycolor-min.js}"></script>
 
-<script th:src="@{/SellerChannel/js/d3.min.js}"></script>
-<script th:src="@{/SellerChannel/js/topojson.min.js}"></script>
-<script th:src="@{/SellerChannel/js/datamaps.all.min.js}"></script>
-<script th:src="@{/SellerChannel/js/datamaps-zoomto.js}"></script>
-<script th:src="@{/SellerChannel/js/datamaps.custom.js}"></script>
-<script th:src="@{/SellerChannel/js/Chart.min.js}"></script>
+<script th:src="@{/templates/sellerChannel/js/d3.min.js}"></script>
+<script th:src="@{/templates/sellerChannel/js/topojson.min.js}"></script>
+<script th:src="@{/templates/sellerChannel/js/datamaps.all.min.js}"></script>
+<script th:src="@{/templates/sellerChannel/js/datamaps-zoomto.js}"></script>
+<script th:src="@{/templates/sellerChannel/js/datamaps.custom.js}"></script>
+<script th:src="@{/templates/sellerChannel/js/Chart.min.js}"></script>
 <script th:inline="javascript">
     /* define global options */
     Chart.defaults.global.defaultFontFamily = /*[[@{/path/to/your/font-family}]]*/ 'base.defaultFontFamily';
     Chart.defaults.global.defaultFontColor = /*[[@{/path/to/your/font-color}]]*/ 'colors.mutedColor';
 </script>
-<script th:src="@{/SellerChannel/js/gauge.min.js}"></script>
-<script th:src="@{/SellerChannel/js/jquery.sparkline.min.js}"></script>
-<script th:src="@{/SellerChannel/js/apexcharts.min.js}"></script>
-<script th:src="@{/SellerChannel/js/apexcharts.custom.js}"></script>
-<script th:src="@{/SellerChannel/js/jquery.mask.min.js}"></script>
-<script th:src="@{/SellerChannel/js/select2.min.js}"></script>
-<script th:src="@{/SellerChannel/js/jquery.steps.min.js}"></script>
-<script th:src="@{/SellerChannel/js/jquery.validate.min.js}"></script>
-<script th:src="@{/SellerChannel/js/jquery.timepicker.js}"></script>
-<script th:src="@{/SellerChannel/js/dropzone.min.js}"></script>
-<script th:src="@{/SellerChannel/js/uppy.min.js}"></script>
-<script th:src="@{/SellerChannel/js/quill.min.js}"></script>
+<script th:src="@{/templates/sellerChannel/js/gauge.min.js}"></script>
+<script th:src="@{/templates/sellerChannel/js/jquery.sparkline.min.js}"></script>
+<script th:src="@{/templates/sellerChannel/js/apexcharts.min.js}"></script>
+<script th:src="@{/templates/sellerChannel/js/apexcharts.custom.js}"></script>
+<script th:src="@{/templates/sellerChannel/js/jquery.mask.min.js}"></script>
+<script th:src="@{/templates/sellerChannel/js/select2.min.js}"></script>
+<script th:src="@{/templates/sellerChannel/js/jquery.steps.min.js}"></script>
+<script th:src="@{/templates/sellerChannel/js/jquery.validate.min.js}"></script>
+<script th:src="@{/templates/sellerChannel/js/jquery.timepicker.js}"></script>
+<script th:src="@{/templates/sellerChannel/js/dropzone.min.js}"></script>
+<script th:src="@{/templates/sellerChannel/js/uppy.min.js}"></script>
+<script th:src="@{/templates/sellerChannel/js/quill.min.js}"></script>
 <script>
     $('.select2').select2(
         {
@@ -452,7 +452,7 @@
         });
     }
 </script>
-<script src="/SellerChannel/js/apps.js"></script>
+<script src="/sellerChannel/js/apps.js"></script>
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-56159088-1"></script>
 <script>

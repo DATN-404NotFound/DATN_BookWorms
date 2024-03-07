@@ -20,51 +20,33 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-/**
- * JPA entity class for "Cart"
- *
- * @author Telosys
- *
- */
-
 @Data
 @Entity
 @Table(name="cart")
 public class Cart implements Serializable {
-
-
     //--- ENTITY PRIMARY KEY 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="cartid")
-    public Long    cartid ;
+    public Long cartid ;
 
     //--- ENTITY DATA FIELDS 
-    public String     userid ;
+    public String userid ;
 
-    public Integer    bookid ;
+    public Integer bookid ;
 
     @Column(name="quantity")
-    public Integer    quantity ;
-
+    public Integer quantity ;
 
     //--- ENTITY LINKS ( RELATIONSHIP )
     @ManyToOne 
     @JoinColumn(name="Userid", referencedColumnName="Userid", insertable=false, updatable=false)
-    public Account    account ; 
+    public Account account ;
 
     @ManyToOne
     @JoinColumn(name="Bookid", referencedColumnName="BookId", insertable=false, updatable=false)
-    public Books      books ; 
+    public Book book ;
 
-
-
-	public Cart() {
-		
-	}
-
-
-	//--- toString specific method
 	@Override
     public String toString() { 
         StringBuilder sb = new StringBuilder(); 
@@ -77,8 +59,4 @@ public class Cart implements Serializable {
         sb.append(quantity);
         return sb.toString(); 
     }
-
-
-
-
 }
