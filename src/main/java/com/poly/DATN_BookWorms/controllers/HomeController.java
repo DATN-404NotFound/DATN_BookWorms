@@ -81,7 +81,7 @@ public class HomeController {
                 .anyMatch(a -> a.getAuthority().equals("ADMIN"))) {
             return "redirect:/admin/index";
         } else {
-            return "/client/header_footer_index/index";
+            return "/client_template/header_footer_index/index";
         }
     }
     @RequestMapping("/header")
@@ -94,7 +94,7 @@ public class HomeController {
             ShopOnline shoponline = shopService.findUserId(user.getUserid());
             model.addAttribute("shop", shoponline);
         }
-        return "client/header_footer_index/header_index";
+        return "client_template/header_footer_index/header_index";
     }
 
     @RequestMapping("/seller")
@@ -107,7 +107,7 @@ public class HomeController {
             ShopOnline shoponline = shopService.findUserId(user.getUserid());
             model.addAttribute("shop", shoponline);
 
-            return "sellerChannel/index";
+            return "seller_template/index";
         }
     }
 
@@ -136,7 +136,7 @@ public class HomeController {
         //get data shop
         ShopOnline shoponline = shopService.findUserId(user2.getUserid());
         model.addAttribute("shop", shoponline);
-        return "sellerChannel/index";
+        return "seller_template/index";
     }
 
     @GetMapping("/shop")
@@ -144,12 +144,12 @@ public class HomeController {
         List<ShopOnline> listshop = new ArrayList<ShopOnline>();
         listshop = shopOnlinesService.getAllListShop();
         model.addAttribute("shoplist", listshop);
-        return "client/product_page/shop_list";
+        return "client_template/product_page/shop_list";
     }
 
     @GetMapping("/about")
     public String getBout(Model model) {
 
-        return "client/header_footer_index/about";
+        return "client_template/header_footer_index/about";
     }
 }

@@ -63,7 +63,7 @@ public class    AccountController {
 
     @RequestMapping("/login")
     public String loginForm() {
-        return "/Client/Account_page/Login";
+        return "/client_template/account_page/login";
     }
 
     @RequestMapping("/login/success/google")
@@ -125,7 +125,7 @@ public class    AccountController {
     public String registrationForm(Model model) {
         AccountDto user = new AccountDto();
         model.addAttribute("user", user);
-        return "Client/Account_page/Register";
+        return "client_template/account_page/register";
     }
 
     @PostMapping("/registration")
@@ -138,7 +138,7 @@ public class    AccountController {
         if (result.hasErrors()) {
         	
             model.addAttribute("user", accountDTO);
-            return "Client/Account_page/Register";
+            return "client_template/account_page/register";
         }
         accountService.save(accountDTO);
         return "redirect:login";
@@ -147,7 +147,7 @@ public class    AccountController {
 
     @GetMapping("/forgotPassword")
     public String forgotPassword(Model model) {
-        return "Client/Account_page/ForgotPassword";
+        return "client_template/account_page/forgotPassword";
     }
 
     
@@ -157,7 +157,7 @@ public class    AccountController {
     	  String userid = crc32_SHA256.getCodeCRC32C(username);
     	  Account account = accountService.findByUserId(userid);
     	  if(account == null) { 
-    		   return "Client/Account_page/ForgotPassword";
+    		   return "client_template/account_page/forgotPassword";
     	  }
     	  else { 
     		  try {
@@ -173,7 +173,7 @@ public class    AccountController {
 				System.out.println("lỗi khi gửi mail: "+e);
 			}
     		  
-    		  return "Client/Account_page/ConfirmCode";
+    		  return "client_template/account_page/confirmCode";
     	  }
     	  
     	
@@ -181,12 +181,12 @@ public class    AccountController {
       
       @GetMapping("/newpass")
       public String newPass() { 
-    	  return "Client/Account_page/newPassword"; 
+    	  return "client_template/account_page/newPassword";
       }
       
       
       @GetMapping("/otpcon")
       public String otpcon() { 
-    	  return "Client/Account_page/ConfirmCode"; 
+    	  return "client_template/account_page/confirmCode";
       }  
 }

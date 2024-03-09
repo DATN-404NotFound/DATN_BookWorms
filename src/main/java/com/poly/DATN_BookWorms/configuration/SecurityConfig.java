@@ -72,13 +72,14 @@ public class SecurityConfig implements WebMvcConfigurer{
 	@Bean
 	public SecurityFilterChain web(HttpSecurity http) throws Exception {
 		http.authorizeHttpRequests((request) -> request
-				.requestMatchers("/account/**", "/signin/**", "/signup/**", "/product/**", "/Admin/**","/Ibook/index","/Ibook/header","Client/header_footer_index/**").permitAll()
+				.requestMatchers("/account/**", "/signin/**", "/signup/**", "/product/**", "/admin/**","/Ibook/index","/Ibook/header","client_template/header_footer_index/**","client_template/account_page/login.html").permitAll()
 				.requestMatchers("rest/**").permitAll()
-				.requestMatchers("/Client/**","/Client/Css")
+				.requestMatchers("/static/**").permitAll()
+				.requestMatchers("/client/js","/client/css","/client/icons","/client/images")
 				.permitAll()
-				.requestMatchers("static/**")
+				.requestMatchers("/sellerChannel/angularJs","/sellerChannel/css","/sellerChannel/images")
 				.permitAll()
-				.requestMatchers("/admin/**", "/api/payment/create_payment/**", "createvoucher").hasAuthority("ADMIN")
+				.requestMatchers("/admin/**", "/api/payment/create_payment/**", "createVoucher").hasAuthority("ADMIN")
 				.anyRequest().authenticated());
 		http.formLogin(form -> form.loginPage("/account/login")
 				.loginProcessingUrl("/account/login")
@@ -119,7 +120,7 @@ public class SecurityConfig implements WebMvcConfigurer{
 	@Bean
 	public CorsConfigurationSource corsConfigurationSource() {
 		CorsConfiguration configuration = new CorsConfiguration();
-		configuration.addAllowedOrigin("http://sandbox.vnpayment.vn");
+		configuration.addAllowedOrigin("https://sandbox.vnpayment.vn");
 		configuration.addAllowedMethod("GET");
 		configuration.addAllowedMethod("POST");
 		configuration.addAllowedMethod("PUT");
