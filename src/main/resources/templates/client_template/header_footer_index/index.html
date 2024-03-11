@@ -20,7 +20,7 @@
                 <!-- Modal Header -->
                 <div class="modal-header" style="height: 20px;padding: 30px;border-top-right-radius: 5px;border-top-left-radius: 5px">
                     <h4 class="modal-title fs-6 " id="descrptionTitle" style="color: #C93F04; border-bottom: white; font-weight: bold">
-                        <img th:src="@{seller_template}" class="img-fluid float-left" style="width: 50px; margin-right: 10px">
+                        <img th:src="@{/seller/images/Tham-khao-mau-icon-Hello-dac-sac.jpg}" class="img-fluid float-left" style="width: 50px; margin-right: 10px">
                         Xin chào</h4>
                     <button type="button" class="btn btn-close" aria-label="Close" data-dismiss="modal"
                             aria-hidden="true" hidden>
@@ -50,17 +50,17 @@
 
             <div class="carousel-inner">
                 <div class="carousel-item active">
-                    <img th:src="@{client_template}" alt="Los Angeles" class="d-block">
+                    <img th:src="@{/client/images/silde1.jpg}" alt="Los Angeles" class="d-block">
 
                 </div>
                 <div class="carousel-item">
-                    <img th:src="@{client_template}" alt="Chicago" class="d-block">
+                    <img th:src="@{/client/images/silde2.jpg}" alt="Chicago" class="d-block">
                 </div>
                 <div class="carousel-item">
-                    <img th:src="@{client_template}" alt="New York" class="d-block">
+                    <img th:src="@{/client/images/silde3.jpg}" alt="New York" class="d-block">
                 </div>
                 <div class="carousel-item">
-                    <img th:src="@{client_template}" alt="New York" class="d-block">
+                    <img th:src="@{/client/images/silde.jpg}" alt="New York" class="d-block">
                 </div>
             </div>
 
@@ -75,7 +75,7 @@
                 <div class="row">
                     <div class="col-sm-3 banner_menu_item">
                         <div class="d-inline-flex">
-                            <div class="p-1"><img th:src="@{client_template}" alt=""
+                            <div class="p-1"><img th:src="@{/client/images/banner_ariticial.jpg}" alt=""
                                                   style="width: 65px; height: 65px; color: #FFF;"></div>
                             <div class="p-1" style="width:120px; height: 60px;"><a
                                     th:href="@{|/product/list|}"><span>SẢN PHẨM MỚI</span></a></div>
@@ -83,7 +83,7 @@
                     </div>
                     <div class="col-sm-3 banner_menu_item">
                         <div class="d-inline-flex">
-                            <div class="p-1"><img th:src="@{client_template}" alt=""
+                            <div class="p-1"><img th:src="@{/client/images/}" alt=""
                                                   style="width: 65px; height: 65px; color: #FFF;"></div>
                             <div class="p-1" style="width:100px; height: 60px;"><a id="4,11,12,13,10"
                                                                                    th:href="@{|/product/list|}"
@@ -146,7 +146,7 @@
         </div>
         <div style="width: 80%; height: 800px; margin: auto; margin-top: -150px;">
             <div class="_box" style="margin-right: 5%;">
-                <img th:src="@{client_template}" alt="">
+                <img th:src="@{/client/images/_.png}" alt="">
                 <div style="float: left;">
                     <form action="">
                         <button th:action="@{|/product/list|}" th:method="GET" class="_boxnow">KHÁM PHÁ NGAY</button>
@@ -160,7 +160,7 @@
                 </div>
             </div>
             <div class="_box" style="margin-left: 5%;">
-                <img th:src="@{client_template}" alt="">
+                <img th:src="@{/client/images/langnghe.png}" alt="">
                 <div style="float: left;">
                     <form action="">
                         <button th:action="@{|/Ibook/shop|}" th:method="GET" class="_boxnow1">CỬA HÀNG NGAY</button>
