@@ -15,6 +15,6 @@ public class VoucherController {
 
 		model.addAttribute("sale", sale);
 
-		return "createVoucher";
+		return "admin_template/createVoucher";
 	}
 }

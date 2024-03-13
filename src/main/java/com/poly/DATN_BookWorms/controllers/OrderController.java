@@ -71,7 +71,7 @@ public class OrderController {
 		} catch (Exception e) {
 			logger.info("Error during controller with error :{}",e);
 		}
-		return "Client/cart_client/deal";
+		return "client_template/cart_client/deal";
 	}
 	
 	@PostMapping("/payment")
@@ -81,6 +81,6 @@ public class OrderController {
 
 	@GetMapping("/success")
 	public String success(Model model){ 
-		return "Client/cart_client/success";
+		return "client_template/cart_client/success";
 	}
 }

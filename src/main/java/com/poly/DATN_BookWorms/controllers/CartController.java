@@ -60,7 +60,7 @@ public class CartController {
 		} catch (Exception e) {
 			logger.info("Error during cart controller with error :{}", e);
 		}
-		return "Client/cart_client/cart_user";
+		return "client_template/cart_client/cart_user";
 	}
 
 	@RequestMapping("/delete/{cartid}")

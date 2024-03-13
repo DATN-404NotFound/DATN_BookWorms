@@ -75,7 +75,7 @@ public class UserProfileController {
     public String myPersonal(Model model) {
         Account account = sessionService.get("user");
         model.addAttribute("account", account);
-        return "Client/My_account/MyPersonal";
+        return "client_template/my_account/myPersonal";
     }
 
     @PostMapping("/changePassword/{username}")
@@ -129,7 +129,7 @@ public class UserProfileController {
 
                 String fileName = StringUtils.cleanPath(Objects.requireNonNull(file.getOriginalFilename()));
                 System.out.println("1" + fileName);
-                String uploadDir = "./src/main/resources/static/Client/images";
+                String uploadDir = "./src/main/resources/static/client/images";
                 Path uploadPath = Paths.get(uploadDir);
                 if (!Files.exists(uploadPath)) {
                     Files.createDirectories(uploadPath);
@@ -161,7 +161,7 @@ public class UserProfileController {
         model.addAttribute("ad", ad);
         AddressUser addressusers = new AddressUser();
         model.addAttribute("adr", addressusers);
-        return "Client/My_account/Address";
+        return "client_template/my_account/address";
     }
 
     @PostMapping("/newAddress")
@@ -202,7 +202,7 @@ public class UserProfileController {
     public String changePassword(Model model) {
         Account account = sessionService.get("user");
         model.addAttribute("account", account);
-        return "Client/My_account/ChangePassword";
+        return "client_template/my_account/changePassword";
     }
 
     @RequestMapping("/orderMyAccount")
@@ -244,7 +244,7 @@ public class UserProfileController {
         model.addAttribute("adr", a.get(0).booking.listOfPayment.get(0));
 
         model.addAttribute("db", a);
-        return "Client/My_account/OrderDetail";
+        return "client_template/my_account/orderDetail";
     }
 
     @RequestMapping("/voucherMyAccount")
@@ -261,6 +261,6 @@ public class UserProfileController {
         model.addAttribute("discount", discountcodes);
         System.out.println("sucsess1");
 
-        return "Client/My_account/VoucherMyAccount";
+        return "client_template/my_account/voucherMyAccount";
     }
 }

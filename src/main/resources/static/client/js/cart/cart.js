@@ -276,7 +276,7 @@ app.controller("cart_ctrl", function ($scope, $http, $timeout) {
 		$http.get(url).then(resp => {
 			var a = [];
 			a = (resp.data);
-			document.getElementById('product' + bookId).src = "/Client/images/" + a[0].name
+			document.getElementById('product' + bookId).src = "/client/images/" + a[0].name
 		}).catch(error => {
 			console.log("Error", error)
 		});;
@@ -287,7 +287,7 @@ app.controller("cart_ctrl", function ($scope, $http, $timeout) {
 		$http.get(url).then(resp => {
 			var a = [];
 			a = (resp.data);
-			document.getElementById('shopimage' + shopId).src = "/Client/images/" + a[0].filename
+			document.getElementById('shopimage' + shopId).src = "/client/images/" + a[0].filename
 		}).catch(error => {
 			console.log("Error", error)
 		});;
@@ -592,18 +592,17 @@ app.controller("cart_ctrl", function ($scope, $http, $timeout) {
 		$http.get(url).then(resp => {
 			var a = [];
 			a = (resp.data);
-			console.log("đmmmm" + a[0].name)
 			switch (cate) {
 				case 2: {
-					document.getElementById('imgs2' + bookId).src = "/Client/images/" + a[0].name
+					document.getElementById('imgs2' + bookId).src = "/client/images/" + a[0].name
 					break;
 				}
 				case 4: {
-					document.getElementById('imgs4' + bookId).src = "/Client/images/" + a[0].name
+					document.getElementById('imgs4' + bookId).src = "/client/images/" + a[0].name
 					break;
 				}
 				case 7: {
-					document.getElementById('imgs7' + bookId).src = "/Client/images/" + a[0].name
+					document.getElementById('imgs7' + bookId).src = "/client/images/" + a[0].name
 					break;
 				}
 			}

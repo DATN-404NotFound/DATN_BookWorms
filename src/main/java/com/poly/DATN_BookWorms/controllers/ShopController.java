@@ -98,6 +98,6 @@ public class ShopController {
             model.addAttribute("dis", findDisountOfShopWithUser);
         }
         
-        return "Client/Product_page/product_shop_list";
+        return "client_template/product_page/product_shop_list";
     }
 }

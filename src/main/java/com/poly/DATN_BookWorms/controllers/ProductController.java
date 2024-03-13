@@ -107,7 +107,7 @@ public class ProductController {
         model.addAttribute("writtingmasters", writtingmasters);
         model.addAttribute("books", bookPage.getContent());
         model.addAttribute("totalPages", bookPage.getTotalPages());
-        return "Client/Product_page/product_list";
+        return "client_template/product_page/product_list";
     }
 
 
@@ -134,6 +134,6 @@ public class ProductController {
         model.addAttribute("eva", eva_list);
         model.addAttribute("books", b);
         model.addAttribute("userid", crc.getCodeCRC32C(request.getRemoteUser()));
-        return "Client/Product_page/detail_product";
+        return "client_template/product_page/detail_product";
     }
 }

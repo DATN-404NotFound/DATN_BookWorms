@@ -67,7 +67,7 @@ public class    AccountController {
     }
 
     @RequestMapping("/login/success/google")
-    public String loginWithGoogle(@AuthenticationPrincipal OAuth2User performance, Model model) {
+    public String loginWithGoogle(@AuthenticationPrincipal OAuth2User performance) {
         if (performance == null) {
             return "redirect:/login";
         }
@@ -94,7 +94,7 @@ public class    AccountController {
     }
 
     @RequestMapping("/login/success/facebook")
-    public String loginWithFaceBook(@AuthenticationPrincipal OAuth2User performance, Model model) {
+    public String loginWithFaceBook(@AuthenticationPrincipal OAuth2User performance) {
         if (performance == null) {
             return "redirect:/login";
         }
@@ -133,7 +133,7 @@ public class    AccountController {
         Account existingUser = accountService.findByUsename(accountDTO.getUsername());
 
         if (existingUser != null)
-            result.rejectValue("Username", null, "User already registered !!!");
+            result.rejectValue("Username", null, "Người dùng đã đăng ký!!!");
 
         if (result.hasErrors()) {
         	

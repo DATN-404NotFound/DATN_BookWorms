@@ -20,80 +20,80 @@ public class SellerController {
     AddressShopService addressShopService;
     @RequestMapping("/index")
     public String seller(Model model){
-        return "SellerChannel/index";
+        return "seller_template/index";
     }
     @RequestMapping("/homePageSeller")
     public String homePageSeller(Model model){
-        return "SellerChannel/homePageSeller";
+        return "seller_template/homePageSeller";
     }
     @RequestMapping("/orderManagement/sales")
     public String salesOrderManagement(Model model){
-        return "sales";
+        return "seller_template/sales";
     }
     @RequestMapping("/shop/shopProfile")
     public String shopProfile(Model model){
-        return "profileShop";
+        return "seller_template/profileShop";
     }
 
     @RequestMapping("/shop/shopProfile/change")
     public String changeProfile(Model model){
-        return "changeProfile";
+        return "seller_template/changeProfile";
     }
 
     @RequestMapping("/shop/setting/address")
     public String addressSetting(Model model){
-        return "addressSetting";
+        return "seller_template/addressSetting";
     }
     @RequestMapping("/shop/setting/shipping")
     public String shippingSetting(Model model){
-        return "shippingSetting";
+        return "seller_template/shippingSetting";
     }
     @RequestMapping("/shop/setting/account")
     public String accountSetting(Model model){
-        return "profileNofication";
+        return "seller_template/profileNofication";
     }
     @RequestMapping("/shop/sales")
     public String sales(Model model){
-        return "dashboardSales";
+        return "seller_template/dashboardSales";
     }
     @RequestMapping("/shop/finance/revenue")
     public String revenueFinance(Model model){
-        return "financeRevenue";
+        return "seller_template/financeRevenue";
     }
     @RequestMapping("/shop/TranportChannel/CreateProduct")
     public String createProduct(Model model){
-        return "SellerChannel/createProduct";
+        return "seller_template/createProduct";
     }
     @RequestMapping("/shop/TranportChannel/EditBook")
     public String editProduct(Model model){
-        return "editBook";
+        return "seller_template/editBook";
     }
     @RequestMapping("/shop/TranportChannel/Transport")
     public String Tranport(Model model){
-        return "transportChannel";
+        return "seller_template/transportChannel";
     }
     @RequestMapping("/shop/TranportChannel/Voucher")
     public String Voucher(Model model){
-        return "SellerChannel/voucher";
+        return "seller_template/voucher";
     }
     @RequestMapping("/shop/TranportChannel/CreateVoucher")
     public String createVoucher(Model model){
-        return "SellerChannel/createVoucher";
+        return "seller_template/createVoucher";
     }
     @RequestMapping("/shop/TranportChannel/ShopRewiew")
     public String rewiews(Model model){
-        return "shopRewiew";
+        return "seller_template/shopRewiew";
     }
     @RequestMapping("/shop/finance/bankAccountBalance")
     public String bankAccountBalance(Model model){
-        return "bankAccountBalance";
+        return "seller_template/bankAccountBalance";
     }
     @RequestMapping("/shop/finance/createBankAccount")
     public String createBankAccount(Model model){
-        return "createBankAccount";
+        return "seller_template/createBankAccount";
     }
     @RequestMapping("/shop/bulkDelivery")
     public String bulkDelivery(Model model){
-        return "SellerChannel/bulkDelivery";
+        return "seller_template/bulkDelivery";
     }
 }

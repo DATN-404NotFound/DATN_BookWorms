@@ -25,6 +25,6 @@ public class PaymentController {
 		List<PaymentShop> item = paymentShopService.findAll();
 		System.out.println("hi" + item);
 		model.addAttribute("item", item);
-		return "admin/payment";
+		return "admin_template/payment";
 	}
 }

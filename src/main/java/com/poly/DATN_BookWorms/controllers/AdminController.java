@@ -71,7 +71,7 @@ public class AdminController {
 
     @RequestMapping("/index")
     public String index(Model model) {
-        return "admin/index";
+        return "admin_template/index";
     }
 
     @GetMapping("/findOrderUser")
@@ -87,28 +87,28 @@ public class AdminController {
         model.addAttribute("view", viewWeb);
         display(model);
         session.set("viewWeb", viewWeb);
-        return "admin/findOrderUser";
+        return "admin_template/findOrderUser";
     }
 
     @GetMapping("/statisticalbook")
     public String statisticalBook(Model model) {
         List<Book> item = bookService.findAll();
         model.addAttribute("item", item);
-        return "statisticalBook";
+        return "admin_template/statisticalBook";
     }
 
     @GetMapping("/statisticalshop")
     public String statisticalShop(Model model) {
         List<ShopOnline> item = shopOnlineService.findAll();
         model.addAttribute("item", item);
-        return "statisticalShop";
+        return "admin_template/statisticalShop";
     }
 
     @GetMapping("/statisticalpublishingcompany")
     public String statisticalPublishingCompany(Model model) {
         List<PublishingCompany> item = publishingCompanyService.findAll();
         model.addAttribute("item", item);
-        return "statisticalPublishingCompany";
+        return "admin_template/statisticalPublishingCompany";
     }
 
     @GetMapping("/unpaid")
@@ -116,7 +116,7 @@ public class AdminController {
         List<Booking> item = bookingService.unpaid();
         model.addAttribute("item", item);
         display(model);
-        return "admin/unpaid";
+        return "admin_template/unpaid";
     }
 
     @GetMapping("/paid")
@@ -124,7 +124,7 @@ public class AdminController {
         List<Booking> item = bookingService.unpaid();
         model.addAttribute("item", item);
         display(model);
-        return "admin/paid";
+        return "admin_template/paid";
     }
 
     @GetMapping("/confirm")
@@ -132,7 +132,7 @@ public class AdminController {
         List<Booking> item = bookingService.confirm();
         display(model);
         model.addAttribute("item", item);
-        return "admin/confirm";
+        return "admin_template/confirm";
     }
 
     @GetMapping("/delivering")
@@ -140,7 +140,7 @@ public class AdminController {
         List<Booking> item = bookingService.delivering();
         model.addAttribute("item", item);
         display(model);
-        return "admin/delivering";
+        return "admin_template/delivering";
     }
 
     @GetMapping("/processed")
@@ -148,7 +148,7 @@ public class AdminController {
         List<Booking> item = bookingService.processed();
         model.addAttribute("item", item);
         display(model);
-        return "admin/processed";
+        return "admin_template/processed";
     }
 
     @GetMapping("/cancel")
@@ -156,7 +156,7 @@ public class AdminController {
         List<Booking> item = bookingService.cancel();
         model.addAttribute("item", item);
         display(model);
-        return "admin/cancel";
+        return "admin_template/cancel";
     }
 
     @GetMapping("/refund")
@@ -164,7 +164,7 @@ public class AdminController {
         List<Booking> item = bookingService.refund();
         model.addAttribute("item", item);
         display(model);
-        return "admin/refund";
+        return "admin_template/refund";
     }
 
     @GetMapping("/findtop5")
@@ -175,13 +175,13 @@ public class AdminController {
         List<Book> item1 = booksRepo.findTop5Inventory();
         model.addAttribute("item1", item1);
 
-        return "findTop5";
+        return "admin_template/findTop5";
     }
 
     @GetMapping("/listvoucher")
     public String listVoucher(Model model) {
         List<Sale> item = saleService.findAll();
         model.addAttribute("item", item);
-        return "listVoucher";
+        return "admin_template/listVoucher";
     }
 }
