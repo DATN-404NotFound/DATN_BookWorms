@@ -32,7 +32,7 @@ import com.poly.DATN_BookWorms.utils.SessionService;
 
 @Controller
 @RequestMapping("/account")
-public class    AccountController {
+public class AccountController {
 
     @Autowired
     AccountService accountService;
@@ -42,23 +42,23 @@ public class    AccountController {
 
     @Autowired
     MailService mailService;
-    
+
     @Autowired
     OTP_privateKey otp_privateKey;
-    
+
     @Autowired
     SessionService sessionService;
-    
+
     @Autowired
     MailBody mailBody;
 
     @Autowired
     CRC32_SHA256 crc32_SHA256;
-    
+
     @Autowired
-	SaleService saleService;
-    
-	@Autowired
+    SaleService saleService;
+
+    @Autowired
     IMail mailer;
 
     @RequestMapping("/login")
@@ -134,9 +134,7 @@ public class    AccountController {
 
         if (existingUser != null)
             result.rejectValue("Username", null, "Người dùng đã đăng ký!!!");
-
         if (result.hasErrors()) {
-        	
             model.addAttribute("user", accountDTO);
             return "client_template/account_page/register";
         }
@@ -150,43 +148,39 @@ public class    AccountController {
         return "client_template/account_page/forgotPassword";
     }
 
-    
-      @PostMapping("/forgotPasswordAction")
-    public String forgotPassword(@RequestParam("username") String username,Model model) {
-    	  System.out.println("lỗi khi gửi mail: ");
-    	  String userid = crc32_SHA256.getCodeCRC32C(username);
-    	  Account account = accountService.findByUserId(userid);
-    	  if(account == null) { 
-    		   return "client_template/account_page/forgotPassword";
-    	  }
-    	  else { 
-    		  try {
-    			  int OTP = otp_privateKey.OTP();
-    			  String subject ="XÁC NHẬN DANH TÍNH NGƯỜI SỬ DỤNG IBOOK";
-    			  String body = mailBody.mailBody(account.getFullname(), OTP);
-				mailService.send(account.getEmail(),subject, body);
-				sessionService.set("OTP", OTP);
-				System.out.println("gui thành coong");
-				sessionService.set("acc", account);
-			} catch (MessagingException e) {
-				// TODO Auto-generated catch block
-				System.out.println("lỗi khi gửi mail: "+e);
-			}
-    		  
-    		  return "client_template/account_page/confirmCode";
-    	  }
-    	  
-    	
-    	  }
-      
-      @GetMapping("/newpass")
-      public String newPass() { 
-    	  return "client_template/account_page/newPassword";
-      }
-      
-      
-      @GetMapping("/otpcon")
-      public String otpcon() { 
-    	  return "client_template/account_page/confirmCode";
-      }  
+    @PostMapping("/forgotPasswordAction")
+    public String forgotPassword(@RequestParam("username") String username, Model model) {
+        String userid = crc32_SHA256.getCodeCRC32C(username);
+        Account account = accountService.findByUserId(userid);
+        if (account == null) {
+            return "client_template/account_page/forgotPassword";
+        } else {
+            try {
+                int OTP = otp_privateKey.OTP();
+                String subject = "XÁC NHẬN DANH TÍNH NGƯỜI SỬ DỤNG IBOOK";
+                String body = mailBody.mailBody(account.getFullname(), OTP);
+                mailService.send(account.getEmail(), subject, body);
+                sessionService.set("OTP", OTP);
+                sessionService.set("acc", account);
+            } catch (MessagingException e) {
+                System.out.println("Lỗi khi gửi mail: " + e);
+                return "client_template/account_page/forgotPassword";
+            }
+
+            return "client_template/account_page/confirmCode";
+        }
+
+
+    }
+
+    @GetMapping("/newpass")
+    public String newPass() {
+        return "client_template/account_page/newPassword";
+    }
+
+
+    @GetMapping("/otpcon")
+    public String otpcon() {
+        return "client_template/account_page/confirmCode";
+    }
 }

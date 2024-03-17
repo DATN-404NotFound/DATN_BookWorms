@@ -279,7 +279,7 @@ app.controller("cart_ctrl", function ($scope, $http, $timeout) {
 			document.getElementById('product' + bookId).src = "/client/images/" + a[0].name
 		}).catch(error => {
 			console.log("Error", error)
-		});;
+		});
 	}
 
 	$scope.setShop = function (shopId) {
@@ -290,7 +290,7 @@ app.controller("cart_ctrl", function ($scope, $http, $timeout) {
 			document.getElementById('shopimage' + shopId).src = "/client/images/" + a[0].filename
 		}).catch(error => {
 			console.log("Error", error)
-		});;
+		});
 	}
 
 	$scope.loadProduct();
@@ -416,10 +416,10 @@ app.controller("cart_ctrl", function ($scope, $http, $timeout) {
 
 	$scope.filterByGenres = function (b) {
 		if ($scope.filterPC.length == 0) {
-			return ($scope.filterPC.indexOf(b.publishingcompanies.namepc) == -1);
+			return ($scope.filterPC.indexOf(b.publishingCompany.namepc) == -1);
 		}
 		else {
-			return ($scope.filterPC.indexOf(b.publishingcompanies.namepc) !== -1);
+			return ($scope.filterPC.indexOf(b.publishingCompany.namepc) !== -1);
 		}
 	};
 
@@ -659,7 +659,7 @@ app.controller("cart_ctrl", function ($scope, $http, $timeout) {
 		add(id) {
 			$http.get("/rest/books/" + id).then(resp => {
 				var bookQuan = resp.data;
-				var item = this.items.find(item => item.books.bookid == id);
+				var item = this.items.find(item => item.book.bookid == id);
 				if (item) {
 					item.quantity += $scope.quantityPro;
 					if (bookQuan.quantity < item.quantity) {
@@ -709,9 +709,7 @@ app.controller("cart_ctrl", function ($scope, $http, $timeout) {
 	}
 	$scope.cart.load();
 	$scope.detailBook = function (bookid) {
-
 		location.href = "/product/detail/" + bookid;
-
 	}
 
 

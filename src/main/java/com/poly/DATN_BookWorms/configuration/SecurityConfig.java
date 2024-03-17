@@ -77,7 +77,7 @@ public class SecurityConfig implements WebMvcConfigurer{
 				.requestMatchers("/static/**").permitAll()
 				.requestMatchers("/client/js/**","/client/css/**","/client/icons/**","/client/images/**")
 				.permitAll()
-				.requestMatchers("/seller/angularJs/**","/seller/css/**","/seller/images/**")
+				.requestMatchers("/seller/angularJS/**","/seller/css/**","/seller/images/**","/seller/js/**")
 				.permitAll()
 				.requestMatchers("/admin/**", "/api/payment/create_payment/**", "createVoucher").hasAuthority("ADMIN")
 				.anyRequest().authenticated());
