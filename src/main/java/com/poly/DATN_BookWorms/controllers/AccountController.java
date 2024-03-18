@@ -115,11 +115,11 @@ public class    AccountController {
             ICustomUserDetail.loadUserByUsername(performance.getName());
         } catch (InterruptedException e) {
             ICustomUserDetail.loadUserByUsername(performance.getName());
+            System.out.println("Interrupted Exception: "+e.getMessage()+e.getCause());
         }
 
         return "redirect:/Ibook/index";
     }
-
 
     @GetMapping("/registration")
     public String registrationForm(Model model) {
@@ -150,43 +150,37 @@ public class    AccountController {
         return "client_template/account_page/forgotPassword";
     }
 
-    
-      @PostMapping("/forgotPasswordAction")
-    public String forgotPassword(@RequestParam("username") String username,Model model) {
-    	  System.out.println("lỗi khi gửi mail: ");
-    	  String userid = crc32_SHA256.getCodeCRC32C(username);
-    	  Account account = accountService.findByUserId(userid);
-    	  if(account == null) { 
-    		   return "client_template/account_page/forgotPassword";
-    	  }
-    	  else { 
-    		  try {
-    			  int OTP = otp_privateKey.OTP();
-    			  String subject ="XÁC NHẬN DANH TÍNH NGƯỜI SỬ DỤNG IBOOK";
-    			  String body = mailBody.mailBody(account.getFullname(), OTP);
-				mailService.send(account.getEmail(),subject, body);
-				sessionService.set("OTP", OTP);
-				System.out.println("gui thành coong");
-				sessionService.set("acc", account);
-			} catch (MessagingException e) {
-				// TODO Auto-generated catch block
-				System.out.println("lỗi khi gửi mail: "+e);
-			}
-    		  
-    		  return "client_template/account_page/confirmCode";
-    	  }
-    	  
-    	
-    	  }
-      
-      @GetMapping("/newpass")
-      public String newPass() { 
-    	  return "client_template/account_page/newPassword";
-      }
-      
-      
-      @GetMapping("/otpcon")
-      public String otpcon() { 
-    	  return "client_template/account_page/confirmCode";
-      }  
+    @PostMapping("/forgotPasswordAction")
+    public String forgotPassword(@RequestParam("username") String username, Model model) {
+        String userid = crc32_SHA256.getCodeCRC32C(username);
+        Account account = accountService.findByUserId(userid);
+        if (account == null) {
+            return "client_template/account_page/forgotPassword";
+        } else {
+            try {
+                int OTP = otp_privateKey.OTP();
+                String subject = "XÁC NHẬN DANH TÍNH NGƯỜI SỬ DỤNG IBOOK";
+                String body = mailBody.mailBody(account.getFullname(), OTP);
+                mailService.send(account.getEmail(), subject, body);
+                sessionService.set("OTP", OTP);
+                sessionService.set("acc", account);
+            } catch (MessagingException e) {
+                System.out.println("Lỗi khi gửi mail: " + e);
+                return "client_template/account_page/forgotPassword";
+            }
+
+            return "client_template/account_page/confirmCode";
+        }
+    }
+
+    @GetMapping("/newpass")
+    public String newPass() {
+        return "client_template/account_page/newPassword";
+    }
+
+
+    @GetMapping("/otpcon")
+    public String otpcon() {
+        return "client_template/account_page/confirmCode";
+    }
 }
