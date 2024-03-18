@@ -7,27 +7,27 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <title>
-        IBook - Sàn thương mại điện tử buôn bán sách
+        IBook - Sàn thương mại điện tử buôn bán sách seller
     </title>
-    <link rel="icon" type="image/x-icon" href="/client/images/LOGO_Website.ico">
+    <link rel="icon" type="image/x-icon" href="/Client/images/LOGO_Website.ico">
     <!-- Simple bar CSS -->
-    <link rel="stylesheet" th:href="@{seller_template}">
+    <link rel="stylesheet" th:href="@{/seller/css/simplebar.css}">
     <!-- Fonts CSS -->
     <link href="https://fonts.googleapis.com/css2?family=Overpass:ital,wght@0,100;0,200;0,300;0,400;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,600;1,700;1,800;1,900&display=swap"
           rel="stylesheet">
     <!-- Icons CSS -->
-    <link rel="stylesheet" th:href="@{seller_template}">
-    <link rel="stylesheet" th:href="@{seller_template}">
-    <link rel="stylesheet" th:href="@{seller_template}">
-    <link rel="stylesheet" th:href="@{seller_template}">
-    <link rel="stylesheet" th:href="@{seller_template}">
-    <link rel="stylesheet" th:href="@{seller_template}">
-    <link rel="stylesheet" th:href="@{seller_template}">
+    <link rel="stylesheet" th:href="@{/seller/css/feather.css}">
+    <link rel="stylesheet" th:href="@{/seller/css/select2.css}">
+    <link rel="stylesheet" th:href="@{/seller/css/dropzone.css}">
+    <link rel="stylesheet" th:href="@{/seller/css/uppy.min.css}">
+    <link rel="stylesheet" th:href="@{/seller/css/jquery.steps.css}">
+    <link rel="stylesheet" th:href="@{/seller/css/jquery.timepicker.css}">
+    <link rel="stylesheet" th:href="@{/seller/css/quill.snow.css}">
     <!-- Date Range Picker CSS -->
-    <link rel="stylesheet" th:href="@{seller_template}">
+    <link rel="stylesheet" th:href="@{/seller/css/daterangepicker.css}">
     <!-- App CSS -->
-    <link rel="stylesheet" th:href="@{seller_template}" id="lightTheme">
-    <link rel="stylesheet" th:href="@{seller_template}" id="darkTheme" disabled>
+    <link rel="stylesheet" th:href="@{/seller/css/app-light.css}" id="lightTheme">
+    <link rel="stylesheet" th:href="@{/seller/css/app-dark.css}" id="darkTheme" disabled>
 </head>
 
 
@@ -37,7 +37,7 @@
 <!-- AngularJS -->
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.3/angular.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-route/1.8.3/angular-route.min.js"></script>
-<script th:src="@{seller_template}"></script>
+<script th:src="@{/seller/angularJS/sellerPage.js}"></script>
 
 <!-- jQuery -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -72,7 +72,7 @@
                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <span class="avatar avatar-sm mt-2">
               <img th:if="${shop?.logo == null}" src="http://bootdey.com/img/Content/avatar/avatar1.png" alt="..." class="avatar-img rounded-circle">
-               <img th:if="${shop?.logo != null}" th:src="@{|seller_template|}" alt="..." class="avatar-img rounded-circle">
+               <img th:if="${shop?.logo != null}" th:src="@{|/seller/images/${shop.logo}|}" alt="..." class="avatar-img rounded-circle">
             </span>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
@@ -90,7 +90,7 @@
             <!-- nav bar -->
             <div class="w-100 mb-4 d-flex">
                 <a class="navbar-brand mx-auto mt-2 flex-fill text-center" href="./index.html">
-                    <img th:src="@{seller_template}" class="img-fluid"
+                    <img th:src="@{/seller/assets/images/LogoiBook.png}" class="img-fluid"
                          style="height: 60px;">
                 </a>
             </div>
@@ -245,37 +245,37 @@
 
 
 
-<script th:src="@{seller_template}"></script>
-<script th:src="@{seller_template}"></script>
-<script th:src="@{seller_template}"></script>
-<script th:src="@{seller_template}"></script>
-<script th:src="@{seller_template}"></script>
-<script th:src="@{seller_template}"></script>
-<script th:src="@{seller_template}"></script>
+<script th:src="@{/seller/js/popper.min.js}"></script>
+<script th:src="@{/seller/js/moment.min.js}"></script>
+<script th:src="@{/seller/js/bootstrap.min.js}"></script>
+<script th:src="@{/seller/js/simplebar.min.js}"></script>
+<script th:src="@{/seller/js/daterangepicker.js}"></script>
+<script th:src="@{/seller/js/jquery.stickOnScroll.js}"></script>
+<script th:src="@{/seller/js/tinycolor-min.js}"></script>
 
-<script th:src="@{seller_template}"></script>
-<script th:src="@{seller_template}"></script>
-<script th:src="@{seller_template}"></script>
-<script th:src="@{seller_template}"></script>
-<script th:src="@{seller_template}"></script>
-<script th:src="@{seller_template}"></script>
+<script th:src="@{/seller/js/d3.min.js}"></script>
+<script th:src="@{/seller/js/topojson.min.js}"></script>
+<script th:src="@{/seller/js/datamaps.all.min.js}"></script>
+<script th:src="@{/seller/js/datamaps-zoomto.js}"></script>
+<script th:src="@{/seller/js/datamaps.custom.js}"></script>
+<script th:src="@{/seller/js/Chart.min.js}"></script>
 <script th:inline="javascript">
     /* define global options */
     Chart.defaults.global.defaultFontFamily = /*[[@{/path/to/your/font-family}]]*/ 'base.defaultFontFamily';
     Chart.defaults.global.defaultFontColor = /*[[@{/path/to/your/font-color}]]*/ 'colors.mutedColor';
 </script>
-<script th:src="@{seller_template}"></script>
-<script th:src="@{seller_template}"></script>
-<script th:src="@{seller_template}"></script>
-<script th:src="@{seller_template}"></script>
-<script th:src="@{seller_template}"></script>
-<script th:src="@{seller_template}"></script>
-<script th:src="@{seller_template}"></script>
-<script th:src="@{seller_template}"></script>
-<script th:src="@{seller_template}"></script>
-<script th:src="@{seller_template}"></script>
-<script th:src="@{seller_template}"></script>
-<script th:src="@{seller_template}"></script>
+<script th:src="@{/seller/js/gauge.min.js}"></script>
+<script th:src="@{/seller/js/jquery.sparkline.min.js}"></script>
+<script th:src="@{/seller/js/apexcharts.min.js}"></script>
+<script th:src="@{/seller/js/apexcharts.custom.js}"></script>
+<script th:src="@{/seller/js/jquery.mask.min.js}"></script>
+<script th:src="@{/seller/js/select2.min.js}"></script>
+<script th:src="@{/seller/js/jquery.steps.min.js}"></script>
+<script th:src="@{/seller/js/jquery.validate.min.js}"></script>
+<script th:src="@{/seller/js/jquery.timepicker.js}"></script>
+<script th:src="@{/seller/js/dropzone.min.js}"></script>
+<script th:src="@{/seller/js/uppy.min.js}"></script>
+<script th:src="@{/seller/js/quill.min.js}"></script>
 <script>
     $('.select2').select2(
         {
