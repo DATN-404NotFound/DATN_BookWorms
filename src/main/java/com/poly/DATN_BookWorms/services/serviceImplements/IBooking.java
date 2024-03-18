@@ -104,7 +104,7 @@ public class IBooking implements BookingService {
             };
             TypeReference<List<Payment>> type1 = new TypeReference<>() {
             };
-            List<DetailBooking> details = mapper.convertValue(bookingData.get("listOfDetailbookings"), type);
+            List<DetailBooking> details = mapper.convertValue(bookingData.get("listOfDetailBooking"), type);
             logger.info("list detalbooking in booking have size : {}", details.size());
             logger.info("list detalbooking start.... ");
             details.stream().peek(d -> {

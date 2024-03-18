@@ -19,7 +19,7 @@
                             <div class="col-sm-1 text-center">
 
                                 <div class="d-flex flex-column" style="margin-top: 100px; margin-left: 20px;">
-                                    <div class="py-1" th:each="im:${item.listOfImagebooks}"><a
+                                    <div class="py-1" th:each="im:${item.listOfImageBook}"><a
                                             style="width: 100px; height: 120px;"><img
                                                 th:src="@{|client_template|}"
                                                 style="width: 90px; height: 120px; margin: auto;" alt=""></a>
@@ -77,9 +77,9 @@
                                     </p>
                                     <p><span style="float: left;">CATEGORY</span><span style="float: left;">
                                             <div class="d-flex flex-column">
-                                                <div th:each="c : ${item.listOfTypebooks}" class="py-2"
+                                                <div th:each="c : ${item.listOfTypeBook}" class="py-2"
                                                     style="margin-left: 40px; margin-top: -10px; color: #666;">
-                                                    <strong th:text="${c.categories.name}"></strong>
+                                                    <strong th:text="${c.category.name}"></strong>
                                                 </div>
                                             </div>
                                         </span></p>
@@ -108,7 +108,7 @@
                             <div class="p-1 ms-3"><a
                                     style="text-decoration: none; color: #080808; font-size:20px ; font-weight: 500;"
                                     th:attr="ng-click=@{|toShopDetail(${item.shopid})|}"><span
-                                        th:text="${item.shoponlines.shopname}"></span></a></div>
+                                        th:text="${item.shopOnline.shopname}"></span></a></div>
                             <div class="ms-1 mt-3">
                                 <a class="btn shop_button" th:attr="ng-click=@{|toShopDetail(${item.shopid})|}"
                                     style="float: left;color: white; background-color: #C93F04;">Shop</a>
@@ -129,7 +129,7 @@
                         </div>
                         <div class="p-1 ms-3 mt-2">
                             <div class="">
-                                <p><span>Products </span> <span style="margin-left: 20px;"  th:text="${profile.listOfBooks.size()}"></span></p>
+                                <p><span>Products </span> <span style="margin-left: 20px;"  th:text="${profile.listOfBook.size()}"></span></p>
                             </div>
                         </div>
                     </div>
@@ -169,23 +169,23 @@
                             </tr>
                             <tr>
                                 <td>Tác giả</td>
-                                <td th:each="tg : ${item.listOfWriters}">
-                                    <p th:text="${tg.writtingmasters.namewm}"></p>
+                                <td th:each="tg : ${item.listOfWriter}">
+                                    <p th:text="${tg.writingMaster.namewm}"></p>
                                 </td>
                             </tr>
                             <tr>
                                 <td>Thể loại</td>
                                 <td>
                                     <div class="d-flex flex-column">
-                                        <div class="px-2" th:each="c : ${item.listOfTypebooks}">
-                                            <p th:text="${c.categories.name}"></p>
+                                        <div class="px-2" th:each="c : ${item.listOfTypeBook}">
+                                            <p th:text="${c.category.name}"></p>
                                         </div>
                                     </div>
                                 </td>
                             </tr>
                             <tr>
                                 <td>Nhà xuất bản</td>
-                                <td th:text="*{publishingcompanies.namepc}"></td>
+                                <td th:text="*{publishingCompany.namepc}"></td>
                             </tr>
                             <tr>
                                 <td>Năm xuất bản</td>
@@ -218,7 +218,7 @@
                             <a href="#" style="text-decoration: none; color: #080808;"><span><i style="font-size: 30px;"
                                         class="bi bi-person-circle mx-3"></i></span>
                                 <span style="font-size: 22px;"
-                                    th:text="${e.detailbookings.bookings.account.username}"></span></a>
+                                    th:text="${e.detailBooking.booking.account.username}"></span></a>
                         </div>
                         <div id=""  th:attr="ng-init=@{|calcRate(${e.rating},${e.evaluateid})|}" class="ratings float-end;">
                             <input type="radio" th:id="sstar5+${e.evaluateid}" name="rating" value="5" />
@@ -288,7 +288,7 @@
                                 <p th:text="${book.bookname}"></p>
                             </a>
                             <p style="font-size: 18px;margin-top: 0px;  color: #666;"
-                                th:text="${#strings.abbreviate(book.shoponlines.shopname, 10)}"></p>
+                                th:text="${#strings.abbreviate(book.shopOnline.shopname, 10)}"></p>
                             <p style="font-size: 18px;margin-top: -10px;">Giá : <strong
                                     th:text="${#numbers.formatDecimal(book.price, 0, 'POINT', 0, 'COMMA')} +'đ'">200.00
                                     VND</strong>

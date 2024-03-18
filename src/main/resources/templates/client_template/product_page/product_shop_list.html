@@ -48,7 +48,7 @@
                                 <div class="">
                                     <p>
                                         <span>Products </span> <span style="margin-left: 20px;"
-                                            th:text="${profile.listOfBooks.size()}"></span>
+                                            th:text="${profile.listOfBook.size()}"></span>
                                     </p>
                                 </div>
                             </div>
@@ -84,14 +84,14 @@
                         <div>
                             <div class="book_related" style="width: 90%;">
                                 <div class="row">
-                                    <div class="col-md-3" th:each="list,item : ${profile.listOfBooks}" th:if="${item.index<5}">
+                                    <div class="col-md-3" th:each="list,item : ${profile.listOfBook}" th:if="${item.index<5}">
                                         <div class="wsk-cp-product" >
                                             <a class="wsk-cp-img" th:href="@{|/product/detail/${list.bookid}|}"  >
                                                 <img th:src="@{|client_template|}" alt="Product" class="img-responsive" />
                                             </a>
                                             <div class="wsk-cp-text">
                                                 <div class="category">
-                                                    <span th:text="${#strings.abbreviate(item.current.shoponlines.shopname,10)}"></span>
+                                                    <span th:text="${#strings.abbreviate(item.current.shopOnline.shopname,10)}"></span>
                                                 </div>
                                                 <a class="title-product" th:href="@{|/product/detail/${list.bookid}|}">
                                                     <h3 th:text="${list.bookname}"></h3>
@@ -161,7 +161,7 @@
                                             <p th:text="${quantitys.bookname}"></p>
                                         </a>
                                         <p style="font-size: 18px;margin-top: 0px;  color: #666;"
-                                            th:text="${#strings.abbreviate(quantitys.shoponlines.shopname, 10)}"></p>
+                                            th:text="${#strings.abbreviate(quantitys.shopOnline.shopname, 10)}"></p>
                                         <p style="font-size: 18px;margin-top: -10px;">Giá : <strong
                                                 th:text="${#numbers.formatDecimal(quantitys.price, 0, 'POINT', 0, 'COMMA')} +'₫'">200.00
                                                 VND</strong>

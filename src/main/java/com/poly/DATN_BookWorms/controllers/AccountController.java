@@ -32,7 +32,7 @@ import com.poly.DATN_BookWorms.utils.SessionService;
 
 @Controller
 @RequestMapping("/account")
-public class    AccountController {
+public class AccountController {
 
     @Autowired
     AccountService accountService;
@@ -42,23 +42,23 @@ public class    AccountController {
 
     @Autowired
     MailService mailService;
-    
+
     @Autowired
     OTP_privateKey otp_privateKey;
-    
+
     @Autowired
     SessionService sessionService;
-    
+
     @Autowired
     MailBody mailBody;
 
     @Autowired
     CRC32_SHA256 crc32_SHA256;
-    
+
     @Autowired
-	SaleService saleService;
-    
-	@Autowired
+    SaleService saleService;
+
+    @Autowired
     IMail mailer;
 
     @RequestMapping("/login")
@@ -134,9 +134,7 @@ public class    AccountController {
 
         if (existingUser != null)
             result.rejectValue("Username", null, "Người dùng đã đăng ký!!!");
-
         if (result.hasErrors()) {
-        	
             model.addAttribute("user", accountDTO);
             return "client_template/account_page/register";
         }
@@ -171,6 +169,8 @@ public class    AccountController {
 
             return "client_template/account_page/confirmCode";
         }
+
+
     }
 
     @GetMapping("/newpass")

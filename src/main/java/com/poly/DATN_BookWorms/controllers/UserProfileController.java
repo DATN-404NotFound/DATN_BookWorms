@@ -232,7 +232,7 @@ public class UserProfileController {
         model.addAttribute("bookingStatus7", bookingStatus7);
 
 
-        return "Client/My_account/Order";
+        return "client_template/my_account/order";
     }
 
 

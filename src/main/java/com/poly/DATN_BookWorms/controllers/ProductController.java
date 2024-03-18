@@ -113,23 +113,20 @@ public class ProductController {
 
     @GetMapping("/detail/{bookid}")
     public String detail(@PathVariable("bookid") Long id, Model model) {
-        List<Integer> list = new ArrayList<Integer>();
+        List<Integer> list = new ArrayList<>();
         list.add(1);
         list.add(2);
         list.add(3);
-
-        // System.out.println("lkjlskjlajf");
         Book item = bookService.findById(id);
         item.setProductviews(item.getProductviews() + 1);
         bookService.save(item);
-        System.out.println("lkjlskjlajssf" + id);
         List<Book> b = bookService.getBooksByCategoryID(item.getListOfTypeBook().get(0).category.categoryid);
         List<Evaluate> eva_list = evaluatesService.getEvaByBookid(id);
         ShopOnline list1 = shopOnlinesService.findById(item.shopid);
         Integer total = evaluatesService.sumDbidByEvaluateId(item.shopid);
+
         model.addAttribute("total", total);
         model.addAttribute("profile", list1);
-        System.out.println("139 : " + list1.listOfBook.size());
         model.addAttribute("item", item);
         model.addAttribute("eva", eva_list);
         model.addAttribute("books", b);
